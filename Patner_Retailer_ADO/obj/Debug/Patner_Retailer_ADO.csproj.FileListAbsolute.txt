@@ -1,0 +1,179 @@
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\Patner_Retailer_ADO.dll.config
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\Patner_Retailer_ADO.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\Patner_Retailer_ADO.pdb
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\csc.exe
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\csc.exe.config
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\csc.rsp
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\csi.exe
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\csi.exe.config
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\csi.rsp
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.Managed.Core.targets
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.AppContext.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Collections.Immutable.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Console.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Globalization.Calendars.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.IO.Compression.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.IO.FileSystem.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Net.Http.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Net.Sockets.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Reflection.Metadata.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.ValueTuple.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Xml.XmlDocument.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Xml.XPath.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\vbc.exe
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\vbc.exe.config
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\vbc.rsp
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\VBCSCompiler.exe
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\VBCSCompiler.exe.config
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\obj\Debug\Patner_Retailer_ADO.csproj.AssemblyReference.cache
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\obj\Debug\Patner_Retailer_ADO.csproj.CoreCompileInputs.cache
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\obj\Debug\Patner_R.BFD152E2.Up2Date
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\obj\Debug\Patner_Retailer_ADO.dll
+D:\Patner_Retailer_ADO\Patner_Retailer_ADO\obj\Debug\Patner_Retailer_ADO.pdb
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\Patner_Retailer_ADO.dll.config
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\Patner_Retailer_ADO.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\Patner_Retailer_ADO.pdb
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\csc.exe
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\csc.exe.config
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\csc.rsp
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\csi.exe
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\csi.exe.config
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\csi.rsp
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.Managed.Core.targets
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.AppContext.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Collections.Immutable.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Console.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Globalization.Calendars.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.IO.Compression.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.IO.FileSystem.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Net.Http.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Net.Sockets.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Reflection.Metadata.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.ValueTuple.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Xml.XmlDocument.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Xml.XPath.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\vbc.exe
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\vbc.exe.config
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\vbc.rsp
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\VBCSCompiler.exe
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\VBCSCompiler.exe.config
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\obj\Debug\Patner_Retailer_ADO.csproj.AssemblyReference.cache
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\obj\Debug\Patner_Retailer_ADO.csproj.CoreCompileInputs.cache
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\obj\Debug\Patner_R.BFD152E2.Up2Date
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\obj\Debug\Patner_Retailer_ADO.dll
+D:\wwwroot_Withtest\ASP.Net Project\Patner_Retailer_ADO\Patner_Retailer_ADO\obj\Debug\Patner_Retailer_ADO.pdb
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\Patner_Retailer_ADO.dll.config
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\Patner_Retailer_ADO.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\Patner_Retailer_ADO.pdb
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\csc.exe
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\csc.exe.config
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\csc.rsp
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\csi.exe
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\csi.exe.config
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\csi.rsp
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.Managed.Core.targets
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.AppContext.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Collections.Immutable.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Console.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Globalization.Calendars.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.IO.Compression.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.IO.Compression.ZipFile.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.IO.FileSystem.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Net.Http.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Net.Sockets.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Reflection.Metadata.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Threading.Tasks.Extensions.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.ValueTuple.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Xml.XmlDocument.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Xml.XPath.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\vbc.exe
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\vbc.exe.config
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\vbc.rsp
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\VBCSCompiler.exe
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\roslyn\VBCSCompiler.exe.config
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\AjaxControlToolkit.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\EPPlus.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\obj\Debug\Patner_Retailer_ADO.csproj.AssemblyReference.cache
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\obj\Debug\Patner_Retailer_ADO.csproj.CoreCompileInputs.cache
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\obj\Debug\Patner_R.BFD152E2.Up2Date
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\obj\Debug\Patner_Retailer_ADO.dll
+D:\Amaan\Patner_Retailer_ADO\Patner_Retailer_ADO\obj\Debug\Patner_Retailer_ADO.pdb

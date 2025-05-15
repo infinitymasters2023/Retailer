@@ -1,0 +1,603 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Amaan\\Patner_Retailer_ADO\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|d:\\amaan\\patner_retailer_ado\\patner_retailer_ado\\viewclaims.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\viewclaims.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|d:\\amaan\\patner_retailer_ado\\patner_retailer_ado\\viewclaims.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\viewclaims.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|d:\\amaan\\patner_retailer_ado\\patner_retailer_ado\\claimlist.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\claimlist.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\assets\\libs\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\assets\\libs\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\main.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\main.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\login.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\login.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\reports.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\reports.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|d:\\amaan\\patner_retailer_ado\\patner_retailer_ado\\createsalesperson.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\createsalesperson.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\salesreports.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\salesreports.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\viewsalesperson.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\viewsalesperson.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|d:\\amaan\\patner_retailer_ado\\patner_retailer_ado\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\claimlist.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\claimlist.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\reportedclaims.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\reportedclaims.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\reportedclaims.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\reportedclaims.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\registernewclaim.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\registernewclaim.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\registernewclaim.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\registernewclaim.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\main.master.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\main.master.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\reports.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\reports.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\paymentconfirmation.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\paymentconfirmation.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\paymentconfirmation.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\paymentconfirmation.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\createanaccount.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\createanaccount.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\salesreports.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\salesreports.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\createanaccount.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\createanaccount.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\createsalesperson.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\createsalesperson.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\cartdetails.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\cartdetails.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\profile.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\profile.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\cartdetails.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\cartdetails.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\sellergstin.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\sellergstin.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\buyinfysaleplan.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\buyinfysaleplan.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\sellergstin.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\sellergstin.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\login.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\buyinfysaleplan.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\buyinfysaleplan.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\assets\\css\\signup.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\assets\\css\\signup.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\profile.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\profile.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|D:\\Amaan\\Patner_Retailer_ADO\\patner_retailer_ado\\viewsalesperson.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E4BC2502-28CB-4534-9BDA-091BD10E2DC4}|Patner_Retailer_ADO\\Patner_Retailer_ADO.csproj|solutionrelative:patner_retailer_ado\\viewsalesperson.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ViewClaims.aspx.cs",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\ViewClaims.aspx.cs",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\ViewClaims.aspx.cs",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\ViewClaims.aspx.cs",
+              "RelativeToolTip": "Patner_Retailer_ADO\\ViewClaims.aspx.cs",
+              "ViewState": "AQIAAKgBAAAAAAAAAAArwMEBAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-14T05:34:44.295Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ViewClaims.aspx",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\ViewClaims.aspx",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\ViewClaims.aspx",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\ViewClaims.aspx",
+              "RelativeToolTip": "Patner_Retailer_ADO\\ViewClaims.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-05-14T05:33:12.61Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Login.aspx.cs",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\Login.aspx.cs",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\Login.aspx.cs",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\Login.aspx.cs",
+              "RelativeToolTip": "Patner_Retailer_ADO\\Login.aspx.cs",
+              "ViewState": "AQIAAG8AAAAAAAAAAAArwIsAAAAYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-03T03:47:50.231Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "SalesReports.aspx",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\SalesReports.aspx",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\SalesReports.aspx",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\SalesReports.aspx",
+              "RelativeToolTip": "Patner_Retailer_ADO\\SalesReports.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-05-07T11:24:28.981Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ViewSalesPerson.aspx",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\ViewSalesPerson.aspx",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\ViewSalesPerson.aspx",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\ViewSalesPerson.aspx",
+              "RelativeToolTip": "Patner_Retailer_ADO\\ViewSalesPerson.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-05-06T04:44:03.441Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Main.Master",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\Main.Master",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\Main.Master",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\Main.Master",
+              "RelativeToolTip": "Patner_Retailer_ADO\\Main.Master",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-05-06T06:57:44.163Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Reports.aspx.cs",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\Reports.aspx.cs",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\Reports.aspx.cs",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\Reports.aspx.cs",
+              "RelativeToolTip": "Patner_Retailer_ADO\\Reports.aspx.cs",
+              "ViewState": "AQIAABQAAAAAAAAAAAArwCcAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T04:54:40.789Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "style.css",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\assets\\libs\\css\\style.css",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\assets\\libs\\css\\style.css",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\assets\\libs\\css\\style.css",
+              "RelativeToolTip": "Patner_Retailer_ADO\\assets\\libs\\css\\style.css",
+              "ViewState": "AQIAAIoAAAAAAAAAAAAIwKMAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-05-06T10:01:19.867Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ClaimList.aspx.cs",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\ClaimList.aspx.cs",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\ClaimList.aspx.cs",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\ClaimList.aspx.cs",
+              "RelativeToolTip": "Patner_Retailer_ADO\\ClaimList.aspx.cs",
+              "ViewState": "AQIAADYAAAAAAAAAAAAjwEQAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-12T08:12:44.063Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CreateSalesPerson.aspx.cs",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\CreateSalesPerson.aspx.cs",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\CreateSalesPerson.aspx.cs",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\CreateSalesPerson.aspx.cs",
+              "RelativeToolTip": "Patner_Retailer_ADO\\CreateSalesPerson.aspx.cs",
+              "ViewState": "AQIAAAEAAAAAAAAAAAArwBQAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-14T04:39:04.955Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ReportedClaims.aspx",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\ReportedClaims.aspx",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\ReportedClaims.aspx",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\ReportedClaims.aspx",
+              "RelativeToolTip": "Patner_Retailer_ADO\\ReportedClaims.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-05-06T06:26:27.301Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ReportedClaims.aspx.cs",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\ReportedClaims.aspx.cs",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\ReportedClaims.aspx.cs",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\ReportedClaims.aspx.cs",
+              "RelativeToolTip": "Patner_Retailer_ADO\\ReportedClaims.aspx.cs",
+              "ViewState": "AQIAAFMAAAAAAAAAAAAcwGwAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T07:30:18.915Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Web.config",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\Web.config",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\Web.config",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\Web.config",
+              "RelativeToolTip": "Patner_Retailer_ADO\\Web.config",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAABFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-05-14T07:48:04.411Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ClaimList.aspx",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\ClaimList.aspx",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\ClaimList.aspx",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\ClaimList.aspx",
+              "RelativeToolTip": "Patner_Retailer_ADO\\ClaimList.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-05-12T07:16:26.709Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "RegisterNewClaim.aspx.cs",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\RegisterNewClaim.aspx.cs",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\RegisterNewClaim.aspx.cs",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\RegisterNewClaim.aspx.cs",
+              "RelativeToolTip": "Patner_Retailer_ADO\\RegisterNewClaim.aspx.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAAA1wBsAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-12T09:45:20.235Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Main.Master.cs",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\Main.Master.cs",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\Main.Master.cs",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\Main.Master.cs",
+              "RelativeToolTip": "Patner_Retailer_ADO\\Main.Master.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-12T12:15:37.856Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "RegisterNewClaim.aspx",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\RegisterNewClaim.aspx",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\RegisterNewClaim.aspx",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\RegisterNewClaim.aspx",
+              "RelativeToolTip": "Patner_Retailer_ADO\\RegisterNewClaim.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-05-12T09:10:02.653Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Reports.aspx",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\Reports.aspx",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\Reports.aspx",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\Reports.aspx",
+              "RelativeToolTip": "Patner_Retailer_ADO\\Reports.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-05-06T04:42:21.36Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "PaymentConfirmation.aspx.cs",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\PaymentConfirmation.aspx.cs",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\PaymentConfirmation.aspx.cs",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\PaymentConfirmation.aspx.cs",
+              "RelativeToolTip": "Patner_Retailer_ADO\\PaymentConfirmation.aspx.cs",
+              "ViewState": "AQIAAAwAAAAAAAAAAAAAACIAAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-05T07:05:23.232Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "PaymentConfirmation.aspx",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\PaymentConfirmation.aspx",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\PaymentConfirmation.aspx",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\PaymentConfirmation.aspx",
+              "RelativeToolTip": "Patner_Retailer_ADO\\PaymentConfirmation.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-05-05T08:00:05.422Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "SalesReports.aspx.cs",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\SalesReports.aspx.cs",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\SalesReports.aspx.cs",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\SalesReports.aspx.cs",
+              "RelativeToolTip": "Patner_Retailer_ADO\\SalesReports.aspx.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T11:25:27.678Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "CreateAnAccount.aspx.cs",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\CreateAnAccount.aspx.cs",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\CreateAnAccount.aspx.cs",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\CreateAnAccount.aspx.cs",
+              "RelativeToolTip": "Patner_Retailer_ADO\\CreateAnAccount.aspx.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-09T05:02:10.278Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "CreateAnAccount.aspx",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\CreateAnAccount.aspx",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\CreateAnAccount.aspx",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\CreateAnAccount.aspx",
+              "RelativeToolTip": "Patner_Retailer_ADO\\CreateAnAccount.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-05-02T12:29:39.389Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "CreateSalesPerson.aspx",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\CreateSalesPerson.aspx",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\CreateSalesPerson.aspx",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\CreateSalesPerson.aspx",
+              "RelativeToolTip": "Patner_Retailer_ADO\\CreateSalesPerson.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-05-12T11:18:59.534Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "CartDetails.aspx",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\CartDetails.aspx",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\CartDetails.aspx",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\CartDetails.aspx",
+              "RelativeToolTip": "Patner_Retailer_ADO\\CartDetails.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-05-07T07:53:58.269Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Profile.aspx.cs",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\Profile.aspx.cs",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\Profile.aspx.cs",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\Profile.aspx.cs",
+              "RelativeToolTip": "Patner_Retailer_ADO\\Profile.aspx.cs",
+              "ViewState": "AQIAAEQAAAAAAAAAAAAowE4AAAA1AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-07T04:28:37.174Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "CartDetails.aspx.cs",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\CartDetails.aspx.cs",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\CartDetails.aspx.cs",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\CartDetails.aspx.cs",
+              "RelativeToolTip": "Patner_Retailer_ADO\\CartDetails.aspx.cs",
+              "ViewState": "AQIAAC4AAAAAAAAAAAAwwEMAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T07:29:03.283Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "BuyInfySalePlan.aspx",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\BuyInfySalePlan.aspx",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\BuyInfySalePlan.aspx",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\BuyInfySalePlan.aspx",
+              "RelativeToolTip": "Patner_Retailer_ADO\\BuyInfySalePlan.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-05-02T12:26:04.449Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "SellerGSTIN.aspx.cs",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\SellerGSTIN.aspx.cs",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\SellerGSTIN.aspx.cs",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\SellerGSTIN.aspx.cs",
+              "RelativeToolTip": "Patner_Retailer_ADO\\SellerGSTIN.aspx.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAxwB0AAAA6AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-10T08:24:28.84Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "Login.aspx",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\Login.aspx",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\Login.aspx",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\Login.aspx",
+              "RelativeToolTip": "Patner_Retailer_ADO\\Login.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-05-03T10:12:23.307Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "signup.css",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\assets\\css\\signup.css",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\assets\\css\\signup.css",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\assets\\css\\signup.css",
+              "RelativeToolTip": "Patner_Retailer_ADO\\assets\\css\\signup.css",
+              "ViewState": "AQIAACICAAAAAAAAAAAowDgCAAAbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-05-08T10:04:55.731Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "SellerGSTIN.aspx",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\SellerGSTIN.aspx",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\SellerGSTIN.aspx",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\SellerGSTIN.aspx",
+              "RelativeToolTip": "Patner_Retailer_ADO\\SellerGSTIN.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-05-10T08:17:36.74Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "BuyInfySalePlan.aspx.cs",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\BuyInfySalePlan.aspx.cs",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\BuyInfySalePlan.aspx.cs",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\BuyInfySalePlan.aspx.cs",
+              "RelativeToolTip": "Patner_Retailer_ADO\\BuyInfySalePlan.aspx.cs",
+              "ViewState": "AQIAAJwBAAAAAAAAAAAowLwBAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-02T12:26:31.647Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "Profile.aspx",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\Profile.aspx",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\Profile.aspx",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\Profile.aspx",
+              "RelativeToolTip": "Patner_Retailer_ADO\\Profile.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-05-07T09:48:45.305Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "ViewSalesPerson.aspx.cs",
+              "DocumentMoniker": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\ViewSalesPerson.aspx.cs",
+              "RelativeDocumentMoniker": "Patner_Retailer_ADO\\ViewSalesPerson.aspx.cs",
+              "ToolTip": "D:\\Amaan\\Patner_Retailer_ADO\\Patner_Retailer_ADO\\ViewSalesPerson.aspx.cs",
+              "RelativeToolTip": "Patner_Retailer_ADO\\ViewSalesPerson.aspx.cs",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAowCIAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-06T04:54:28.652Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
