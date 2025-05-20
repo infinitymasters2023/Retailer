@@ -17,6 +17,23 @@
 
     <link href="assets/css/signup.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        @media (max-width:767px){
+            .leftArea, .RightArea {
+                width: 100%;
+                height: auto;
+                padding: 20px 0;
+            }
+            .signup-step-container{
+                padding:0px;
+            }
+        }
+    </style>
+
+
+
+
 </head>
 <body>
     <main>
@@ -25,7 +42,7 @@
 
             <asp:ScriptManager ID="ScriptManager1" runat="server" />
             <div class="warpper-main">
-                <div class="wrapper-content d-flex">
+                <div class="wrapper-content d-lg-flex">
                     <div class="leftArea">
                         <div class="Logo">
                             <img src="assets/images/logo.png" alt="" />
@@ -44,10 +61,10 @@
                     </div>
                     <div class="RightArea">
                         <div class="row" style="width: 200px; display: flex; flex-wrap: nowrap; margin-top: 3%; margin-bottom: 12px;">
-                            <img src="assets/images/logo.png" alt="InfyShield" />
+                           
 
                             <div class="d-flex justify-content-end mt-3 logout_btn_top">
-                                <asp:Button ID="btnLogout" runat="server" CssClass="skip-btn btn btn-danger" Text="Logout" OnClick="btnLogout_Click" />
+                                <asp:LinkButton id="btnLogout" runat="server" class="btn btn-danger" AutoPostBack="true" OnClick="btnLogout_Click"><i class="fa fa-power-off"></i></asp:LinkButton>
                             </div>
                         </div>
                         <section class="signup-step-container">
@@ -100,7 +117,7 @@
                                                                 <div class="form-group mb-3">
                                                                     <label class="mb-1">Seller Name <span style="color: red">*</span> </label>
                                                                     <asp:TextBox runat="server" CssClass="form-control" ID="txtSellerName" placeholder="" MaxLength="30"></asp:TextBox>
-                                                                    <label id="lblSellerName" visible="false" runat="server" style="color: red;">Seller Name is required.</label>
+                                                                    <label id="lblSellerName" visible="false" runat="server" style="color:red; font-size:12px">Seller Name is required.</label>
                                                                 </div>
                                                             </div>
 
@@ -108,7 +125,7 @@
                                                                 <div class="form-group mb-3">
                                                                     <label class="mb-1">GSTIN <span style="color: red">*</span> </label>
                                                                     <asp:TextBox runat="server" CssClass="form-control" ID="txtGSTIN" placeholder="" MaxLength="15"></asp:TextBox>
-                                                                    <label id="lblSellerGSTIN" visible="false" runat="server" style="color: red;">GSTIN is required.</label>
+                                                                    <label id="lblSellerGSTIN" visible="false" runat="server" style="color:red; font-size:12px">GSTIN is required.</label>
                                                                 </div>
                                                             </div>
 
@@ -120,28 +137,28 @@
                                                                             <asp:TextBox runat="server" CssClass="form-control" ID="txtSellerPincode" AutoPostBack="true" OnTextChanged="txtSellerPinCode_TextChanged" placeholder=""
                                                                                 MaxLength="6" title="Enter a 6-digit Pincode" oninput="validatePincode(this)">
                                                                             </asp:TextBox>
-                                                                            <label id="lblSellerPINCode" visible="false" runat="server" style="color: red;">PIN Code is required.</label>
+                                                                            <label id="lblSellerPINCode" visible="false" runat="server" style="color:red; font-size:12px">PIN Code is required.</label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6">
                                                                         <div class="form-group">
-                                                                            <label class="mb-1">City</label>
-                                                                            <asp:Label ID="lblSellerCity" CssClass="form-control" runat="server"></asp:Label>
+                                                                            <label class="mb-2 mt-2 mt-lg-0">City</label>
+                                                                            <asp:Label ID="lblSellerCity" CssClass="d-block" runat="server"></asp:Label>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group mb-3">
-                                                                    <label class="mb-1">State</label>
-                                                                    <asp:Label ID="lblSellerState" CssClass="form-control" runat="server"></asp:Label>
+                                                                    <label class="mb-2 mt-0 mt-lg-0">State</label>
+                                                                    <asp:Label ID="lblSellerState" CssClass="d-block" runat="server"></asp:Label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label class="mb-1">Address Line 1 <span style="color: red">*</span> </label>
                                                                     <asp:TextBox runat="server" CssClass="form-control" ID="txtSellerAddressLine1" TextMode="MultiLine" Rows="3" placeholder="" MaxLength="150"></asp:TextBox>
-                                                                    <label id="lblSellerAddress" visible="false" runat="server" style="color: red;">Address is required.</label>
+                                                                    <label id="lblSellerAddress" visible="false" runat="server" style="color:red; font-size:12px">Address is required.</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
@@ -154,7 +171,7 @@
                                                                 <div class="form-group">
                                                                     <label class="mb-1">Landmark <span style="color: red">*</span> </label>
                                                                     <asp:TextBox runat="server" CssClass="form-control" ID="txtSellerLandmark" TextMode="MultiLine" Rows="3" placeholder="" MaxLength="100"></asp:TextBox>
-                                                                    <label id="lblSellerLandMark" visible="false" runat="server" style="color: red;">Landmark is required.</label>
+                                                                    <label id="lblSellerLandMark" visible="false" runat="server" style="color:red; font-size:12px">Landmark is required.</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -162,8 +179,7 @@
                                                             <li>
                                                                 <button type="button"
                                                                     class="default-btn prev-step bg-dark">
-                                                                    <i
-                                                                        class="fa fa-angle-double-left font14"></i>Back</button>
+                                                                    <i class="fa fa-angle-double-left font14">&nbsp;</i> Back</button>
                                                             </li>
                                                             <li>
                                                                 <asp:Button ID="btnSeller" runat="server" Text="Next & Save" CssClass="default-btn next-step" OnClick="btnSeller_Click" AutoPostBack="true" />
@@ -180,7 +196,7 @@
                                                                 <div class="form-group mb-3">
                                                                     <label class="mb-1">Full Name  <span style="color: red">*</span> </label>
                                                                     <asp:TextBox runat="server" CssClass="form-control" ID="txtFirstName" placeholder="" MaxLength="30"></asp:TextBox>
-                                                                    <label id="lblFullName" runat="server" visible="false" style="color: red;">First Name is required.</label>
+                                                                    <label id="lblFullName" runat="server" visible="false" style="color: red;font-size:12px">First Name is required.</label>
                                                                 </div>
                                                             </div>
 
@@ -190,7 +206,7 @@
                                                                     <asp:TextBox runat="server" CssClass="form-control" ID="txtMobileNumber" placeholder="" MaxLength="10"
                                                                         pattern="\d{10}" title="Please enter a valid 10-digit mobile number" oninput="validateMobileNumber(this)">
                                                                     </asp:TextBox>
-                                                                    <label id="lblMobileNo" runat="server" visible="false" style="color: red;">Mobile No is required.</label>
+                                                                    <label id="lblMobileNo" runat="server" visible="false" style="color: red;font-size:12px">Mobile No is required.</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -207,7 +223,7 @@
                                                                 <div class="form-group mb-3">
                                                                     <label class="mb-1">Email Id  <span style="color: red">*</span> </label>
                                                                     <asp:TextBox runat="server" CssClass="form-control" ID="txtEmail" TextMode="Email" placeholder="" MaxLength="50"></asp:TextBox>
-                                                                    <label id="lblEmailAddress" runat="server" visible="false" style="color: red;">Email Id is required.</label>
+                                                                    <label id="lblEmailAddress" runat="server" visible="false" style="color:red; font-size:12px">Email Id is required.</label>
                                                                     <%--<asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Email is required" ForeColor="Red" Display="Dynamic" />
                                                                     <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Enter a valid email address"
                                                                         ValidationExpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" ForeColor="Red" Display="Dynamic" />--%>
@@ -236,7 +252,7 @@
                                                                        </div>
                                                                     <cc1:CalendarExtender ID="CalendarExtender3" runat="server" Format="dd-MMM-yyyy"
                                                                         TargetControlID="TextBox1" EndDate="<%# DateTime.Today %>"></cc1:CalendarExtender>
-                                                                    <label id="lblDateOfBirth" runat="server" visible="false" style="color: red;">Date of Birth is required.</label>
+                                                                    <label id="lblDateOfBirth" runat="server" visible="false" style="color:red; font-size:12px">Date of Birth is required.</label>
                                                                 </div>
                                                               
                                                             </div>
@@ -260,7 +276,7 @@
                                                                             <asp:TextBox runat="server" CssClass="form-control" ID="txtPinCode" AutoPostBack="true" OnTextChanged="txtPinCode_TextChanged" placeholder=""
                                                                                 MaxLength="6" title="Enter a 6-digit Pincode" oninput="validatePincode(this)">
                                                                             </asp:TextBox>
-                                                                            <label id="lblPincode" runat="server" visible="false" style="color: red;">PIN Code is required.</label>
+                                                                            <label id="lblPincode" runat="server" visible="false" style="color: red; font-size:12px">PIN Code is required.</label>
                                                                             <%--<asp:RequiredFieldValidator ID="rfvGender" runat="server" ControlToValidate="ddlGender"
                                                                                 InitialValue="" ErrorMessage="Select Gender" CssClass="text-danger" ValidationGroup="vgPersonal" Display="Dynamic" />--%>
                                                                         </div>
@@ -289,7 +305,7 @@
                                                                 <div class="form-group">
                                                                     <label class="mb-1">Current Address (Full Postal Address) <span style="color: red">*</span> </label>
                                                                     <asp:TextBox runat="server" CssClass="form-control" ID="txtAddress" TextMode="MultiLine" Rows="3" placeholder="" MaxLength="150"></asp:TextBox>
-                                                                    <label id="lblCurrentAddress" runat="server" visible="false" style="color: red;">Current Address is required.</label>
+                                                                    <label id="lblCurrentAddress" runat="server" visible="false" style="color:red; font-size:12px">Current Address is required.</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -309,7 +325,7 @@
                                                                     <asp:TextBox runat="server" CssClass="form-control" ID="txtAccountNumber" placeholder="" MaxLength="20"
                                                                         oninput="validateAccountNumber(this); validateConfirmAccountNumber();">
                                                                     </asp:TextBox>
-                                                                    <asp:Label ID="lblAccountNumber" runat="server" ClientIDMode="Static" Style="display: none;" ForeColor="Red">Account Number is required.</asp:Label>
+                                                                    <asp:Label ID="lblAccountNumber" runat="server" ClientIDMode="Static" Style="display: none;font-size:12px" ForeColor="Red">Account Number is required.</asp:Label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -318,7 +334,7 @@
                                                                     <asp:TextBox runat="server" CssClass="form-control" ID="txtConfirmAccountNumber" placeholder="" MaxLength="20"
                                                                         oninput="validateConfirmAccountNumber();">
                                                                     </asp:TextBox>
-                                                                    <asp:Label ID="lblConfirmAccountNumber" runat="server" ClientIDMode="Static" Style="display: none;" ForeColor="Red">Confirm Account Number is required.</asp:Label>
+                                                                    <asp:Label ID="lblConfirmAccountNumber" runat="server" ClientIDMode="Static" Style="display: none;font-size:12px" ForeColor="Red">Confirm Account Number is required.</asp:Label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -327,14 +343,14 @@
                                                                     <asp:TextBox runat="server" CssClass="form-control" ID="txtIFSCCode" AutoPostBack="true" placeholder="" MaxLength="11"
                                                                         OnTextChanged="txtIFSC_TextChanged" oninput="validateIFSCCode(this);" onblur="validateIFSCCode(this);">
                                                                     </asp:TextBox>
-                                                                    <asp:Label ID="lblIFSCCode" runat="server" ClientIDMode="Static" Style="display: none;" ForeColor="Red">IFSC Code is required.</asp:Label>
+                                                                    <asp:Label ID="lblIFSCCode" runat="server" ClientIDMode="Static" Style="display: none; font-size:12px" ForeColor="Red">IFSC Code is required.</asp:Label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group mb-3">
                                                                     <label class="mb-1">Account Holder Name <span style="color: red">*</span></label>
                                                                     <asp:TextBox runat="server" CssClass="form-control" ID="txtAccountHolderName" placeholder=""></asp:TextBox>
-                                                                    <asp:Label ID="lblAccountHoldername" runat="server" Visible="false">Account Holder Name is required.</asp:Label>
+                                                                    <asp:Label ID="lblAccountHoldername" runat="server" Visible="false" style="color:red; font-size:12px">Account Holder Name is required.</asp:Label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -361,14 +377,10 @@
                                                             <li>
                                                                 <button type="button"
                                                                     class="default-btn prev-step bg-dark">
-                                                                    <i
-                                                                        class="fa fa-angle-double-left font14"></i>Back</button>
+                                                                    <i class="fa fa-angle-double-left font14">&nbsp;</i> Back</button>
                                                             </li>
                                                             <li>
-
                                                                 <asp:Button ID="btnnext2" runat="server" Text="Next" CssClass="default-btn next-step" OnClick="btnnext2_Click" />
-
-
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -404,25 +416,27 @@
                                                             </div>
 
                                                             <div class="col-md-12">
-                                                                <div class="DocumentData">
-                                                                    <asp:GridView runat="server" ID="gvDocuments" CssClass="table table-striped table-bordered table-responsive" AutoGenerateColumns="false">
-                                                                        <Columns>
-                                                                            <asp:BoundField HeaderText="Sr.No." DataField="SrNo" />
-                                                                            <asp:BoundField HeaderText="DocId" DataField="DocId" Visible="false" />
-                                                                            <asp:BoundField HeaderText="Document Name" DataField="DocumentName" />
-                                                                            <asp:BoundField HeaderText="Document Number" DataField="DocumentNumber" />
-                                                                            <asp:BoundField HeaderText="Document Path" DataField="DocumentPath" Visible="false" />
-                                                                            <asp:BoundField HeaderText="Status" DataField="Status" />
-                                                                            <asp:BoundField HeaderText="Size" DataField="Size" />
-                                                                        </Columns>
-                                                                    </asp:GridView>
-                                                                </div>
+                                                            <div class="DocumentData table-responsive">
+                                                                <asp:GridView runat="server" ID="gvDocuments" CssClass="table table-striped text-nowrap table-bordered mb-0"
+                                                                    AutoGenerateColumns="false" GridLines="None">
+                                                                    <Columns>
+                                                                        <asp:BoundField HeaderText="Sr.No." DataField="SrNo" />
+                                                                        <asp:BoundField HeaderText="DocId" DataField="DocId" Visible="false" />
+                                                                        <asp:BoundField HeaderText="Document Name" DataField="DocumentName" />
+                                                                        <asp:BoundField HeaderText="Document Number" DataField="DocumentNumber" />
+                                                                        <asp:BoundField HeaderText="Document Path" DataField="DocumentPath" Visible="false" />
+                                                                        <asp:BoundField HeaderText="Status" DataField="Status" />
+                                                                        <asp:BoundField HeaderText="Size" DataField="Size" />
+                                                                    </Columns>
+                                                                </asp:GridView>
                                                             </div>
+                                                        </div>
+
                                                         </div>
                                                         <ul class="list-inline pull-right">
                                                             <li>
                                                                 <button type="button" class="default-btn prev-step bg-dark">
-                                                                    <i class="fa fa-angle-double-left font14"></i>Back
+                                                                    <i class="fa fa-angle-double-left font14">&nbsp;</i> Back
                                                            
                                                                 </button>
                                                             </li>

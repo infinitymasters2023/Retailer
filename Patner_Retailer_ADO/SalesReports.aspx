@@ -3,31 +3,29 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container-fluid  dashboard-content">
-    <div class="row">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    
             <div class="card">
                 <div class="card-body">
                     <h4 class="filter-txt">Sales Reports</h4>
                     <div class="row justify-content-start mb-3">
                         <div class="col-12 col-lg-10">
                             <div class="row">
-                                <div class="col-12 col-lg-2 pr-0">
+                                <div class="col-12 col-lg-2 pr-0 mb-2 mb-lg-0">
                                     <asp:TextBox ID="txtBrnad" runat="server" CssClass="form-control" placeholder="Brand Name"></asp:TextBox>
                                 </div>
-                                <div class="col-12 col-lg-2 pr-0">
+                                <div class="col-12 col-lg-2 pr-0 mb-2 mb-lg-0">
                                     <asp:TextBox ID="txtModel" runat="server" CssClass="form-control" placeholder="Model Name"></asp:TextBox>
                                 </div>
-                                <div class="col-12 col-lg-2 pr-0">
+                                <div class="col-12 col-lg-2 pr-0 mb-2 mb-lg-0">
                                     <asp:TextBox ID="txtCustomerName" runat="server" CssClass="form-control" placeholder="Customer Name"></asp:TextBox>
                                 </div>
-                                <div class="col-12 col-lg-2 pr-0">
+                                <div class="col-12 col-lg-2 pr-0 mb-2 mb-lg-0">
                                     <asp:TextBox ID="txtMobileNo" runat="server" CssClass="form-control" placeholder="Mobile No"></asp:TextBox>
                                 </div>
-                                <div class="col-12 col-lg-2 pr-0">
+                                <div class="col-12 col-lg-2 pr-0 mb-2 mb-lg-0">
                                     <asp:TextBox ID="txtPlanName" runat="server" CssClass="form-control" placeholder="Plan Name"></asp:TextBox>
                                 </div>
-                                <div class="col-12 col-lg-2 pr-0">
+                                <div class="col-12 col-lg-2 pr-0 mb-3 mb-lg-0">
                                     <asp:TextBox ID="txtProductname" runat="server" CssClass="form-control" placeholder="Product Name"></asp:TextBox>
                                 </div>
                             </div>
@@ -86,7 +84,5 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+       
 </asp:Content>

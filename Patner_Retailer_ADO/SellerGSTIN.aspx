@@ -4,7 +4,7 @@
 <html lang="en">
 <head runat="server">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Seller GSTIN</title>
     <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
     <link href="../assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
@@ -34,12 +34,13 @@
         }
 
         .GSTIN-container {
-            min-width: 350px;
+            max-width: 350px;
             border-radius: 10px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 2rem;
             margin: 20px;
+            width:100%;
         }
 
         .GSTIN-header {
@@ -71,6 +72,13 @@
 
         .gradient-btn:hover {
             background: linear-gradient(90deg, #5abec4, #7d6fad);
+        }
+        @media (min-width:320px) and (max-width:640px){
+            .GSTIN-container {
+                max-width: 350px;
+                margin: 0 !important;
+                min-width: 280px;
+            }
         }
     </style>
 </head>

@@ -150,25 +150,43 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="example44" class="table table-striped table-bordered" style="width: 100%">
-                                    <thead>
+                                <asp:Repeater ID="RepeaterBankDetails" runat="server">
+                                    <HeaderTemplate>
+                                        <table id="example44" class="table-responsive table data-table table-striped table-bordered nowrap" style="width: 100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>S.No.</th>
+                                                    <th>Bank Account Number</th>
+                                                    <th>IFSC Code</th>
+                                                    <th>Bank Name</th>
+                                                    <th>Bank Branch</th>
+                                                    <th>Branch Address</th>
+                                                    <th>Account Holder Name</th>
+                                                    <th>Created Date</th>
+                                                    <th>IP Address</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
                                         <tr>
-                                            <th>Mid</th>
-                                            <th>ProfileId</th>
-                                            <th>Bank Account Number</th>
-                                            <th>IFSC Code</th>
-                                            <th>Bank Name</th>
-                                            <th>Bank Branch</th>
-                                            <th>Branch Address</th>
-                                            <th>Account Holder Name</th>
-                                            <th>Status</th>
-                                            <th>Created Date</th>
-                                            <th>IP Address</th>
+                                            <td><%# Container.ItemIndex + 1 %></td>
+                                            <td><%# Eval("BankAccountNumber") %></td>
+                                            <td><%# Eval("IFSCCode") %></td>
+                                            <td><%# Eval("BankName") %></td>
+                                            <td><%# Eval("BankBranch") %></td>
+                                            <td><%# Eval("BankBranchAddress") %></td>
+                                            <td><%# Eval("AccountHolderName") %></td>
+                                            <td><%# Eval("CreatedDate", "{0:dd-MMM-yyyy}") %></td>
+                                            <td><%# Eval("IPAddress") %></td>
                                         </tr>
-                                    </thead>
-                                    <tbody runat="server" id="tbodyData">
-                                    </tbody>
-                                </table>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        </tbody>
+                                        </table>
+                                    </FooterTemplate>
+                                </asp:Repeater>
+
 
                             </div>
                         </div>
@@ -192,20 +210,39 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="example45" class="table table-striped table-bordered" style="width: 100%">
-                                    <thead>
+                                <asp:Repeater ID="RepeaterEmployeeDetails" runat="server">
+                                    <HeaderTemplate>
+                                        <div class="table-responsive">
+                                            <table id="example45" class="table-responsive table data-table table-striped table-bordered nowrap" style="width: 100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.No.</th>
+                                                        <th>Name</th>
+                                                        <th>GSTIN</th>
+                                                        <th>Address Line 1</th>
+                                                        <th>City</th>
+                                                        <th>State</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <td><%# Container.ItemIndex + 1 %></td>
+                                            <td><%# Eval("SellerName") %></td>
+                                            <td><%# Eval("SellerGSTINNo") %></td>
+                                            <td><%# Eval("AddressLine1") %></td>
+                                            <td><%# Eval("City") %></td>
+                                            <td><%# Eval("State") %></td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                       
-                                </table>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        </tbody>
+                                        </table>
+                                        </div>
+                                    </FooterTemplate>
+                                </asp:Repeater>
+
                             </div>
                         </div>
                     </div>
@@ -214,43 +251,52 @@
                 <!-- end fixed header  -->
                 <!-- ============================================================== -->
             </div>
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5>Uploaded Documents</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <asp:Repeater ID="rptDocuments" runat="server">
+                                    <HeaderTemplate>
+                                        <table class="table-responsive table data-table table-striped table-bordered nowrap">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th>S.No.</th>
+                                                    <th>Document Number</th>
+                                                    <th>Document Path</th>
+                                                    <th>Remarks</th>
+                                                    <th>Status</th>
+                                                    <th>Action By</th>
+                                                    <th>Action Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                    </HeaderTemplate>
 
-            <div class="col-md-12 mt-4">
-                <h5>Uploaded Documents</h5>
-                <asp:Repeater ID="rptDocuments" runat="server">
-                    <HeaderTemplate>
-                        <table class="table table-bordered table-striped table-sm">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Document Number</th>
-                                    <th>Document Path</th>
-                                    <th>Remarks</th>
-                                    <th>Status</th>
-                                    <th>Action By</th>
-                                    <th>Action Date</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                    </HeaderTemplate>
-
-                    <ItemTemplate>
-                        <tr>
-                            <td><%# Eval("documentNumber") %></td>
-                            <td><%# Eval("DocumentPath") %></td>
-                            <td><%# Eval("Remarks") %></td>
-                            <td><%# Eval("Status") %></td>
-                            <td><%# Eval("ActionBy") %></td>
-                            <td><%# Eval("ActionDate") %></td>
-                        </tr>
-                    </ItemTemplate>
-
-                    <FooterTemplate>
-                        </tbody>
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td><%# Container.ItemIndex + 1 %></td>
+                                            <td><%# Eval("documentNumber") %></td>
+                                            <td><%# Eval("DocumentPath") %></td>
+                                            <td><%# Eval("Remarks") %></td>
+                                            <td><%# Eval("Status") %></td>
+                                            <td><%# Eval("ActionBy") %></td>
+                                            <td><%# Eval("ActionDate") %></td>
+                                        </tr>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        </tbody>
                                     </table>
-                    </FooterTemplate>
-                </asp:Repeater>
+                                    </FooterTemplate>
+                                </asp:Repeater>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </div>
 
     </asp:Panel>

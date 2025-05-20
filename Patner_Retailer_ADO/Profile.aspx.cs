@@ -30,6 +30,7 @@ namespace Patner_Retailer_ADO
                 LoadProfileData();
                 BindBankDetails();
                 BindUploadedDocuments();
+                BindDealer();
             }
         }
         private void LoadProfileData()
@@ -69,18 +70,13 @@ namespace Patner_Retailer_ADO
             cmd.Parameters.AddWithValue("@ProfileId", Session["RetailerUniqueID"].ToString());
             cmd.Parameters.AddWithValue("@UserRole", Session["Role"].ToString());
             con.Open();
-            SqlDataReader rdr = cmd.ExecuteReader();
-
-            while (rdr.Read())
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            if (dt.Rows.Count > 0)
             {
-                TableRow row = new TableRow();
-                for (int i = 0; i < rdr.FieldCount; i++)
-                {
-                    TableCell cell = new TableCell();
-                    cell.Text = rdr[i].ToString();
-                    row.Cells.Add(cell);
-                }
-                tbodyData.Controls.Add(row);
+                RepeaterBankDetails.DataSource = dt;
+                RepeaterBankDetails.DataBind();
             }
             con.Close();
         }
@@ -103,6 +99,31 @@ namespace Patner_Retailer_ADO
 
                     rptDocuments.DataSource = dt;
                     rptDocuments.DataBind();
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private void BindDealer()
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("SP_IAPL_Retailer_Auth", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Type", 20);
+                cmd.Parameters.AddWithValue("@ProfileId", Session["RetailerUniqueID"].ToString());
+                cmd.Parameters.AddWithValue("@UserRole", Session["Role"].ToString());
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+
+                    RepeaterEmployeeDetails.DataSource = dt;
+                    RepeaterEmployeeDetails.DataBind();
                 }
             }
             catch (Exception ex)

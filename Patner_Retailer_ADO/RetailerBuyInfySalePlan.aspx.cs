@@ -1,19 +1,22 @@
-﻿using System;
+﻿using AjaxControlToolkit;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.IO;
-using System.Net.Mail;
-using System.Net;
+using System.Text;
+using System.Globalization;
 
 namespace Patner_Retailer_ADO
 {
-    public partial class BuyInfySalePlan : System.Web.UI.Page
+    public partial class RetailerBuyInfySalePlan : System.Web.UI.Page
     {
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["iaplConnectionString"].ConnectionString);
         static public void DisplayMessage(Control page, string msg)
@@ -24,26 +27,60 @@ namespace Patner_Retailer_ADO
         private const int MaxOTPAttempts = 3;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["MobileNo"] == null)
-            {
-                Response.Redirect("Login.aspx");
-                return;
-            }
             if (!IsPostBack)
             {
-                CalendarExtender3.EndDate = DateTime.Today;
-                CalendarExtender1.EndDate = DateTime.Today;
+                string encoded = Request.QueryString["qu"];
+                string dd = Request.QueryString["dd"];
+                string ed = Request.QueryString["ed"];
+                if (!string.IsNullOrEmpty(encoded))
+                {
+                    string decodedEndDate = Encoding.UTF8.GetString(Convert.FromBase64String(ed));
+                    if (!string.IsNullOrWhiteSpace(decodedEndDate))
+                    {
+                        DateTime linkEndDate = DateTime.ParseExact(decodedEndDate.Trim(), "dd-MMM-yyyy' 'HH:mm", CultureInfo.InvariantCulture);
 
-                BindSubCategory();
-                bindsubcatg();
-                getallBrand();
-                bindSerielNo();
+                        DateTime currentTime = DateTime.Now;
 
-                PlanPanel.Visible = false;
-                ApplyPromoCodePanel.Visible = false;
-                txtPurchaseDate.Attributes.Add("ReadOnly", "readonly");
-                txtDateOfImpl.Attributes.Add("ReadOnly", "readonly");
-                btnEditPlan.Visible = false;
+                        if (currentTime > linkEndDate)
+                        {
+                            string script = $@"
+                            <script type='text/javascript'>
+                                alert('Link has expired. Please contact your supervisor!');
+                                window.location.href = 'InvalidLink.aspx';
+                            </script>";
+
+                            ClientScript.RegisterStartupScript(this.GetType(), "expiredRedirect", script);
+                            return;
+                        }
+                    }
+                    string decoded = Encoding.UTF8.GetString(Convert.FromBase64String(encoded));
+                    string decodeddd = Encoding.UTF8.GetString(Convert.FromBase64String(dd));
+                    CalendarExtender3.EndDate = DateTime.Today;
+                    CalendarExtender1.EndDate = DateTime.Today;
+
+                    BindSubCategory();
+                    bindsubcatg();
+                    getallBrand();
+                    bindSerielNo();
+
+                    PlanPanel.Visible = false;
+                    ApplyPromoCodePanel.Visible = false;
+                    txtPurchaseDate.Attributes.Add("ReadOnly", "readonly");
+                    txtDateOfImpl.Attributes.Add("ReadOnly", "readonly");
+                    btnEditPlan.Visible = false;
+                }
+                else
+                {
+                    string script = $@"
+                            <script type='text/javascript'>
+                                alert('Link is not valid. Please contact your supervisor!');
+                                window.location.href = 'InvalidLink.aspx';
+                            </script>";
+
+                    ClientScript.RegisterStartupScript(this.GetType(), "expiredRedirect", script);
+                    return;
+                }
+
             }
         }
 
@@ -80,8 +117,7 @@ namespace Patner_Retailer_ADO
         protected void ddlsubcatg_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             bindsubcatg();
-            bindSerielNo();
-            //HideOtherPanels();
+            bindSerielNo();            
             ddlProductType.Focus();
         }
 
@@ -114,8 +150,7 @@ namespace Patner_Retailer_ADO
         protected void ddlProductType_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             txtMake.Text = "";
-            getallBrand();
-            //HideOtherPanels();
+            getallBrand();            
             txtPrice.Focus();
         }
 
@@ -131,7 +166,7 @@ namespace Patner_Retailer_ADO
             da.Fill(ds);
             ddlBrand.Items.Clear();
             if (ds.Tables[0].Rows.Count > 0)
-            {                
+            {
                 txtMake.Visible = false;
                 ddlBrand.Visible = true;
                 string s = Convert.ToString(ds.Tables[0].Rows.Count + 1);
@@ -180,64 +215,82 @@ namespace Patner_Retailer_ADO
         }
         protected void AddToCart(object sender, EventArgs e)
         {
-            string planName = string.Empty;
-            string planPrice = string.Empty;
-            string SKU = string.Empty;
-            foreach (RepeaterItem item in rptPlans.Items)
+            string encoded = Request.QueryString["qu"];
+            string dd = Request.QueryString["dd"];
+            string ed = Request.QueryString["ed"];
+            if (!string.IsNullOrWhiteSpace(encoded))
             {
-                CheckBox chkSelect = (CheckBox)item.FindControl("chkSelect");
-                if (chkSelect.Checked)
+                string decoded = Encoding.UTF8.GetString(Convert.FromBase64String(encoded));
+                string planName = string.Empty;
+                string planPrice = string.Empty;
+                string SKU = string.Empty;
+                foreach (RepeaterItem item in rptPlans.Items)
                 {
-                    planName = ((Label)item.FindControl("lblPlanName"))?.Text ?? string.Empty;
-                    planPrice = ((HiddenField)item.FindControl("hdnPlanPrice")).Value;
-                    SKU = ((HiddenField)item.FindControl("hdnSKU")).Value;
-                }
-            }
-
-            using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                cmd.Parameters.AddWithValue("@type", 5);
-                cmd.Parameters.AddWithValue("@Saleschannel", "Retailer");
-                cmd.Parameters.AddWithValue("@Retailer_FreelanceID", Session["MobileNo"].ToString());
-                cmd.Parameters.AddWithValue("@ProductSubCat", ddlsubcatg.SelectedValue);
-                cmd.Parameters.AddWithValue("@Productname", ddlProductType.SelectedItem.Text);
-                cmd.Parameters.AddWithValue("@ProductType", ddlProductType.SelectedValue);
-                cmd.Parameters.AddWithValue("@Productsubcategoryname", ddlsubcatg.SelectedItem.Text);
-                cmd.Parameters.AddWithValue("@Brand", ddlBrand.SelectedItem.Text);
-                cmd.Parameters.AddWithValue("@ModalName", txtModel.Text.ToString());
-                cmd.Parameters.AddWithValue("@imei", txtSerialNo.Text.ToString());
-                cmd.Parameters.AddWithValue("@serialno", txtSerialNo.Text.ToString());
-                cmd.Parameters.AddWithValue("@DevicePurchasePrice", !string.IsNullOrWhiteSpace(txtPrice.Text) ? Convert.ToDecimal(txtPrice.Text.ToString()) : 0);
-                cmd.Parameters.AddWithValue("@ProductPurchaseDate", !string.IsNullOrWhiteSpace(txtPurchaseDate.Text) ? Convert.ToDateTime(txtPurchaseDate.Text.ToString()) : DateTime.Now);
-                cmd.Parameters.AddWithValue("@CustomerEmailID", txtCustomerEmail.Text.ToString());
-                cmd.Parameters.AddWithValue("@CustomerMobileNo", txtCustomerMobile.Text.ToString());
-                cmd.Parameters.AddWithValue("@PlanName", planName);
-                cmd.Parameters.AddWithValue("@PlanPrice", !string.IsNullOrWhiteSpace(planPrice) ? Convert.ToDecimal(planPrice) : 0);
-                cmd.Parameters.AddWithValue("@Promocode", txtPromoDiscount.Value.ToString());
-                //cmd.Parameters.AddWithValue("@PromoDiscount", !string.IsNullOrWhiteSpace(txtPromoDiscount.Value) ? Convert.ToDecimal(txtPromoDiscount.Value.ToString()) : 0);
-                cmd.Parameters.AddWithValue("@DateofImplementation", !string.IsNullOrWhiteSpace(txtDateOfImpl.Text) ? Convert.ToDateTime(txtDateOfImpl.Text.ToString()) : DateTime.Now);
-                cmd.Parameters.AddWithValue("@ManufacturerWarranty_yymmdd", validationCustom09.Text.ToString() + "/" + validationCustom010.Text.ToString() + "/" + validationCustom011.Text.ToString());
-                cmd.Parameters.AddWithValue("@PlanSKU", SKU);
-                cmd.Parameters.AddWithValue("@SalesOrderID", Session["salesOrderID"] != null ? Session["salesOrderID"].ToString() : null);
-                cmd.Parameters.AddWithValue("@Customer_OrderID", Session["Customerorder"] != null ? Session["Customerorder"].ToString() : null);
-
-                con.Open();
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
+                    CheckBox chkSelect = (CheckBox)item.FindControl("chkSelect");
+                    if (chkSelect.Checked)
                     {
-                        string salesOrderID = reader["salesorderid"].ToString();
-                        string Customerorder = reader["Customerorder"].ToString();
-                        Session["salesOrderID"] = salesOrderID;
-                        Session["Customerorder"] = Customerorder;
-                        Response.Redirect("CartDetails.aspx?salesorder=" + salesOrderID);
+                        planName = ((Label)item.FindControl("lblPlanName"))?.Text ?? string.Empty;
+                        planPrice = ((HiddenField)item.FindControl("hdnPlanPrice")).Value;
+                        SKU = ((HiddenField)item.FindControl("hdnSKU")).Value;
                     }
                 }
+
+                using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@type", 5);
+                    cmd.Parameters.AddWithValue("@Saleschannel", "Retailer");
+                    cmd.Parameters.AddWithValue("@Retailer_FreelanceID", decoded);
+                    cmd.Parameters.AddWithValue("@ProductSubCat", ddlsubcatg.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Productname", ddlProductType.SelectedItem.Text);
+                    cmd.Parameters.AddWithValue("@ProductType", ddlProductType.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Productsubcategoryname", ddlsubcatg.SelectedItem.Text);
+                    cmd.Parameters.AddWithValue("@Brand", ddlBrand.SelectedItem.Text);
+                    cmd.Parameters.AddWithValue("@ModalName", txtModel.Text.ToString());
+                    cmd.Parameters.AddWithValue("@imei", txtSerialNo.Text.ToString());
+                    cmd.Parameters.AddWithValue("@serialno", txtSerialNo.Text.ToString());
+                    cmd.Parameters.AddWithValue("@DevicePurchasePrice", !string.IsNullOrWhiteSpace(txtPrice.Text) ? Convert.ToDecimal(txtPrice.Text.ToString()) : 0);
+                    cmd.Parameters.AddWithValue("@ProductPurchaseDate", !string.IsNullOrWhiteSpace(txtPurchaseDate.Text) ? Convert.ToDateTime(txtPurchaseDate.Text.ToString()) : DateTime.Now);
+                    cmd.Parameters.AddWithValue("@CustomerEmailID", txtCustomerEmail.Text.ToString());
+                    cmd.Parameters.AddWithValue("@CustomerMobileNo", txtCustomerMobile.Text.ToString());
+                    cmd.Parameters.AddWithValue("@PlanName", planName);
+                    cmd.Parameters.AddWithValue("@PlanPrice", !string.IsNullOrWhiteSpace(planPrice) ? Convert.ToDecimal(planPrice) : 0);
+                    cmd.Parameters.AddWithValue("@Promocode", txtPromoDiscount.Value.ToString());
+                    //cmd.Parameters.AddWithValue("@PromoDiscount", !string.IsNullOrWhiteSpace(txtPromoDiscount.Value) ? Convert.ToDecimal(txtPromoDiscount.Value.ToString()) : 0);
+                    cmd.Parameters.AddWithValue("@DateofImplementation", !string.IsNullOrWhiteSpace(txtDateOfImpl.Text) ? Convert.ToDateTime(txtDateOfImpl.Text.ToString()) : DateTime.Now);
+                    cmd.Parameters.AddWithValue("@ManufacturerWarranty_yymmdd", validationCustom09.Text.ToString() + "/" + validationCustom010.Text.ToString() + "/" + validationCustom011.Text.ToString());
+                    cmd.Parameters.AddWithValue("@PlanSKU", SKU);
+                    cmd.Parameters.AddWithValue("@SalesOrderID", Session["salesOrderID"] != null ? Session["salesOrderID"].ToString() : null);
+                    cmd.Parameters.AddWithValue("@Customer_OrderID", Session["Customerorder"] != null ? Session["Customerorder"].ToString() : null);
+
+                    con.Open();
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            string salesOrderID = reader["salesorderid"].ToString();
+                            string Customerorder = reader["Customerorder"].ToString();
+                            Session["salesOrderID"] = salesOrderID;
+                            Session["Customerorder"] = Customerorder;
+                            Response.Redirect("RetailerCartDetails.aspx?salesorder=" + salesOrderID + "&qu=" + HttpUtility.UrlEncode(encoded) + "&dd=" + HttpUtility.UrlEncode(dd) + "&ed=" + HttpUtility.UrlEncode(ed));
+                        }
+                    }
+                }
+                con.Close();
+                Response.Redirect("RetailerCartDetails.aspx?qu=" + HttpUtility.UrlEncode(encoded) + "&dd=" + HttpUtility.UrlEncode(dd) + "&ed=" + HttpUtility.UrlEncode(ed));
             }
-            con.Close();
-            Response.Redirect("CartDetails.aspx");
+            else
+            {
+                string script = $@"
+                            <script type='text/javascript'>
+                                alert('Link has expired. Please contact your supervisor!');
+                                window.location.href = 'InvalidLink.aspx';
+                            </script>";
+
+                ClientScript.RegisterStartupScript(this.GetType(), "expiredRedirect", script);
+                return;
+            }
         }
 
         protected void SubmitPlanInfo(object sender, EventArgs e)
@@ -286,7 +339,7 @@ namespace Patner_Retailer_ADO
                 btnEditPlan.Visible = true;
                 ddlsubcatg.Enabled = false;
                 ddlProductType.Enabled = false;
-                txtPrice.Enabled = false;                
+                txtPrice.Enabled = false;
                 txtPurchaseDate.Enabled = false;
                 ddlBrand.Enabled = false;
                 txtModel.Enabled = false;
@@ -356,12 +409,10 @@ namespace Patner_Retailer_ADO
             try
             {
                 string responseString = "";
-                string message = "Welcome to Infinity, Your OTP to Login to Infinity TechCare Lounge is " + otp + ". For Help, Call Infinity 8447882424. 9AM-6PM Mon-Sat"; //"Your OTP is : " + hiddenString + "";
+                string message = "Welcome to Infinity, Your OTP to Login to Infinity TechCare Lounge is " + otp + ". For Help, Call Infinity 8447882424. 9AM-6PM Mon-Sat";
                 string content_temID = "1107162426891569578";
                 string no = mobileno;
                 string sender12 = "ISHILD";
-
-                // string url1 = "https://msg.wemonde.com/api/sendSMS?token=f2fdee93271556e428dd9507b3da7235&senderid=" + sender12 + "&route=14&number=" + no + "&message=" + message + "&contentID=" + content_temID;
                 string url1 = "https://api.mobilnxt.in/api/push?accesskey=uW9h2HHRlctDRlGwOQKEicLgsgBi2V&to=" + no + "&text=" + message + "&from=" + sender12 + "&tid=" + content_temID;
 
                 System.Net.ServicePointManager.SecurityProtocol = (SecurityProtocolType)0x00000C00;
@@ -376,39 +427,6 @@ namespace Patner_Retailer_ADO
             catch (Exception e1)
             {
                 DisplayMessage(this, e1.Message);
-                return;
-            }
-        }
-        public void sendotpmail(string email, string otp)
-        {
-            try
-            {
-                Session["email"] = email;
-                string hiddenString = otp.Substring(0, 3) + "***";
-                string s = Server.MapPath("infySign.png");
-                string MSG1 = "<table align='left' cellpadding='5' cellspacing='1' style='width:100%; '><tr><td style='font-size: 14px;text-align: justify; font-family: Arial;' colspan='2'>Dear Customer," + "\t\t" +
-                "</td></tr>" +
-                  "<tr><td style='font-size: 14px;text-align: justify; font-family: Arial;' colspan='2'>" + "\t\t<b><u>" + hiddenString + "</b></u> is your OTP. " + "</td></tr>" +
-                "<tr><td style='font-size: 14px;text-align: justify; font-family: Arial;' colspan='2'>Thanking you,<br/><br/>Team Infinity<br/>InfyShield<br/><br/><img src=cid:companylogo></td></tr></table>";
-
-                MailMessage Msg = new MailMessage();
-                Msg.From = new MailAddress("no-reply@infinityassurance.com");
-                Msg.To.Add(email.ToString());
-                Msg.Subject = "Welcome to InfyShield - Your OTP is here";
-                Msg.IsBodyHtml = true;
-                Msg.Body = MSG1;
-
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.Port = 587;
-                smtp.Credentials = new System.Net.NetworkCredential("no-reply@infinityassurance.com", "mlas jsej cdzd fmdc");
-                smtp.EnableSsl = true;
-                smtp.Send(Msg);
-                Msg = null;
-            }
-            catch (Exception ex)
-            {
-                DisplayMessage(this, "" + ex.Message.ToString() + "");
                 return;
             }
         }
@@ -468,7 +486,7 @@ namespace Patner_Retailer_ADO
                 rfvSerialNo.Enabled = true;
                 rfvDateOfImpl.Enabled = true;
             }
-        }      
+        }
 
         protected void EditPlanInfo(object sender, EventArgs e)
         {
@@ -480,7 +498,7 @@ namespace Patner_Retailer_ADO
             txtPurchaseDate.Enabled = true;
             ddlBrand.Enabled = true;
             txtModel.Enabled = true;
-            validationCustom06.Enabled = true;                        
+            validationCustom06.Enabled = true;
             validationCustom09.Enabled = true;
             validationCustom010.Enabled = true;
             validationCustom011.Enabled = true;
@@ -559,6 +577,5 @@ namespace Patner_Retailer_ADO
                     con.Close();
             }
         }
-
     }
 }

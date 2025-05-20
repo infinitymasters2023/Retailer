@@ -11,8 +11,26 @@ namespace Patner_Retailer_ADO
 {
 
 
-    public partial class BuyInfySalePlan
+    public partial class RetailerBuyInfySalePlan
     {
+
+        /// <summary>
+        /// signupForm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm signupForm;
+
+        /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
 
         /// <summary>
         /// ddlsubcatg control.

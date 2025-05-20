@@ -56,6 +56,10 @@ namespace Patner_Retailer_ADO
                         GvClaimReport.DataSource = dt;
                         GvClaimReport.DataBind();
                         btnExportExcel.Visible = true;
+                        if (GvClaimReport.HeaderRow != null)
+                        {
+                            GvClaimReport.HeaderRow.TableSection = TableRowSection.TableHeader;
+                        }
                     }
                     else
                     {

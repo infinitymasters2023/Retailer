@@ -84,6 +84,7 @@
     <Content Include="assets\images\avatar-3.jpg" />
     <Content Include="assets\images\avatar-4.jpg" />
     <Content Include="assets\images\avatar-5.jpg" />
+    <Content Include="assets\images\avatar5.png" />
     <Content Include="assets\images\bitbucket.png" />
     <Content Include="assets\images\card-img-1.jpg" />
     <Content Include="assets\images\card-img-2.jpg" />
@@ -103,6 +104,7 @@
     <Content Include="assets\images\error-img.png" />
     <Content Include="assets\images\github.png" />
     <Content Include="assets\images\Infyshield-logo.png" />
+    <Content Include="assets\images\LinkExpired.jpg" />
     <Content Include="assets\images\loader.svg" />
     <Content Include="assets\images\logo.png" />
     <Content Include="assets\images\mail_chimp.png" />
@@ -474,12 +476,17 @@
     <Content Include="Dashboard.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="InCompletePurchased.aspx" />
+    <Content Include="InvalidLink.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="PaymentConfirmation.aspx" />
     <Content Include="Profile.aspx" />
     <Content Include="RegisterNewClaim.aspx" />
     <Content Include="ReportedClaims.aspx" />
     <Content Include="Reports.aspx" />
+    <Content Include="RetailerAddURL.aspx" />
+    <Content Include="RetailerBuyInfySalePlan.aspx" />
+    <Content Include="RetailerCartDetails.aspx" />
+    <Content Include="RetailerPaymentConfirmation.aspx" />
     <Content Include="SalesReports.aspx" />
     <Content Include="SellerGSTIN.aspx" />
     <Content Include="ViewClaims.aspx" />
@@ -543,6 +550,13 @@
     <Compile Include="InCompletePurchased.aspx.designer.cs">
       <DependentUpon>InCompletePurchased.aspx</DependentUpon>
     </Compile>
+    <Compile Include="InvalidLink.aspx.cs">
+      <DependentUpon>InvalidLink.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InvalidLink.aspx.designer.cs">
+      <DependentUpon>InvalidLink.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -592,6 +606,34 @@
     </Compile>
     <Compile Include="Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RetailerAddURL.aspx.cs">
+      <DependentUpon>RetailerAddURL.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RetailerAddURL.aspx.designer.cs">
+      <DependentUpon>RetailerAddURL.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RetailerBuyInfySalePlan.aspx.cs">
+      <DependentUpon>RetailerBuyInfySalePlan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RetailerBuyInfySalePlan.aspx.designer.cs">
+      <DependentUpon>RetailerBuyInfySalePlan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RetailerCartDetails.aspx.cs">
+      <DependentUpon>RetailerCartDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RetailerCartDetails.aspx.designer.cs">
+      <DependentUpon>RetailerCartDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RetailerPaymentConfirmation.aspx.cs">
+      <DependentUpon>RetailerPaymentConfirmation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RetailerPaymentConfirmation.aspx.designer.cs">
+      <DependentUpon>RetailerPaymentConfirmation.aspx</DependentUpon>
     </Compile>
     <Compile Include="SalesReports.aspx.cs">
       <DependentUpon>SalesReports.aspx</DependentUpon>

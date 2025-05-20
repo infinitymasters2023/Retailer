@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Login</title>
     <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
     <link href="../assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
@@ -23,12 +23,13 @@
         }
 
         .login-container {
-            min-width: 350px; /* Increased width for better spacing */
+            max-width: 350px; /* Increased width for better spacing */
             border-radius: 10px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 2rem;
             margin: 20px; /* Add some margin around the container */
+            width:100%;
         }
 
         .login-header {
@@ -105,9 +106,9 @@
             text-decoration: none;
         }
 
-            .footer-link:hover {
-                text-decoration: underline;
-            }
+        .footer-link:hover {
+            text-decoration: underline;
+        }
 
         .error-message {
             color: red;
@@ -131,6 +132,15 @@
             font-weight: bold;
             letter-spacing: 0.5rem;
         }
+
+        @media (min-width:320px) and (max-width:640px){
+            .login-container {
+                max-width: 290px;
+                margin: 15px auto !important;
+                min-width: 100%;
+            }
+        }
+
     </style>
 </head>
 
@@ -153,7 +163,7 @@
                 <asp:HiddenField ID="hdnPhoneNumber" runat="server" />
             </div>
             <div id="divotppanel" runat="server" visible="false">
-                <div class="form-group otp-input-group">
+                <div class="form-group otp-input-group mb-2 mb-lg-0">
                     <label for="txtOTP" class="form-label">OTP</label>
                     <asp:TextBox ID="txtOTP" runat="server" CssClass="form-control otp-input" placeholder="Enter OTP" MaxLength="6"></asp:TextBox>
                     <span class="otp-icon">
@@ -171,7 +181,7 @@
                     </div>
                 </div>
 
-                <div class="form-group captcha-group">
+                <div class="form-group flex-wrap captcha-group">
                     <label for="txtCaptcha" class="form-label">Captcha</label>
                     <asp:TextBox ID="txtCaptcha" runat="server" CssClass="form-control captcha-input" placeholder="Enter Captcha"></asp:TextBox>
                     <div class="rounded bg-light p-2" style="border: 1px solid #ccc;">

@@ -222,13 +222,22 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.Label lblAadharValue;
 
         /// <summary>
-        /// tbodyData control.
+        /// RepeaterBankDetails control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tbodyData;
+        protected global::System.Web.UI.WebControls.Repeater RepeaterBankDetails;
+
+        /// <summary>
+        /// RepeaterEmployeeDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater RepeaterEmployeeDetails;
 
         /// <summary>
         /// rptDocuments control.

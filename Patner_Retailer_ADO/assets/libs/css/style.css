@@ -1224,8 +1224,8 @@ Top Header
 .dashboard-header .navbar {
     padding: 0px;
     border-bottom: 1px solid #e6e6f2;
-    -webkit-box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
-    box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
+   /* -webkit-box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);
+    box-shadow: 0px 0px 28px 0px rgba(82, 63, 105, 0.13);*/
     -webkit-transition: all 0.3s ease;
     min-height: 60px;
 }
@@ -1938,10 +1938,10 @@ Container / Wrapper
 
 .dashboard-wrapper {
     position: relative;
-    left: 20px;
+    /* left: 20px; */
     margin-left: 245px;
-    min-height: 870px !important;
-    width: calc(100% - 285px);
+    /* min-height: 870px !important; */
+    width: calc(100% - 245px);
 }
 
 .dashboard-content {
@@ -2605,8 +2605,8 @@ clip-path: polygon(10% 25%, 10% 0, 35% 0%, 65% 0%, 90% 0, 90% 25%, 90% 50%, 91% 
 -------------------------*/
 
 .btn {
-    font-size: 14px;
-    padding: 9px 16px;
+    font-size: 12px;
+    padding: 7px 12px;
     border-radius: 2px;
 }
 
@@ -3202,12 +3202,19 @@ btn-link
 2.3  Cards
 -------------------------*/
 
+.error-message {
+    color: #ff0000;
+    font-size: 13px;
+    /*position: absolute;
+    top: 40px;*/
+}
+
 .card {
-    margin-bottom: 30px;
-    border: none;
-    -webkit-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
-    -moz-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
-    box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
+    border: none !important;
+    /*-webkit-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
+    -moz-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);*/
+    box-shadow: none;
+    margin: 20px;
 }
 
 .card-header {
@@ -4508,6 +4515,18 @@ Pills vertical
 .table thead th {
     vertical-align: bottom;
     border-bottom: 2px solid #e6e6f2;
+    max-width: 350px;
+    min-width: 220px;
+    font-size: 12px;
+}
+.table thead th:first-child {
+    max-width: 350px;
+    min-width: 70px;
+    font-size: 12px;
+}
+
+.table tbody td {
+    font-size: 12px;
 }
 
 .table thead th,
@@ -6821,6 +6840,7 @@ Media Query
     }
     .dashboard-wrapper {
         margin-left: 0px;
+        width:100%;
     }
     .dashboard-footer {
         margin-left: 0px;

@@ -28,17 +28,14 @@
         });
     </script>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container-fluid dashboard-content">
-        <div class="row">
-            <div class="col-12">
+            <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+                <div class="card p-3">
+                <div class="btn-group">
+                    <a class="btn btn-primary" href="ViewSalesPerson.aspx"><i class="fa fa-list"></i>&nbsp View Sales Person List</a>
+                </div>
+            </div>
+
                 <div class="card">
-
-
-                    <div class="btn-group">
-                        <a class="btn btn-primary" href="ViewSalesPerson.aspx"><i class="fa fa-list"></i>&nbsp View Sales Person List</a>
-                    </div>
-
                     <h5 class="card-header">Personal Info</h5>
                     <div class="card-body">
                         <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="text-danger" ValidationGroup="vgPersonal" />
@@ -274,8 +271,6 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+           
 </asp:Content>
 

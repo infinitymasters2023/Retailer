@@ -14,8 +14,7 @@ namespace Patner_Retailer_ADO
 {
     public partial class CreateAnAccount : System.Web.UI.Page
     {
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["iaplConnectionString"].ConnectionString);
-        //052025/164346 
+        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["iaplConnectionString"].ConnectionString);        
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -112,6 +111,10 @@ namespace Patner_Retailer_ADO
                     gvDocuments.DataSource = dt;
                     gvDocuments.DataBind();
                     hdnActiveTab.Value = "#step4";
+                    if (gvDocuments.HeaderRow != null)
+                    {
+                        gvDocuments.HeaderRow.TableSection = TableRowSection.TableHeader;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -361,6 +364,7 @@ namespace Patner_Retailer_ADO
                     cmd.Parameters.AddWithValue("@ProfileId", Session["UniqueMid"].ToString().Trim());
                     cmd.Parameters.AddWithValue("@DocID", DocId);
                     cmd.Parameters.AddWithValue("@DocumentPath", DocumentPath);
+                    cmd.Parameters.AddWithValue("@documentNumber", docNumber);
                     cmd.Parameters.AddWithValue("@Remarks", docNumber);
                     cmd.Parameters.AddWithValue("@Status", status);
                     cmd.Parameters.AddWithValue("@IPAddress", Request.UserHostAddress);

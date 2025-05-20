@@ -53,8 +53,10 @@ namespace Patner_Retailer_ADO
                 menuClaims.Attributes["class"] = "nav-item active";
             else if (pageName == "reports.aspx")
                 menuReports.Attributes["class"] = "nav-item active";
-            else if(pageName == "SalesReports.aspx")
+            else if(pageName == "salesreports.aspx")
                 menuSalesReport.Attributes["class"] = "nav-item active";
+            else if(pageName == "retaileraddurl.aspx")
+                menuGenerateURL.Attributes["class"] = "nav-item active";
             //else if(pageName == "ClaimList.aspx")
             //    menuClaimList.Attributes["class"] = "nav-item active";
         }

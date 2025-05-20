@@ -20,6 +20,24 @@
                 background-position: right 0.75rem center;
                 background-size: 1.8rem;
             }
+            .plan-card {
+                background: #f6f6f6;
+                border: 1px solid #e2e2e2;
+                padding: 15px;
+                border-radius: 10px;
+            }
+            .plan-card h2 {
+                font-size: 18px;
+                font-weight: 500;
+            }
+            .plan-price {
+                display: flex;
+                justify-content: space-between;
+            }
+            .price-txt, .price-amount {
+                font-size: 16px;
+                font-weight: 700;
+            }
     </style>
 
     <!-- CSS -->
@@ -133,12 +151,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="container-fluid  dashboard-content">
-        <div class="row">
-            <!-- ============================================================== -->
-            <!-- validation form -->
-            <!-- ============================================================== -->
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    
                 <div class="card">
                     <h5 class="card-header">Buy InfyShield Plans</h5>
                     <div class="card-body">
@@ -261,31 +274,28 @@
                                     ForeColor="Red" Display="Dynamic" ValidationGroup="ProductInfo"> </asp:RequiredFieldValidator>                                
                             </div>
                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-
+                                <label>Manufacturer Warranty</label>
                                 <div class="row">
-                                    <div class="col-xl-4 col-lg-4 col-md-1 col-sm-4 col-12 ">
-                                        <label>Years</label>
-                                        <asp:TextBox CssClass="form-control mb-2" ID="validationCustom09" runat="server" placeholder="Years" max="10" min="1"
+                                    <div class="col-xl-4 col-lg-4 col-md-1 col-sm-4 col-12">
+                                        <asp:TextBox CssClass="form-control position-relative mb-2" ID="validationCustom09" runat="server" placeholder="Years" max="10" min="1"
                                             oninput="validateYears()" TextMode="Number"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="validationCustom09" ErrorMessage="Years is required."
-                                            ForeColor="Red" Display="Dynamic" ValidationGroup="ProductInfo"></asp:RequiredFieldValidator>
+                                            CssClass="error-message" Display="Dynamic" ValidationGroup="ProductInfo"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="col-xl-4 col-lg-4 col-md-1 col-sm-4 col-12 ">
-                                        <label>Months</label>
                                         <asp:TextBox CssClass="form-control mb-2" ID="validationCustom010" runat="server" value="0" placeholder="Months" max="12" min="0"
                                             oninput="validateMonths()" TextMode="Number"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="validationCustom010" ErrorMessage="Months is required."
                                             ForeColor="Red" Display="Dynamic" ValidationGroup="ProductInfo"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="col-xl-4 col-lg-4 col-md-1 col-sm-4 col-12 ">
-                                        <label>Days</label>
                                         <asp:TextBox CssClass="form-control mb-2" ID="validationCustom011" runat="server" value="0" placeholder="Days" max="31" min="0"
                                             oninput="validateDays()" TextMode="Number"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="validationCustom011" ErrorMessage="Days is required."
                                             ForeColor="Red" Display="Dynamic" ValidationGroup="ProductInfo"></asp:RequiredFieldValidator>
                                     </div>
                                 </div>
-                                <label>Manufacturer Warranty</label>
+                                
 
                             </div>
 
@@ -324,7 +334,7 @@
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12" style="text-align: center; display: flex;">
                                 <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-12 mb-5"></div>
                                 <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-12 mb-2">
-                                    <label>OTP</label>
+                                    <label>Enter OTP</label>
                                     <input type="text" class="form-control mb-2" id="txtOTP" runat="server" placeholder="Enter OTP"
                                         maxlength="6" pattern="\d{6}" title="Enter a 6-digit OTP" oninput="validateOTP(this)">
                                      <asp:RequiredFieldValidator ID="refOTP" runat="server" ControlToValidate="txtOTP" ErrorMessage="OTP is required."
@@ -344,8 +354,7 @@
                         </div>
                         <div id="PlanPanel" runat="server">
                             <div class="row"></div>
-                            <h3 style="text-align: center;">Choose the Best Plan for Your Product
-                            </h3>
+                            <h3 class="text-center mb-3">Choose the Best Plan for Your Product</h3>
                             <asp:Panel ID="pnlNoPlans" runat="server" Visible="false" CssClass="alert alert-info text-center mt-4">
                                 <h5 class="mb-1">No Plans Available</h5>
                                 <p class="mb-0">Currently, there are no service plans available for your selection. Please check back later or contact support for assistance.</p>
@@ -358,29 +367,31 @@
                                     </HeaderTemplate>
 
                                     <ItemTemplate>
-                                        <div class="col-md-4 mb-4">
-                                            <div class="card h-100">
-                                                <div class="card-body">
-                                                    <div class="form-check mb-2">
-                                                        <asp:CheckBox ID="chkSelect" runat="server" CssClass="form-check-input planCheckBox"
-                                                            AutoPostBack="true"
-                                                            OnCheckedChanged="chkSelect_CheckedChanged"
-                                                            CommandArgument='<%# Eval("Mid") %>' />
-                                                        <label class="form-check-label">Select</label>
-                                                    </div>
-
-                                                    <asp:HiddenField ID="hdnPlanPrice" runat="server" Value='<%# Eval("CustPriceINR") %>' />
-                                                    <asp:HiddenField ID="hdnSKU" runat="server" Value='<%# Eval("SKU") %>' />
-
-                                                    <h5 class="card-title">
-                                                        <asp:Label ID="lblPlanName" runat="server" Text='<%# Eval("PlanNickName") %>'></asp:Label>
-                                                    </h5>
-                                                    <ul class="list-group list-group-flush">
-                                                        <li class="list-group-item"><strong>EW:</strong> <%# Eval("EW") %> <strong>SDP:</strong>  <%# Eval("SDP") %>  <strong>ADP:</strong> <%# Eval("ADP") %></li>
-                                                        <li class="list-group-item"><strong>Plan Price:</strong> ₹<%# Eval("CustPriceINR") %></li>
-
-                                                    </ul>
+                                        <div class="col-lg-3 col-12 mb-4">
+                                            <div class="plan-card">
+                                                <div class="form-check mb-2 pl-0">
+                                                    <asp:CheckBox ID="chkSelect" runat="server" CssClass="planCheckBox"
+                                                        AutoPostBack="true"
+                                                        OnCheckedChanged="chkSelect_CheckedChanged"
+                                                        CommandArgument='<%# Eval("Mid") %>' />
+                                                    <label class="form-check-label">Select</label>
                                                 </div>
+                                                <h2>
+                                                    <asp:Label ID="lblPlanName" runat="server" Text='<%# Eval("PlanNickName") %>'></asp:Label>
+                                                </h2>
+                                                <div class="d-flex gap-3 mb-2">
+                                                    <div class="plan-name-txt"><strong>EW:</strong> <%# Eval("EW") %></div>
+                                                     <div class="plan-name-txt"><strong>SDP:</strong>  <%# Eval("SDP") %></div>
+                                                     <div class="plan-name-txt"><strong>ADP:</strong> <%# Eval("ADP") %></div>
+                                                </div>
+                                                <div class="plan-price">
+                                                    <div class="price-txt"> Price:</div> 
+                                                    <div class="price-amount">₹<%# Eval("CustPriceINR") %></div>
+                                                </div>
+
+                                                <asp:HiddenField ID="hdnPlanPrice" runat="server" Value='<%# Eval("CustPriceINR") %>' />
+                                                <asp:HiddenField ID="hdnSKU" runat="server" Value='<%# Eval("SKU") %>' />
+                                                
                                             </div>
                                         </div>
                                     </ItemTemplate>
@@ -439,9 +450,40 @@
                                     <input type="text" class="form-control" id="txtPromoDiscount" runat="server" placeholder="Apply Your Promo Code">
                                 </div>
                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 ">
-                                    <button class="btn btn-primary" type="submit">Apply</button>
+                                    <asp:Button ID="btnApplyPromoCode" class="btn btn-primary" runat="server" AutoPostBack="true" OnClick="ApplyPromoCode" Text="Apply" />
                                 </div>
 
+                            </div>
+                            <div runat="server" id="calculationdiv" visible="false">
+                                <div class="row mt-3" style="text-align: right;">
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"></div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"></div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <label>Plan Amount : </label>
+                                        <strong>
+                                            <asp:Label ID="lblPlanPrice" runat="server"></asp:Label></strong>
+                                    </div>
+                                </div>
+                                <div class="row mt-3" style="text-align: right;">
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"></div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"></div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <label>Promo Discount Amount : </label>
+                                        <strong>
+                                            <asp:Label ID="lblDiscountAmount" runat="server"></asp:Label></strong>
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row mt-3" style="text-align: right;">
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"></div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"></div>
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                        <label>Total Amount : </label>
+                                        <strong>
+                                            <asp:Label ID="lblTotalAmount" runat="server"></asp:Label></strong>
+                                    </div>
+                                </div>
+                                <hr />
                             </div>
                             <div class="form-row">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12" style="text-align: center;">
@@ -468,12 +510,10 @@
 
                     </div>
                 </div>
-            </div>
+           
             <!-- ============================================================== -->
             <!-- end validation form -->
             <!-- ============================================================== -->
-        </div>
-
-    </div>
+      
 
 </asp:Content>

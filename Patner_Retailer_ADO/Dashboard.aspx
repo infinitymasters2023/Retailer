@@ -158,22 +158,22 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
-                        <h3 class="mb-2">Infyshield Sales Dashboard</h3>
+                        <h3 class="my-3">Infyshield Sales Dashboard</h3>
                         <p class="pageheader-text">Track key metrics and generate reports for Infyshield sales performance.</p>
-                        <div class="page-breadcrumb">
+                        <%--<div class="page-breadcrumb">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Infyshield Sales</li>
                                 </ol>
                             </nav>
-                        </div>
+                        </div>--%>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                    <div class="card">
+                    <div class="card mb-3 mx-0 mt-0">
                         <div class="card-body">
                             <div class="d-inline-block">
                                 <h5 class="text-muted">Total Sales</h5>
@@ -188,7 +188,7 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                    <div class="card">
+                    <div class="card m-0">
                         <div class="card-body">
                             <div class="d-inline-block">
                                 <h5 class="text-muted">Revenue</h5>

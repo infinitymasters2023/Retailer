@@ -49,7 +49,11 @@ namespace Patner_Retailer_ADO
                     {
                         ReportTotal.Text = "Total " + dt.Rows.Count.ToString();
                         GvReport.DataSource = dt;
-                        GvReport.DataBind();                        
+                        GvReport.DataBind();
+                        if (GvReport.HeaderRow != null)
+                        {
+                            GvReport.HeaderRow.TableSection = TableRowSection.TableHeader;
+                        }
                     }
                     else
                     {
@@ -90,15 +94,11 @@ namespace Patner_Retailer_ADO
                 da.Fill(dt);
                 if (dt.Rows.Count > 0)
                 {
-                    url = "ViewClaims.aspx?ticket=" + refNo.Trim() + "&sr=" + sr;
-                    ScriptManager.RegisterStartupScript(Page, typeof(Page), "OpenWindow", "window.open('" + url + "', '_blank');", true);
-                    btn.Focus();
+                    Response.Redirect("ViewClaims.aspx?ticket=" + refNo.Trim() + "&sr=" + sr);                  
                 }
                 else
                 {
-                    url = "ViewClaims.aspx?ticket=" + refNo.Trim() + "&sr=" + sr;
-                    ScriptManager.RegisterStartupScript(Page, typeof(Page), "OpenWindow", "window.open('" + url + "', '_blank');", true);
-                    btn.Focus();
+                    Response.Redirect("ViewClaims.aspx?ticket=" + refNo.Trim() + "&sr=" + sr);
                 }
             }
             catch (Exception ex)

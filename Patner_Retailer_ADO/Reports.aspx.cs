@@ -51,14 +51,19 @@ namespace Patner_Retailer_ADO
                     ViewState["ReportInfo"] = dt;
                     if (dt.Rows.Count > 0)
                     {
-                        ReportTotal.Text = "Total " + dt.Rows.Count.ToString();
+                        //ReportTotal.Text = "Total " + dt.Rows.Count.ToString();
                         GvReport.DataSource = dt;
-                        GvReport.DataBind();
+                        GvReport.DataBind();                        
                         btnExportExcel.Visible = true;
+
+                        if (GvReport.HeaderRow != null)
+                        {
+                            GvReport.HeaderRow.TableSection = TableRowSection.TableHeader;
+                        }
                     }
                     else
                     {
-                        ReportTotal.Text = "";
+                        //ReportTotal.Text = "";
                         GvReport.DataSource = null;
                         GvReport.DataBind();
                         btnExportExcel.Visible = false;

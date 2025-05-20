@@ -2,18 +2,19 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
+using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Globalization;
+using System.Text;
 
 namespace Patner_Retailer_ADO
 {
-    public partial class PaymentConfirmation : System.Web.UI.Page
+    public partial class RetailerPaymentConfirmation : System.Web.UI.Page
     {
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["iaplConnectionString"].ConnectionString);
         static public void DisplayMessage(Control page, string msg)
@@ -25,23 +26,52 @@ namespace Patner_Retailer_ADO
         {
             if (!IsPostBack)
             {
-                //BindProductInfo();
-                BindPaymentInfo();
+                string encoded = Request.QueryString["qu"];
+                string dd = Request.QueryString["dd"];
+                string ed = Request.QueryString["ed"];
+                if (!string.IsNullOrEmpty(encoded))
+                {
+                    string decodedEndDate = Encoding.UTF8.GetString(Convert.FromBase64String(ed));
+                    if (!string.IsNullOrWhiteSpace(decodedEndDate))
+                    {
+                        DateTime linkEndDate = DateTime.ParseExact(decodedEndDate.Trim(), "dd-MMM-yyyy' 'HH:mm", CultureInfo.InvariantCulture);
+
+                        DateTime currentTime = DateTime.Now;
+
+                        if (currentTime > linkEndDate)
+                        {
+                            string script = $@"
+                            <script type='text/javascript'>
+                                alert('Link has expired. Please contact your supervisor!');
+                                window.location.href = 'InvalidLink.aspx';
+                            </script>";
+
+                            ClientScript.RegisterStartupScript(this.GetType(), "expiredRedirect", script);
+                            return;
+                        }
+                    }
+
+                    BindPaymentInfo();
+                }
+                else
+                {
+                    string script = $@"
+                            <script type='text/javascript'>
+                                alert('Link is not valid. Please contact your supervisor!');
+                                window.location.href = 'InvalidLink.aspx';
+                            </script>";
+
+                    ClientScript.RegisterStartupScript(this.GetType(), "expiredRedirect", script);
+                    return;
+                }
             }
         }
-
         protected void BindPaymentInfo()
         {
-            var querymode = Request.QueryString["m"];
-            var Mobile = Request.QueryString["Mobile"];
-            var RetailerUniqueID = Request.QueryString["RetailerUniqueID"];
-            var Role = Request.QueryString["Role"];            
+            var querymode = Request.QueryString["m"];            
             if (querymode == "PayTm")
             {
                 Session["salesOrderID"] = HttpContext.Current.Cache["TransactionId"].ToString();
-                Session["MobileNo"] = Mobile;
-                Session["RetailerUniqueID"] = RetailerUniqueID;
-                Session["Role"] = Role;
                 String merchantKey = "Xv#3x9vZ%cawdcD1";
                 Dictionary<string, string> parameters = new Dictionary<string, string>();
                 string paytmChecksum = "";
@@ -58,23 +88,14 @@ namespace Patner_Retailer_ADO
                 {
                     string msg = parameters["STATUS"];
                     string order_id = parameters["ORDERID"];
-                    //lbltransno.Text = order_id;
                     if (msg == "TXN_SUCCESS")
                     {
-                        //GridView1.DataSource = (DataTable)Session["Cart"];
-                        //GridView1.DataBind();
                         lblSucess1.Text = "Your payment transaction is successfully completed.";
-
                         BindProductInfo();
                         CreateNewTickets();
-                        //UpdateProductInfo();
-
-                        //bindGrid();
-                        //GenrateSkupin_Click(new object(), new EventArgs());
                     }
                     else
                     {
-                        //Response.Redirect("failedpayment.aspx");
                         lblSucess1.Text = "Your payment transaction is Failed !!";
                         lblSucess1.ForeColor = Color.Red;
                     }
@@ -138,7 +159,6 @@ namespace Patner_Retailer_ADO
             if (ViewState["AllInfo"] != null)
             {
                 DataTable dt = ViewState["AllInfo"] as DataTable;
-
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     con.Open();
@@ -156,7 +176,6 @@ namespace Patner_Retailer_ADO
                         string extendedwarrantystartdate = string.Empty;
                         string extendedwarrantyenddate = string.Empty;
 
-                        // Check if both fields have values
                         string planName = row["PlanName"].ToString().Trim().Replace("&nbsp;", "");
                         string dateofpurchase = row["ProductPurchaseDate"].ToString().Trim().Replace("&nbsp;", "");
                         string planid = string.Empty;
@@ -188,9 +207,8 @@ namespace Patner_Retailer_ADO
                             extendedwarrantystartdate = row10["EWSStartDate"].ToString();
                             extendedwarrantyenddate = row10["EWSEndDate"].ToString();
                         }
-                        string IPRN = GenerateIPPNno();
                         int subcatid = 1;
-                        subcatid = getSubcatid(row["SubCategoryID"].ToString().Trim().Replace("&nbsp;", ""));                        
+                        subcatid = getSubcatid(row["SubCategoryID"].ToString().Trim().Replace("&nbsp;", ""));
                         SqlCommand cmdreg = new SqlCommand("IAPL_CRM_stockgenerate_Infysales", con);
                         cmdreg.CommandType = CommandType.StoredProcedure;
 
@@ -200,11 +218,9 @@ namespace Patner_Retailer_ADO
                         cmdreg.Parameters.AddWithValue("@ProSubcatID", string.IsNullOrEmpty(row["SubCategoryID"].ToString().Trim().Replace("&nbsp;", "")) ? DBNull.Value : (object)row["SubCategoryID"].ToString().Trim().Replace("&nbsp;", ""));//Sub cat Id
                         cmdreg.Parameters.AddWithValue("@ProductSubCatgID", string.IsNullOrEmpty(row["ProductTypeID"].ToString().Trim().Replace("&nbsp;", "")) ? DBNull.Value : (object)row["ProductTypeID"].ToString().Trim().Replace("&nbsp;", ""));//Product Type
                         cmdreg.Parameters.AddWithValue("@invoiceamount_productdetails", string.IsNullOrEmpty(row["DevicePurchasePrice"].ToString().Trim().Replace("&nbsp;", "")) ? DBNull.Value : (object)row["DevicePurchasePrice"].ToString().Trim().Replace("&nbsp;", ""));//Invoice Amount Product
-                        //Length of Warranty
                         cmdreg.Parameters.AddWithValue("@warrnatyYear", yy);
                         cmdreg.Parameters.AddWithValue("@WarrantyMonth", mm);
                         cmdreg.Parameters.AddWithValue("@WarrantyDay", dd);
-                        
                         cmdreg.Parameters.AddWithValue("@regdate", DateTime.Now);
                         DateTime invoicedate_productdetails;
                         if (DateTime.TryParse(dateofpurchase, out invoicedate_productdetails))
@@ -221,8 +237,7 @@ namespace Patner_Retailer_ADO
                         cmdreg.Parameters.AddWithValue("@IMEINo", string.IsNullOrEmpty(row["imei"].ToString().Trim().Replace("&nbsp;", "")) ? DBNull.Value : (object)row["imei"].ToString().Trim().Replace("&nbsp;", ""));
                         cmdreg.Parameters.AddWithValue("@brand", string.IsNullOrEmpty(row["Brand"].ToString().Trim().Replace("&nbsp;", "")) ? DBNull.Value : (object)row["Brand"].ToString().Trim().Replace("&nbsp;", ""));
                         cmdreg.Parameters.AddWithValue("@Make", string.IsNullOrEmpty(row["Brand"].ToString().Trim().Replace("&nbsp;", "")) ? DBNull.Value : (object)row["Brand"].ToString().Trim().Replace("&nbsp;", ""));
-                        cmdreg.Parameters.AddWithValue("@model", string.IsNullOrEmpty(row["ModalName"].ToString().Trim().Replace("&nbsp;", "")) ? DBNull.Value : (object)row["ModalName"].ToString().Trim().Replace("&nbsp;", ""));
-                        //cmdreg.Parameters.AddWithValue("@ModelNo", string.IsNullOrEmpty(row["ModelNo"].ToString().Trim().Replace("&nbsp;", "")) ? DBNull.Value : (object)row["ModelNo"].ToString().Trim().Replace("&nbsp;", ""));
+                        cmdreg.Parameters.AddWithValue("@model", string.IsNullOrEmpty(row["ModalName"].ToString().Trim().Replace("&nbsp;", "")) ? DBNull.Value : (object)row["ModalName"].ToString().Trim().Replace("&nbsp;", ""));                        
                         cmdreg.Parameters.AddWithValue("@WhatsAppNo", string.IsNullOrEmpty(row["WhatsappNo"].ToString().Trim().Replace("&nbsp;", "")) ? DBNull.Value : (object)row["WhatsappNo"].ToString().Trim().Replace("&nbsp;", ""));
                         cmdreg.Parameters.AddWithValue("@addressline1", string.IsNullOrEmpty(row["AddressLine1"].ToString().Trim().Replace("&nbsp;", "")) ? DBNull.Value : (object)row["AddressLine1"].ToString().Trim().Replace("&nbsp;", ""));
                         cmdreg.Parameters.AddWithValue("@city", string.IsNullOrEmpty(row["City"].ToString().Trim().Replace("&nbsp;", "")) ? DBNull.Value : (object)row["City"].ToString().Trim().Replace("&nbsp;", ""));
@@ -232,7 +247,7 @@ namespace Patner_Retailer_ADO
                         cmdreg.Parameters.AddWithValue("@emailidaddress", string.IsNullOrEmpty(row["EmailIDAddress"].ToString().Trim().Replace("&nbsp;", "")) ? DBNull.Value : (object)row["EmailIDAddress"].ToString().Trim().Replace("&nbsp;", ""));
                         cmdreg.Parameters.AddWithValue("@ClientID", SqlDbType.NVarChar).Value = 2;
                         cmdreg.Parameters.AddWithValue("@ProjectId", SqlDbType.NVarChar).Value = 68;
-                        cmdreg.Parameters.AddWithValue("@IPRN", IPRN);
+                        cmdreg.Parameters.AddWithValue("@IPRN", Session["salesOrderID"] == null ? null : Session["salesOrderID"].ToString());
                         cmdreg.Parameters.AddWithValue("@Status", SqlDbType.VarChar).Value = "Under Approval";
                         cmdreg.Parameters.AddWithValue("@adpstartdate", adpstartdate);
                         cmdreg.Parameters.AddWithValue("@adpenddate", adpenddate);
@@ -277,12 +292,10 @@ namespace Patner_Retailer_ADO
                         cmdtic.Parameters.AddWithValue("@ClaimDate", SqlDbType.NVarChar).Value = Convert.ToString(DateTime.Now.ToString("MM/dd/yyyy"));
                         cmdtic.Parameters.AddWithValue("@ClaimTime", SqlDbType.NVarChar).Value = Convert.ToString(DateTime.Now.ToString("hh:mm tt"));
 
-                        int checktic = cmdtic.ExecuteNonQuery();                        
-                        UpdateProductInfo(regno, skunos, row["prodMid"].ToString().Trim().Replace("&nbsp;", ""), 
-                            row["custMid"].ToString().Trim().Replace("&nbsp;", ""), row["payMid"].ToString().Trim().Replace("&nbsp;", ""), IPRN);
+                        int checktic = cmdtic.ExecuteNonQuery();
+                        UpdateProductInfo(regno, skunos, row["Mid"].ToString().Trim().Replace("&nbsp;", ""));
                     }
                     con.Close();
-
                 }
             }
         }
@@ -298,33 +311,24 @@ namespace Patner_Retailer_ADO
             cmd.Parameters.Add(ticParam);
 
             int check = cmd.ExecuteNonQuery();
-            //con.Close();
             ViewState["tickeno"] = cmd.Parameters["@ticketno"].Value.ToString();
             string checkticket = ViewState["tickeno"].ToString();
             return ViewState["tickeno"].ToString();
-
-
         }
 
-        protected void UpdateProductInfo(string regno, string skunos, string prodMid, string custMid, string payMid, string IPRN)
+        protected void UpdateProductInfo(string regno, string skunos, string Mid)
         {
             try
             {
                 using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.AddWithValue("@type", 9);                    
-                    cmd.Parameters.AddWithValue("@ProdMid", prodMid);                    
-                    cmd.Parameters.AddWithValue("@CustMid", custMid);
-                    cmd.Parameters.AddWithValue("@PayMid", payMid);
+                    cmd.Parameters.AddWithValue("@type", 9);
+                    cmd.Parameters.AddWithValue("@SalesOrderID", Session["salesOrderID"].ToString());
+                    cmd.Parameters.AddWithValue("@Mid", Mid);
                     cmd.Parameters.AddWithValue("@SKU", skunos);
                     cmd.Parameters.AddWithValue("@RegistrationNo", regno);
-                    cmd.Parameters.AddWithValue("@SalesOrderID", IPRN);
-               
-
                     cmd.ExecuteNonQuery();
-                   
                 }
             }
             catch (Exception)
@@ -342,10 +346,8 @@ namespace Patner_Retailer_ADO
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.AddWithValue("@type", 10);
-                    cmd.Parameters.AddWithValue("@subcatgId", catid);                    
+                    cmd.Parameters.AddWithValue("@subcatgId", catid);
                     object result = cmd.ExecuteScalar();
-                    
-
                     if (result != null && result != DBNull.Value)
                     {
                         id = Convert.ToInt32(result);
@@ -358,11 +360,9 @@ namespace Patner_Retailer_ADO
                 return 1;
             }
         }
-
         protected DataTable getServicePlanCreate(string planid, string dateofpurchase)
         {
             DataTable dt = new DataTable();
-
             SqlCommand cmd = new SqlCommand("CRM_getcustomersdetailsAll", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Type", 25);
@@ -370,26 +370,8 @@ namespace Patner_Retailer_ADO
             cmd.Parameters.AddWithValue("@ServicePlan", planid);
 
             SqlDataAdapter da = new SqlDataAdapter(cmd);
-            da.Fill(dt);            
-
+            da.Fill(dt);
             return dt;
         }
-        protected string GenerateIPPNno()
-        {
-            string salesorderid = string.Empty;
-            SqlCommand cmd = new SqlCommand("IAPL_CRM_stockgenerate_Infysales", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@Type", SqlDbType.Int).Value = 8;
-
-            using (SqlDataReader reader = cmd.ExecuteReader())
-            {
-                if (reader.Read())
-                {
-                    salesorderid = reader["salesorderid"].ToString();
-                }
-            }
-            return salesorderid;
-        }
-
     }
 }
