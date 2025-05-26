@@ -38,6 +38,9 @@
                 font-size: 16px;
                 font-weight: 700;
             }
+        .form-check-input {
+            position: relative;
+        }
     </style>
 
     <!-- CSS -->
@@ -328,7 +331,9 @@
                             </div>
                         </div>
 
-
+                        <div class="row">
+                            <asp:Label ID="lblOTPSend" style="color: green;text-align: center;" Text="OTP Send to the Mobile No." runat="server" Visible="false"></asp:Label>
+                        </div>
 
                         <div id="OTPPanel" class="row" runat="server" visible="false">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12" style="text-align: center; display: flex;">
@@ -349,8 +354,6 @@
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-12" style="text-align: center;">
                                 <asp:Button class="btn btn-primary" ID="btnSubmitOTP" OnClick="SubmitOTP" runat="server" AutoPostBack="false" Text="Submit OTP" ValidationGroup="OTPSubmission" />
                             </div>
-                            <asp:Label ID="lblMessage" runat="server" CssClass="error-message" />
-
                         </div>
                         <div id="PlanPanel" runat="server">
                             <div class="row"></div>
@@ -361,7 +364,7 @@
                             </asp:Panel>
 
                             <div class="row">
-                                <asp:Repeater ID="rptPlans" runat="server">
+                              <%--  <asp:Repeater ID="rptPlans" runat="server">
                                     <HeaderTemplate>
                                         <div class="row">
                                     </HeaderTemplate>
@@ -399,17 +402,17 @@
                                     <FooterTemplate>
                                         </div>
                                     </FooterTemplate>
-                                </asp:Repeater>
-                                <%--  <table class="table table-bordered table-striped">
+                                </asp:Repeater>--%>
+                                  <table class="table-responsive table data-table table-striped table-bordered nowrap">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>Select</th>
                                             <th>Plan Name</th>
-                                            <th>1</th>
-                                            <th>2</th>
-                                            <th>3</th>
-                                            <th>4</th>
-                                            <th>5</th>
+                                            <th>EW (In Years)</th>
+                                            <th>SDP (In Years)</th>
+                                            <th>ADP (In Years)</th>
+                                            <th>Description</th>
+                                            <%--<th>5</th>--%>
                                             <th>Plan Price (₹)</th>
                                         </tr>
                                     </thead>
@@ -424,21 +427,22 @@
                                                             CommandArgument='<%# Eval("Mid") %>' Style="margin-top: -5px;" />
                                                         <asp:HiddenField ID="hdnPlanPrice" runat="server" Value='<%# Eval("CustPriceINR") %>' />
                                                         <asp:HiddenField ID="hdnSKU" runat="server" Value='<%# Eval("SKU") %>' />
+                                                        <asp:HiddenField ID="hdnPlanId" runat="server" Value='<%# Eval("Mid") %>' />
                                                     </td>
                                                     <td>
                                                         <asp:Label ID="lblPlanName" runat="server" Text='<%# Eval("PlanNickName") %>'></asp:Label>
                                                     </td>
-                                                    <td>P</td>
-                                                    <td>P</td>
-                                                    <td>E</td>
-                                                    <td>E</td>
-                                                    <td></td>                                                    
+                                                    <td><%# Eval("EW") %></td>
+                                                    <td><%# Eval("SDP") %></td>
+                                                    <td><%# Eval("ADP") %></td>
+                                                    <td><%# Eval("FinalPlanNameDescription") %></td>
+                                                    <%--  <td></td> --%>
                                                     <td><%# Eval("CustPriceINR") %></td>
                                                 </tr>
                                             </ItemTemplate>
                                         </asp:Repeater>
                                     </tbody>
-                                </table>--%>
+                                </table>
                             </div>
                         </div>
                         <hr />
@@ -451,6 +455,9 @@
                                 </div>
                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 ">
                                     <asp:Button ID="btnApplyPromoCode" class="btn btn-primary" runat="server" AutoPostBack="true" OnClick="ApplyPromoCode" Text="Apply" />
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 " style="text-align: end;">
+                                    <asp:Label ID="lblErrorPromoCode" ForeColor="Red" runat="server"></asp:Label>
                                 </div>
 
                             </div>
@@ -468,7 +475,7 @@
                                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"></div>
                                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"></div>
                                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-                                        <label>Promo Discount Amount : </label>
+                                        <label id="lblPromoCodeDiscountAmount" runat="server">Promo Discount Amount : </label>
                                         <strong>
                                             <asp:Label ID="lblDiscountAmount" runat="server"></asp:Label></strong>
                                     </div>
@@ -495,11 +502,12 @@
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div class="form-group">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" runat="server" required>
+                                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" runat="server">
                                             <label class="form-check-label" for="invalidCheck">
                                                 By proceeding, you agree to the Terms and Conditions
                                             </label>
                                         </div>
+                                        <asp:Label ID="lblErrorTermCondition" runat="server" Text="Please Accept Term and Condition to buy Plan." Font-Size="12px" ForeColor="Red" Visible="false"></asp:Label>
                                     </div>
                                 </div>
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 " style="text-align: center;">

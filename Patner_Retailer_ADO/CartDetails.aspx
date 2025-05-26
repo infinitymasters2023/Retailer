@@ -81,7 +81,7 @@
 
                             <asp:Repeater ID="rptPlans" runat="server">
                                 <HeaderTemplate>
-                                    <table class="table table-bordered">
+                                    <table class="table-responsive table data-table table-striped table-bordered nowrap">
                                         <thead>
                                             <tr>
                                                 <th>Product Name</th>

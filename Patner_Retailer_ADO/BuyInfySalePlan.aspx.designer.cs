@@ -330,6 +330,15 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.Button btnEditPlan;
 
         /// <summary>
+        /// lblOTPSend control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOTPSend;
+
+        /// <summary>
         /// OTPPanel control.
         /// </summary>
         /// <remarks>
@@ -373,15 +382,6 @@ namespace Patner_Retailer_ADO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSubmitOTP;
-
-        /// <summary>
-        /// lblMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
         /// PlanPanel control.
@@ -438,6 +438,15 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.Button btnApplyPromoCode;
 
         /// <summary>
+        /// lblErrorPromoCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorPromoCode;
+
+        /// <summary>
         /// calculationdiv control.
         /// </summary>
         /// <remarks>
@@ -454,6 +463,15 @@ namespace Patner_Retailer_ADO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPlanPrice;
+
+        /// <summary>
+        /// lblPromoCodeDiscountAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblPromoCodeDiscountAmount;
 
         /// <summary>
         /// lblDiscountAmount control.
@@ -481,6 +499,15 @@ namespace Patner_Retailer_ADO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox invalidCheck;
+
+        /// <summary>
+        /// lblErrorTermCondition control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorTermCondition;
 
         /// <summary>
         /// btnSubmitMain control.

@@ -25,7 +25,8 @@ namespace Patner_Retailer_ADO
             if (!IsPostBack)
             {
                 LodBind();
-                expiryDate.Attributes.Add("ReadOnly", "readonly");                
+                expiryDate.Attributes.Add("ReadOnly", "readonly");
+                CalendarExtender1.StartDate = DateTime.Today;
             }
         }
         protected void btnConfirmExpiry_Click(object sender, EventArgs e)

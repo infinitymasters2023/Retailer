@@ -62,7 +62,7 @@ namespace Patner_Retailer_ADO
                         GvReport.DataBind();
                     }
                     bool allClosed = dt.AsEnumerable()
-                      .All(row => row["claimstatus"].ToString().Equals("Closed", StringComparison.OrdinalIgnoreCase));
+                      .All(row => row["claimstatus"].ToString().Equals("Closed", StringComparison.OrdinalIgnoreCase) || row["claimstatus"].ToString().Equals("Close", StringComparison.OrdinalIgnoreCase));
 
                     pnlRegisterClaim.Visible = allClosed;
                 }

@@ -51,7 +51,7 @@
                     <div class="d-flex justify-content-start mb-3">
                         <asp:Label ID="ReportTotal" runat="server" Style="position: absolute; right: 50px;"></asp:Label>
                     </div>
-                    <div class="table-responsive">
+                    <div>
                         <asp:GridView ID="GvReport" runat="server" AutoGenerateColumns="false" CssClass="table-responsive table data-table table-striped table-bordered nowrap"
                                 UseAccessibleHeader="true" HeaderStyle-CssClass="thead">
                             <Columns>

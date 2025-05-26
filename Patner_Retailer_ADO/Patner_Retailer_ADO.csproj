@@ -77,6 +77,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AddBank.aspx" />
+    <Content Include="AddDealer.aspx" />
+    <Content Include="AddDocument.aspx" />
     <Content Include="assets\css\bootstrap.min.css" />
     <Content Include="assets\css\signup.css" />
     <Content Include="assets\images\avatar-1.jpg" />
@@ -494,6 +497,27 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddBank.aspx.cs">
+      <DependentUpon>AddBank.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddBank.aspx.designer.cs">
+      <DependentUpon>AddBank.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddDealer.aspx.cs">
+      <DependentUpon>AddDealer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddDealer.aspx.designer.cs">
+      <DependentUpon>AddDealer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddDocument.aspx.cs">
+      <DependentUpon>AddDocument.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddDocument.aspx.designer.cs">
+      <DependentUpon>AddDocument.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BuyInfySalePlan.aspx.cs">
       <DependentUpon>BuyInfySalePlan.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

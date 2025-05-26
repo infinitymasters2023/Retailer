@@ -82,7 +82,10 @@ namespace Patner_Retailer_ADO
 
 
                         bindticket(TicketNO);
-
+                        if (lblcallstatus.Text.Contains("Closed"))
+                        {
+                            closeTicketInfo.Visible = false;
+                        }                        
                         linkGen(TicketNO);
                         getdocuments();
                         InsertFPMSLog();

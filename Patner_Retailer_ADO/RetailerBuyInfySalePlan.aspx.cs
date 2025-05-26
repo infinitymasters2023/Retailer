@@ -13,6 +13,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text;
 using System.Globalization;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 
 namespace Patner_Retailer_ADO
 {
@@ -38,9 +39,7 @@ namespace Patner_Retailer_ADO
                     if (!string.IsNullOrWhiteSpace(decodedEndDate))
                     {
                         DateTime linkEndDate = DateTime.ParseExact(decodedEndDate.Trim(), "dd-MMM-yyyy' 'HH:mm", CultureInfo.InvariantCulture);
-
                         DateTime currentTime = DateTime.Now;
-
                         if (currentTime > linkEndDate)
                         {
                             string script = $@"
@@ -520,50 +519,88 @@ namespace Patner_Retailer_ADO
         {
             try
             {
+                decimal planPrice = 0;
+                int planId = 0;
+                foreach (RepeaterItem item in rptPlans.Items)
+                {
+                    CheckBox chkSelect = (CheckBox)item.FindControl("chkSelect");
+                    if (chkSelect != null && chkSelect.Checked)
+                    {
+                        HiddenField hdnPlanPrice = (HiddenField)item.FindControl("hdnPlanPrice");
+                        HiddenField hdnPlanId = (HiddenField)item.FindControl("hdnPlanId");
+                        if (hdnPlanPrice != null)
+                        {
+                            planPrice = Convert.ToDecimal(hdnPlanPrice.Value);
+
+                        }
+                        if (hdnPlanId != null)
+                        {
+                            planId = Convert.ToInt32(hdnPlanId.Value);
+                        }
+                        break;
+                    }
+                }
+                string encoded = Request.QueryString["qu"];
+                string decoded = Encoding.UTF8.GetString(Convert.FromBase64String(encoded));
                 con.Open();
                 using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@type", 20);
+                    cmd.Parameters.AddWithValue("@type", 20);                    
                     cmd.Parameters.AddWithValue("@Promocode", txtPromoDiscount.Value.Trim());
+                    cmd.Parameters.AddWithValue("@PlanID", planId);
+                    cmd.Parameters.AddWithValue("@ProdMid", ddlProductType.SelectedValue.Trim());
+                    cmd.Parameters.AddWithValue("@ProCat", ddlsubcatg.SelectedValue.Trim());
+                    cmd.Parameters.AddWithValue("@Brand", ddlBrand.SelectedValue.Trim());
+                    cmd.Parameters.AddWithValue("@ProductPrice", txtPrice.Text.Trim());
+                    cmd.Parameters.AddWithValue("@imei", !string.IsNullOrWhiteSpace(txtimeiNo.Text) ? txtimeiNo.Text.Trim() : txtSerialNo.Text);
+                    cmd.Parameters.AddWithValue("@Retailer_MobileNo", decoded);
 
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
                         decimal discountAmount = Convert.ToDecimal(reader["DiscountAmount"]);
                         decimal discountPercent = Convert.ToDecimal(reader["DiscountPer"]);
-                        decimal planPrice = 0;
-                        foreach (RepeaterItem item in rptPlans.Items)
-                        {
-                            CheckBox chkSelect = (CheckBox)item.FindControl("chkSelect");
-                            if (chkSelect != null && chkSelect.Checked)
-                            {
-                                HiddenField hdnPlanPrice = (HiddenField)item.FindControl("hdnPlanPrice");
-                                if (hdnPlanPrice != null)
-                                {
-                                    planPrice = Convert.ToDecimal(hdnPlanPrice.Value);
-                                    break;
-                                }
-                            }
-                        }
 
                         if (planPrice > 0)
                         {
-                            decimal total = planPrice - discountAmount;
-
-                            lblPlanPrice.Text = "₹" + planPrice.ToString("0.00");
-                            lblDiscountAmount.Text = "₹" + discountAmount.ToString("0.00");
-                            lblTotalAmount.Text = "₹" + total.ToString("0.00");
-                            calculationdiv.Visible = true;
+                            if (discountAmount > 0)
+                            {
+                                decimal total = planPrice - discountAmount;
+                                lblPlanPrice.Text = "₹" + planPrice.ToString("0.00");
+                                lblDiscountAmount.Text = "₹" + discountAmount.ToString("0.00");
+                                lblTotalAmount.Text = "₹" + total.ToString("0.00");
+                                calculationdiv.Visible = true;
+                                lblPromoCodeDiscountAmount.InnerText = $"Promo Discount Amount :";
+                                lblErrorPromoCode.Visible = false;
+                            }
+                            else if (discountPercent > 0)
+                            {
+                                discountAmount = (planPrice * discountPercent) / 100;
+                                decimal total = planPrice - discountAmount;
+                                lblPlanPrice.Text = "₹" + planPrice.ToString("0.00");
+                                lblDiscountAmount.Text = "₹" + discountAmount.ToString("0.00");
+                                lblTotalAmount.Text = "₹" + total.ToString("0.00");
+                                calculationdiv.Visible = true;
+                                lblPromoCodeDiscountAmount.InnerText = $"Promo Discount Amount({discountPercent}%) :";
+                                lblErrorPromoCode.Visible = false;
+                            }
                         }
                         else
                         {
-                            DisplayMessage(this, "No plan selected.");
+                            lblErrorPromoCode.Visible = true;
+                            lblErrorPromoCode.Text = "No plan selected.";
                         }
                     }
                     else
                     {
-                        DisplayMessage(this, "Invalid promo code.");
+                        lblPlanPrice.Text = "₹" + planPrice.ToString("0.00");
+                        lblDiscountAmount.Text = "₹" + "0.00";
+                        lblTotalAmount.Text = "₹" + planPrice.ToString("0.00");
+                        calculationdiv.Visible = true;
+                        lblPromoCodeDiscountAmount.InnerText = $"Promo Discount Amount :";
+                        lblErrorPromoCode.Visible = true;
+                        lblErrorPromoCode.Text = "Invalid promo code.";
                     }
                 }
             }

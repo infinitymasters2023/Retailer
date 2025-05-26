@@ -1,6 +1,20 @@
 ﻿<%@ Page Title="Retailer Profile" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Profile.aspx.cs" Inherits="Patner_Retailer_ADO.Profile" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+
+    <script>
+        function validateMobileNumber(input) {
+            input.value = input.value.replace(/[^\d]/g, '').slice(0, 10);
+        }
+        function validatePincode(input) {
+            input.value = input.value.replace(/\D/g, '');
+            if (input.value.length > 6) {
+                input.value = input.value.slice(0, 6);
+            }
+        }
+    </script>
+
     <style>
         /* Custom CSS for the profile page */
         .profile-panel .row .col-md-3 {
@@ -89,50 +103,103 @@
 
                     <div class="row">
                         <div class="col-md-3">
-                            <asp:Label ID="lblName" runat="server" Text="Name: " />
-                            <asp:Label ID="lblNameValue" runat="server" />
+                            <div style="display: flex;">
+                                <asp:Label ID="lblName" runat="server" Text="Name: " />&nbsp;
+                                <asp:Label ID="lblNameValue" runat="server" />
+                            </div>
+                            <asp:TextBox runat="server" CssClass="form-control" ID="txtFirstName" placeholder="" MaxLength="30" Visible="false" />
+                            <label id="lblFullName" runat="server" visible="false" style="color: red;font-size:12px">First Name is required.</label>
                         </div>
                         <div class="col-md-3">
-                            <asp:Label ID="lblMobileNo" runat="server" Text="Mobile No: " />
-                            <asp:Label ID="lblMobileNoValue" runat="server" />
+                            <div style="display: flex;">
+                                <asp:Label ID="lblMobileNo" runat="server" Text="Mobile No: " />&nbsp;
+                                <asp:Label ID="lblMobileNoValue" runat="server" />
+                            </div>
+                            <asp:TextBox runat="server" CssClass="form-control" ID="txtMobileNumber" placeholder="" MaxLength="10" Visible="false"
+                                pattern="\d{10}" title="Please enter a valid 10-digit mobile number" oninput="validateMobileNumber(this)" />
+                            <label id="lblErrorMobileNo" runat="server" visible="false" style="color: red;font-size:12px">Mobile No is required.</label>
                         </div>
                         <div class="col-md-3">
-                            <asp:Label ID="lblWhatsappNo" runat="server" Text="WhatsApp No: " />
-                            <asp:Label ID="lblWhatsappNoValue" runat="server" />
+                            <div style="display: flex;">
+                                <asp:Label ID="lblWhatsappNo" runat="server" Text="WhatsApp No: " />&nbsp;
+                                <asp:Label ID="lblWhatsappNoValue" runat="server" />
+                            </div>
+                            <asp:TextBox runat="server" CssClass="form-control" ID="txtAlternateMobile" placeholder="" MaxLength="10" Visible="false"
+                                pattern="\d{10}" title="Please enter a valid 10-digit mobile number" oninput="validateMobileNumber(this)" />
                         </div>
                         <div class="col-md-3">
-                            <asp:Label ID="lblEmail" runat="server" Text="Email: " />
-                            <asp:Label ID="lblEmailValue" runat="server" />
+                            <div style="display: flex;">
+                                <asp:Label ID="lblEmail" runat="server" Text="Email: " />&nbsp;
+                                <asp:Label ID="lblEmailValue" runat="server" />
+                            </div>
+                            <asp:TextBox runat="server" CssClass="form-control" ID="txtEmail" TextMode="Email" placeholder="" MaxLength="50" Visible="false" />
+                            <label id="lblEmailAddress" runat="server" visible="false" style="color:red; font-size:12px">Email Id is required.</label>
                         </div>
                         <div class="col-md-3">
-                            <asp:Label ID="lblDOB" runat="server" Text="Date of Birth: " />
-                            <asp:Label ID="lblDOBValue" runat="server" />
-                        </div>
-                        <div class="col-md-3">
-                            <asp:Label ID="lblGender" runat="server" Text="Gender: " />
-                            <asp:Label ID="lblGenderValue" runat="server" />
-                        </div>
-                        <div class="col-md-3">
-                            <asp:Label ID="lblAddress" runat="server" Text="Address: " />
-                            <asp:Label ID="lblAddressValue" runat="server" />
-                        </div>
-                        <div class="col-md-3">
-                            <asp:Label ID="lblCity" runat="server" Text="City: " />
-                            <asp:Label ID="lblCityValue" runat="server" />
-                        </div>
-                        <div class="col-md-3">
-                            <asp:Label ID="lblState" runat="server" Text="State: " />
-                            <asp:Label ID="lblStateValue" runat="server" />
-                        </div>
-                        <div class="col-md-3">
-                            <asp:Label ID="lblPAN" runat="server" Text="PAN No: " />
-                            <asp:Label ID="lblPANValue" runat="server" />
-                        </div>
-                        <div class="col-md-3">
-                            <asp:Label ID="lblAadhar" runat="server" Text="Aadhar No: " />
-                            <asp:Label ID="lblAadharValue" runat="server" />
-                        </div>
+                            <div style="display: flex;">
+                                <asp:Label ID="lblDOB" runat="server" Text="Date of Birth: " />&nbsp;
+                                <asp:Label ID="lblDOBValue" runat="server" />
+                            </div>
+                            <asp:TextBox runat="server" CssClass="form-control" ID="TextBox1" placeholder="" Visible="false"
+                                AutoPostBack="true" AutoCompleteType="Disabled" AutoComplete="off" />
+                            <div class="input-group-append" runat="server" Visible="false">
+                                <span class="input-group-text" style="cursor: pointer;"
+                                    onclick="document.getElementById('<%= TextBox1.ClientID %>').focus();">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                            <cc1:CalendarExtender ID="CalendarExtender3" runat="server" Format="dd-MMM-yyyy"
+                                TargetControlID="TextBox1" EndDate="<%# DateTime.Today %>"></cc1:CalendarExtender>
+                            <label id="lblDateOfBirth" runat="server" visible="false" style="color: red; font-size: 12px">Date of Birth is required.</label>
 
+                        </div>
+                        <div class="col-md-3">
+                            <div style="display: flex;">
+                                <asp:Label ID="lblGender" runat="server" Text="Gender: " />&nbsp;
+                                <asp:Label ID="lblGenderValue" runat="server" />
+                            </div>
+                            <asp:DropDownList ID="ddlGender" runat="server" CssClass="form-control" Visible="false">
+                                <asp:ListItem Text="--Select--" Value=""></asp:ListItem>
+                                <asp:ListItem Text="Male" Value="Male"></asp:ListItem>
+                                <asp:ListItem Text="Female" Value="Female"></asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                        <div class="col-md-3">
+                            <div style="display: flex;">
+                                <asp:Label ID="lblPincode" runat="server" Text="Pin Code: " />&nbsp;
+                                <asp:Label ID="lblPincodeValue" runat="server" />
+                            </div>
+                            <asp:TextBox runat="server" CssClass="form-control" ID="txtPinCode" AutoPostBack="true" OnTextChanged="txtPinCode_TextChanged" placeholder=""
+                                MaxLength="6" title="Enter a 6-digit Pincode" oninput="validatePincode(this)" Visible="false" />
+                            <label id="lblErrorPincode" runat="server" visible="false" style="color: red; font-size:12px">PIN Code is required.</label>
+                        </div>
+                        <div class="col-md-3">
+                            <div style="display: flex;">
+                                <asp:Label ID="lblCity" runat="server" Text="City: " />&nbsp;
+                                <asp:Label ID="lblCityValue" runat="server" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div style="display: flex;">
+                                <asp:Label ID="lblState" runat="server" Text="State: " />&nbsp;
+                                <asp:Label ID="lblStateValue" runat="server" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div style="display: flex;">
+                                <asp:Label ID="lblAddress" runat="server" Text="Address: " />&nbsp;
+                                <asp:Label ID="lblAddressValue" runat="server" />
+                            </div>
+                            <asp:TextBox runat="server" CssClass="form-control" ID="txtAddress" TextMode="MultiLine" Rows="3" placeholder="" MaxLength="150" Visible="false" />
+                            <label id="lblCurrentAddress" runat="server" visible="false" style="color:red; font-size:12px">Address is required.</label>
+                        </div>
+                    </div>
+                    <div class="row" style="text-align: end;">
+                        <div class="col-md-12">
+                            <asp:Button ID="btnEditProfile" runat="server" Text="Edit Profile" CssClass="btn btn-primary" OnClick="btnEditProfile_Click" />
+                            <asp:Button ID="btnCancelProfile" runat="server" Text="Cancel" CssClass="btn btn-danger" Visible="false" OnClick="btnCancelProfile_Click" />
+                            <asp:Button ID="btnUpdateProfile" runat="server" Text="Update Profile" CssClass="btn btn-primary" Visible="false" OnClick="btnUpdateProfile_Click" />
+                        </div>
                     </div>
                 </div>
 
@@ -145,12 +212,18 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="mb-0">Bank Details </h5>
-
+                            <div class="col-md-12" style="display: flex;">
+                                <div class="col-md-11">
+                                    <h5 class="mb-0">Bank Details </h5>
+                                </div>
+                                <div class="col-md-1">
+                                    <asp:Button ID="btnAddBank" runat="server" class="btn btn-primary" Text="Add Bank" OnClick="btnAddBank_Click" />
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <asp:Repeater ID="RepeaterBankDetails" runat="server">
+                                <asp:Repeater ID="RepeaterBankDetails" runat="server" OnItemCommand="RepeaterBankDetails_ItemCommand">
                                     <HeaderTemplate>
                                         <table id="example44" class="table-responsive table data-table table-striped table-bordered nowrap" style="width: 100%">
                                             <thead>
@@ -164,6 +237,7 @@
                                                     <th>Account Holder Name</th>
                                                     <th>Created Date</th>
                                                     <th>IP Address</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -179,6 +253,17 @@
                                             <td><%# Eval("AccountHolderName") %></td>
                                             <td><%# Eval("CreatedDate", "{0:dd-MMM-yyyy}") %></td>
                                             <td><%# Eval("IPAddress") %></td>
+                                            <td>
+                                                <asp:LinkButton ID="lnkEdit" runat="server" CommandName="EditBank" CommandArgument='<%# Eval("Mid") %>'
+                                                    ToolTip="Edit" CssClass="btn btn-sm btn-warning">
+                                                <i class="fa fa-edit"></i>
+                                                </asp:LinkButton>
+                                                &nbsp;
+                                                <asp:LinkButton ID="lnkDelete" runat="server" CommandName="DeleteBank" CommandArgument='<%# Eval("Mid") %>'
+                                                    ToolTip="Delete" CssClass="btn btn-sm btn-danger" OnClientClick="return confirm('Are you sure you want to delete this record?');">
+                                                    <i class="fa fa-trash"></i>
+                                                </asp:LinkButton>
+                                            </td>
                                         </tr>
                                     </ItemTemplate>
                                     <FooterTemplate>
@@ -205,12 +290,18 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="mb-0">Dealer Details</h5>
-
+                            <div class="col-md-12" style="display: flex;">
+                                <div class="col-md-11">
+                                    <h5 class="mb-0">Dealer Details</h5>
+                                </div>
+                                <div class="col-md-1">
+                                    <asp:Button ID="btnAddDealer" runat="server" class="btn btn-primary" Text="Add Dealer" OnClick="btnAddDealer_Click" />
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <asp:Repeater ID="RepeaterEmployeeDetails" runat="server">
+                                <asp:Repeater ID="RepeaterEmployeeDetails" runat="server" OnItemCommand="RepeaterDealerDetails_ItemCommand">
                                     <HeaderTemplate>
                                         <div class="table-responsive">
                                             <table id="example45" class="table-responsive table data-table table-striped table-bordered nowrap" style="width: 100%">
@@ -222,6 +313,7 @@
                                                         <th>Address Line 1</th>
                                                         <th>City</th>
                                                         <th>State</th>
+                                                        <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -234,6 +326,17 @@
                                             <td><%# Eval("AddressLine1") %></td>
                                             <td><%# Eval("City") %></td>
                                             <td><%# Eval("State") %></td>
+                                            <td>
+                                                <asp:LinkButton ID="lnkEditDealer" runat="server" CommandName="EditDealer" CommandArgument='<%# Eval("Mid") %>'
+                                                    ToolTip="Edit" CssClass="btn btn-sm btn-warning">
+                                                    <i class="fa fa-edit"></i>
+                                                </asp:LinkButton>
+                                                &nbsp;
+                                                <asp:LinkButton ID="lnkDeleteDealer" runat="server" CommandName="DeleteDealer" CommandArgument='<%# Eval("Mid") %>'
+                                                    ToolTip="Delete" CssClass="btn btn-sm btn-danger" OnClientClick="return confirm('Are you sure you want to delete this record?');">
+                                                    <i class="fa fa-trash"></i>
+                                                </asp:LinkButton>
+                                            </td>
                                         </tr>
                                     </ItemTemplate>
                                     <FooterTemplate>
@@ -255,11 +358,19 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Uploaded Documents</h5>
+                            <div class="col-md-12" style="display: flex;">
+                                <div class="col-md-11">
+
+                                    <h5 class="mb-0">Uploaded Documents</h5>
+                                </div>
+                                <div class="col-md-1">
+                                    <asp:Button ID="btnUploadDocument" runat="server" class="btn btn-primary" Text="Add Documents" OnClick="btnUploadDocument_Click" />
+                                </div>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <asp:Repeater ID="rptDocuments" runat="server">
+                                <asp:Repeater ID="rptDocuments" runat="server" OnItemCommand="RepeaterDocumentDetails_ItemCommand">
                                     <HeaderTemplate>
                                         <table class="table-responsive table data-table table-striped table-bordered nowrap">
                                             <thead class="thead-dark">
@@ -271,6 +382,7 @@
                                                     <th>Status</th>
                                                     <th>Action By</th>
                                                     <th>Action Date</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -285,6 +397,17 @@
                                             <td><%# Eval("Status") %></td>
                                             <td><%# Eval("ActionBy") %></td>
                                             <td><%# Eval("ActionDate") %></td>
+                                            <td>
+                                                <asp:LinkButton ID="lnkEditDoc" runat="server" CommandName="Editdoc" CommandArgument='<%# Eval("Mid") %>'
+                                                    ToolTip="Edit" CssClass="btn btn-sm btn-warning">
+                                                    <i class="fa fa-edit"></i>
+                                                </asp:LinkButton>
+                                                &nbsp;
+                                                <asp:LinkButton ID="lnkDeleteDoc" runat="server" CommandName="Deletedoc" CommandArgument='<%# Eval("Mid") %>'
+                                                    ToolTip="Delete" CssClass="btn btn-sm btn-danger" OnClientClick="return confirm('Are you sure you want to delete this record?');">
+                                                    <i class="fa fa-trash"></i>
+                                                </asp:LinkButton>
+                                            </td>
                                         </tr>
                                     </ItemTemplate>
                                     <FooterTemplate>

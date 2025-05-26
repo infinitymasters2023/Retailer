@@ -227,9 +227,9 @@
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
                                 <label for="validationCustom01">Problem Reported (Detailed Description Required)<span style="color: red;"> *</span> </label>
                                 <textarea class="form-control validate-group" id="txtProblemDesc" runat="server" placeholder="Problem Reported (Voice of Customer - as he / she reports)"
-                                    maxlength="150" oninput="validateProblemWords()"></textarea>
-                                <span id="problemError" style="color: red;"></span>
-                                <asp:Label ID="lblProblemDesc" runat="server" ForeColor="Red" Visible="false" />                                
+                                    maxlength="250" oninput="validateProblemWords()"></textarea>
+                                <span id="problemError" style="color: red;font-size:13px;"></span>
+                                <asp:Label ID="lblProblemDesc" runat="server" ForeColor="Red" Font-Size="13px" Visible="false" />                                
                             </div>
                         </div>
 
@@ -252,7 +252,7 @@
                                         <label class="form-check-label" for="rdoBoth">Both</label>
                                     </div>
                                 </div>
-                                <asp:Label ID="lblDamageType" runat="server" Visible="false"  style="color: red;"></asp:Label>
+                                <asp:Label ID="lblDamageType" runat="server" Visible="false"  style="color: red;font-size:13px;"></asp:Label>
                             </div>
 
 
@@ -268,7 +268,7 @@
                                         <label class="form-check-label" for="rdoPhysical">No</label>
                                     </div>
                                 </div>
-                                <asp:Label ID="lblDeviceSwitchOn" runat="server" Visible="false"  style="color: red;"></asp:Label>
+                                <asp:Label ID="lblDeviceSwitchOn" runat="server" Visible="false"  style="color: red;" Font-Size="13px"></asp:Label>
                             </div>
                         </div>
 
@@ -283,7 +283,7 @@
                                     <asp:ListItem Text="Back Cover"></asp:ListItem>
                                     <asp:ListItem Text="Others"></asp:ListItem>
                                 </asp:CheckBoxList>
-                                 <asp:Label ID="lblDefectiveParts" runat="server" Visible="false"  style="color: red;"></asp:Label>
+                                 <asp:Label ID="lblDefectiveParts" runat="server" Visible="false"  Font-Size="13px" style="color: red;"></asp:Label>
                             </div>
 
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mb-3">
@@ -298,7 +298,7 @@
                                         <label class="form-check-label" for="rdoPhysical">No</label>
                                     </div>
                                 </div>
-                                <asp:Label ID="lblTouchWorking" runat="server" Visible="false"  style="color: red;"></asp:Label>
+                                <asp:Label ID="lblTouchWorking" runat="server" Visible="false" Font-Size="13px" style="color: red;"></asp:Label>
                             </div>
                         </div>
 
@@ -321,21 +321,21 @@
                                             targetcontrolid="txtDamageDate" enddate="<%# DateTime.Today %>">
                                         </cc1:calendarextender>
                                             </div>
-                                         <asp:Label ID="lblDamageDate" runat="server" Visible="false"  style="color: red; "></asp:Label>
+                                         <asp:Label ID="lblDamageDate" runat="server" Visible="false" Font-Size="13px" style="color: red; "></asp:Label>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mb-3">
                                          <asp:TextBox ID="txtDamageTime" data-provide="timepicker" placeholder="Damage Time" TextMode="Time"
                                              runat="server" autocomplete="off" CssClass="form-control timepicker" MaxLength="12">
                                          </asp:TextBox>   
-                                        <asp:Label ID="lblDamageTime" runat="server" Visible="false"  style="color: red;"></asp:Label>
+                                        <asp:Label ID="lblDamageTime" runat="server" Visible="false" Font-Size="13px" style="color: red;"></asp:Label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mb-3">
                                 <label for="validationCustom01">Place of Damage <span style="color: red;">*</span></label>
-                               <asp:TextBox ID="txtPlaceOfDamage" runat="server" CssClass="form-control" placeholder="Place of Damage"></asp:TextBox>
-                                <asp:Label ID="lblPlaceOfDamage" runat="server" Visible="false"  style="color: red;"></asp:Label>
+                               <asp:TextBox ID="txtPlaceOfDamage" runat="server" CssClass="form-control" placeholder="Place of Damage" MaxLength="50"></asp:TextBox>
+                                <asp:Label ID="lblPlaceOfDamage" runat="server" Visible="false" Font-Size="13px" style="color: red;"></asp:Label>
                             </div>
                         </div>
                         <div class="row">

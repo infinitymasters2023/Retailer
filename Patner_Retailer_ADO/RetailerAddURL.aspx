@@ -115,7 +115,7 @@
                                </div>
                            </div>
                         <cc1:CalendarExtender ID="CalendarExtender1" runat="server"
-                            Format="dd-MMM-yyyy"
+                            Format="dd-MMM-yyyy" StartDate="<%# DateTime.Today %>"
                             TargetControlID="expiryDate"></cc1:CalendarExtender>
                     </div>
                     <div class="form-group">

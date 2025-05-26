@@ -463,7 +463,7 @@
                                 <hr />
                                 <div id="ApplyPromoCodePanel" runat="server">
                                     <div class="row">
-                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-2 col-3">
+                                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2 ">
                                         </div>
                                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 ">
                                             <input type="text" class="form-control" id="txtPromoDiscount" runat="server" placeholder="Apply Your Promo Code">
@@ -471,7 +471,9 @@
                                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 ">
                                             <asp:Button ID="btnApplyPromoCode" class="btn btn-primary" runat="server" AutoPostBack="true" OnClick="ApplyPromoCode" Text="Apply" />
                                         </div>
-
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 " style="text-align: end;">
+                                            <asp:Label ID="lblErrorPromoCode" ForeColor="Red" runat="server"></asp:Label>
+                                        </div>
                                     </div>
                                     <div runat="server" id="calculationdiv" visible="false">
                                         <div class="row mt-3" style="text-align: right;">
@@ -487,7 +489,7 @@
                                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"></div>
                                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12"></div>
                                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
-                                                <label>Promo Discount Amount : </label>
+                                                <label id="lblPromoCodeDiscountAmount" runat="server">Promo Discount Amount : </label>
                                                 <strong>
                                                     <asp:Label ID="lblDiscountAmount" runat="server"></asp:Label></strong>
                                             </div>
