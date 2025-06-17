@@ -200,6 +200,28 @@ namespace Patner_Retailer_ADO
                 }
             }
 
+            string selectedWarranty = "";
+
+            if (rb3M.Checked)
+                selectedWarranty = "00/03/00";
+            else if (rb6M.Checked)
+                selectedWarranty = "00/06/00";
+            else if (rb1Y.Checked)
+                selectedWarranty = "01/00/00";
+            else if (rb2Y.Checked)
+                selectedWarranty = "02/00/00";
+            else if (rb3Y.Checked)
+                selectedWarranty = "03/00/00";
+            else if (rbCustom.Checked)
+            {
+                string year = string.IsNullOrEmpty(ddlCustomYears.SelectedValue) ? "00" : ddlCustomYears.SelectedValue;
+                string month = string.IsNullOrEmpty(ddlCustomMonths.SelectedValue) ? "00" : ddlCustomMonths.SelectedValue;
+                string day = string.IsNullOrEmpty(ddlCustomDays.SelectedValue) ? "00" : ddlCustomDays.SelectedValue;
+
+                selectedWarranty = $"{year}/{month}/{day}";
+            }
+
+
             using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -225,7 +247,7 @@ namespace Patner_Retailer_ADO
                 cmd.Parameters.AddWithValue("@PromoDiscount", !string.IsNullOrWhiteSpace(lblDiscountAmount.Text) ? Convert.ToDecimal(lblDiscountAmount.Text.Replace("₹", "").Trim().ToString()) : 0);
                 cmd.Parameters.AddWithValue("@PlanTotalValue", !string.IsNullOrWhiteSpace(lblTotalAmount.Text) ? Convert.ToDecimal(lblTotalAmount.Text.Replace("₹", "").Trim().ToString()) : 0);
                 cmd.Parameters.AddWithValue("@DateofImplementation", !string.IsNullOrWhiteSpace(txtDateOfImpl.Text) ? Convert.ToDateTime(txtDateOfImpl.Text.ToString()) : DateTime.Now);
-                cmd.Parameters.AddWithValue("@ManufacturerWarranty_yymmdd", validationCustom09.Text.ToString() + "/" + validationCustom010.Text.ToString() + "/" + validationCustom011.Text.ToString());
+                cmd.Parameters.AddWithValue("@ManufacturerWarranty_yymmdd", selectedWarranty);
                 cmd.Parameters.AddWithValue("@PlanSKU", SKU);
                 cmd.Parameters.AddWithValue("@SalesOrderID", Session["salesOrderID"] != null ? Session["salesOrderID"].ToString() : null);
                 cmd.Parameters.AddWithValue("@Customer_OrderID", Session["Customerorder"] != null ? Session["Customerorder"].ToString() : null);
@@ -240,6 +262,7 @@ namespace Patner_Retailer_ADO
                         Session["salesOrderID"] = salesOrderID;
                         Session["Customerorder"] = Customerorder;
                         Response.Redirect("CartDetails.aspx?salesorder=" + salesOrderID);
+                        Session["CustomerName"] = txtCustomerName.Text;
                     }
                 }
             }
@@ -273,6 +296,25 @@ namespace Patner_Retailer_ADO
             }
             else
                 ddlBrand.BorderColor = System.Drawing.Color.LightGray;
+
+            if (rb3M.Checked || rb6M.Checked || rb1Y.Checked || rb2Y.Checked || rb3Y.Checked)
+                lblWarrantyError.Text = "";
+            else if(rbCustom.Checked)
+            {
+                if (ddlCustomYears.SelectedValue == "")
+                {
+                    lblCustomYearsError.Text = "Custom Year is required";
+                    lblWarrantyError.Text = "";
+                    count = count + 1;
+                }
+            }
+            else
+            {
+                lblWarrantyError.Text = "Manufacture Warranty is required";
+                count = count + 1;
+            }
+
+
             if (count > 0)
             {
                 return;
@@ -301,9 +343,17 @@ namespace Patner_Retailer_ADO
                 txtSerialNo.Enabled = false;
                 txtimeiNo.Enabled = false;
                 txtDateOfImpl.Enabled = false;
-                validationCustom09.Enabled = false;
-                validationCustom010.Enabled = false;
-                validationCustom011.Enabled = false;
+                //validationCustom09.Enabled = false;
+                //validationCustom010.Enabled = false;
+                //validationCustom011.Enabled = false;
+                rb3M.Enabled = false;
+                rb6M.Enabled = false;
+                rb1Y.Enabled = false;
+                rb2Y.Enabled = false;
+                rb3Y.Enabled = false;
+                ddlCustomYears.Enabled = false;
+                ddlCustomMonths.Enabled = false;
+                ddlCustomDays.Enabled = false;
                 txtCustomerEmail.Enabled = false;
                 txtCustomerMobile.Enabled = false;
 
@@ -432,6 +482,7 @@ namespace Patner_Retailer_ADO
                     btnSubmitOTP.Visible = false;
                     lblOTPSend.Visible = false;
                     lnkResendOTP.Visible = false;
+                    OTPPanel.Visible = false;
                     BindPlanData();
 
                     if (rptPlans.Items.Count > 0)
@@ -456,6 +507,11 @@ namespace Patner_Retailer_ADO
             txtPromoDiscount.Focus();
             lblErrorPromoCode.Visible = false;
 
+            ApplyPromoCode(sender, e);
+            lblErrorPromoCode.Visible = false;
+            PromoCodeDiv.Visible = false;
+            //BindAddOnsData();
+            //AddOnsDiv.Visible = true;
         }
 
         protected void bindSerielNo()
@@ -495,10 +551,18 @@ namespace Patner_Retailer_ADO
             txtPurchaseDate.Enabled = true;
             ddlBrand.Enabled = true;
             txtModel.Enabled = true;
-            validationCustom06.Enabled = true;                        
-            validationCustom09.Enabled = true;
-            validationCustom010.Enabled = true;
-            validationCustom011.Enabled = true;
+            validationCustom06.Enabled = true;
+            //validationCustom09.Enabled = true;
+            //validationCustom010.Enabled = true;
+            //validationCustom011.Enabled = true;
+            rb3M.Enabled = true;
+            rb6M.Enabled = true;
+            rb1Y.Enabled = true;
+            rb2Y.Enabled = true;
+            rb3Y.Enabled = true;
+            ddlCustomYears.Enabled = true;
+            ddlCustomMonths.Enabled = true;
+            ddlCustomDays.Enabled = true;
             txtCustomerEmail.Enabled = true;
             txtCustomerMobile.Enabled = true;
             lblOTPSend.Visible = false;
@@ -570,6 +634,7 @@ namespace Patner_Retailer_ADO
                                 calculationdiv.Visible = true;
                                 lblPromoCodeDiscountAmount.InnerText = $"Promo Discount Amount :";
                                 lblErrorPromoCode.Visible = false;
+                                PromoCodeDiv.Visible = true;
                             }
                             else if (discountPercent > 0)
                             {
@@ -581,6 +646,7 @@ namespace Patner_Retailer_ADO
                                 calculationdiv.Visible = true;
                                 lblPromoCodeDiscountAmount.InnerText = $"Promo Discount Amount({discountPercent}%) :";
                                 lblErrorPromoCode.Visible = false;
+                                PromoCodeDiv.Visible = true;
                             }
                         }
                         else
@@ -611,6 +677,162 @@ namespace Patner_Retailer_ADO
                     con.Close();
             }
         }
+
+        private void BindAddOnsData()
+        {
+            using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@type", 34);
+                cmd.Parameters.AddWithValue("@ProductType", ddlProductType.SelectedValue);
+                cmd.Parameters.AddWithValue("@ProductSubCat", ddlsubcatg.SelectedValue);
+                cmd.Parameters.AddWithValue("@Brand", ddlBrand.SelectedValue.ToString());
+
+                con.Open();
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                con.Close();
+
+                if (dt.Rows.Count > 0)
+                {
+                    rptAddOns.DataSource = dt;
+                    rptAddOns.DataBind();
+                }
+                else
+                {
+                    AddOnsDiv.Visible = false;
+                    rptAddOns.DataSource = null;
+                    rptAddOns.DataBind();
+                }
+            }
+        }
+
+        protected void chkSelect_AddOnsChanged(object sender, EventArgs e)
+        {
+            decimal totalAddOnPrice = 0;
+
+            foreach (RepeaterItem item in rptAddOns.Items)
+            {
+                CheckBox chk = (CheckBox)item.FindControl("chkAddOnsSelect");
+                HiddenField hdnAddOnsId = (HiddenField)item.FindControl("hdnAddOnsId");
+
+                if (chk.Checked)
+                {
+                    Label lblAddOnFinalPrice = (Label)item.FindControl("lblFinalPrice");
+                    if (lblAddOnFinalPrice != null)
+                    {
+                        decimal price = 0;
+                        decimal.TryParse(lblAddOnFinalPrice.Text.Replace("₹", "").Trim(), out price);
+                        totalAddOnPrice += price;
+                    }
+                }
+            }
+
+            decimal basePlanPrice = 0;
+            decimal.TryParse(lblPlanPrice.Text.Replace("₹", "").Trim(), out basePlanPrice);
+            decimal promoDiscount = 0;
+            decimal.TryParse(lblDiscountAmount.Text.Replace("₹", "").Trim(), out promoDiscount);
+
+            decimal total = basePlanPrice + totalAddOnPrice - promoDiscount;
+            lblTotalAmount.Text = "₹" + total.ToString("N2");
+
+            calculationdiv.Visible = true;
+        }
+        protected void WarrantyChanged(object sender, EventArgs e)
+        {
+            lbl3M.CssClass = "btn btn-outline-primary";
+            lbl6M.CssClass = "btn btn-outline-primary";
+            lbl1Y.CssClass = "btn btn-outline-primary";
+            lbl2Y.CssClass = "btn btn-outline-primary";
+            lbl3Y.CssClass = "btn btn-outline-primary";
+            lblCustom.CssClass = "btn btn-outline-warning";
+
+            if (rb3M.Checked)
+            {
+                lbl3M.CssClass += " selectWarranty";
+                customWarrantyDiv.Visible = false;
+            }
+            else if (rb6M.Checked)
+            {
+                lbl6M.CssClass += " selectWarranty";
+                customWarrantyDiv.Visible = false;
+            }
+            else if (rb1Y.Checked)
+            {
+                lbl1Y.CssClass += " selectWarranty";
+                customWarrantyDiv.Visible = false;
+            }
+            else if (rb2Y.Checked)
+            {
+                lbl2Y.CssClass += " selectWarranty";
+                customWarrantyDiv.Visible = false;
+            }
+            else if (rb3Y.Checked)
+            {
+                lbl3Y.CssClass += " selectWarranty";
+                customWarrantyDiv.Visible = false;
+            }
+            else if (rbCustom.Checked)
+            {
+                lblCustom.CssClass += " selectCustomWarranty";
+                customWarrantyDiv.Visible = true;
+
+                if (ddlCustomYears.Items.Count <= 1)
+                {
+                    for (int i = 1; i <= 10; i++)
+                    {
+                        string value = i.ToString("D2");
+                        ddlCustomYears.Items.Add(new ListItem(value, value));
+                    }
+                }
+                else
+                {
+                    ddlCustomYears.SelectedIndex = 0;
+                }
+
+                if (ddlCustomMonths.Items.Count <= 1)
+                {
+                    for (int i = 0; i <= 12; i++)
+                    {
+                        string value = i.ToString("D2");
+                        ddlCustomMonths.Items.Add(new ListItem(value, value));
+                    }
+                }
+                else
+                    ddlCustomMonths.SelectedIndex = 0;
+
+                if (ddlCustomDays.Items.Count <= 1)
+                {
+                    for (int i = 0; i <= 31; i++)
+                    {
+                        string value = i.ToString("D2");
+                        ddlCustomDays.Items.Add(new ListItem(value, value));
+                    }
+                }
+                else
+                    ddlCustomDays.SelectedIndex = 0;
+            }
+        }
+        protected void ValidateWarranty(object source, ServerValidateEventArgs args)
+        {
+            if (rb3M.Checked || rb6M.Checked || rb1Y.Checked || rb2Y.Checked || rb3Y.Checked)
+            {
+                args.IsValid = true;
+            }
+            else if (rbCustom.Checked)
+            {
+                args.IsValid = !string.IsNullOrEmpty(ddlCustomYears.SelectedValue);
+            }
+            else
+            {
+                args.IsValid = false;
+            }
+        }
+
+
+
+
 
     }
 }

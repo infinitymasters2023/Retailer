@@ -186,15 +186,6 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.TextBox TextBox1;
 
         /// <summary>
-        /// CalendarExtender3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender3;
-
-        /// <summary>
         /// lblDateOfBirth control.
         /// </summary>
         /// <remarks>

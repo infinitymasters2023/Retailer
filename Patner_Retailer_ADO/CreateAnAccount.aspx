@@ -85,7 +85,7 @@
                                                     </li>
                                                     <li role="presentation" class="disabled">
                                                         <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab"
-                                                            aria-expanded="true"><span class="round-tab"></span><i>Delear Info</i>
+                                                            aria-expanded="true"><span class="round-tab"></span><i>Dealer Info</i>
                                                         </a>
                                                     </li>
 
@@ -128,10 +128,25 @@
                                                                     <label id="lblSellerGSTIN" visible="false" runat="server" style="color:red; font-size:12px">GSTIN is required.</label>
                                                                 </div>
                                                             </div>
-
                                                             <div class="col-md-6">
-                                                                <div class="row mb-3">
-                                                                    <div class="col-md-6">
+                                                                <div class="form-group mb-3">
+                                                                    <label class="mb-1">Official Mobile No.  <span style="color: red">*</span> </label>
+                                                                    <asp:TextBox runat="server" CssClass="form-control" ID="txtOfficialMobileNo" placeholder="" MaxLength="10"
+                                                                        pattern="\d{10}" title="Please enter a valid 10-digit mobile number" oninput="validateMobileNumber(this)">
+                                                                    </asp:TextBox>
+                                                                    <label id="Label1" runat="server" visible="false" style="color: red; font-size: 12px">Mobile No is required.</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group mb-3">
+                                                                    <label class="mb-1">Official Email Id  <span style="color: red">*</span> </label>
+                                                                    <asp:TextBox runat="server" CssClass="form-control" ID="txtOfficialEmail" TextMode="Email" placeholder="" MaxLength="50"></asp:TextBox>
+                                                                    <label id="Label2" runat="server" visible="false" style="color: red; font-size: 12px">Email Id is required.</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="row mb-12">
+                                                                    <div class="col-md-4">
                                                                         <div class="form-group">
                                                                             <label class="mb-1">PIN Code <span style="color: red">*</span> </label>
                                                                             <asp:TextBox runat="server" CssClass="form-control" ID="txtSellerPincode" AutoPostBack="true" OnTextChanged="txtSellerPinCode_TextChanged" placeholder=""
@@ -140,18 +155,32 @@
                                                                             <label id="lblSellerPINCode" visible="false" runat="server" style="color:red; font-size:12px">PIN Code is required.</label>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-md-4">
                                                                         <div class="form-group">
                                                                             <label class="mb-2 mt-2 mt-lg-0">City</label>
                                                                             <asp:Label ID="lblSellerCity" CssClass="d-block" runat="server"></asp:Label>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group mb-3">
+                                                                            <label class="mb-2 mt-0 mt-lg-0">State</label>
+                                                                            <asp:Label ID="lblSellerState" CssClass="d-block" runat="server"></asp:Label>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-6">
-                                                                <div class="form-group mb-3">
-                                                                    <label class="mb-2 mt-0 mt-lg-0">State</label>
-                                                                    <asp:Label ID="lblSellerState" CssClass="d-block" runat="server"></asp:Label>
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label class="mb-1">Firm Type <span style="color: red">*</span> </label>
+                                                                    <asp:DropDownList ID="ddlFirmType" runat="server" CssClass="form-control">
+                                                                        <asp:ListItem Text="--Select--" Value=""></asp:ListItem>
+                                                                        <asp:ListItem Text="Proprietorship" Value="Proprietorship"></asp:ListItem>
+                                                                        <asp:ListItem Text="OPC" Value="OPC"></asp:ListItem>
+                                                                        <asp:ListItem Text="LLP" Value="LLP"></asp:ListItem>
+                                                                        <asp:ListItem Text="Private Limited" Value="Private Limited"></asp:ListItem>
+                                                                        <asp:ListItem Text="Limited" Value="Limited"></asp:ListItem>
+                                                                        <asp:ListItem Text="Individual / Freelancer" Value="Individual / Freelancer"></asp:ListItem>
+                                                                    </asp:DropDownList>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
@@ -206,17 +235,16 @@
                                                                     <asp:TextBox runat="server" CssClass="form-control" ID="txtMobileNumber" placeholder="" MaxLength="10"
                                                                         pattern="\d{10}" title="Please enter a valid 10-digit mobile number" oninput="validateMobileNumber(this)">
                                                                     </asp:TextBox>
+                                                                    <asp:CheckBox ID="chkMobileNumberWhatsApp" runat="server" Text="Same number for WhatsApp" />
                                                                     <label id="lblMobileNo" runat="server" visible="false" style="color: red;font-size:12px">Mobile No is required.</label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group mb-3">
-                                                                    <label class="mb-1">
-                                                                        Alternate Mobile No / WhatsApp
-                                                                    No</label>
+                                                                    <label class="mb-1">Alternate Mobile No</label>
                                                                     <asp:TextBox runat="server" CssClass="form-control" ID="txtAlternateMobile" placeholder="" MaxLength="10"
-                                                                        pattern="\d{10}" title="Please enter a valid 10-digit mobile number" oninput="validateMobileNumber(this)">
-                                                                    </asp:TextBox>
+                                                                        pattern="\d{10}" title="Please enter a valid 10-digit mobile number" oninput="validateMobileNumber(this)"></asp:TextBox>
+                                                                    <asp:CheckBox ID="chkAlternativeMobileNumber" runat="server" Text="Same number for WhatsApp" />
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -323,7 +351,8 @@
                                                                 <div class="form-group mb-3">
                                                                     <label class="mb-1">Account Number <span style="color: red">*</span></label>
                                                                     <asp:TextBox runat="server" CssClass="form-control" ID="txtAccountNumber" placeholder="" MaxLength="20"
-                                                                        oninput="validateAccountNumber(this); validateConfirmAccountNumber();">
+                                                                        oninput="validateAccountNumber(this); validateConfirmAccountNumber();"
+                                                                        onpaste="return false;" oncopy="return false;" oncut="return false;" TextMode="Password">
                                                                     </asp:TextBox>
                                                                     <asp:Label ID="lblAccountNumber" runat="server" ClientIDMode="Static" Style="display: none;font-size:12px" ForeColor="Red">Account Number is required.</asp:Label>
                                                                 </div>
@@ -332,7 +361,7 @@
                                                                 <div class="form-group mb-3">
                                                                     <label class="mb-1">Confirm Account Number <span style="color: red">*</span></label>
                                                                     <asp:TextBox runat="server" CssClass="form-control" ID="txtConfirmAccountNumber" placeholder="" MaxLength="20"
-                                                                        oninput="validateConfirmAccountNumber();">
+                                                                        oninput="validateConfirmAccountNumber();" onpaste="return false;" oncopy="return false;" oncut="return false;" TextMode="Password">
                                                                     </asp:TextBox>
                                                                     <asp:Label ID="lblConfirmAccountNumber" runat="server" ClientIDMode="Static" Style="display: none;font-size:12px" ForeColor="Red">Confirm Account Number is required.</asp:Label>
                                                                 </div>
@@ -405,6 +434,8 @@
                                                                         <div class="form-group">
                                                                             <label class="mb-1">File</label>
                                                                             <asp:FileUpload runat="server" ID="fuFrontSide" CssClass="form-control" />
+                                                                            <asp:Label ID="lblDocument" runat="server" Text="Document is required." ForeColor="Red" Visible="false"></asp:Label>
+                                                                            <p class="text-danger mt-2"><strong>Note<sup>*</sup></strong> jpg, jpeg, png and pdf format is acceptable.</p>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-4">

@@ -160,7 +160,7 @@ body {
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
-    color: #71748d;
+   /* color: #71748d;*/
     background-color: #efeff6 !important;
     -webkit-font-smoothing: antialiased;
 }
@@ -1939,9 +1939,10 @@ Container / Wrapper
 .dashboard-wrapper {
     position: relative;
     /* left: 20px; */
-    margin-left: 245px;
+    margin-left: 260px;
     /* min-height: 870px !important; */
-    width: calc(100% - 245px);
+    width: calc(100% - 282px);
+    margin-top: 20px;
 }
 
 .dashboard-content {
@@ -3214,14 +3215,14 @@ btn-link
     /*-webkit-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
     -moz-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);*/
     box-shadow: none;
-    margin: 20px;
+    /*margin: 20px;*/
 }
 
 .card-header {
-    background-color: #fff;
-    border-bottom: 1px solid #e6e6f2;
+    background-color: #fff !important;
+    border-bottom: 1px solid #e6e6f2 !important;
+    padding: 12px 15px !important;
 }
-
 .card-title {}
 
 .card-subtitle {
@@ -4513,15 +4514,11 @@ Pills vertical
 }
 
 .table thead th {
-    vertical-align: bottom;
+    vertical-align: middle;
     border-bottom: 2px solid #e6e6f2;
-    max-width: 350px;
-    min-width: 220px;
     font-size: 12px;
 }
 .table thead th:first-child {
-    max-width: 350px;
-    min-width: 70px;
     font-size: 12px;
 }
 
@@ -6990,7 +6987,11 @@ Media Query
     padding: 17px 29px;}
 }
 
-
+.generate-url-button {
+    position: absolute;
+    right: 20px;
+    top: 18px;
+}
 
 
 /* Custom, iPhone Retina */

@@ -4,59 +4,125 @@
 <!DOCTYPE html>
 
 <html>
-<head  runat="server">
+<head runat="server">
     <title>Retailer Buy Infy Sale Plan</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
     <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
+  <link href="../assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+  <%--<link rel="stylesheet" href="../assets/libs/css/style.css">--%>
+  <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/dataTables.bootstrap4.css">
+  <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/buttons.bootstrap4.css">
+  <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/select.bootstrap4.css">
+  <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/fixedHeader.bootstrap4.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css" />
 
+  <style>
+     .custom-select-with-caret {
+         position: relative;
+     }
 
-    <style>
-        .custom-select-with-caret {
-            position: relative;
-        }
+         .custom-select-with-caret select {
+             appearance: none;
+             -webkit-appearance: none;
+             -moz-appearance: none;
+             padding-right: 2rem; /* space for caret */
+             background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+             background-repeat: no-repeat;
+             background-position: right 0.75rem center;
+             background-size: 1.8rem;
+         }
 
-            .custom-select-with-caret select {
-                appearance: none;
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                padding-right: 2rem; /* space for caret */
-                background-image: url('data:image/svg+xml;utf8,<svg fill="black" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
-                background-repeat: no-repeat;
-                background-position: right 0.75rem center;
-                background-size: 1.8rem;
-            }
-        .input-group-append, .input-group-prepend {
-            display: flex;
-        }
-        .plan-card {
-            background: #f6f6f6;
-            border: 1px solid #e2e2e2;
-            padding: 15px;
-            border-radius: 10px;
-        }
+     .plan-card {
+         background: #ffffff;
+         border: 1px solid #e2e2e2;
+         padding: 0px;
+         border-radius: 10px;
+         min-height: 215px;
+         box-shadow: 0px 0px 5px #d1d1d1;
+     }
 
-            .plan-card h2 {
-                font-size: 18px;
-                font-weight: 500;
-            }
+         .plan-card h2 {
+             font-size: 16px;
+             font-weight: 500;
+             padding: 10px 15px;
+             margin-bottom: 0;
+         }
 
-        .plan-price {
-            display: flex;
-            justify-content: space-between;
-        }
+     .logo-parts {
+         background: #ceebe0;
+         padding: 5px 15px;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+     }
 
-        .price-txt, .price-amount {
-            font-size: 16px;
-            font-weight: 700;
-        }
-    </style>
+     .plan-price {
+         display: flex;
+         justify-content: space-between;
+         padding: 0px 15px 15px 15px;
+     }
+
+     .price-txt {
+         font-size: 18px;
+         font-weight: 600;
+     }
+
+     .price-amount {
+         font-size: 20px;
+         font-weight: 700;
+     }
+
+     .form-check-input {
+         position: relative;
+     }
+
+     .selectWarranty {
+         background: blue !important;
+         color: white !important;
+     }
+
+     .selectCustomWarranty {
+         background: #ffc108 !important;
+         color: white !important;
+     }
+
+     .plan-name-txt {
+         font-size: 14px;
+     }
+
+     .infyshield-logo {
+         max-width: 44px;
+     }
+
+     img.infinity-logo {
+         max-width: 100px;
+     }
+
+     .btn-submit {
+         margin-top: 13px;
+     }
+     .marginTopsty {
+         margin-top: 28px;
+     }
+     .resend-otp {
+         font-size: 14px;
+     }
+     .send-mobile-txt {
+         color: #1c9338;
+         font-size: 14px;
+         display: block;
+     }
+     .errorMessage{
+          color:red;
+          font-size:13px;
+     }
+ </style>
 
     <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -76,24 +142,24 @@
             }
         }
 
-        function validateYears() {
-            var years = document.getElementById("validationCustom09").value;
-            if (years > 10) {
-                document.getElementById("validationCustom09").value = 10;
-            }
-        }
-        function validateMonths() {
-            var years = document.getElementById("validationCustom010").value;
-            if (years > 12) {
-                document.getElementById("validationCustom010").value = 12;
-            }
-        }
-        function validateDays() {
-            var years = document.getElementById("validationCustom011").value;
-            if (years > 31) {
-                document.getElementById("validationCustom011").value = 31;
-            }
-        }
+        //function validateYears() {
+        //    var years = document.getElementById("validationCustom09").value;
+        //    if (years > 10) {
+        //        document.getElementById("validationCustom09").value = 10;
+        //    }
+        //}
+        //function validateMonths() {
+        //    var years = document.getElementById("validationCustom010").value;
+        //    if (years > 12) {
+        //        document.getElementById("validationCustom010").value = 12;
+        //    }
+        //}
+        //function validateDays() {
+        //    var years = document.getElementById("validationCustom011").value;
+        //    if (years > 31) {
+        //        document.getElementById("validationCustom011").value = 31;
+        //    }
+        //}
 
         function validateMobileNo() {
             var mobileNo = document.getElementById("txtCustomerMobile").value;
@@ -267,7 +333,7 @@
 
                                 <div class="row">
 
-                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 ">
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 ">
                                         <label>IMEI No.</label>
                                         <asp:TextBox CssClass="form-control mb-2" ID="txtimeiNo" MaxLength="15" onblur="validateIMEI()" runat="server" placeholder="IMEI No."></asp:TextBox>
                                         <small id="imeiError" style="color: red; display: block;"></small>
@@ -275,7 +341,7 @@
                                             ErrorMessage="IMEI No. is required." ForeColor="Red" Display="Dynamic" ValidationGroup="ProductInfo" />
                                     </div>
 
-                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12">
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 ">
                                         <label>Product Installation Date</label>
                                         <div class="input-group">
                                             <asp:TextBox ID="txtDateOfImpl" runat="server" CssClass="form-control"
@@ -294,26 +360,52 @@
                                         <asp:RequiredFieldValidator ID="rfvDateOfImpl" runat="server" ControlToValidate="txtDateOfImpl" ErrorMessage="Product Installation Date is required."
                                             ForeColor="Red" Display="Dynamic" ValidationGroup="ProductInfo"> </asp:RequiredFieldValidator>
                                     </div>
-                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 ">
                                         <label>Manufacturer Warranty</label>
-                                        <div class="row">
-                                            <div class="col-xl-4 col-lg-4 col-md-1 col-sm-4 col-12">
-                                                <asp:TextBox CssClass="form-control position-relative mb-2" ID="validationCustom09" runat="server" placeholder="Years" max="10" min="1"
-                                                    oninput="validateYears()" TextMode="Number"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="validationCustom09" ErrorMessage="Years is required."
-                                                    CssClass="error-message" Display="Dynamic" ValidationGroup="ProductInfo"></asp:RequiredFieldValidator>
-                                            </div>
-                                            <div class="col-xl-4 col-lg-4 col-md-1 col-sm-4 col-12 ">
-                                                <asp:TextBox CssClass="form-control mb-2" ID="validationCustom010" runat="server" value="0" placeholder="Months" max="12" min="0"
-                                                    oninput="validateMonths()" TextMode="Number"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="validationCustom010" ErrorMessage="Months is required."
-                                                    ForeColor="Red" Display="Dynamic" ValidationGroup="ProductInfo"></asp:RequiredFieldValidator>
-                                            </div>
-                                            <div class="col-xl-4 col-lg-4 col-md-1 col-sm-4 col-12 ">
-                                                <asp:TextBox CssClass="form-control mb-2" ID="validationCustom011" runat="server" value="0" placeholder="Days" max="31" min="0"
-                                                    oninput="validateDays()" TextMode="Number"></asp:TextBox>
-                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="validationCustom011" ErrorMessage="Days is required."
-                                                    ForeColor="Red" Display="Dynamic" ValidationGroup="ProductInfo"></asp:RequiredFieldValidator>
+                                        <div class="d-flex flex-wrap gap-2 mb-3">
+                                            <asp:CustomValidator ID="cvWarranty" runat="server" ErrorMessage="Please select a warranty option" Display="Dynamic" ForeColor="Red"
+                                                OnServerValidate="ValidateWarranty" ValidationGroup="WarrantyGroup" />
+                                            <asp:RadioButton ID="rb3M" runat="server" GroupName="Warranty" Text="3 Months" CssClass="btn-check" AutoPostBack="true" OnCheckedChanged="WarrantyChanged" />
+                                            <asp:Label ID="lbl3M" runat="server" AssociatedControlID="rb3M" CssClass="btn btn-outline-primary">3 Months</asp:Label>
+
+                                            <asp:RadioButton ID="rb6M" runat="server" GroupName="Warranty" Text="6 Months" CssClass="btn-check" AutoPostBack="true" OnCheckedChanged="WarrantyChanged" />
+                                            <asp:Label ID="lbl6M" runat="server" AssociatedControlID="rb6M" CssClass="btn btn-outline-primary">6 Months</asp:Label>
+
+                                            <asp:RadioButton ID="rb1Y" runat="server" GroupName="Warranty" Text="1 Year" CssClass="btn-check" AutoPostBack="true" OnCheckedChanged="WarrantyChanged" />
+                                            <asp:Label ID="lbl1Y" runat="server" AssociatedControlID="rb1Y" CssClass="btn btn-outline-primary">1 Year</asp:Label>
+
+                                            <asp:RadioButton ID="rb2Y" runat="server" GroupName="Warranty" Text="2 Years" CssClass="btn-check" AutoPostBack="true" OnCheckedChanged="WarrantyChanged" />
+                                            <asp:Label ID="lbl2Y" runat="server" AssociatedControlID="rb2Y" CssClass="btn btn-outline-primary">2 Years</asp:Label>
+
+                                            <asp:RadioButton ID="rb3Y" runat="server" GroupName="Warranty" Text="3 Years" CssClass="btn-check" AutoPostBack="true" OnCheckedChanged="WarrantyChanged" />
+                                            <asp:Label ID="lbl3Y" runat="server" AssociatedControlID="rb3Y" CssClass="btn btn-outline-primary">3 Years</asp:Label>
+
+                                            <asp:RadioButton ID="rbCustom" runat="server" GroupName="Warranty" Text="Custom" CssClass="btn-check" AutoPostBack="true" OnCheckedChanged="WarrantyChanged" />
+                                            <asp:Label ID="lblCustom" runat="server" AssociatedControlID="rbCustom" CssClass="btn btn-outline-warning">Custom</asp:Label>
+
+                                            <asp:Label ID="lblWarrantyError" runat="server" ForeColor="Red"></asp:Label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 ">
+                                        <div id="customWarrantyDiv" runat="server" visible="false" style="margin-top: 25px;">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <asp:DropDownList ID="ddlCustomYears" runat="server" CssClass="form-control mb-2" AppendDataBoundItems="true">
+                                                        <asp:ListItem Text="Years" Value="" />
+                                                    </asp:DropDownList>
+                                                    <asp:Label ID="lblCustomYearsError" runat="server" ForeColor="Red"></asp:Label>
+
+                                                </div>
+                                                <div class="col-4">
+                                                    <asp:DropDownList ID="ddlCustomMonths" runat="server" CssClass="form-control mb-2" AppendDataBoundItems="true">
+                                                        <asp:ListItem Text="Months" Value="" />
+                                                    </asp:DropDownList>
+                                                </div>
+                                                <div class="col-4">
+                                                    <asp:DropDownList ID="ddlCustomDays" runat="server" CssClass="form-control mb-2" AppendDataBoundItems="true">
+                                                        <asp:ListItem Text="Days" Value="" />
+                                                    </asp:DropDownList>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -323,9 +415,14 @@
 
                                 <div class="row">
 
+                                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 ">
+                                         <label>Customer Name</label>
+                                         <asp:TextBox CssClass="form-control mb-2" ID="txtCustomerName" MaxLength="50" runat="server" placeholder="Customer Name"></asp:TextBox>
+                                         <asp:RequiredFieldValidator ID="rfvCustomerName" runat="server" ControlToValidate="txtCustomerName" ErrorMessage="Customer Name is required."
+                                             ForeColor="Red" Display="Dynamic" ValidationGroup="ProductInfo" CssClass="errorMessage"></asp:RequiredFieldValidator>
+                                     </div>
 
-
-                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 ">
+                                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 ">
                                         <label>Customer Email ID</label>
                                         <asp:TextBox CssClass="form-control mb-2" ID="txtCustomerEmail" MaxLength="50" runat="server" placeholder="Customer Email ID"
                                             TextMode="Email"></asp:TextBox>
@@ -333,7 +430,7 @@
                                             ForeColor="Red" Display="Dynamic" ValidationGroup="ProductInfo"></asp:RequiredFieldValidator>
                                     </div>
 
-                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 ">
+                                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 ">
                                         <label>Customer Mobile No.</label>
                                         <asp:TextBox CssClass="form-control mb-2" ID="txtCustomerMobile" runat="server" placeholder="Customer Mobile No."
                                             pattern="\d{10}" title="Please enter a valid 10-digit mobile number" oninput="validateMobileNo()"></asp:TextBox>
@@ -341,7 +438,7 @@
                                             ForeColor="Red" Display="Dynamic" ValidationGroup="ProductInfo"></asp:RequiredFieldValidator>
                                     </div>
 
-                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mt-4">
+                                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 ">
                                         <asp:Button ID="btnSubmitPlan" class="btn btn-primary" OnClick="SubmitPlanInfo" ValidationGroup="ProductInfo" runat="server" Text="Submit" />
                                         <asp:Button ID="btnEditPlan" class="btn btn-primary" OnClick="EditPlanInfo" runat="server" Text="Edit" />
                                     </div>
@@ -372,36 +469,40 @@
 
                                 </div>
                                 <div id="PlanPanel" runat="server">
-                                    <div class="row"></div>
                                     <h3 class="text-center mb-3">Choose the Best Plan for Your Product</h3>
-                                    <asp:Panel ID="pnlNoPlans" runat="server" Visible="false" CssClass="alert alert-info text-center mt-4">
+                                    <asp:Panel ID="pnlNoPlans" runat="server" Visible="false" CssClass="alert alert-info text-center mt-4 mx-4">
                                         <h5 class="mb-1">No Plans Available</h5>
                                         <p class="mb-0">Currently, there are no service plans available for your selection. Please check back later or contact support for assistance.</p>
                                     </asp:Panel>
 
-                                    <div class="row">
+                                    <div class="mx-4">
                                         <asp:Repeater ID="rptPlans" runat="server">
                                             <HeaderTemplate>
                                                 <div class="row">
                                             </HeaderTemplate>
 
                                             <ItemTemplate>
-                                                <div class="col-lg-3 col-12 mb-4">
+                                                <div class="col-lg-4 col-12 mb-3">
                                                     <div class="plan-card">
-                                                        <div class="form-check mb-2 pl-0">
+                                                        <div class="form-check mb-2 px-3 pt-2">
                                                             <asp:CheckBox ID="chkSelect" runat="server" CssClass="planCheckBox"
                                                                 AutoPostBack="true"
                                                                 OnCheckedChanged="chkSelect_CheckedChanged"
                                                                 CommandArgument='<%# Eval("Mid") %>' />
                                                             <label class="form-check-label">Select</label>
                                                         </div>
+                                                        <div class="logo-parts">
+                                                            <img src="assets/images/infinity-logo.png" class="infinity-logo" alt="" />
+                                                            <img src="assets/images/Infyshield-logo.png" class="infyshield-logo" alt="" />
+                                                        </div>
                                                         <h2>
                                                             <asp:Label ID="lblPlanName" runat="server" Text='<%# Eval("PlanNickName") %>'></asp:Label>
+                                                            <asp:HiddenField ID="hdnPlanId" runat="server" Value='<%# Eval("Mid") %>' />
                                                         </h2>
-                                                        <div class="d-flex gap-3 mb-2">
-                                                            <div class="plan-name-txt"><strong>EW:</strong> <%# Eval("EW") %></div>
-                                                            <div class="plan-name-txt"><strong>SDP:</strong>  <%# Eval("SDP") %></div>
-                                                            <div class="plan-name-txt"><strong>ADP:</strong> <%# Eval("ADP") %></div>
+                                                        <div class="d-flex gap-3 mb-2 px-3">
+                                                            <div class="plan-name-txt">EW:<%# Eval("EW") %></div>
+                                                            <div class="plan-name-txt">SDP:  <%# Eval("SDP") %></div>
+                                                            <div class="plan-name-txt">ADP: <%# Eval("ADP") %></div>
                                                         </div>
                                                         <div class="plan-price">
                                                             <div class="price-txt">Price:</div>
@@ -419,45 +520,44 @@
                                                 </div>
                                             </FooterTemplate>
                                         </asp:Repeater>
-                                        <%--  <table class="table table-bordered table-striped">
-               <thead class="thead-dark">
-                   <tr>
-                       <th>Select</th>
-                       <th>Plan Name</th>
-                       <th>1</th>
-                       <th>2</th>
-                       <th>3</th>
-                       <th>4</th>
-                       <th>5</th>
-                       <th>Plan Price (₹)</th>
-                   </tr>
-               </thead>
-               <tbody>
-                   <asp:Repeater ID="rptPlans" runat="server">
-                       <ItemTemplate>
-                           <tr>
-                               <td style="text-align:center;">
-                                   <asp:CheckBox ID="chkSelect" runat="server" CssClass="form-check-input planCheckBox"
-                                       AutoPostBack="true"
-                                       OnCheckedChanged="chkSelect_CheckedChanged"
-                                       CommandArgument='<%# Eval("Mid") %>' Style="margin-top: -5px;" />
-                                   <asp:HiddenField ID="hdnPlanPrice" runat="server" Value='<%# Eval("CustPriceINR") %>' />
-                                   <asp:HiddenField ID="hdnSKU" runat="server" Value='<%# Eval("SKU") %>' />
-                               </td>
-                               <td>
-                                   <asp:Label ID="lblPlanName" runat="server" Text='<%# Eval("PlanNickName") %>'></asp:Label>
-                               </td>
-                               <td>P</td>
-                               <td>P</td>
-                               <td>E</td>
-                               <td>E</td>
-                               <td></td>                                                    
-                               <td><%# Eval("CustPriceINR") %></td>
-                           </tr>
-                       </ItemTemplate>
-                   </asp:Repeater>
-               </tbody>
-           </table>--%>
+                                        <%--  <table class="table-responsive table data-table table-striped table-bordered nowrap">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th>Select</th>
+                                                    <th>Plan Name</th>
+                                                    <th>EW (In Years)</th>
+                                                    <th>SDP (In Years)</th>
+                                                    <th>ADP (In Years)</th>
+                                                    <th>Description</th>                                                    
+                                                    <th>Plan Price (₹)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <asp:Repeater ID="rptPlans" runat="server">
+                                                    <ItemTemplate>
+                                                        <tr>
+                                                            <td style="text-align: center;">
+                                                                <asp:CheckBox ID="chkSelect" runat="server" CssClass="form-check-input planCheckBox"
+                                                                    AutoPostBack="true"
+                                                                    OnCheckedChanged="chkSelect_CheckedChanged"
+                                                                    CommandArgument='<%# Eval("Mid") %>' Style="margin-top: -5px;" />
+                                                                <asp:HiddenField ID="hdnPlanPrice" runat="server" Value='<%# Eval("CustPriceINR") %>' />
+                                                                <asp:HiddenField ID="hdnSKU" runat="server" Value='<%# Eval("SKU") %>' />
+                                                                <asp:HiddenField ID="hdnPlanId" runat="server" Value='<%# Eval("Mid") %>' />
+                                                            </td>
+                                                            <td>
+                                                                <asp:Label ID="lblPlanName" runat="server" Text='<%# Eval("PlanNickName") %>'></asp:Label>
+                                                            </td>
+                                                            <td><%# Eval("EW") %></td>
+                                                            <td><%# Eval("SDP") %></td>
+                                                            <td><%# Eval("ADP") %></td>
+                                                            <td><%# Eval("FinalPlanNameDescription") %></td>
+                                                            <td><%# Eval("CustPriceINR") %></td>
+                                                        </tr>
+                                                    </ItemTemplate>
+                                                </asp:Repeater>
+                                            </tbody>
+                                        </table>--%>
                                     </div>
                                 </div>
                                 <hr />
@@ -516,11 +616,12 @@
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                             <div class="form-group">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" runat="server" required>
+                                                    <input class="form-check-input" type="checkbox" value="" id="invalidCheck" runat="server">
                                                     <label class="form-check-label" for="invalidCheck">
                                                         By proceeding, you agree to the Terms and Conditions
                                                     </label>
                                                 </div>
+                                                 <asp:Label ID="lblErrorTermCondition" runat="server" Text="Please Accept Term and Condition to buy Plan." Font-Size="12px" ForeColor="Red" Visible="false"></asp:Label>
                                             </div>
                                         </div>
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 " style="text-align: center;">
@@ -543,6 +644,21 @@
     <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
     <script src="../assets/vendor/multi-select/js/jquery.multi-select.js"></script>
     <script src="../assets/libs/js/main-js.js"></script>
+
+    
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.data-table').DataTable({
+                responsive: false,
+                ordering: true
+            });
+        });
+    </script>
 
 </body>
 </html>

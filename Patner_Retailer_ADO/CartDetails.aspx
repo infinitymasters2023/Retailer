@@ -69,93 +69,102 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <div class="container-fluid  dashboard-content">
+    <div class="container-fluid">
 
         <div class="row">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <div class="card">
-                    <%-- <h5 class="card-header">Cart Details</h5>--%>
-                    <div class="card-body" style="display: flex;">
-                        <div class="col-md-8">
-                            <h4>Cart Details</h4>
+           <div class="col-12 col-lg-8">
+                         <div class="card">
+              <%-- <h5 class="card-header">Cart Details</h5>--%>
+              <div class="card-body">
+                 
+                      <h4>Cart Details</h4>
 
-                            <asp:Repeater ID="rptPlans" runat="server">
-                                <HeaderTemplate>
-                                    <table class="table-responsive table data-table table-striped table-bordered nowrap">
-                                        <thead>
-                                            <tr>
-                                                <th>Product Name</th>
-                                                <th>Product Price</th>
-                                                <th>Plan Selected</th>
-                                                <th>Quantity</th>
-                                                <th>Value</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                </HeaderTemplate>
-                                <ItemTemplate>
-                                    <tr>
+                      <asp:Repeater ID="rptPlans" runat="server">
+                          <HeaderTemplate>
+                              <table class="table table-striped table-bordered nowrap">
+                                  <thead>
+                                      <tr>
+                                          <th>Product Name</th>
+                                          <th>Product Price</th>
+                                          <th>Plan Selected</th>
+                                          <th>Quantity</th>
+                                          <th>Value</th>
+                                          <th>Action</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                          </HeaderTemplate>
+                          <ItemTemplate>
+                              <tr>
 
-                                        <td>
-                                            <asp:Label ID="lblPlanName" runat="server" Text='<%# Eval("Productname") %>'></asp:Label>
-                                        </td>
-                                        <td>
-                                            <asp:Label ID="lblDevicePurchasePrice" runat="server" Text='<%# Eval("DevicePurchasePrice") %>'></asp:Label>
-                                        </td>
-                                        <td><%# Eval("PlanName") %></td>
-                                        <td>
-                                            <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("Quantity") %>'></asp:Label>
+                                  <td>
+                                      <asp:Label ID="lblPlanName" runat="server" Text='<%# Eval("Productname") %>'></asp:Label>
+                                  </td>
+                                  <td>
+                                      <asp:Label ID="lblDevicePurchasePrice" runat="server" Text='<%# Eval("DevicePurchasePrice") %>'></asp:Label>
+                                  </td>
+                                  <td><%# Eval("PlanName") %></td>
+                                  <td>
+                                      <asp:Label ID="lblQuantity" runat="server" Text='<%# Eval("Quantity") %>'></asp:Label>
 
-                                        </td>
-                                        <td>
-                                            <asp:Label ID="lblPlanPrice" runat="server" Text='<%# Eval("PlanPrice") %>'></asp:Label>
-                                        </td>
-                                        <td>
-                                            <asp:LinkButton ID="lnkDelete" runat="server" CommandName="Delete" CommandArgument='<%# Eval("Mid") %>' OnClick="DeletePlanInfo" CssClass="btn btn-sm btn-danger">
-                                                <i class="fa fa-trash"></i>
-                                            </asp:LinkButton>                                         
-                                        </td>
-                                    </tr>
-                                </ItemTemplate>
+                                  </td>
+                                  <td>
+                                      <asp:Label ID="lblPlanPrice" runat="server" Text='<%# Eval("PlanPrice") %>'></asp:Label>
+                                  </td>
+                                  <td>
+                                      <asp:LinkButton ID="lnkDelete" runat="server" CommandName="Delete" CommandArgument='<%# Eval("Mid") %>' OnClick="DeletePlanInfo" CssClass="btn btn-sm btn-danger">
+                                          <i class="fa fa-trash"></i>
+                                      </asp:LinkButton>                                         
+                                  </td>
+                              </tr>
+                          </ItemTemplate>
 
-                                <FooterTemplate>
-                                    </tbody>
-      </table>
-                                </FooterTemplate>
-                            </asp:Repeater>
-                            <hr />
-                            <asp:Button ID="btnAddMore" runat="server" class="btn btn-primary" Text="➕ Add More Products" OnClick="AddMoreProducts"
-                                CausesValidation="false" UseSubmitBehavior="true" OnClientClick="this.form.noValidate = true;" />
+                          <FooterTemplate>
+                              </tbody>
+</table>
+                          </FooterTemplate>
+                      </asp:Repeater>
+                      <hr />
+                  <button id="btnAddMore" runat="server" class="btn btn-primary" OnClick="AddMoreProducts"
+                          CausesValidation="false" UseSubmitBehavior="true" OnClientClick="this.form.noValidate = true;">
+                      <i class="fa fa-plus"> Add More Products</i>
+                  </button>
+                   <%--   <asp:Button ID="btnAddMore" runat="server" class="btn btn-primary" Text="Add More Products" OnClick="AddMoreProducts"
+                          CausesValidation="false" UseSubmitBehavior="true" OnClientClick="this.form.noValidate = true;" />
+                          <i class="fa fa-plus"></i>           --%>       
 
+                 
+
+                  
+              </div>
+          </div>
+           </div>
+               
+            <div class="col-12 col-lg-4">
+                <div class="card bg-light mb-3">
+                    <div class="card-header">Your Order Summary</div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            Total Item : 
+                            <strong><p id="txtQuantity" runat="server"></p></strong>
                         </div>
-                        <div class="col-md-4">
-                            <div class="card bg-light mb-3">
-                                <div class="card-header">Your Order Summary</div>
-                                <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        Total Item : 
-                                        <strong><p id="txtQuantity" runat="server"></p></strong>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        Taxable Value:
-                                        <strong><p id="TaxableValue" runat="server"></p></strong>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        GST(18%) :
-                                        <strong><p id="TaxAmout" runat="server"></p></strong>
-                                    </div>
-                                    <hr>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        Total Net Value (Including Tax):
-                                        <strong><p id="TotalAmountPay" runat="server"></p></strong>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            Taxable Value:
+                            <strong><p id="TaxableValue" runat="server"></p></strong>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            GST(18%) :
+                            <strong><p id="TaxAmout" runat="server"></p></strong>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between align-items-center">
+                            Total Net Value (Including Tax):
+                            <strong><p id="TotalAmountPay" runat="server"></p></strong>
                         </div>
                     </div>
                 </div>
             </div>
+            
         </div>
         <div class="row">
             <!-- ============================================================== -->
@@ -163,13 +172,13 @@
             <!-- ============================================================== -->
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
-                    <h5 class="card-header" style="text-align: center;">Customer Details</h5>
+                    <h5 class="card-header">Customer Details</h5>
                     <div class="card-body">
 
                         <div class="row">
                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 mb-3">
                                 <label for="validationCustom01">First Name</label>
-                                <asp:TextBox class="form-control validate-group" ID="txtFirstName" runat="server" placeholder="First Name" maxlength="50"></asp:TextBox>
+                                <asp:TextBox class="form-control validate-group" ID="txtFirstName" runat="server" placeholder="First Name" maxlength="50" Enabled="false"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvFirstName" runat="server" ControlToValidate="txtFirstName"
                                     ErrorMessage="First Name is required" CssClass="text-danger" Display="Dynamic" ValidationGroup="CustomerDetails" />
                             </div>
@@ -183,7 +192,7 @@
 
                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 mb-3">                                
                                 <label for="validationCustom01">Customer Registered Email</label>
-                                <asp:TextBox class="form-control validate-group" ID="txtEmail" runat="server" placeholder="Customer Registered Email" TextMode="Email" maxlength="50"></asp:TextBox>
+                                <asp:TextBox class="form-control validate-group" ID="txtEmail" runat="server" placeholder="Customer Registered Email" TextMode="Email" maxlength="50" Enabled="false"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Email is required" CssClass="text-danger" Display="Dynamic" ValidationGroup="CustomerDetails" />
                                 <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="txtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
                                     ErrorMessage="Invalid email format" CssClass="text-danger" Display="Dynamic"  ValidationGroup="CustomerDetails" />
@@ -200,7 +209,7 @@
 
                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 mb-3">
                                 <label for="validationCustom01">Customer Resistered Mobile No.</label>
-                                <asp:TextBox class="form-control validate-group" ID="txtCustomerMobileNo" runat="server" placeholder="Customer Resistered Mobile No."
+                                <asp:TextBox class="form-control validate-group" ID="txtCustomerMobileNo" runat="server" placeholder="Customer Resistered Mobile No." Enabled="false"
                                     pattern="\d{10}" title="Please enter a valid 10-digit mobile number" TextMode="Number" oninput="validateMobileNumber(this)" MaxLength="10"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvCustomerMobile" runat="server" ControlToValidate="txtCustomerMobileNo" 
                                     ErrorMessage="Mobile number is required" CssClass="text-danger" Display="Dynamic" ValidationGroup="CustomerDetails" />

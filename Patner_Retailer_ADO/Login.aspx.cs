@@ -140,7 +140,7 @@ namespace Patner_Retailer_ADO
                         lblMessage.Text = "OTP sent successfully.";
                         btnLogin.Text = "Login";
                         divotppanel.Visible = true;
-
+                        
                        // Response.Redirect("Dashboard.aspx");
                     }
                     else

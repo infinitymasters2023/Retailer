@@ -47,18 +47,28 @@ namespace Patner_Retailer_ADO
                 menuDashboard.Attributes["class"] = "nav-item active";
             else if (pageName == "buyinfysaleplan.aspx")
                 menuBuyPlan.Attributes["class"] = "nav-item active";
+            else if (pageName.Contains("cartdetails"))
+                menuBuyPlan.Attributes["class"] = "nav-item active";
+            else if (pageName.Contains("paymentconfirmation"))
+                menuBuyPlan.Attributes["class"] = "nav-item active";
             else if (pageName == "viewsalesperson.aspx")
+                menuSalesPerson.Attributes["class"] = "nav-item active";
+            else if (pageName.Contains("createsalesperson"))
                 menuSalesPerson.Attributes["class"] = "nav-item active";
             else if (pageName == "reportedclaims.aspx")
                 menuClaims.Attributes["class"] = "nav-item active";
+            else if (pageName.Contains("claimlist"))
+                menuClaims.Attributes["class"] = "nav-item active";
+            else if (pageName.Contains("viewclaims"))
+                menuClaims.Attributes["class"] = "nav-item active";
+            else if (pageName.Contains("registernewclaim"))
+                menuClaims.Attributes["class"] = "nav-item active";
             else if (pageName == "reports.aspx")
                 menuReports.Attributes["class"] = "nav-item active";
-            else if(pageName == "salesreports.aspx")
+            else if (pageName == "salesreports.aspx")
                 menuSalesReport.Attributes["class"] = "nav-item active";
-            else if(pageName == "retaileraddurl.aspx")
+            else if (pageName == "retaileraddurl.aspx")
                 menuGenerateURL.Attributes["class"] = "nav-item active";
-            //else if(pageName == "ClaimList.aspx")
-            //    menuClaimList.Attributes["class"] = "nav-item active";
         }
 
         private void BindNotificationList()

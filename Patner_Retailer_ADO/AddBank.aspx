@@ -83,7 +83,8 @@
                     <div class="form-group mb-3">
                         <label class="mb-1">Account Number <span style="color: red">*</span></label>
                         <asp:TextBox runat="server" CssClass="form-control" ID="txtAccountNumber" placeholder="" MaxLength="20"
-                            oninput="validateAccountNumber(this); validateConfirmAccountNumber(); restrictToDigits(this);" ClientIDMode="Static">
+                            oninput="validateAccountNumber(this); validateConfirmAccountNumber(); restrictToDigits(this);" ClientIDMode="Static"
+                            onpaste="return false;" oncopy="return false;" oncut="return false;" TextMode="Password">
                         </asp:TextBox>
                         <asp:RequiredFieldValidator ID="rfvAccountNumber" runat="server" ControlToValidate="txtAccountNumber"
                             ErrorMessage="Account Number is required." CssClass="text-danger" Display="Dynamic" />
@@ -94,7 +95,7 @@
                     <div class="form-group mb-3">
                         <label class="mb-1">Confirm Account Number <span style="color: red">*</span></label>
                         <asp:TextBox runat="server" CssClass="form-control" ID="txtConfirmAccountNumber" placeholder="" MaxLength="20"
-                            oninput="validateConfirmAccountNumber();" ClientIDMode="Static">
+                            oninput="validateConfirmAccountNumber();" ClientIDMode="Static" onpaste="return false;" oncopy="return false;" oncut="return false;" TextMode="Password">
                         </asp:TextBox>
                           <asp:RequiredFieldValidator ID="rfvConfirmAccountNumber" runat="server" ControlToValidate="txtConfirmAccountNumber"
                               ErrorMessage="Confirm Account Number is required." CssClass="text-danger" Display="Dynamic" />

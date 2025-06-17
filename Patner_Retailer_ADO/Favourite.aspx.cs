@@ -1,6 +1,7 @@
 ﻿using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Data;
 using System.Drawing;
@@ -8,11 +9,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Configuration;
 
 namespace Patner_Retailer_ADO
 {
-    public partial class ReportedClaims : System.Web.UI.Page
+    public partial class Favourite : System.Web.UI.Page
     {
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["iaplConnectionString"].ConnectionString);
         static public void DisplayMessage(Control page, string msg)
@@ -28,7 +28,6 @@ namespace Patner_Retailer_ADO
                 LodBind();
             }
         }
-
         private void LodBind()
         {
             try
@@ -36,15 +35,12 @@ namespace Patner_Retailer_ADO
                 using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@Type", 12);
-                    cmd.Parameters.AddWithValue("@Retailer_FreelanceID", Session["MobileNo"].ToString());
+                    cmd.Parameters.AddWithValue("@Type", 37);
+                    cmd.Parameters.AddWithValue("@ProfileId", Session["RetailerUniqueID"].ToString());
                     cmd.Parameters.AddWithValue("@Brand", !string.IsNullOrWhiteSpace(txtBrnad.Text) ? txtBrnad.Text.ToString() : null);
                     cmd.Parameters.AddWithValue("@ModalName", !string.IsNullOrWhiteSpace(txtModel.Text) ? txtModel.Text : null);
-                    cmd.Parameters.AddWithValue("@CustomerName", !string.IsNullOrWhiteSpace(txtCustomerName.Text) ? txtCustomerName.Text : null);
-                    cmd.Parameters.AddWithValue("@CustomerMobileNo", !string.IsNullOrWhiteSpace(txtMobileNo.Text) ? txtMobileNo.Text : null);
                     cmd.Parameters.AddWithValue("@PlanName", !string.IsNullOrWhiteSpace(txtPlanName.Text) ? txtPlanName.Text : null);
                     cmd.Parameters.AddWithValue("@Productname", !string.IsNullOrWhiteSpace(txtProductname.Text) ? txtProductname.Text : null);
-
 
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
@@ -52,22 +48,19 @@ namespace Patner_Retailer_ADO
                     ViewState["ReportInfo"] = dt;
                     if (dt.Rows.Count > 0)
                     {
-                        GvClaimReport.CssClass = "table-responsive table data-table table-striped table-bordered nowrap";
-                        ReportTotal.Text = "Total " + dt.Rows.Count.ToString();
-                        GvClaimReport.DataSource = dt;
-                        GvClaimReport.DataBind();
+                        GvFavourite.DataSource = dt;
+                        GvFavourite.DataBind();
                         btnExportExcel.Visible = true;
-                        if (GvClaimReport.HeaderRow != null)
+
+                        if (GvFavourite.HeaderRow != null)
                         {
-                            GvClaimReport.HeaderRow.TableSection = TableRowSection.TableHeader;
+                            GvFavourite.HeaderRow.TableSection = TableRowSection.TableHeader;
                         }
                     }
                     else
                     {
-                        GvClaimReport.CssClass = "table-responsive table table-striped table-bordered nowrap";
-                        ReportTotal.Text = "";
-                        GvClaimReport.DataSource = null;
-                        GvClaimReport.DataBind();
+                        GvFavourite.DataSource = null;
+                        GvFavourite.DataBind();
                         btnExportExcel.Visible = false;
                     }
                 }
@@ -104,7 +97,7 @@ namespace Patner_Retailer_ADO
 
                     Response.Clear();
                     Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-                    Response.AddHeader("content-disposition", $"attachment;  filename=Claim_Report_{DateTime.Now:yyyyMMddHHmmss}.xlsx");
+                    Response.AddHeader("content-disposition", $"attachment;  filename=Report_{DateTime.Now:yyyyMMddHHmmss}.xlsx");
                     Response.BinaryWrite(package.GetAsByteArray());
                     Response.End();
                 }
@@ -114,16 +107,15 @@ namespace Patner_Retailer_ADO
                 DisplayMessage(this, ex.Message);
             }
         }
+
         protected void SubmitReport(object sender, EventArgs e)
         {
             LodBind();
         }
 
-        protected void RegisterClaim(object sender, EventArgs e)
+        protected void btnFavourite_Click(object sender, EventArgs e)
         {
-            LinkButton btn = (LinkButton)sender;
-            string refNo = btn.CommandArgument;
-            Response.Redirect("ClaimList.aspx?sku=" + refNo);
+            Response.Redirect("AddEditFavourite.aspx");
         }
     }
 }

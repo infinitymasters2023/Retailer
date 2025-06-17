@@ -96,6 +96,42 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblSellerGSTIN;
 
         /// <summary>
+        /// txtOfficialMobileNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtOfficialMobileNo;
+
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label1;
+
+        /// <summary>
+        /// txtOfficialEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtOfficialEmail;
+
+        /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Label2;
+
+        /// <summary>
         /// txtSellerPincode control.
         /// </summary>
         /// <remarks>
@@ -130,6 +166,15 @@ namespace Patner_Retailer_ADO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSellerState;
+
+        /// <summary>
+        /// ddlFirmType control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlFirmType;
 
         /// <summary>
         /// txtSellerAddressLine1 control.
@@ -213,6 +258,15 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.TextBox txtMobileNumber;
 
         /// <summary>
+        /// chkMobileNumberWhatsApp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkMobileNumberWhatsApp;
+
+        /// <summary>
         /// lblMobileNo control.
         /// </summary>
         /// <remarks>
@@ -229,6 +283,15 @@ namespace Patner_Retailer_ADO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAlternateMobile;
+
+        /// <summary>
+        /// chkAlternativeMobileNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkAlternativeMobileNumber;
 
         /// <summary>
         /// txtEmail control.
@@ -490,6 +553,15 @@ namespace Patner_Retailer_ADO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload fuFrontSide;
+
+        /// <summary>
+        /// lblDocument control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDocument;
 
         /// <summary>
         /// btnUploadFront control.

@@ -15,15 +15,6 @@ namespace Patner_Retailer_ADO
     {
 
         /// <summary>
-        /// ValidationSummary1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
-
-        /// <summary>
         /// lblFirstName control.
         /// </summary>
         /// <remarks>
@@ -49,33 +40,6 @@ namespace Patner_Retailer_ADO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvFirstName;
-
-        /// <summary>
-        /// lblLastName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLastName;
-
-        /// <summary>
-        /// txtLastName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLastName;
-
-        /// <summary>
-        /// rfvLastName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvLastName;
 
         /// <summary>
         /// lblMobile control.
@@ -213,6 +177,15 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.TextBox txtDOB;
 
         /// <summary>
+        /// CalendarExtender3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender3;
+
+        /// <summary>
         /// lblGender control.
         /// </summary>
         /// <remarks>
@@ -312,15 +285,6 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.TextBox txtCommAddress;
 
         /// <summary>
-        /// ValidationSummary2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary2;
-
-        /// <summary>
         /// lblAccount control.
         /// </summary>
         /// <remarks>
@@ -337,6 +301,15 @@ namespace Patner_Retailer_ADO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAccount;
+
+        /// <summary>
+        /// rfvAccountNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAccountNumber;
 
         /// <summary>
         /// revAccountNumber control.
@@ -366,6 +339,24 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.TextBox txtConfirmAccount;
 
         /// <summary>
+        /// rfvConfirmAccountNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvConfirmAccountNumber;
+
+        /// <summary>
+        /// revConfirmAccountNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revConfirmAccountNumber;
+
+        /// <summary>
         /// cvAccount control.
         /// </summary>
         /// <remarks>
@@ -393,6 +384,15 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.TextBox txtIFSC;
 
         /// <summary>
+        /// rfvIFSCCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvIFSCCode;
+
+        /// <summary>
         /// revIFSC control.
         /// </summary>
         /// <remarks>
@@ -400,6 +400,15 @@ namespace Patner_Retailer_ADO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator revIFSC;
+
+        /// <summary>
+        /// lblIFSCError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIFSCError;
 
         /// <summary>
         /// lblHolder control.
@@ -418,6 +427,15 @@ namespace Patner_Retailer_ADO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtHolder;
+
+        /// <summary>
+        /// rfvAcountHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvAcountHolder;
 
         /// <summary>
         /// lblBankName control.
@@ -526,6 +544,33 @@ namespace Patner_Retailer_ADO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload fuFrontSide;
+
+        /// <summary>
+        /// lblDocument control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDocument;
+
+        /// <summary>
+        /// imgPreview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgPreview;
+
+        /// <summary>
+        /// litPdfPreview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litPdfPreview;
 
         /// <summary>
         /// btnUploadFront control.

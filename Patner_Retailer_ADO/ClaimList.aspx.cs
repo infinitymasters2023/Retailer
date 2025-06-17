@@ -47,7 +47,6 @@ namespace Patner_Retailer_ADO
                     da.Fill(dt);                    
                     if (dt.Rows.Count > 0)
                     {
-                        ReportTotal.Text = "Total " + dt.Rows.Count.ToString();
                         GvReport.DataSource = dt;
                         GvReport.DataBind();
                         if (GvReport.HeaderRow != null)
@@ -57,14 +56,13 @@ namespace Patner_Retailer_ADO
                     }
                     else
                     {
-                        ReportTotal.Text = "";
                         GvReport.DataSource = null;
                         GvReport.DataBind();
                     }
                     bool allClosed = dt.AsEnumerable()
                       .All(row => row["claimstatus"].ToString().Equals("Closed", StringComparison.OrdinalIgnoreCase) || row["claimstatus"].ToString().Equals("Close", StringComparison.OrdinalIgnoreCase));
 
-                    pnlRegisterClaim.Visible = allClosed;
+                    //pnlRegisterClaim.Visible = allClosed;
                 }
             }
             catch (Exception ex)

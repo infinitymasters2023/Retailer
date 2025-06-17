@@ -8,12 +8,18 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml;
 
 namespace Patner_Retailer_ADO
 {
     public partial class CreateSalesPerson : System.Web.UI.Page
     {
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["iaplConnectionString"].ConnectionString);
+        static public void DisplayMessage(Control page, string msg)
+        {
+            string msg1 = String.Format("alert('{0}');", msg);
+            ScriptManager.RegisterStartupScript(page, page.GetType(), "msg", msg1, true);
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,6 +29,8 @@ namespace Patner_Retailer_ADO
                 DocumentPanel.Visible = false;
                 btnUpdate.Visible = false;
                 btnnext3.Visible = false;
+                txtDOB.Attributes.Add("Readonly", "readonly");
+                CalendarExtender3.EndDate = DateTime.Today;
                 string querymid = Request.QueryString["Mid"];
                 if (!string.IsNullOrWhiteSpace(querymid))
                 {
@@ -42,7 +50,7 @@ namespace Patner_Retailer_ADO
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Type", 7);
                 cmd.Parameters.AddWithValue("@RetailerAdminID", Session["RetailerUniqueID"].ToString().Trim());
-                cmd.Parameters.AddWithValue("@Name", txtFirstName.Text.Trim() +" "+ txtLastName.Text.Trim());
+                cmd.Parameters.AddWithValue("@Name", txtFirstName.Text.Trim());
                 cmd.Parameters.AddWithValue("@MobileNo", txtMobile.Text.Trim());
                 cmd.Parameters.AddWithValue("@MobileNo_2", txtAltMobile.Text.Trim());
                 cmd.Parameters.AddWithValue("@EmailID", txtEmail.Text.Trim());
@@ -76,6 +84,7 @@ namespace Patner_Retailer_ADO
                 DocumentPanel.Visible = true;
                 btnnext3.Visible = true;
                 Session["InsertedProfileId"] = insertedProfileId;
+                ddlDocumentName.Focus();
                 //Response.Redirect("ViewSalesPerson.aspx", false);
             }
             catch (SqlException ex)
@@ -153,11 +162,16 @@ namespace Patner_Retailer_ADO
                 txtBranch.Text = dt.Rows[0]["BRANCH"].ToString();
                 txtBranchAddress.Text = dt.Rows[0]["ADDRESS"].ToString();
                 txtBranchAddress.Focus();
+                lblIFSCError.Text = "";
             }
 
             else
             {
-                
+                txtBankName.Text = "";
+                txtBranch.Text = "";
+                txtBranchAddress.Text = "";
+                lblIFSCError.Text = "Enter a valid IFSC code";
+                txtIFSC.Focus();
             }
         }
 
@@ -226,6 +240,14 @@ namespace Patner_Retailer_ADO
             {
                 try
                 {
+                    string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".pdf" };
+                    string fileExtension = Path.GetExtension(fuFrontSide.FileName).ToLower();
+
+                    if (!allowedExtensions.Contains(fileExtension))
+                    {
+                        ScriptManager.RegisterStartupScript(this, this.GetType(), "scrollToBottom", "window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });", true);
+                        return;
+                    }
                     string docName = ddlDocumentName.SelectedItem.Text;
                     string docNumber = txtDocumentNumber.Text.Trim();
                     string fileName = Path.GetFileName(fuFrontSide.FileName);
@@ -256,6 +278,13 @@ namespace Patner_Retailer_ADO
                         dt = (DataTable)ViewState["DocumentData"];
                     }
 
+                    bool isDuplicate = dt.AsEnumerable().Any(row => row.Field<string>("DocumentName") == docName);
+                    if (isDuplicate)
+                    {
+                        DisplayMessage(this, "Document already exists.");
+                        return;
+                    }
+
                     DataRow existingRow = dt.AsEnumerable().FirstOrDefault(row => row["DocId"].ToString() == DocId);
                     if (existingRow != null)
                     {
@@ -281,7 +310,11 @@ namespace Patner_Retailer_ADO
                     }
                     ViewState["DocumentData"] = dt;
                     gvDocuments.DataSource = dt;
-                    gvDocuments.DataBind();                 
+                    gvDocuments.DataBind();
+                    lblDocument.Visible = false;
+                    ddlDocumentName.SelectedIndex = 0;
+                    txtDocumentNumber.Text = null;
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "scrollToBottom", "window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });", true);
                 }
                 catch (Exception ex)
                 {
@@ -296,29 +329,41 @@ namespace Patner_Retailer_ADO
 
                 foreach (DataRow row in dt.Rows)
                 {
-                    string docName = row["DocumentName"].ToString();
-                    string docNumber = row["DocumentNumber"].ToString();
-                    string status = row["Status"].ToString();
-                    string size = row["Size"].ToString();
-                    string DocumentPath = row["DocumentPath"].ToString();
-                    string DocId = row["DocId"].ToString();
-                    string MId = row["Mid"].ToString();
+                    try
+                    {
+                        string docName = row["DocumentName"].ToString();
+                        string docNumber = row["DocumentNumber"].ToString();
+                        string status = row["Status"].ToString();
+                        string size = row["Size"].ToString();
+                        string DocumentPath = row["DocumentPath"].ToString();
+                        string DocId = row["DocId"].ToString();
+                        string MId = row["Mid"].ToString();
 
-                    SqlCommand cmd = new SqlCommand("SP_IAPL_Retailer_Auth", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@Type", 14);
-                    cmd.Parameters.AddWithValue("@ProfileId", Session["InsertedProfileId"] != null ? Session["InsertedProfileId"].ToString().Trim() : Session["UpdateSalesPersonMid"].ToString());
-                    cmd.Parameters.AddWithValue("@DocID", DocId);
-                    cmd.Parameters.AddWithValue("@Mid", MId);
-                    cmd.Parameters.AddWithValue("@DocumentPath", DocumentPath);
-                    cmd.Parameters.AddWithValue("@documentNumber", docNumber);
-                    cmd.Parameters.AddWithValue("@Remarks", docNumber);
-                    cmd.Parameters.AddWithValue("@Status", status);
-                    cmd.Parameters.AddWithValue("@IPAddress", Request.UserHostAddress);
+                        SqlCommand cmd = new SqlCommand("SP_IAPL_Retailer_Auth", con);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Type", 14);
+                        cmd.Parameters.AddWithValue("@ProfileId", Session["InsertedProfileId"] != null ? Session["InsertedProfileId"].ToString().Trim() : Session["UpdateSalesPersonMid"].ToString());
+                        cmd.Parameters.AddWithValue("@DocID", DocId);
+                        cmd.Parameters.AddWithValue("@Mid", MId);
+                        cmd.Parameters.AddWithValue("@DocumentPath", DocumentPath);
+                        cmd.Parameters.AddWithValue("@documentNumber", docNumber);
+                        cmd.Parameters.AddWithValue("@Remarks", docNumber);
+                        cmd.Parameters.AddWithValue("@Status", status);
+                        cmd.Parameters.AddWithValue("@IPAddress", Request.UserHostAddress);
 
-                    con.Open();
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                    catch (SqlException ex)
+                    {
+                        if (ex.Number == 50000)
+                        {
+                            DisplayMessage(this, ex.Message);
+                            return;
+                        }
+                        throw;
+                    }
                 }
             }
             Response.Redirect("ViewSalesPerson.aspx", false);
@@ -339,8 +384,8 @@ namespace Patner_Retailer_ADO
                 txtAltMobile.Text = dr["MobileNo_2"].ToString();
                 txtEmail.Text = dr["EmailID"].ToString();
                 txtAltEmail.Text = dr["EmailID_2"].ToString();
-                txtDOB.Text = Convert.ToDateTime(dr["DateOfBirth"]).ToString("yyyy-MM-dd");// dr["DateOfBirth"].ToString();
-                ddlGender.SelectedItem.Text = dr["Gender"].ToString();
+                txtDOB.Text = Convert.ToDateTime(dr["DateOfBirth"]).ToString("dd-MMM-yyyy");// dr["DateOfBirth"].ToString();
+                ddlGender.SelectedValue = dr["Gender"].ToString();
                 txtPIN.Text = dr["Pincode"].ToString();
                 txtCity.Text = dr["City"].ToString();
                 txtState.Text = dr["State"].ToString();
@@ -365,7 +410,7 @@ namespace Patner_Retailer_ADO
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Type", 13);
                 cmd.Parameters.AddWithValue("@Mid", Session["UpdateSalesPersonMid"].ToString().Trim());
-                cmd.Parameters.AddWithValue("@Name", txtFirstName.Text.Trim() + " " + txtLastName.Text.Trim());
+                cmd.Parameters.AddWithValue("@Name", txtFirstName.Text.Trim());
                 cmd.Parameters.AddWithValue("@MobileNo", txtMobile.Text.Trim());
                 cmd.Parameters.AddWithValue("@MobileNo_2", txtAltMobile.Text.Trim());
                 cmd.Parameters.AddWithValue("@EmailID", txtEmail.Text.Trim());
@@ -391,6 +436,7 @@ namespace Patner_Retailer_ADO
                 DocumentPanel.Visible = true;
                 btnnext3.Visible = true;
                 BindDocumentInf();
+                ddlDocumentName.Focus();
             }
             catch (Exception ex) 
             {
@@ -403,6 +449,35 @@ namespace Patner_Retailer_ADO
             {
                 int docId = Convert.ToInt32(e.CommandArgument);
                 LoadDocumentForEdit(docId);
+            }
+            else if (e.CommandName == "ViewDoc")
+            {
+                string[] args = e.CommandArgument.ToString().Split('|');
+                string docId = args[0];
+                string documentName = args[1];
+                string documentNumber = args[2];
+                string documentPath = args[3];
+
+                ddlDocumentName.ClearSelection();
+                ListItem item = ddlDocumentName.Items.FindByText(documentName);
+                if (item != null) item.Selected = true;
+                txtDocumentNumber.Text = documentNumber;
+
+                string fileExt = Path.GetExtension(documentPath).ToLower();
+                string relativePath = "~/UploadedDocuments/" + documentPath;
+
+                if (fileExt == ".jpg" || fileExt == ".jpeg" || fileExt == ".png")
+                {
+                    imgPreview.ImageUrl = relativePath;
+                    imgPreview.Visible = true;
+                    litPdfPreview.Visible = false;
+                }
+                else if (fileExt == ".pdf")
+                {
+                    litPdfPreview.Text = $"<iframe src='{ResolveUrl(relativePath)}' width='100%' height='400px'></iframe>";
+                    litPdfPreview.Visible = true;
+                    imgPreview.Visible = false;
+                }
             }
             else if (e.CommandName == "DeleteRow")
             {

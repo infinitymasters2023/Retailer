@@ -41,8 +41,7 @@
                <asp:Label ID="ReportTotal" runat="server" Style="position: absolute; right: 50px;"></asp:Label>
            </div>
            
-           <asp:GridView ID="GvClaimReport" runat="server" AutoGenerateColumns="false" CssClass="table-responsive table data-table table-striped table-bordered nowrap"
-                UseAccessibleHeader="true" HeaderStyle-CssClass="thead">
+           <asp:GridView ID="GvClaimReport" runat="server" AutoGenerateColumns="false" UseAccessibleHeader="true" HeaderStyle-CssClass="thead"  EmptyDataText="No records available. Please refine your search.">
                    <Columns>
                        <asp:TemplateField HeaderText="S.No.">
                            <ItemTemplate>

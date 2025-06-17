@@ -2,9 +2,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-        <div class="container-fluid  dashboard-content">
+        <div class="container-fluid">
     <div class="row">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-body">
                     <h4 class="filter-txt">Claim List</h4>
@@ -48,12 +47,10 @@
                         </div>
                     </div>
                         </asp:Panel>
-                    <div class="d-flex justify-content-start mb-3">
-                        <asp:Label ID="ReportTotal" runat="server" Style="position: absolute; right: 50px;"></asp:Label>
-                    </div>
+                   
                     <div>
                         <asp:GridView ID="GvReport" runat="server" AutoGenerateColumns="false" CssClass="table-responsive table data-table table-striped table-bordered nowrap"
-                                UseAccessibleHeader="true" HeaderStyle-CssClass="thead">
+                                UseAccessibleHeader="true" HeaderStyle-CssClass="thead"  EmptyDataText="No records available. Please refine your search.">
                             <Columns>
                                 <asp:TemplateField HeaderText="S.No.">
                                     <ItemTemplate>
@@ -104,7 +101,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+       
     </div>
 </div>
 </asp:Content>

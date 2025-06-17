@@ -36,18 +36,9 @@
         <div class="card-body">
             <h4 class="filter-txt">Generate URL</h4>
             <div class="row justify-content-start mb-3">
-                <div class="col-12 col-lg-10">
-                </div>
-                <div class="col-12 col-lg-2 pr-0">
-                    <div class="d-flex justify-content-start">
-                        <%--<asp:Button ID="btnAddUrl" runat="server" Text="Generate URL" CssClass="btn btn-info ml-2" OnClick="btnAddUrl_Click" />--%>
-                        <asp:Button ID="btnAddUrl" runat="server" Text="Generate URL" CssClass="btn btn-info ml-2" OnClientClick="$('#expiryModal').modal('show'); return false;" />
-
-                    </div>
-                </div>
+                <asp:Button ID="btnAddUrl" runat="server" Text="Generate URL" CssClass="btn btn-info generate-url-button" OnClientClick="$('#expiryModal').modal('show'); return false;" />
             </div>
-            <asp:GridView ID="GvURL" runat="server" AutoGenerateColumns="false" CssClass="table-responsive table data-table table-striped table-bordered nowrap"
-                UseAccessibleHeader="true" HeaderStyle-CssClass="thead">
+            <asp:GridView ID="GvURL" runat="server" AutoGenerateColumns="false" UseAccessibleHeader="true" HeaderStyle-CssClass="thead"  EmptyDataText="No records available. Please refine your search.">
                 <Columns>
                     <asp:TemplateField HeaderText="S.No.">
                         <ItemTemplate>

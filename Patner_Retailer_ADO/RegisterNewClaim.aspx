@@ -39,10 +39,35 @@
             gap: 10px;
             justify-content: start;
         }
-        .defective-part-lists td label {
-            margin-bottom:0px;
-        }
+
+            .defective-part-lists td label {
+                margin-bottom: 0px;
+            }
     </style>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#impPrev').attr('src', './Registration/Document/not_available.jpg')
+
+        });
+
+        function ShowPreview(input) {
+            debugger;
+            if (input.files && input.files[0]) {
+
+                var ImageDir = new FileReader();
+
+                ImageDir.onload = function (e) {
+                    $('#impPrev').attr('src', e.target.result);
+
+                }
+                ImageDir.readAsDataURL(input.files[0]);
+
+            }
+        }
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -52,7 +77,24 @@
                 <div class="card">
                     <h5 class="card-header" style="text-align: center;">Customer Details</h5>
                     <div class="card-body">
-
+                        <div id="divcert" runat="server" style="margin-left: 10px; margin-bottom: 0px;" class=" form-group row">
+                            <div class="col-md-3">
+                                <asp:Label ID="Label5" runat="server" Text="Ticket No: "></asp:Label>
+                                <asp:Label ID="Label2" runat="server" Font-Bold="true"></asp:Label>
+                            </div>
+                            <div class=" col-md-3 ">
+                                Certificate No:
+                                        <asp:Label ID="lblcertificate" Font-Bold="true" Text="NA" runat="server"></asp:Label>
+                            </div>
+                            <div class=" col-md-3 ">
+                                Loan No:
+                                        <asp:Label ID="lblloan" Font-Bold="true" Text="NA" runat="server"></asp:Label>
+                            </div>
+                            <div class=" col-md-3 ">
+                                Claim No:
+                                        <asp:Label ID="lblclamno" Font-Bold="true" Text="NA" runat="server"></asp:Label>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 mb-3">
                                 <label for="validationCustom01">First Name</label>
@@ -223,13 +265,14 @@
                     <h5 class="card-header" style="text-align: center;">Register Complaint</h5>
                     <div class="card-body">
 
+
                         <div class="row">
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb-3">
                                 <label for="validationCustom01">Problem Reported (Detailed Description Required)<span style="color: red;"> *</span> </label>
                                 <textarea class="form-control validate-group" id="txtProblemDesc" runat="server" placeholder="Problem Reported (Voice of Customer - as he / she reports)"
                                     maxlength="250" oninput="validateProblemWords()"></textarea>
-                                <span id="problemError" style="color: red;font-size:13px;"></span>
-                                <asp:Label ID="lblProblemDesc" runat="server" ForeColor="Red" Font-Size="13px" Visible="false" />                                
+                                <span id="problemError" style="color: red; font-size: 13px;"></span>
+                                <asp:Label ID="lblProblemDesc" runat="server" ForeColor="Red" Font-Size="13px" Visible="false" />
                             </div>
                         </div>
 
@@ -252,7 +295,7 @@
                                         <label class="form-check-label" for="rdoBoth">Both</label>
                                     </div>
                                 </div>
-                                <asp:Label ID="lblDamageType" runat="server" Visible="false"  style="color: red;font-size:13px;"></asp:Label>
+                                <asp:Label ID="lblDamageType" runat="server" Visible="false" Style="color: red; font-size: 13px;"></asp:Label>
                             </div>
 
 
@@ -268,7 +311,7 @@
                                         <label class="form-check-label" for="rdoPhysical">No</label>
                                     </div>
                                 </div>
-                                <asp:Label ID="lblDeviceSwitchOn" runat="server" Visible="false"  style="color: red;" Font-Size="13px"></asp:Label>
+                                <asp:Label ID="lblDeviceSwitchOn" runat="server" Visible="false" Style="color: red;" Font-Size="13px"></asp:Label>
                             </div>
                         </div>
 
@@ -283,7 +326,7 @@
                                     <asp:ListItem Text="Back Cover"></asp:ListItem>
                                     <asp:ListItem Text="Others"></asp:ListItem>
                                 </asp:CheckBoxList>
-                                 <asp:Label ID="lblDefectiveParts" runat="server" Visible="false"  Font-Size="13px" style="color: red;"></asp:Label>
+                                <asp:Label ID="lblDefectiveParts" runat="server" Visible="false" Font-Size="13px" Style="color: red;"></asp:Label>
                             </div>
 
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mb-3">
@@ -298,7 +341,7 @@
                                         <label class="form-check-label" for="rdoPhysical">No</label>
                                     </div>
                                 </div>
-                                <asp:Label ID="lblTouchWorking" runat="server" Visible="false" Font-Size="13px" style="color: red;"></asp:Label>
+                                <asp:Label ID="lblTouchWorking" runat="server" Visible="false" Font-Size="13px" Style="color: red;"></asp:Label>
                             </div>
                         </div>
 
@@ -308,34 +351,33 @@
                                 <div class="d-flex">
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mb-3">
                                         <div class="d-flex">
-                                        <asp:TextBox ID="txtDamageDate" runat="server" CssClass="form-control" placeholder=""
-                                             AutoCompleteType="Disabled" AutoComplete="off">
-                                        </asp:TextBox>                                        
-                                        <div class="input-group-append">
-                                            <span class="input-group-text" style="cursor: pointer;"
-                                                onclick="document.getElementById('<%= txtDamageDate.ClientID %>').focus();">
-                                                <i class="fa fa-calendar"></i>
-                                            </span>
-                                        </div>
-                                        <cc1:calendarextender id="CalendarExtender3" runat="server" format="dd-MMM-yyyy"
-                                            targetcontrolid="txtDamageDate" enddate="<%# DateTime.Today %>">
-                                        </cc1:calendarextender>
+                                            <asp:TextBox ID="txtDamageDate" runat="server" CssClass="form-control" placeholder=""
+                                                AutoCompleteType="Disabled" AutoComplete="off">
+                                            </asp:TextBox>
+                                            <div class="input-group-append">
+                                                <span class="input-group-text" style="cursor: pointer;"
+                                                    onclick="document.getElementById('<%= txtDamageDate.ClientID %>').focus();">
+                                                    <i class="fa fa-calendar"></i>
+                                                </span>
                                             </div>
-                                         <asp:Label ID="lblDamageDate" runat="server" Visible="false" Font-Size="13px" style="color: red; "></asp:Label>
+                                            <cc1:CalendarExtender ID="CalendarExtender3" runat="server" Format="dd-MMM-yyyy"
+                                                TargetControlID="txtDamageDate" EndDate="<%# DateTime.Today %>"></cc1:CalendarExtender>
+                                        </div>
+                                        <asp:Label ID="lblDamageDate" runat="server" Visible="false" Font-Size="13px" Style="color: red;"></asp:Label>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mb-3">
-                                         <asp:TextBox ID="txtDamageTime" data-provide="timepicker" placeholder="Damage Time" TextMode="Time"
-                                             runat="server" autocomplete="off" CssClass="form-control timepicker" MaxLength="12">
-                                         </asp:TextBox>   
-                                        <asp:Label ID="lblDamageTime" runat="server" Visible="false" Font-Size="13px" style="color: red;"></asp:Label>
+                                        <asp:TextBox ID="txtDamageTime" data-provide="timepicker" placeholder="Damage Time" TextMode="Time"
+                                            runat="server" autocomplete="off" CssClass="form-control timepicker" MaxLength="12">
+                                        </asp:TextBox>
+                                        <asp:Label ID="lblDamageTime" runat="server" Visible="false" Font-Size="13px" Style="color: red;"></asp:Label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mb-3">
                                 <label for="validationCustom01">Place of Damage <span style="color: red;">*</span></label>
-                               <asp:TextBox ID="txtPlaceOfDamage" runat="server" CssClass="form-control" placeholder="Place of Damage" MaxLength="50"></asp:TextBox>
-                                <asp:Label ID="lblPlaceOfDamage" runat="server" Visible="false" Font-Size="13px" style="color: red;"></asp:Label>
+                                <asp:TextBox ID="txtPlaceOfDamage" runat="server" CssClass="form-control" placeholder="Place of Damage" MaxLength="50"></asp:TextBox>
+                                <asp:Label ID="lblPlaceOfDamage" runat="server" Visible="false" Font-Size="13px" Style="color: red;"></asp:Label>
                             </div>
                         </div>
                         <div class="row">
@@ -351,6 +393,141 @@
                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="text-align: center;">
                                 <asp:Button ID="btnRegisterClaim" CssClass="btn btn-primary" runat="server" OnClick="RegisterClaim" Text="Register Claim"
                                     OnClientClick="return validateGroupFields();" />
+                            </div>
+                            <div class=" col-md-12" style="text-align: center; margin-top: 20px; font-size: 18px;">
+                                <asp:Label ID="lbltkt" runat="server"></asp:Label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="divdoc" runat="server" visible="false" class="panel panel-default form-group row"
+                    style="margin-left: 10px">
+                    <div class="panel-heading" style="text-align: center; font-weight: bold;">
+                        Upload Documents
+                    </div>
+                    <div class="panel-body">
+                        <div id="Div1" runat="server" class=" form-group row">
+                            <div class="col-md-12">
+                                <div>
+                                    <div class="col-md-12">
+                                        <div class=" col-md-12">
+                                            <p class="text-left">
+                                                Please submit supporting documents by selecting Correct Document Title.
+                                                                <br />
+                                                Please submit each document file separately. Files containing multiple images may
+                                                                be rejected.
+                                                                <br />
+                                                Before submitting, please check that the image quality is good, readable and relevant
+                                                                to the claim. This will help us to serve you better.
+                                            </p>
+                                        </div>
+                                        <div class=" col-md-12" style="text-align: center; margin-top: 10px;">
+                                            <div class=" col-md-3">
+                                                <label>
+                                                    <asp:DropDownList ID="ddldocumentattached2" runat="server" CssClass="form-control ">
+                                                    </asp:DropDownList>
+                                                </label>
+                                            </div>
+                                            <div class=" col-md-3">
+                                                <asp:FileUpload runat="server" name="ImageUpload" accept=".jpg,.jpeg,.mp4,.png,.pdf"
+                                                    ID="fupupload2" onchange="ShowPreview(this)" />
+                                            </div>
+                                            <div class=" col-md-2">
+                                                <asp:Button ID="btnfuupload" OnClick="UploadImage1" runat="server" CssClass="btn btn-success"
+                                                    Text="Submit Document" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 hidden">
+                                            <span>Image Preview</span><br />
+                                            <asp:Image ID="impPrev" runat="server" Width="300px" Height="330px" ImageUrl="../Document/not_available.jpg" />
+                                        </div>
+                                    </div>
+                                    <div class=" col-md-12">
+                                        <hr />
+                                    </div>
+                                    <div class="col-md-12">
+                                        <asp:GridView ID="GridView1" Visible="true" OnRowCommand="gvFiles_RowCommand" Width="100%"
+                                            OnRowDataBound="ChangeColour" AutoGenerateColumns="false" runat="server" RowStyle-CssClass="rows"
+                                            HeaderStyle-CssClass="header" CssClass="mydatagrid">
+                                            <Columns>
+                                                <asp:TemplateField HeaderText="Sr. No">
+                                                    <ItemTemplate>
+                                                        <%# Container.DataItemIndex+ 1 %>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField Visible="false" HeaderText="View">
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton ID="lnkview" Enabled='<%#Bind("ststus") %>' ForeColor=" green" ToolTip="View Uploaded Documents"
+                                                            Width="40px" CommandName="ViewDOC" Text="View DOC" CommandArgument='<%#Eval("DocumentPath") %>'
+                                                            runat="server"> <i class="fa fa-share" aria-hidden="true" style="font-size: 28px;"></i>
+                                                        </asp:LinkButton>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="View" Visible="true">
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton ID="lnkopen" Visible='<%#Bind("ststus") %>' ForeColor="green" ToolTip="Open Uploaded Documents in tab"
+                                                            Width="40px" CommandName="ViewDOCopen" CommandArgument='<%# Eval("DocumentPath") %>'
+                                                            runat="server"> <i class="fa fa-eye" aria-hidden="true" style="font-size: 28px;"></i>
+                                                        </asp:LinkButton>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField Visible="false" HeaderText="Ticket No">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lblticketno" runat="server" Text='<%#Bind("TicketNo") %>'></asp:Label>
+                                                        <asp:Label ID="lblid" runat="server" Text='<%#Bind("mid") %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Document Title">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lbldocumentname" runat="server" Text='<%#Bind("DocumentName") %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField Visible="false" HeaderText="Document Attached">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lblDocumentPath" runat="server" Text='<%#Bind("DocumentPath") %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Status" Visible="true">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lblverify" Width="75px" runat="server" Text='<%#Bind("DocStatus") %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Uploaded By" Visible="true">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lbluoloadedby" Width="75px" runat="server" Text='<%#Bind("CreatedBy") %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Uploaded Date">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lblcreateddate" Width="75px" runat="server" Text='<%#Bind("CreateDate") %>'></asp:Label>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="Remarks">
+                                                    <ItemTemplate>
+                                                        <asp:Label ID="lbldocremarks" runat="server" Text='<%#Bind("docremarks") %>' Width="250px"></asp:Label>
+                                                    </ItemTemplate>
+                                                    <ItemStyle Width="250px" Wrap="true" />
+                                                </asp:TemplateField>
+                                                <asp:TemplateField Visible="false" HeaderText="Request To Ignore">
+                                                    <ItemTemplate>
+                                                        <asp:TextBox ID="txthold" TextMode="MultiLine" MaxLength="200" class="form-control input-sm"
+                                                            Text="" runat="server"></asp:TextBox>
+                                                        <div style="margin-left: 78px;">
+                                                            <asp:LinkButton ID="lnkdelete" ToolTip="Ignore Uploaded Documents" Width="40px" Text="View DOC"
+                                                                OnClick="Deletefile" OnClientClick="return confirm('Are you sure you want to Request To Ignore this file?');"
+                                                                runat="server"> <i class="fa fa-eraser" aria-hidden="true" style="font-size: 21px;color: red;"></i>
+                                                            </asp:LinkButton>
+                                                        </div>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                            <HeaderStyle ForeColor="White" />
+                                        </asp:GridView>
+                                    </div>
+                                </div>
+                                <asp:Button Text="Download Selcted Files" ID="btndownload" CssClass="btn-info btn-sm"
+                                    Visible="false" OnClick="DownloadAll" runat="server" />
                             </div>
                         </div>
                     </div>

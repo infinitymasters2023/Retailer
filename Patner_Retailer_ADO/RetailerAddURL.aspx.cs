@@ -31,13 +31,14 @@ namespace Patner_Retailer_ADO
         }
         protected void btnConfirmExpiry_Click(object sender, EventArgs e)
         {
+            string serverUrl = ConfigurationManager.AppSettings["ServerURL"];
             string expiryString = expiryDate.Text +" "+ expiryTime.Value;
             string encodedExpiry = Convert.ToBase64String(Encoding.UTF8.GetBytes(expiryString));
             string mobile = Session["MobileNo"].ToString();
             string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(mobile));
             string datetime = DateTime.Now.ToString();
             string dd = Convert.ToBase64String(Encoding.UTF8.GetBytes(datetime));
-            string url = "http://localhost:44302/RetailerBuyInfySalePlan.aspx?qu=" + HttpUtility.UrlEncode(encoded)+"&dd="+ HttpUtility.UrlEncode(dd) + "&ed=" + HttpUtility.UrlEncode(encodedExpiry);
+            string url = serverUrl+"/RetailerBuyInfySalePlan.aspx?qu=" + HttpUtility.UrlEncode(encoded)+"&dd="+ HttpUtility.UrlEncode(dd) + "&ed=" + HttpUtility.UrlEncode(encodedExpiry);
 
             DataTable dt = ViewState["UrlTable"] as DataTable;
             if (dt == null)
@@ -88,14 +89,23 @@ namespace Patner_Retailer_ADO
                     {
                         DataTable dt = new DataTable();
                         da.Fill(dt);
-                        GvURL.DataSource = dt;
-                        GvURL.DataBind();
-                        if (GvURL.HeaderRow != null)
-                        {
-                            GvURL.HeaderRow.TableSection = TableRowSection.TableHeader;
-                        }
                         ViewState["UrlTable"] = dt;
-
+                        if (dt.Rows.Count > 0)
+                        {
+                            GvURL.CssClass = "table-responsive table data-table table-striped table-bordered nowrap";
+                            GvURL.DataSource = dt;
+                            GvURL.DataBind();
+                            if (GvURL.HeaderRow != null)
+                            {
+                                GvURL.HeaderRow.TableSection = TableRowSection.TableHeader;
+                            }
+                        }
+                        else
+                        {
+                            GvURL.DataSource = null;
+                            GvURL.DataBind();
+                            GvURL.CssClass = "table-responsive table table-striped table-bordered nowrap";
+                        }
                     }
                 }
                 con.Close();

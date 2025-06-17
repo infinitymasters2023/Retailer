@@ -120,6 +120,14 @@ namespace Patner_Retailer_ADO
                 lblDocument.Visible = false;
                 try
                 {
+
+                    string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".pdf" };
+                    string fileExtension = Path.GetExtension(fuFrontSide.FileName).ToLower();
+
+                    if (!allowedExtensions.Contains(fileExtension))
+                    {
+                        return;
+                    }
                     string docName = ddlDocumentName.SelectedItem.Text;
                     string docNumber = txtDocumentNumber.Text.Trim();
                     string fileName = Path.GetFileName(fuFrontSide.FileName);
@@ -131,6 +139,7 @@ namespace Patner_Retailer_ADO
                     string uniqueFileName = DateTime.Now.ToString("yyyyMMdd_HHmmss_") + fileName;
                     string fullPath = Path.Combine(folderPath, uniqueFileName);
                     fuFrontSide.SaveAs(fullPath);
+
 
                     DataTable dt;
                     if (ViewState["DocumentData"] == null)
@@ -147,6 +156,23 @@ namespace Patner_Retailer_ADO
                     else
                     {
                         dt = (DataTable)ViewState["DocumentData"];
+
+                        bool alreadyExists = dt.AsEnumerable()
+                           .Any(row => row.Field<string>("DocId") == DocId);
+                        if (alreadyExists)
+                        {
+                            lblDocument.Text = "Document already exists.";
+                            lblDocument.ForeColor = System.Drawing.Color.Red;
+                            lblDocument.Visible = true;
+
+                            gvDocuments.DataSource = dt;
+                            gvDocuments.DataBind();
+                            if (gvDocuments.HeaderRow != null)
+                            {
+                                gvDocuments.HeaderRow.TableSection = TableRowSection.TableHeader;
+                            }
+                            return;
+                        }
                     }
 
                     // Add new row
@@ -181,40 +207,62 @@ namespace Patner_Retailer_ADO
                 lblDocument.Visible = true;
                 return;
             }
-            if (fuFrontSide.HasFile)
+            try
             {
-                string fileName = Path.GetFileName(fuFrontSide.FileName);
-                string folderPath = Server.MapPath("~/UploadedDocuments/");
-                if (!Directory.Exists(folderPath))
-                    Directory.CreateDirectory(folderPath);
+                if (fuFrontSide.HasFile)
+                {
+                    string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".pdf" };
+                    string fileExtension = Path.GetExtension(fuFrontSide.FileName).ToLower();
 
-                string uniqueFileName = DateTime.Now.ToString("yyyyMMdd_HHmmss_") + fileName;
-                string fullPath = Path.Combine(folderPath, uniqueFileName);
-                fuFrontSide.SaveAs(fullPath);
+                    if (!allowedExtensions.Contains(fileExtension))
+                    {
+                        return;
+                    }
+                    string fileName = Path.GetFileName(fuFrontSide.FileName);
+                    string folderPath = Server.MapPath("~/UploadedDocuments/");
+                    if (!Directory.Exists(folderPath))
+                        Directory.CreateDirectory(folderPath);
 
-                SqlCommand cmd = new SqlCommand("SP_IAPL_Retailer_Auth", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@Type", 9);
-                cmd.Parameters.AddWithValue("@ProfileId", Session["RetailerUniqueID"].ToString().Trim());
-                cmd.Parameters.AddWithValue("@DocID", ddlDocumentName.SelectedValue.ToString());
-                cmd.Parameters.AddWithValue("@DocumentPath", uniqueFileName);
-                cmd.Parameters.AddWithValue("@documentNumber", txtDocumentNumber.Text.Trim());
-                cmd.Parameters.AddWithValue("@Remarks", txtDocumentNumber.Text.Trim());
-                cmd.Parameters.AddWithValue("@Status", "Uploaded");
-                cmd.Parameters.AddWithValue("@IPAddress", Request.UserHostAddress);
+                    string uniqueFileName = DateTime.Now.ToString("yyyyMMdd_HHmmss_") + fileName;
+                    string fullPath = Path.Combine(folderPath, uniqueFileName);
+                    fuFrontSide.SaveAs(fullPath);
 
-                con.Open();
-                cmd.ExecuteNonQuery();
-                con.Close();
-            }
+                    SqlCommand cmd = new SqlCommand("SP_IAPL_Retailer_Auth", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    if (Session["Role"].ToString() == "Admin")
+                        cmd.Parameters.AddWithValue("@Type", 9);
+                    else if (Session["Role"].ToString() == "Agent")
+                        cmd.Parameters.AddWithValue("@Type", 14);
+                    cmd.Parameters.AddWithValue("@ProfileId", Session["RetailerUniqueID"].ToString().Trim());
+                    cmd.Parameters.AddWithValue("@DocID", ddlDocumentName.SelectedValue.ToString());
+                    cmd.Parameters.AddWithValue("@DocumentPath", uniqueFileName);
+                    cmd.Parameters.AddWithValue("@documentNumber", txtDocumentNumber.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Remarks", txtDocumentNumber.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Status", "Uploaded");
+                    cmd.Parameters.AddWithValue("@IPAddress", Request.UserHostAddress);
 
-            string script = $@"
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                string script = $@"
                             <script type='text/javascript'>
                                 alert('Documents have been saved successfully!');
                                 window.location.href = 'Profile.aspx';
                             </script>";
 
-            ClientScript.RegisterStartupScript(this.GetType(), "ProfileRedirect", script);
+                ClientScript.RegisterStartupScript(this.GetType(), "ProfileRedirect", script);
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Number == 50000)
+                {
+                    DisplayMessage(this, ex.Message);
+                    return;
+                }
+                throw;
+            }
 
         }
         protected void btnEditDocument_Click(object sender, EventArgs e)
@@ -231,6 +279,13 @@ namespace Patner_Retailer_ADO
                     }
                     if (fuFrontSide.HasFile)
                     {
+                        string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".pdf" };
+                        string fileExtension = Path.GetExtension(fuFrontSide.FileName).ToLower();
+
+                        if (!allowedExtensions.Contains(fileExtension))
+                        {
+                            return;
+                        }
                         string fileName = Path.GetFileName(fuFrontSide.FileName);
                         string folderPath = Server.MapPath("~/UploadedDocuments/");
                         if (!Directory.Exists(folderPath))

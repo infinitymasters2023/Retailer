@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="CreateSalesPerson.aspx.cs" Inherits="Patner_Retailer_ADO.CreateSalesPerson" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="assets/css/signup.css" rel="stylesheet">
     <script>
@@ -38,24 +39,23 @@
                 <div class="card">
                     <h5 class="card-header">Personal Info</h5>
                     <div class="card-body">
-                        <asp:ValidationSummary ID="ValidationSummary1" runat="server" CssClass="text-danger" ValidationGroup="vgPersonal" />
 
                         <div class="row">
                             <!-- First Name -->
                             <div class="col-md-4 mb-2">
-                                <asp:Label ID="lblFirstName" runat="server" Text="First Name"></asp:Label>
-                                <asp:TextBox ID="txtFirstName" runat="server" MaxLength="50" CssClass="form-control" placeholder="First name"></asp:TextBox>
+                                <asp:Label ID="lblFirstName" runat="server" Text="Full Name"></asp:Label>
+                                <asp:TextBox ID="txtFirstName" runat="server" MaxLength="50" CssClass="form-control" placeholder="Full Name"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvFirstName" runat="server" ControlToValidate="txtFirstName"
                                     ErrorMessage="First Name is required" CssClass="text-danger" ValidationGroup="vgPersonal" Display="Dynamic" />
                             </div>
 
                             <!-- Last Name -->
-                            <div class="col-md-4 mb-2">
+                           <%-- <div class="col-md-4 mb-2">
                                 <asp:Label ID="lblLastName" runat="server" Text="Last Name"></asp:Label>
                                 <asp:TextBox ID="txtLastName" runat="server" MaxLength="50" CssClass="form-control" placeholder="Last name"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvLastName" runat="server" ControlToValidate="txtLastName"
                                     ErrorMessage="Last Name is required" CssClass="text-danger" ValidationGroup="vgPersonal" Display="Dynamic" />
-                            </div>
+                            </div>--%>
 
                             <!-- Mobile Number -->
                             <div class="col-md-4 mb-2">
@@ -99,7 +99,19 @@
                             <!-- DOB -->
                             <div class="col-md-4 mb-2">
                                 <asp:Label ID="lblDOB" runat="server" Text="Date of Birth"></asp:Label>
-                                <asp:TextBox ID="txtDOB" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                                <%--<asp:TextBox ID="txtDOB" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>--%>
+                                <div class="input-group">
+                                    <asp:TextBox ID="txtDOB" runat="server" CssClass="form-control"
+                                        AutoCompleteType="Disabled" AutoComplete="off"></asp:TextBox>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" style="cursor: pointer;"
+                                            onclick="document.getElementById('<%= txtDOB.ClientID %>').focus();">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <cc1:calendarextender ID="CalendarExtender3" runat="server" format="dd-MMM-yyyy" TargetControlID="txtDOB">
+                                </cc1:calendarextender>
                             </div>
 
                             <!-- Gender -->
@@ -109,7 +121,6 @@
                                     <asp:ListItem Text="--Select--" Value=""></asp:ListItem>
                                     <asp:ListItem Text="Male" Value="Male"></asp:ListItem>
                                     <asp:ListItem Text="Female" Value="Female"></asp:ListItem>
-                                    <asp:ListItem Text="Other" Value="Other"></asp:ListItem>
                                 </asp:DropDownList>
                                 <asp:RequiredFieldValidator ID="rfvGender" runat="server" ControlToValidate="ddlGender"
                                     InitialValue="" ErrorMessage="Select Gender" CssClass="text-danger" ValidationGroup="vgPersonal" Display="Dynamic" />
@@ -143,38 +154,49 @@
 
                         <hr />
                         <h5 class="card-header">Bank Detail</h5>
-                        <asp:ValidationSummary ID="ValidationSummary2" runat="server" CssClass="text-danger" ValidationGroup="vgBank" />
+                       
 
                         <div class="row">
                             <!-- Account Number -->
                             <div class="col-md-4 mb-2">
                                 <asp:Label ID="lblAccount" runat="server" Text="Account Number"></asp:Label>
-                                <asp:TextBox ID="txtAccount" runat="server" CssClass="form-control" MaxLength="20"></asp:TextBox>
+                                <asp:TextBox ID="txtAccount" runat="server" CssClass="form-control" MaxLength="20" onpaste="return false;" oncopy="return false;" oncut="return false;" TextMode="Password"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvAccountNumber" runat="server" ControlToValidate="txtAccount"
+                                    ErrorMessage="Account Number is required" CssClass="text-danger" ValidationGroup="vgPersonal" Display="Dynamic" />
                                 <asp:RegularExpressionValidator ID="revAccountNumber" runat="server" ControlToValidate="txtAccount"
-                                    ErrorMessage="Account number must be 6 to 20 digits" ValidationExpression="^\d{6,20}$" ForeColor="Red" Display="Dynamic" />
+                                    ErrorMessage="Account number must be 6 to 20 digits" ValidationExpression="^\d{6,20}$" ForeColor="Red" Display="Dynamic" ValidationGroup="vgPersonal" />
                             </div>
 
                             <!-- Confirm Account Number -->
                             <div class="col-md-4 mb-2">
                                 <asp:Label ID="lblConfirmAccount" runat="server" Text="Confirm Account Number"></asp:Label>
-                                <asp:TextBox ID="txtConfirmAccount" runat="server" CssClass="form-control" MaxLength="20"></asp:TextBox>
+                                <asp:TextBox ID="txtConfirmAccount" runat="server" CssClass="form-control" MaxLength="20" onpaste="return false;" oncopy="return false;" oncut="return false;" TextMode="Password"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvConfirmAccountNumber" runat="server" ControlToValidate="txtConfirmAccount"
+                                    ErrorMessage="Confirm Account Number is required" CssClass="text-danger" ValidationGroup="vgPersonal" Display="Dynamic" />
+                                <asp:RegularExpressionValidator ID="revConfirmAccountNumber" runat="server" ControlToValidate="txtConfirmAccount"
+                                    ErrorMessage="Account number must be 6 to 20 digits" ValidationExpression="^\d{6,20}$" ForeColor="Red" Display="Dynamic" ValidationGroup="vgPersonal" />
                                 <asp:CompareValidator ID="cvAccount" runat="server" ControlToCompare="txtAccount" ControlToValidate="txtConfirmAccount"
-                                    ErrorMessage="Account numbers do not match" CssClass="text-danger" ValidationGroup="vgBank" Display="Dynamic" />
+                                    ErrorMessage="Account numbers do not match" CssClass="text-danger" ValidationGroup="vgPersonal" Display="Dynamic" />
                             </div>
 
                             <!-- IFSC -->
                             <div class="col-md-4 mb-2">
                                 <asp:Label ID="lblIFSC" runat="server" Text="IFSC Code"></asp:Label>
                                 <asp:TextBox ID="txtIFSC" runat="server" AutoPostBack="true" MaxLength="11" OnTextChanged="txtIFSC_TextChanged" CssClass="form-control"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvIFSCCode" runat="server" ControlToValidate="txtIFSC"
+                                    ErrorMessage="IFSC Code is required" CssClass="text-danger" ValidationGroup="vgPersonal" Display="Dynamic" />
                                 <asp:RegularExpressionValidator ID="revIFSC" runat="server" ControlToValidate="txtIFSC"
                                     ValidationExpression="^[A-Z]{4}0[A-Z0-9]{6}$"
-                                    ErrorMessage="Enter a valid IFSC code" CssClass="text-danger" ValidationGroup="vgBank" Display="Dynamic" />
+                                    ErrorMessage="Enter a valid IFSC code" CssClass="text-danger" ValidationGroup="vgPersonal" Display="Dynamic" />
+                                <asp:Label ID="lblIFSCError" CssClass="ErrorMessage" runat="server" ForeColor="Red"></asp:Label>
                             </div>
 
                             <!-- Account Holder Name -->
                             <div class="col-md-4 mb-2">
                                 <asp:Label ID="lblHolder" runat="server" Text="Account Holder Name"></asp:Label>
                                 <asp:TextBox ID="txtHolder" runat="server" CssClass="form-control"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="rfvAcountHolder" runat="server" ControlToValidate="txtHolder"
+                                    ErrorMessage="Account Holder Name is required" CssClass="text-danger" ValidationGroup="vgPersonal" Display="Dynamic" />
                             </div>
 
                             <!-- Bank Name -->
@@ -207,34 +229,38 @@
                         <hr />
 
                         <div id="DocumentPanel" class="row" runat="server">
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <div class="form-group">
                                     <label class="mb-1">Document Name *</label>
                                     <asp:DropDownList runat="server" CssClass="form-control" ID="ddlDocumentName">
                                     </asp:DropDownList>
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <div class="form-group">
                                     <label class="mb-1">Document Number *</label>
                                     <asp:TextBox runat="server" CssClass="form-control" ID="txtDocumentNumber" placeholder="" MaxLength="20"></asp:TextBox>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <div class="form-group">
-                                            <label class="mb-1">File</label>
-                                            <asp:FileUpload runat="server" ID="fuFrontSide" CssClass="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <asp:Button runat="server" ID="btnUploadFront" Text="Upload" CssClass="default-btn next-step" OnClick="btnUploadFront_Click" />
-                                        </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="form-group">
+                                    <label class="mb-1">File</label>
+                                    <asp:FileUpload runat="server" ID="fuFrontSide" CssClass="form-control" />
+                                    <p class="text-danger mt-2"><strong>Note<sup>*</sup></strong> jpg, jpeg, png and pdf format is acceptable.</p>
+                                    <asp:Label ID="lblDocument" runat="server" Text="Document is required." ForeColor="Red" Visible="false"></asp:Label>
+                                    <asp:Image ID="imgPreview" runat="server" CssClass="img-fluid mt-3" Visible="false" Width="200" />
+                                    <asp:Literal ID="litPdfPreview" runat="server" Visible="false"></asp:Literal>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <asp:Button runat="server" ID="btnUploadFront" Text="Upload" CssClass="default-btn next-step" OnClick="btnUploadFront_Click" />
                                     </div>
                                 </div>
                             </div>
+
 
                             <div class="col-md-12">
                                 <div class="DocumentData">
@@ -250,10 +276,17 @@
                                             <asp:BoundField HeaderText="Size" DataField="Size" />
                                             <asp:TemplateField HeaderText="Actions">
                                                 <ItemTemplate>
-                                                    <asp:LinkButton ID="lnkEdit" runat="server" CommandName="EditDoc" CommandArgument='<%# Eval("MId") %>'
+                                                    <asp:LinkButton ID="lnkView" runat="server"
+                                                        CommandName="ViewDoc"
+                                                        CommandArgument='<%# Eval("DocId") + "|" + Eval("DocumentName") + "|" + Eval("DocumentNumber") + "|" + Eval("DocumentPath") %>'
+                                                        CssClass="btn btn-sm btn-primary">
+                                                        <i class="fa fa-eye"></i>
+                                                    </asp:LinkButton>
+
+                                                    <%--  <asp:LinkButton ID="lnkEdit" runat="server" CommandName="EditDoc" CommandArgument='<%# Eval("MId") %>'
                                                         CssClass="btn btn-sm btn-primary">
                                                         <i class="fa fa-edit"></i>
-                                                    </asp:LinkButton>
+                                                    </asp:LinkButton>--%>
 
                                                     <asp:LinkButton ID="lnkDelete" runat="server" CommandName="DeleteRow" CommandArgument='<%# Eval("MId") %>'
                                                         CssClass="btn btn-sm btn-danger" OnClientClick="return confirm('Are you sure you want to delete this Document?');">

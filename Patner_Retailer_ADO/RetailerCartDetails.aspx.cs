@@ -86,6 +86,9 @@ namespace Patner_Retailer_ADO
                     {
                         rptPlans.DataSource = dt;
                         rptPlans.DataBind();
+                        txtFirstName.Text = Session["RetailerCustomerName"].ToString();
+                        txtEmail.Text = dt.Rows[0]["CustomerEmailID"]?.ToString();
+                        txtCustomerMobileNo.Text = dt.Rows[0]["CustomerMobileNo"]?.ToString();
                     }
                     else
                     {
@@ -229,7 +232,8 @@ namespace Patner_Retailer_ADO
 
                     con.Open();
                     cmd.ExecuteNonQuery();
-                    ViewState["ItemPrice"] = "1";                    
+                    ViewState["ItemPrice"] = "1";
+                    Session.Remove("RetailerCustomerName");
                     getpaytm();
                 }
                 con.Close();
@@ -245,6 +249,7 @@ namespace Patner_Retailer_ADO
 
         public void getpaytm()
         {
+            string serverUrl = ConfigurationManager.AppSettings["ServerURL"];
             string encoded = Request.QueryString["qu"];
             string dd = Request.QueryString["dd"];
             string ed = Request.QueryString["ed"];
@@ -264,7 +269,7 @@ namespace Patner_Retailer_ADO
             parameters.Add("ORDER_ID", Session["salesOrderID"].ToString());
             parameters.Add("TXN_AMOUNT", ViewState["ItemPrice"].ToString());
 
-            parameters.Add("CALLBACK_URL", "http://localhost:44302/RetailerPaymentConfirmation.aspx?m=" + Session["mode"]+ "&qu="+ HttpUtility.UrlEncode(encoded) + "&dd=" + HttpUtility.UrlEncode(dd) + "&ed=" + HttpUtility.UrlEncode(ed));
+            parameters.Add("CALLBACK_URL", serverUrl + "/RetailerPaymentConfirmation.aspx?m=" + Session["mode"]+ "&qu="+ HttpUtility.UrlEncode(encoded) + "&dd=" + HttpUtility.UrlEncode(dd) + "&ed=" + HttpUtility.UrlEncode(ed));
 
             string checksum = CheckSum.generateCheckSum(merchantKey, parameters);
 

@@ -208,6 +208,7 @@ namespace Patner_Retailer_ADO
                             extendedwarrantyenddate = row10["EWSEndDate"].ToString();
                         }
                         int subcatid = 1;
+                        string IPRN = GenerateIPPNno();
                         subcatid = getSubcatid(row["SubCategoryID"].ToString().Trim().Replace("&nbsp;", ""));
                         SqlCommand cmdreg = new SqlCommand("IAPL_CRM_stockgenerate_Infysales", con);
                         cmdreg.CommandType = CommandType.StoredProcedure;
@@ -247,7 +248,7 @@ namespace Patner_Retailer_ADO
                         cmdreg.Parameters.AddWithValue("@emailidaddress", string.IsNullOrEmpty(row["EmailIDAddress"].ToString().Trim().Replace("&nbsp;", "")) ? DBNull.Value : (object)row["EmailIDAddress"].ToString().Trim().Replace("&nbsp;", ""));
                         cmdreg.Parameters.AddWithValue("@ClientID", SqlDbType.NVarChar).Value = 2;
                         cmdreg.Parameters.AddWithValue("@ProjectId", SqlDbType.NVarChar).Value = 68;
-                        cmdreg.Parameters.AddWithValue("@IPRN", Session["salesOrderID"] == null ? null : Session["salesOrderID"].ToString());
+                        cmdreg.Parameters.AddWithValue("@IPRN", IPRN);
                         cmdreg.Parameters.AddWithValue("@Status", SqlDbType.VarChar).Value = "Under Approval";
                         cmdreg.Parameters.AddWithValue("@adpstartdate", adpstartdate);
                         cmdreg.Parameters.AddWithValue("@adpenddate", adpenddate);
@@ -293,7 +294,8 @@ namespace Patner_Retailer_ADO
                         cmdtic.Parameters.AddWithValue("@ClaimTime", SqlDbType.NVarChar).Value = Convert.ToString(DateTime.Now.ToString("hh:mm tt"));
 
                         int checktic = cmdtic.ExecuteNonQuery();
-                        UpdateProductInfo(regno, skunos, row["Mid"].ToString().Trim().Replace("&nbsp;", ""));
+                        UpdateProductInfo(regno, skunos, row["prodMid"].ToString().Trim().Replace("&nbsp;", ""),
+                             row["custMid"].ToString().Trim().Replace("&nbsp;", ""), row["payMid"].ToString().Trim().Replace("&nbsp;", ""), IPRN);
                     }
                     con.Close();
                 }
@@ -316,19 +318,25 @@ namespace Patner_Retailer_ADO
             return ViewState["tickeno"].ToString();
         }
 
-        protected void UpdateProductInfo(string regno, string skunos, string Mid)
+        protected void UpdateProductInfo(string regno, string skunos, string prodMid, string custMid, string payMid, string IPRN)
         {
             try
             {
                 using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+
                     cmd.Parameters.AddWithValue("@type", 9);
-                    cmd.Parameters.AddWithValue("@SalesOrderID", Session["salesOrderID"].ToString());
-                    cmd.Parameters.AddWithValue("@Mid", Mid);
+                    cmd.Parameters.AddWithValue("@ProdMid", prodMid);
+                    cmd.Parameters.AddWithValue("@CustMid", custMid);
+                    cmd.Parameters.AddWithValue("@PayMid", payMid);
                     cmd.Parameters.AddWithValue("@SKU", skunos);
                     cmd.Parameters.AddWithValue("@RegistrationNo", regno);
+                    cmd.Parameters.AddWithValue("@SalesOrderID", IPRN);
+
+
                     cmd.ExecuteNonQuery();
+
                 }
             }
             catch (Exception)
@@ -372,6 +380,22 @@ namespace Patner_Retailer_ADO
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             da.Fill(dt);
             return dt;
+        }
+        protected string GenerateIPPNno()
+        {
+            string salesorderid = string.Empty;
+            SqlCommand cmd = new SqlCommand("IAPL_CRM_stockgenerate_Infysales", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Type", SqlDbType.Int).Value = 8;
+
+            using (SqlDataReader reader = cmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    salesorderid = reader["salesorderid"].ToString();
+                }
+            }
+            return salesorderid;
         }
     }
 }

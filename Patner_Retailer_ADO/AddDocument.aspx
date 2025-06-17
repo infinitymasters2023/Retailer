@@ -7,7 +7,7 @@
         <h5 class="card-header" id="hdrtext" runat="server">Add Dealer</h5>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-6 mb-3">
+                <div class="col-md-4 mb-3">
                     <div class="form-group">
                         <label class="mb-1">Document Name <span style="color:red;">*</span></label>
                         <asp:DropDownList runat="server" CssClass="form-control" ID="ddlDocumentName">
@@ -16,7 +16,7 @@
                              InitialValue="" ErrorMessage="Document Name is required." CssClass="text-danger" Display="Dynamic" SetFocusOnError="true" />
                     </div>
                 </div>
-                <div class="col-md-6 mb-3">
+                <div class="col-md-4 mb-3">
                     <div class="form-group">
                         <label class="mb-1">Document Number <span style="color:red;">*</span></label>
                         <asp:TextBox runat="server" CssClass="form-control" ID="txtDocumentNumber" placeholder="" MaxLength="20"></asp:TextBox>
@@ -24,22 +24,22 @@
                              ErrorMessage="Document Number is required." CssClass="text-danger" Display="Dynamic" SetFocusOnError="true" />
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <label class="mb-1">File<span style="color:red;">*</span></label>
-                                <asp:FileUpload runat="server" ID="fuFrontSide" CssClass="form-control" />                             
-                                <asp:Label ID="lblDocument" runat="server" Text="Document is required." ForeColor="Red" Visible="false"></asp:Label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group mt-4" style="text-align:center;">
-                                <asp:Button runat="server" ID="btnUploadFront" Text="Upload" CssClass="btn btn-primary" OnClick="btnUploadFront_Click"  />
-                            </div>
+                <div class="col-md-4 mb-3">
+                    <div class="form-group">
+                        <label class="mb-1">File<span style="color: red;">*</span></label>
+                        <asp:FileUpload runat="server" ID="fuFrontSide" CssClass="form-control" />
+                        <asp:Label ID="lblDocument" runat="server" Text="Document is required." ForeColor="Red" Visible="false"></asp:Label>
+                        <p class="text-danger mt-2"><strong>Note<sup>*</sup></strong> jpg, jpeg, png and pdf format is acceptable.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group mt-4" style="text-align: center;">
+                            <asp:Button runat="server" ID="btnUploadFront" Text="Upload" CssClass="btn btn-primary" OnClick="btnUploadFront_Click" />
                         </div>
                     </div>
                 </div>
+
 
                 <div class="col-md-12">
                     <div class="DocumentData table-responsive">

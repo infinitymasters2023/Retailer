@@ -21,23 +21,16 @@
             margin-bottom: 0.75rem; /* Add some vertical spacing between label-value pairs */
         }
 
-            .profile-panel .row .col-md-3 label {
-                font-weight: bold; /* Make labels stand out */
-                display: block; /* Ensure label takes full width of its column */
-                margin-bottom: 0.25rem; /* Add a little space between label and value */
-                color: #495057; /* Slightly darker text for labels */
-            }
+        .profile-panel .row .col-md-3 label {
+            font-weight: bold; /* Make labels stand out */
+            display: block; /* Ensure label takes full width of its column */
+            margin-bottom: 0.25rem; /* Add a little space between label and value */
+            color: #495057; /* Slightly darker text for labels */
+        }
 
-            .profile-panel .row .col-md-3 span {
-                display: block; /* Display value on the next line */
-                color: #212529; /* Standard text color for values */
-            }
-
-        .profile-panel h5 {
-            margin-top: 1.5rem; /* Add more space above the headings */
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid #eee; /* Add a subtle bottom border */
-            color: #007bff; /* A primary color for headings */
+        .profile-panel .row .col-md-3 span {
+            display: block; /* Display value on the next line */
+            color: #212529; /* Standard text color for values */
         }
 
         /* Adjust margin-top for the first heading (Retailer Profile Details) if needed */
@@ -52,24 +45,24 @@
             border-collapse: collapse;
         }
 
-            .profile-panel .table th,
-            .profile-panel .table td {
-                padding: 0.75rem;
-                vertical-align: top;
-                border-top: 1px solid #dee2e6;
-                text-align: left; /* Align text to the left for better readability */
-            }
+        .profile-panel .table th,
+        .profile-panel .table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+            text-align: left; /* Align text to the left for better readability */
+        }
 
-            .profile-panel .table thead th {
-                vertical-align: bottom;
-                border-bottom: 2px solid #dee2e6;
-                background-color: #343a40; /* Dark background for header */
-                color: white;
-            }
+        .profile-panel .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+            background-color: #343a40; /* Dark background for header */
+            color: white;
+        }
 
-            .profile-panel .table tbody tr:nth-of-type(odd) {
-                background-color: rgba(0, 0, 0, 0.05); /* Add subtle background for odd rows */
-            }
+        .profile-panel .table tbody tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.05); /* Add subtle background for odd rows */
+        }
 
         .profile-panel .table-sm th,
         .profile-panel .table-sm td {
@@ -96,9 +89,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:Panel ID="pnlProfile" runat="server" CssClass="profile-panel">
-        <div class="container-fluid dashboard-content">
+        <div class="container-fluid px-0">
             <div class="card">
-                <h5 class="card-header">Retailer Profile Details</h5>
+                <h5 class="card-header mt-0 text-dark">Retailer Profile Details</h5>
                 <div class="card-body">
 
                     <div class="row">
@@ -116,7 +109,7 @@
                                 <asp:Label ID="lblMobileNoValue" runat="server" />
                             </div>
                             <asp:TextBox runat="server" CssClass="form-control" ID="txtMobileNumber" placeholder="" MaxLength="10" Visible="false"
-                                pattern="\d{10}" title="Please enter a valid 10-digit mobile number" oninput="validateMobileNumber(this)" />
+                                pattern="\d{10}" title="Please enter a valid 10-digit mobile number" oninput="validateMobileNumber(this)" Enabled="false" />
                             <label id="lblErrorMobileNo" runat="server" visible="false" style="color: red;font-size:12px">Mobile No is required.</label>
                         </div>
                         <div class="col-md-3">
@@ -148,8 +141,6 @@
                                     <i class="fa fa-calendar"></i>
                                 </span>
                             </div>
-                            <cc1:CalendarExtender ID="CalendarExtender3" runat="server" Format="dd-MMM-yyyy"
-                                TargetControlID="TextBox1" EndDate="<%# DateTime.Today %>"></cc1:CalendarExtender>
                             <label id="lblDateOfBirth" runat="server" visible="false" style="color: red; font-size: 12px">Date of Birth is required.</label>
 
                         </div>
@@ -164,7 +155,7 @@
                                 <asp:ListItem Text="Female" Value="Female"></asp:ListItem>
                             </asp:DropDownList>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div style="display: flex;">
                                 <asp:Label ID="lblPincode" runat="server" Text="Pin Code: " />&nbsp;
                                 <asp:Label ID="lblPincodeValue" runat="server" />
@@ -173,19 +164,19 @@
                                 MaxLength="6" title="Enter a 6-digit Pincode" oninput="validatePincode(this)" Visible="false" />
                             <label id="lblErrorPincode" runat="server" visible="false" style="color: red; font-size:12px">PIN Code is required.</label>
                         </div>
-                        <div class="col-md-3">
-                            <div style="display: flex;">
+                        <div class="col-md-2">
+                            <div style="display: flex; margin-top:28px;">
                                 <asp:Label ID="lblCity" runat="server" Text="City: " />&nbsp;
                                 <asp:Label ID="lblCityValue" runat="server" />
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div style="display: flex;">
+                        <div class="col-md-2">
+                            <div style="display: flex;margin-top:28px;">
                                 <asp:Label ID="lblState" runat="server" Text="State: " />&nbsp;
                                 <asp:Label ID="lblStateValue" runat="server" />
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div style="display: flex;">
                                 <asp:Label ID="lblAddress" runat="server" Text="Address: " />&nbsp;
                                 <asp:Label ID="lblAddressValue" runat="server" />
@@ -194,17 +185,17 @@
                             <label id="lblCurrentAddress" runat="server" visible="false" style="color:red; font-size:12px">Address is required.</label>
                         </div>
                     </div>
-                    <div class="row" style="text-align: end;">
-                        <div class="col-md-12">
+                    <div class="row mt-3">
+                        <div class="w-100 d-flex justify-content-center">
                             <asp:Button ID="btnEditProfile" runat="server" Text="Edit Profile" CssClass="btn btn-primary" OnClick="btnEditProfile_Click" />
-                            <asp:Button ID="btnCancelProfile" runat="server" Text="Cancel" CssClass="btn btn-danger" Visible="false" OnClick="btnCancelProfile_Click" />
+                            <asp:Button ID="btnCancelProfile" runat="server" Text="Cancel" CssClass="btn btn-danger mr-3" Visible="false" OnClick="btnCancelProfile_Click" />
                             <asp:Button ID="btnUpdateProfile" runat="server" Text="Update Profile" CssClass="btn btn-primary" Visible="false" OnClick="btnUpdateProfile_Click" />
                         </div>
                     </div>
                 </div>
 
             </div>
-            <hr />
+           
             <div class="row">
                 <!-- ============================================================== -->
                 <!-- fixed header  -->
@@ -212,10 +203,8 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="col-md-12" style="display: flex;">
-                                <div class="col-md-11">
-                                    <h5 class="mb-0">Bank Details </h5>
-                                </div>
+                            <div class="d-flex justify-content-between">
+                                <h5 class="mb-0">Bank Details </h5>
                                 <div class="col-md-1">
                                     <asp:Button ID="btnAddBank" runat="server" class="btn btn-primary" Text="Add Bank" OnClick="btnAddBank_Click" />
                                 </div>
@@ -229,6 +218,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>S.No.</th>
+                                                    <th>Make Primary</th>
                                                     <th>Bank Account Number</th>
                                                     <th>IFSC Code</th>
                                                     <th>Bank Name</th>
@@ -237,14 +227,21 @@
                                                     <th>Account Holder Name</th>
                                                     <th>Created Date</th>
                                                     <th>IP Address</th>
+                                                    <th>Status</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                     </HeaderTemplate>
                                     <ItemTemplate>
-                                        <tr>
+                                        <tr class='<%# Eval("Status").ToString() == "Active" ? "table-success" : "" %>'>
                                             <td><%# Container.ItemIndex + 1 %></td>
+                                            <td>
+                                                <asp:LinkButton ID="lnkMakeActive" runat="server" CommandName="MakeActive" CommandArgument='<%# Eval("Mid") %>'
+                                                    ToolTip="Make Active" CssClass="btn btn-sm btn-success mr-2" OnClientClick="return confirm('Set this as the active account?');">
+                                                    <i class="fa fa-check"></i>
+                                                </asp:LinkButton>
+                                            </td>
                                             <td><%# Eval("BankAccountNumber") %></td>
                                             <td><%# Eval("IFSCCode") %></td>
                                             <td><%# Eval("BankName") %></td>
@@ -253,12 +250,12 @@
                                             <td><%# Eval("AccountHolderName") %></td>
                                             <td><%# Eval("CreatedDate", "{0:dd-MMM-yyyy}") %></td>
                                             <td><%# Eval("IPAddress") %></td>
+                                            <td><asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status") %>' Visible="false"></asp:Label><%# Eval("Status") %></td>
                                             <td>
                                                 <asp:LinkButton ID="lnkEdit" runat="server" CommandName="EditBank" CommandArgument='<%# Eval("Mid") %>'
-                                                    ToolTip="Edit" CssClass="btn btn-sm btn-warning">
+                                                    ToolTip="Edit" CssClass="btn btn-sm btn-warning mr-2">
                                                 <i class="fa fa-edit"></i>
                                                 </asp:LinkButton>
-                                                &nbsp;
                                                 <asp:LinkButton ID="lnkDelete" runat="server" CommandName="DeleteBank" CommandArgument='<%# Eval("Mid") %>'
                                                     ToolTip="Delete" CssClass="btn btn-sm btn-danger" OnClientClick="return confirm('Are you sure you want to delete this record?');">
                                                     <i class="fa fa-trash"></i>
@@ -290,12 +287,10 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="col-md-12" style="display: flex;">
-                                <div class="col-md-11">
-                                    <h5 class="mb-0">Dealer Details</h5>
-                                </div>
+                            <div class="d-flex justify-content-between">
+                                <h5 class="mb-0">Dealer Details</h5>
                                 <div class="col-md-1">
-                                    <asp:Button ID="btnAddDealer" runat="server" class="btn btn-primary" Text="Add Dealer" OnClick="btnAddDealer_Click" />
+                                    <asp:Button ID="btnAddDealer" runat="server" class="btn btn-primary" Text="Add Dealer" OnClick="btnAddDealer_Click" Visible="false" />
                                 </div>
                             </div>
                         </div>
@@ -304,11 +299,11 @@
                                 <asp:Repeater ID="RepeaterEmployeeDetails" runat="server" OnItemCommand="RepeaterDealerDetails_ItemCommand">
                                     <HeaderTemplate>
                                         <div class="table-responsive">
-                                            <table id="example45" class="table-responsive table data-table table-striped table-bordered nowrap" style="width: 100%">
+                                            <table id="example45" class="table data-table table-striped table-bordered nowrap" style="width: 100%">
                                                 <thead>
                                                     <tr>
                                                         <th>S.No.</th>
-                                                        <th>Name</th>
+                                                        <th>Firm Name</th>
                                                         <th>GSTIN</th>
                                                         <th>Address Line 1</th>
                                                         <th>City</th>
@@ -323,7 +318,7 @@
                                             <td><%# Container.ItemIndex + 1 %></td>
                                             <td><%# Eval("SellerName") %></td>
                                             <td><%# Eval("SellerGSTINNo") %></td>
-                                            <td><%# Eval("AddressLine1") %></td>
+                                            <td><%# Eval("AddressLine1") %>  <%# Eval("AddressLine2") %></td>
                                             <td><%# Eval("City") %></td>
                                             <td><%# Eval("State") %></td>
                                             <td>
@@ -332,7 +327,7 @@
                                                     <i class="fa fa-edit"></i>
                                                 </asp:LinkButton>
                                                 &nbsp;
-                                                <asp:LinkButton ID="lnkDeleteDealer" runat="server" CommandName="DeleteDealer" CommandArgument='<%# Eval("Mid") %>'
+                                                <asp:LinkButton ID="lnkDeleteDealer" runat="server" Visible="false" CommandName="DeleteDealer" CommandArgument='<%# Eval("Mid") %>'
                                                     ToolTip="Delete" CssClass="btn btn-sm btn-danger" OnClientClick="return confirm('Are you sure you want to delete this record?');">
                                                     <i class="fa fa-trash"></i>
                                                 </asp:LinkButton>
@@ -345,7 +340,6 @@
                                         </div>
                                     </FooterTemplate>
                                 </asp:Repeater>
-
                             </div>
                         </div>
                     </div>
@@ -358,11 +352,8 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="card">
                         <div class="card-header">
-                            <div class="col-md-12" style="display: flex;">
-                                <div class="col-md-11">
-
-                                    <h5 class="mb-0">Uploaded Documents</h5>
-                                </div>
+                            <div class="d-flex justify-content-between">
+                                <h5 class="mb-0">Uploaded Documents</h5>
                                 <div class="col-md-1">
                                     <asp:Button ID="btnUploadDocument" runat="server" class="btn btn-primary" Text="Add Documents" OnClick="btnUploadDocument_Click" />
                                 </div>
@@ -372,7 +363,8 @@
                             <div class="table-responsive">
                                 <asp:Repeater ID="rptDocuments" runat="server" OnItemCommand="RepeaterDocumentDetails_ItemCommand">
                                     <HeaderTemplate>
-                                        <table class="table-responsive table data-table table-striped table-bordered nowrap">
+                                        <div class="table-responsive">
+                                        <table class="table data-table table-striped table-bordered nowrap">
                                             <thead class="thead-dark">
                                                 <tr>
                                                     <th>S.No.</th>
@@ -413,6 +405,7 @@
                                     <FooterTemplate>
                                         </tbody>
                                     </table>
+                                        </div>
                                     </FooterTemplate>
                                 </asp:Repeater>
                             </div>

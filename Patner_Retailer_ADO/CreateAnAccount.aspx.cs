@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml;
 
 namespace Patner_Retailer_ADO
 {
@@ -67,6 +68,13 @@ namespace Patner_Retailer_ADO
             {
                 try
                 {
+                    string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".pdf" };
+                    string fileExtension = Path.GetExtension(fuFrontSide.FileName).ToLower();
+
+                    if (!allowedExtensions.Contains(fileExtension))
+                    {
+                        return;
+                    }
                     string docName = ddlDocumentName.SelectedItem.Text;
                     string docNumber = txtDocumentNumber.Text.Trim();
                     string fileName = Path.GetFileName(fuFrontSide.FileName);
@@ -228,6 +236,8 @@ namespace Patner_Retailer_ADO
                     cmd.Parameters.AddWithValue("@Address", txtAddress.Text.Trim());
                     cmd.Parameters.AddWithValue("@Gender", ddlGender.SelectedItem.Text.ToString());
                     cmd.Parameters.AddWithValue("@DateOfBirth", TextBox1.Text.Trim());
+                    cmd.Parameters.AddWithValue("@MobileNo_CheckWhatsapp", chkMobileNumberWhatsApp.Checked ? txtMobileNumber.Text.Trim() : null);
+                    cmd.Parameters.AddWithValue("@MobileNo2_CheckWhatsapp", chkAlternativeMobileNumber.Checked ? txtMobileNumber.Text.Trim() : null);
 
                     SqlParameter outputMid = new SqlParameter("@FreelanerIdd", SqlDbType.Int);
                     outputMid.Direction = ParameterDirection.Output;
@@ -242,7 +252,8 @@ namespace Patner_Retailer_ADO
                         string script = "$('.nav-tabs > .active').next('li').find('a').click();";
                         ScriptManager.RegisterStartupScript(this, GetType(), "MoveToNextTab", script, true);
                         hdnActiveTab.Value = "#step2";
-
+                        txtOfficialMobileNo.Text = txtMobileNumber.Text;
+                        txtOfficialEmail.Text = txtEmail.Text;
                     }
                 }
             }
@@ -605,6 +616,9 @@ namespace Patner_Retailer_ADO
                     cmd.Parameters.AddWithValue("@Pincode", txtSellerPincode.Text.Trim());
                     cmd.Parameters.AddWithValue("@City", lblSellerCity.Text.Trim());
                     cmd.Parameters.AddWithValue("@State", lblSellerState.Text.Trim());
+                    cmd.Parameters.AddWithValue("@CustomerEmailID", txtOfficialEmail.Text.Trim());
+                    cmd.Parameters.AddWithValue("@CustomerMobileNo", txtOfficialMobileNo.Text.Trim());
+                    cmd.Parameters.AddWithValue("@FirmType", ddlFirmType.SelectedItem.Text.Trim());
                     cmd.Parameters.AddWithValue("@ProfileId", Session["UniqueMid"].ToString().Trim());
 
                     con.Open();

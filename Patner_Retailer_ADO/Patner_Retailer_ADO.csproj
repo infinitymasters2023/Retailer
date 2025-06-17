@@ -46,6 +46,9 @@
     <Reference Include="AjaxControlToolkit">
       <HintPath>C:\Users\Amaan\Desktop\AjaxControlToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetZip">
+      <HintPath>C:\Users\Amaan\Desktop\DotNetZip.dll</HintPath>
+    </Reference>
     <Reference Include="EPPlus">
       <HintPath>C:\Users\Amaan\Desktop\EPPlus.dll</HintPath>
     </Reference>
@@ -80,6 +83,7 @@
     <Content Include="AddBank.aspx" />
     <Content Include="AddDealer.aspx" />
     <Content Include="AddDocument.aspx" />
+    <Content Include="AddEditFavourite.aspx" />
     <Content Include="assets\css\bootstrap.min.css" />
     <Content Include="assets\css\signup.css" />
     <Content Include="assets\images\avatar-1.jpg" />
@@ -106,6 +110,7 @@
     <Content Include="assets\images\eco-slider-img-3.png" />
     <Content Include="assets\images\error-img.png" />
     <Content Include="assets\images\github.png" />
+    <Content Include="assets\images\infinity-logo.png" />
     <Content Include="assets\images\Infyshield-logo.png" />
     <Content Include="assets\images\LinkExpired.jpg" />
     <Content Include="assets\images\loader.svg" />
@@ -478,6 +483,7 @@
     <Content Include="CreateSalesPerson.aspx" />
     <Content Include="Dashboard.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="Favourite.aspx" />
     <Content Include="InCompletePurchased.aspx" />
     <Content Include="InvalidLink.aspx" />
     <Content Include="Login.aspx" />
@@ -517,6 +523,13 @@
     </Compile>
     <Compile Include="AddDocument.aspx.designer.cs">
       <DependentUpon>AddDocument.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditFavourite.aspx.cs">
+      <DependentUpon>AddEditFavourite.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddEditFavourite.aspx.designer.cs">
+      <DependentUpon>AddEditFavourite.aspx</DependentUpon>
     </Compile>
     <Compile Include="BuyInfySalePlan.aspx.cs">
       <DependentUpon>BuyInfySalePlan.aspx</DependentUpon>
@@ -566,6 +579,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Favourite.aspx.cs">
+      <DependentUpon>Favourite.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Favourite.aspx.designer.cs">
+      <DependentUpon>Favourite.aspx</DependentUpon>
     </Compile>
     <Compile Include="InCompletePurchased.aspx.cs">
       <DependentUpon>InCompletePurchased.aspx</DependentUpon>

@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
+using System.Security.Policy;
 
 namespace Patner_Retailer_ADO
 {
@@ -39,7 +40,18 @@ namespace Patner_Retailer_ADO
                     da.Fill(dt);
                     if (dt.Rows.Count > 0)
                     {
+                        GvSalePerson.CssClass = "table-responsive table data-table table-striped table-bordered nowrap";
                         GvSalePerson.DataSource = dt;
+                        GvSalePerson.DataBind();
+                        if (GvSalePerson.HeaderRow != null)
+                        {
+                            GvSalePerson.HeaderRow.TableSection = TableRowSection.TableHeader;
+                        }
+                    }
+                    else
+                    {
+                        GvSalePerson.CssClass = "table-responsive table table-striped table-bordered nowrap";
+                        GvSalePerson.DataSource = null;
                         GvSalePerson.DataBind();
                     }
                 }
@@ -63,6 +75,14 @@ namespace Patner_Retailer_ADO
                 DeleteProfile(profileId);
                 LodBind();
             }
+            if (e.CommandName == "ChangeStatusRow")
+            {
+                string[] args = e.CommandArgument.ToString().Split('|');
+                string profileId = args[0];
+                string currentStatus = args[1];
+                ChagneStatus(profileId, currentStatus);
+                LodBind();
+            }
         }
 
         private void DeleteProfile(string profileId)
@@ -72,6 +92,25 @@ namespace Patner_Retailer_ADO
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Type", 11);
                 cmd.Parameters.AddWithValue("@Mid", profileId);
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+            }
+            con.Close();
+        }
+        protected void ChagneStatus(string profileId, string currentStatus)
+        {
+            using (SqlCommand cmd = new SqlCommand("SP_IAPL_Retailer_Auth", con))
+            {
+                if (currentStatus == "Active")
+                    currentStatus = "Pending";
+                else
+                    currentStatus = "Active";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Type", 21);
+                cmd.Parameters.AddWithValue("@ProfileId", profileId);
+                cmd.Parameters.AddWithValue("@Status", currentStatus);
+                cmd.Parameters.AddWithValue("@UserRole", Session["Role"].ToString());
 
                 con.Open();
                 cmd.ExecuteNonQuery();

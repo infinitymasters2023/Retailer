@@ -161,7 +161,7 @@
                             <div class="row">
                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 mb-3">
                                     <label for="validationCustom01">First Name</label>
-                                    <asp:TextBox class="form-control validate-group" ID="txtFirstName" runat="server" placeholder="First Name" MaxLength="50"></asp:TextBox>
+                                    <asp:TextBox class="form-control validate-group" ID="txtFirstName" runat="server" placeholder="First Name" MaxLength="50" Enabled="false"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvFirstName" runat="server" ControlToValidate="txtFirstName"
                                         ErrorMessage="First Name is required" CssClass="text-danger" Display="Dynamic" ValidationGroup="CustomerDetails" />
                                 </div>
@@ -173,7 +173,7 @@
                                 </div>
                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 mb-3">
                                     <label for="validationCustom01">Customer Registered Email</label>
-                                    <asp:TextBox class="form-control validate-group" ID="txtEmail" runat="server" placeholder="Customer Registered Email" TextMode="Email" MaxLength="50"></asp:TextBox>
+                                    <asp:TextBox class="form-control validate-group" ID="txtEmail" runat="server" placeholder="Customer Registered Email" TextMode="Email" MaxLength="50" Enabled="false"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" ErrorMessage="Email is required" CssClass="text-danger" Display="Dynamic" ValidationGroup="CustomerDetails" />
                                     <asp:RegularExpressionValidator ID="revEmail" runat="server" ControlToValidate="txtEmail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
                                         ErrorMessage="Invalid email format" CssClass="text-danger" Display="Dynamic" ValidationGroup="CustomerDetails" />
@@ -189,7 +189,7 @@
                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 mb-3">
                                     <label for="validationCustom01">Customer Resistered Mobile No.</label>
                                     <asp:TextBox class="form-control validate-group" ID="txtCustomerMobileNo" runat="server" placeholder="Customer Resistered Mobile No."
-                                        pattern="\d{10}" title="Please enter a valid 10-digit mobile number" TextMode="Number" oninput="validateMobileNumber(this)" MaxLength="10"></asp:TextBox>
+                                        pattern="\d{10}" title="Please enter a valid 10-digit mobile number" TextMode="Number" oninput="validateMobileNumber(this)" MaxLength="10" Enabled="false"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="rfvCustomerMobile" runat="server" ControlToValidate="txtCustomerMobileNo"
                                         ErrorMessage="Mobile number is required" CssClass="text-danger" Display="Dynamic" ValidationGroup="CustomerDetails" />
                                     <asp:RegularExpressionValidator ID="revCustomerMobile" runat="server" ControlToValidate="txtCustomerMobileNo" ValidationExpression="^[6-9]\d{9}$"

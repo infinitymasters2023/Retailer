@@ -42,7 +42,7 @@
                         <asp:Label ID="ReportTotal" runat="server" Style="position: absolute; right: 50px;"></asp:Label>
                     </div>
                     <div class="table-responsive">
-                        <asp:GridView ID="GvReport" runat="server" AutoGenerateColumns="false" CssClass="table table-striped table-bordered text-nowrap">
+                        <asp:GridView ID="GvReport" runat="server" AutoGenerateColumns="false" CssClass="table table-striped table-bordered text-nowrap" EmptyDataText="No records available. Please refine your search.">
                             <Columns>
                                 <asp:TemplateField HeaderText="S.No.">
                                     <ItemTemplate>

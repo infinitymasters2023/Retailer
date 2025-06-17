@@ -1,49 +1,47 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Reports.aspx.cs" Inherits="Patner_Retailer_ADO.Reports" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script>
+    $(document).ready(function () {
+    $('#<%= GvReport.ClientID %>').DataTable();
+});
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
     <div class="card">
-    <div class="card-body">
-        <h4 class="filter-txt">Reports</h4>
-        <div class="row justify-content-start mb-3">
-            <div class="col-12 col-lg-10">
-                <div class="row">
-                    <div class="col-12 col-lg-2 pr-0 mb-2 mb-lg-0">
-                        <asp:TextBox ID="txtBrnad" runat="server" CssClass="form-control" placeholder="Brand Name"></asp:TextBox>
+        <div class="card-body">
+            <h4 class="filter-txt">Reports</h4>
+            <div class="row justify-content-start mb-3">
+                <div class="col-12 col-lg-10">
+                    <div class="row">
+                        <div class="col-12 col-lg-2 pr-0 mb-2 mb-lg-0">
+                            <asp:TextBox ID="txtBrnad" runat="server" CssClass="form-control" placeholder="Brand Name"></asp:TextBox>
+                        </div>
+                        <div class="col-12 col-lg-2 pr-0 mb-2 mb-lg-0">
+                            <asp:TextBox ID="txtModel" runat="server" CssClass="form-control" placeholder="Model Name"></asp:TextBox>
+                        </div>
+                        <div class="col-12 col-lg-2 pr-0 mb-2 mb-lg-0">
+                            <asp:TextBox ID="txtCustomerName" runat="server" CssClass="form-control" placeholder="Customer Name"></asp:TextBox>
+                        </div>
+                        <div class="col-12 col-lg-2 pr-0 mb-2 mb-lg-0">
+                            <asp:TextBox ID="txtMobileNo" runat="server" CssClass="form-control" placeholder="Mobile No"></asp:TextBox>
+                        </div>
+                        <div class="col-12 col-lg-2 pr-0 mb-2 mb-lg-0">
+                            <asp:TextBox ID="txtPlanName" runat="server" CssClass="form-control" placeholder="Plan Name"></asp:TextBox>
+                        </div>
+                        <div class="col-12 col-lg-2 pr-0 mb-3 mb-lg-0">
+                            <asp:TextBox ID="txtProductname" runat="server" CssClass="form-control" placeholder="Product Name"></asp:TextBox>
+                        </div>
                     </div>
-                    <div class="col-12 col-lg-2 pr-0 mb-2 mb-lg-0">
-                        <asp:TextBox ID="txtModel" runat="server" CssClass="form-control" placeholder="Model Name"></asp:TextBox>
-                    </div>
-                    <div class="col-12 col-lg-2 pr-0 mb-2 mb-lg-0">
-                        <asp:TextBox ID="txtCustomerName" runat="server" CssClass="form-control" placeholder="Customer Name"></asp:TextBox>
-                    </div>
-                    <div class="col-12 col-lg-2 pr-0 mb-2 mb-lg-0">
-                        <asp:TextBox ID="txtMobileNo" runat="server" CssClass="form-control" placeholder="Mobile No"></asp:TextBox>
-                    </div>
-                    <div class="col-12 col-lg-2 pr-0 mb-2 mb-lg-0">
-                        <asp:TextBox ID="txtPlanName" runat="server" CssClass="form-control" placeholder="Plan Name"></asp:TextBox>
-                    </div>
-                    <div class="col-12 col-lg-2 pr-0 mb-3 mb-lg-0">
-                        <asp:TextBox ID="txtProductname" runat="server" CssClass="form-control" placeholder="Product Name"></asp:TextBox>
+                </div>
+                <div class="col-12 col-lg-2 pr-0">
+                    <div class="d-flex justify-content-start">
+                        <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="btn btn-success" OnClick="SubmitReport" />
+                        <asp:Button ID="btnExportExcel" runat="server" Text="Export to Excel" CssClass="btn btn-info ml-2" OnClick="btnExportExcel_Click" />
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-2 pr-0">
-                <div class="d-flex justify-content-start">
-                    <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="btn btn-success" OnClick="SubmitReport" />
-                    <asp:Button ID="btnExportExcel" runat="server" Text="Export to Excel" CssClass="btn btn-info ml-2" OnClick="btnExportExcel_Click" />
-                </div>
-            </div>
-        </div>
-
-        <%--<div class="d-flex justify-content-start mb-3">
-            <asp:Label ID="ReportTotal" runat="server" Style="position: absolute; right: 50px;"></asp:Label>
-        </div>--%>
-      
-            <asp:GridView ID="GvReport" runat="server" AutoGenerateColumns="false" CssClass="table-responsive table data-table table-striped table-bordered nowrap"
-                UseAccessibleHeader="true" HeaderStyle-CssClass="thead">
+            <asp:GridView ID="GvReport" runat="server" AutoGenerateColumns="false" UseAccessibleHeader="true" HeaderStyle-CssClass="thead"  EmptyDataText="No records available. Please refine your search.">
                 <Columns>
                     <asp:TemplateField HeaderText="S.No.">
                         <ItemTemplate>
@@ -79,10 +77,6 @@
                     <asp:BoundField DataField="imei" HeaderText="IMEI" />
                 </Columns>
             </asp:GridView>
-       
-
+        </div>
     </div>
-</div>
-
-
 </asp:Content>

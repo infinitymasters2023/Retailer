@@ -11,79 +11,79 @@ namespace Patner_Retailer_ADO
 {
 
 
-    public partial class Dashboard
+    public partial class Favourite
     {
 
         /// <summary>
-        /// lblTotalSales control.
+        /// txtBrnad control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotalSales;
+        protected global::System.Web.UI.WebControls.TextBox txtBrnad;
 
         /// <summary>
-        /// lblRevenue control.
+        /// txtModel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRevenue;
+        protected global::System.Web.UI.WebControls.TextBox txtModel;
 
         /// <summary>
-        /// lbl1 control.
+        /// txtPlanName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl1;
+        protected global::System.Web.UI.WebControls.TextBox txtPlanName;
 
         /// <summary>
-        /// lbl2 control.
+        /// txtProductname control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl2;
+        protected global::System.Web.UI.WebControls.TextBox txtProductname;
 
         /// <summary>
-        /// lbl3 control.
+        /// btnSubmit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl3;
+        protected global::System.Web.UI.WebControls.Button btnSubmit;
 
         /// <summary>
-        /// lbl4 control.
+        /// btnAdd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl4;
+        protected global::System.Web.UI.WebControls.Button btnAdd;
 
         /// <summary>
-        /// lbl5 control.
+        /// btnExportExcel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl5;
+        protected global::System.Web.UI.WebControls.Button btnExportExcel;
 
         /// <summary>
-        /// lbl6 control.
+        /// GvFavourite control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbl6;
+        protected global::System.Web.UI.WebControls.GridView GvFavourite;
     }
 }

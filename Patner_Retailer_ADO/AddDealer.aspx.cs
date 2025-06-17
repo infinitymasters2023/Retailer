@@ -227,19 +227,21 @@ namespace Patner_Retailer_ADO
                     cmd.Parameters.AddWithValue("@ProfileId", Session["RetailerUniqueID"].ToString().Trim());
 
                     con.Open();
-                    int i = cmd.ExecuteNonQuery();
+                    object result = cmd.ExecuteScalar();
                     con.Close();
 
-                    string script = $@"
-                            <script type='text/javascript'>
-                                alert('Dealer Details has been saved successfully!');
-                                window.location.href = 'Profile.aspx';
-                            </script>";
-
-                    ClientScript.RegisterStartupScript(this.GetType(), "ProfileRedirect", script);
-                    return;
-
-
+                    if (result != null && result.ToString() == "1")
+                    {
+                        string script = @"<script type='text/javascript'>
+                                            alert('Dealer Details has been saved successfully!');
+                                            window.location.href = 'Profile.aspx';
+                                        </script>";
+                        ClientScript.RegisterStartupScript(this.GetType(), "ProfileRedirect", script);
+                    }
+                    else
+                    {
+                        DisplayMessage(this, "Dealer already exists with the same GSTIN and name.");
+                    }
                 }
             }
             catch (Exception ex)
@@ -354,19 +356,23 @@ namespace Patner_Retailer_ADO
                         cmd.Parameters.AddWithValue("@Pincode", txtSellerPincode.Text.Trim());
                         cmd.Parameters.AddWithValue("@City", lblSellerCity.Text.Trim());
                         cmd.Parameters.AddWithValue("@State", lblSellerState.Text.Trim());
-
+                     
                         con.Open();
-                        int i = cmd.ExecuteNonQuery();
+                        object result = cmd.ExecuteScalar();
                         con.Close();
 
-                        string script = $@"
-                            <script type='text/javascript'>
-                                alert('Dealer Details has been updated successfully!');
-                                window.location.href = 'Profile.aspx';
-                            </script>";
-
-                        ClientScript.RegisterStartupScript(this.GetType(), "ProfileRedirect", script);
-                        return;
+                        if (result != null && result.ToString() == "1")
+                        {
+                            string script = @"<script type='text/javascript'>
+                                                alert('Dealer Details has been updated successfully!');
+                                                window.location.href = 'Profile.aspx';
+                                             </script>";
+                            ClientScript.RegisterStartupScript(this.GetType(), "ProfileRedirect", script);
+                        }
+                        else
+                        {
+                            DisplayMessage(this, "Dealer already exists with the same GSTIN and name.");
+                        }
                     }
                 }
                 else

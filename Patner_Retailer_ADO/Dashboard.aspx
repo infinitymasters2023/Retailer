@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="Infyshield Sales Dashboard" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="Patner_Retailer_ADO.Dashboard" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         /* Custom styles for the Infyshield dashboard */
@@ -10,14 +11,14 @@
             margin-bottom: 20px;
         }
 
-        .page-header h3 {
-            margin-bottom: 5px;
-            color: #2c3e50; /* Darker heading color */
-        }
+            .page-header h3 {
+                margin-bottom: 5px;
+                color: #2c3e50; /* Darker heading color */
+            }
 
-        .page-header p {
-            color: #667885; /* Slightly darker description */
-        }
+            .page-header p {
+                color: #667885; /* Slightly darker description */
+            }
 
         .breadcrumb {
             background-color: #e9ecef; /* Lighter breadcrumb background */
@@ -31,9 +32,9 @@
             text-decoration: none;
         }
 
-        .breadcrumb-item a:hover {
-            text-decoration: underline;
-        }
+            .breadcrumb-item a:hover {
+                text-decoration: underline;
+            }
 
         .breadcrumb-item.active {
             color: #6c757d; /* Gray color for the active breadcrumb item */
@@ -47,10 +48,10 @@
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transition */
         }
 
-        .card:hover {
-            transform: translateY(-5px); /* Slight lift on hover */
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Increased shadow on hover */
-        }
+            .card:hover {
+                transform: translateY(-5px); /* Slight lift on hover */
+                box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Increased shadow on hover */
+            }
 
 
         .card-body {
@@ -60,17 +61,17 @@
             justify-content: space-between; /* Space out text and icon */
         }
 
-        .card-body .text-muted {
-            font-size: 14px;
-            color: #86909e; /* Muted text color */
-        }
+            .card-body .text-muted {
+                font-size: 14px;
+                color: #86909e; /* Muted text color */
+            }
 
-        .card-body h2 {
-            margin-top: 0;
-            margin-bottom: 0;
-            font-size: 24px; /* Larger font size for the number */
-            color: #252d35; /* Very dark blue for emphasis */
-        }
+            .card-body h2 {
+                margin-top: 0;
+                margin-bottom: 0;
+                font-size: 24px; /* Larger font size for the number */
+                color: #252d35; /* Very dark blue for emphasis */
+            }
 
         .icon-circle-medium {
             width: 60px; /* Increased size of the circle */
@@ -130,22 +131,27 @@
                 flex: 0 0 100%; /* Each card takes up the full row */
                 max-width: 100%;
             }
+
             .card-body {
                 flex-direction: column; /* Stack text and icon vertically */
                 text-align: center; /* Center the content */
             }
-            .card-body h2{
-                margin-bottom: 10px;
-            }
+
+                .card-body h2 {
+                    margin-bottom: 10px;
+                }
+
             .icon-circle-medium {
                 margin-top: 10px; /* Add space above the icon */
             }
         }
-        @media (max-width: 576px){
-            .page-header h3{
+
+        @media (max-width: 576px) {
+            .page-header h3 {
                 font-size: 1.5rem;
             }
-            .pageheader-text{
+
+            .pageheader-text {
                 font-size: 0.9rem;
             }
         }
@@ -154,7 +160,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <div class="dashboard-influence">
-        <div class="container-fluid dashboard-content">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
@@ -188,7 +194,7 @@
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
-                    <div class="card m-0">
+                    <div class="card mb-3 mx-0 mt-0">
                         <div class="card-body">
                             <div class="d-inline-block">
                                 <h5 class="text-muted">Revenue</h5>
@@ -197,16 +203,107 @@
                                 </h2>
                             </div>
                             <div class="float-right icon-circle-medium  icon-box-lg  bg-primary-light mt-1">
-                                 <i class="fa fa-money-bill-alt fa-fw fa-sm text-primary"></i>
+                                <i class="fa fa-money-bill-alt fa-fw fa-sm text-primary"></i>
                             </div>
                         </div>
                     </div>
                 </div>
-             
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="card mb-3 mx-0 mt-0">
+                        <div class="card-body">
+                            <div class="d-inline-block">
+                                <h5 class="text-muted">Revenue</h5>
+                                <h2 class="mb-0">
+                                      <asp:Label ID="lbl1" runat="server" Text="0"></asp:Label>
+                                </h2>
+                            </div>
+                            <div class="float-right icon-circle-medium  icon-box-lg  bg-primary-light mt-1">
+                                <i class="fa fa-money-bill-alt fa-fw fa-sm text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="card mb-3 mx-0 mt-0">
+                        <div class="card-body">
+                            <div class="d-inline-block">
+                                <h5 class="text-muted">Revenue</h5>
+                                <h2 class="mb-0">
+                                    <asp:Label ID="lbl2" runat="server" Text="0"></asp:Label>
+                                </h2>
+                            </div>
+                            <div class="float-right icon-circle-medium  icon-box-lg  bg-primary-light mt-1">
+                                <i class="fa fa-money-bill-alt fa-fw fa-sm text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="card mb-3 mx-0 mt-0">
+                        <div class="card-body">
+                            <div class="d-inline-block">
+                                <h5 class="text-muted">Revenue</h5>
+                                <h2 class="mb-0">                                    
+                                    <asp:Label ID="lbl3" runat="server" Text="0"></asp:Label>
+                                </h2>
+                            </div>
+                            <div class="float-right icon-circle-medium  icon-box-lg  bg-primary-light mt-1">
+                                <i class="fa fa-money-bill-alt fa-fw fa-sm text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="card mb-3 mx-0 mt-0">
+                        <div class="card-body">
+                            <div class="d-inline-block">
+                                <h5 class="text-muted">Revenue</h5>
+                                <h2 class="mb-0">
+                                    <asp:Label ID="lbl4" runat="server" Text="0"></asp:Label>
+                                </h2>
+                            </div>
+                            <div class="float-right icon-circle-medium  icon-box-lg  bg-primary-light mt-1">
+                                <i class="fa fa-money-bill-alt fa-fw fa-sm text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="card mb-3 mx-0 mt-0">
+                        <div class="card-body">
+                            <div class="d-inline-block">
+                                <h5 class="text-muted">Revenue</h5>
+                                <h2 class="mb-0">
+                                    <asp:Label ID="lbl5" runat="server" Text="0"></asp:Label>
+                                </h2>
+                            </div>
+                            <div class="float-right icon-circle-medium  icon-box-lg  bg-primary-light mt-1">
+                                <i class="fa fa-money-bill-alt fa-fw fa-sm text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="card mb-3 mx-0 mt-0">
+                        <div class="card-body">
+                            <div class="d-inline-block">
+                                <h5 class="text-muted">Revenue</h5>
+                                <h2 class="mb-0">
+                                    <asp:Label ID="lbl6" runat="server" Text="0"></asp:Label>
+                                </h2>
+                            </div>
+                            <div class="float-right icon-circle-medium  icon-box-lg  bg-primary-light mt-1">
+                                <i class="fa fa-money-bill-alt fa-fw fa-sm text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-           
+
 
         </div>
     </div>
+
 </asp:Content>

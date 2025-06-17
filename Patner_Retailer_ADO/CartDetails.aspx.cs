@@ -52,6 +52,9 @@ namespace Patner_Retailer_ADO
                     {
                         rptPlans.DataSource = dt;
                         rptPlans.DataBind();
+                        txtFirstName.Text = Session["CustomerName"].ToString();
+                        txtEmail.Text = dt.Rows[0]["CustomerEmailID"]?.ToString();
+                        txtCustomerMobileNo.Text = dt.Rows[0]["CustomerMobileNo"]?.ToString();
                     }
                     else
                     {
@@ -194,7 +197,7 @@ namespace Patner_Retailer_ADO
 
                     con.Open();
                     cmd.ExecuteNonQuery();
-
+                    Session.Remove("CustomerName");
                     ViewState["ItemPrice"] = "1";
                     //  ViewState["ItemPrice"]= TotalAmountPay.InnerText.Replace("₹", "").Replace(",", "").Trim();
                     getpaytm();
@@ -218,7 +221,7 @@ namespace Patner_Retailer_ADO
         {
             Session["mode"] = "PayTm";
 
-
+            string serverUrl = ConfigurationManager.AppSettings["ServerURL"];
             HttpContext.Current.Cache.Insert("TransactionId", Session["salesOrderID"], null, DateTime.Now.AddHours(1), System.Web.Caching.Cache.NoSlidingExpiration);
             //   HttpContext.Current.Cache.Insert("RetailerMobileNo", Session["MobileNo"], null, DateTime.Now.AddHours(1), System.Web.Caching.Cache.NoSlidingExpiration);
 
@@ -235,7 +238,7 @@ namespace Patner_Retailer_ADO
             parameters.Add("ORDER_ID", Session["salesOrderID"].ToString());
             parameters.Add("TXN_AMOUNT", ViewState["ItemPrice"].ToString());
 
-            parameters.Add("CALLBACK_URL", "http://localhost:44310/PaymentConfirmation.aspx?m=" + Session["mode"] + "&Mobile=" + Session["MobileNo"] + "&RetailerUniqueID=" + Session["RetailerUniqueID"] + "&Role=" + Session["Role"]);
+            parameters.Add("CALLBACK_URL", serverUrl+"/PaymentConfirmation.aspx?m=" + Session["mode"] + "&Mobile=" + Session["MobileNo"] + "&RetailerUniqueID=" + Session["RetailerUniqueID"] + "&Role=" + Session["Role"]);
 
             string checksum = CheckSum.generateCheckSum(merchantKey, parameters);
 

@@ -39,6 +39,9 @@ namespace Patner_Retailer_ADO
                 BindBankDetails();
                 BindUploadedDocuments();
                 BindDealer();
+
+                ViewState["RetailerCity"] = lblCityValue.Text;
+                ViewState["RetailerState"] = lblStateValue.Text;
             }
         }
         private void LoadProfileData()
@@ -148,12 +151,29 @@ namespace Patner_Retailer_ADO
             {
                 string mid = e.CommandArgument.ToString();
                 string bankId = Convert.ToBase64String(Encoding.UTF8.GetBytes(mid));
-                Response.Redirect($"AddBank.aspx?qu="+ HttpUtility.UrlEncode(bankId));
+                Response.Redirect($"AddBank.aspx?qu=" + HttpUtility.UrlEncode(bankId));
             }
             else if (e.CommandName == "DeleteBank")
             {
                 string mid = e.CommandArgument.ToString();
-                DeleteBankRecord(mid);                
+                string status = DataBinder.Eval(e.Item.DataItem, "Status")?.ToString();
+                string statusFromCell = ((System.Web.UI.WebControls.Literal)e.Item.FindControl("litStatus"))?.Text;
+                Label lblStatus = (Label)e.Item.FindControl("lblStatus");
+                if (lblStatus != null)
+                {
+                    status = lblStatus.Text;
+                }
+                if (status == "Active")
+                {
+                    DisplayMessage(this, "This account is set as active and cannot be deleted.");
+                    return;
+                }
+                DeleteBankRecord(mid);
+            }
+            else if (e.CommandName == "MakeActive")
+            {
+                string mid = e.CommandArgument.ToString();
+                MakeActiveBankRecord(mid);
             }
         }
 
@@ -163,7 +183,8 @@ namespace Patner_Retailer_ADO
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Type", 26);
-                cmd.Parameters.AddWithValue("@Mid", mid);                
+                cmd.Parameters.AddWithValue("@Mid", mid);
+                cmd.Parameters.AddWithValue("@UserRole", Session["Role"].ToString());
 
                 con.Open();
                 cmd.ExecuteNonQuery();
@@ -172,6 +193,24 @@ namespace Patner_Retailer_ADO
 
             BindBankDetails();
             DisplayMessage(this, "Bank record deleted successfully.");
+        }
+        private void MakeActiveBankRecord(string mid)
+        {
+            using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Type", 36);
+                cmd.Parameters.AddWithValue("@Mid", mid);
+                cmd.Parameters.AddWithValue("@ProfileId", Session["RetailerUniqueID"].ToString());
+                cmd.Parameters.AddWithValue("@UserRole", Session["Role"].ToString());
+
+                con.Open();
+                cmd.ExecuteNonQuery();
+                con.Close();
+            }
+
+            BindBankDetails();
+            DisplayMessage(this, "Selected bank account has been set as Active successfully.");
         }
         protected void btnAddDealer_Click(object sender, EventArgs e)
         {
@@ -310,6 +349,8 @@ namespace Patner_Retailer_ADO
             ddlGender.Visible = false;
             txtPinCode.Visible = false;
             txtAddress.Visible = false;
+            lblCityValue.Text = ViewState["RetailerCity"].ToString();
+            lblStateValue.Text = ViewState["RetailerState"].ToString();
         }
         protected void btnUpdateProfile_Click(object sender, EventArgs e)
         {

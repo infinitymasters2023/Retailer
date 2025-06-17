@@ -158,14 +158,16 @@
 
             <div class="form-group" style="display: grid">
                 <label for="mobile_code" class="form-label">Phone Number</label>
-                <input type="tel" id="mobile_code" class="form-control" runat="server" placeholder="Enter Phone Number" name="mobile_code">
+                <input type="tel" id="mobile_code" class="form-control" runat="server" placeholder="Enter Phone Number" name="mobile_code" maxlength="10" 
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
                 <asp:HiddenField ID="hdnCountryCode" runat="server" />
                 <asp:HiddenField ID="hdnPhoneNumber" runat="server" />
             </div>
             <div id="divotppanel" runat="server" visible="false">
                 <div class="form-group otp-input-group mb-2 mb-lg-0">
                     <label for="txtOTP" class="form-label">OTP</label>
-                    <asp:TextBox ID="txtOTP" runat="server" CssClass="form-control otp-input" placeholder="Enter OTP" MaxLength="6"></asp:TextBox>
+                    <asp:TextBox ID="txtOTP" runat="server" CssClass="form-control otp-input" placeholder="Enter OTP" 
+                        MaxLength="6" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 6);"></asp:TextBox>
                     <span class="otp-icon">
                         <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5 13a2 2 0 0 1 2 -2h10a2 2 0 0 1 2 2v6a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2z"></path>
@@ -183,7 +185,7 @@
 
                 <div class="form-group flex-wrap captcha-group">
                     <label for="txtCaptcha" class="form-label">Captcha</label>
-                    <asp:TextBox ID="txtCaptcha" runat="server" CssClass="form-control captcha-input" placeholder="Enter Captcha"></asp:TextBox>
+                    <asp:TextBox ID="txtCaptcha" runat="server" CssClass="form-control captcha-input" placeholder="Enter Captcha" MaxLength="6"></asp:TextBox>
                     <div class="rounded bg-light p-2" style="border: 1px solid #ccc;">
                         <asp:Label ID="lblCaptcha" runat="server" Font-Bold="true" Font-Size="Large"></asp:Label>
                     </div>
@@ -204,26 +206,37 @@
     <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/intlTelInput.min.js"></script>
-    <script>
-        const mobileCodeInput = document.querySelector("#mobile_code");
-        const countryCodeHidden = document.querySelector("#hdnCountryCode");
-        const phoneNumberHidden = document.querySelector("#hdnPhoneNumber");
+ <script>
+     const mobileCodeInput = document.querySelector("#mobile_code");
+     const countryCodeHidden = document.querySelector("#hdnCountryCode");
+     const phoneNumberHidden = document.querySelector("#hdnPhoneNumber");
 
-        const iti = window.intlTelInput(mobileCodeInput, {
-            initialCountry: "in",
-            separateDialCode: true,
-            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js",
-        });
+     const iti = window.intlTelInput(mobileCodeInput, {
+         initialCountry: "in",
+         separateDialCode: true,
+         formatOnDisplay: false,
+         utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.13/js/utils.js",
+     });
 
-        mobileCodeInput.addEventListener('countrychange', function () {
-            countryCodeHidden.value = iti.getSelectedCountryData().dialCode;
-            phoneNumberHidden.value = iti.getNumber();
-        });
+     function updateHiddenFields() {
+         const dialCode = iti.getSelectedCountryData().dialCode;
 
-        mobileCodeInput.addEventListener('blur', function () {
-            phoneNumberHidden.value = iti.getNumber();
-        });
-    </script>
+         // Get national number and strip non-digits
+         let nationalNumber = iti.getNumber(intlTelInputUtils.numberFormat.NATIONAL).replace(/\D/g, '');
+
+         // 🔥 Remove leading 0 if present
+         if (nationalNumber.startsWith('0')) {
+             nationalNumber = nationalNumber.substring(1);
+         }
+
+         countryCodeHidden.value = dialCode;
+         phoneNumberHidden.value = nationalNumber;
+     }
+
+     mobileCodeInput.addEventListener('countrychange', updateHiddenFields);
+     mobileCodeInput.addEventListener('blur', updateHiddenFields);
+ </script>
+
 </body>
 
 </html>

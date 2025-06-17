@@ -51,6 +51,7 @@ namespace Patner_Retailer_ADO
                     ViewState["ReportInfo"] = dt;
                     if (dt.Rows.Count > 0)
                     {
+                        GvReport.CssClass = "table-responsive table data-table table-striped table-bordered nowrap";
                         //ReportTotal.Text = "Total " + dt.Rows.Count.ToString();
                         GvReport.DataSource = dt;
                         GvReport.DataBind();                        
@@ -63,6 +64,7 @@ namespace Patner_Retailer_ADO
                     }
                     else
                     {
+                        GvReport.CssClass = "table-responsive table table-striped table-bordered nowrap";
                         //ReportTotal.Text = "";
                         GvReport.DataSource = null;
                         GvReport.DataBind();

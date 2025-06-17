@@ -29,7 +29,7 @@
                 <div class="col-md-4">
                     <div class="form-group mb-3">
                         <label class="mb-1">GSTIN <span style="color: red">*</span> </label>
-                        <asp:TextBox runat="server" CssClass="form-control" ID="txtGSTIN" placeholder="" MaxLength="15"></asp:TextBox>
+                        <asp:TextBox runat="server" CssClass="form-control" ID="txtGSTIN" placeholder="" MaxLength="15" Enabled="false"></asp:TextBox>
                           <asp:RequiredFieldValidator ID="rfvGSTIN" runat="server" ControlToValidate="txtGSTIN"
                               ErrorMessage="GSTIN is required." CssClass="text-danger" Display="Dynamic" SetFocusOnError="true" />
                           <asp:RegularExpressionValidator ID="revGSTIN" runat="server" ControlToValidate="txtGSTIN"

@@ -36,7 +36,7 @@
                             <h4>Customer Details</h4>
                             <asp:Repeater ID="rptPlans" runat="server">
                                 <HeaderTemplate>
-                                    <table class="table-responsive table data-table table-striped table-bordered nowrap">
+                                    <table class="table-responsive table data-table table-striped table-bordered nowrap"  EmptyDataText="No records available.">
                                         <thead>
                                             <tr>
                                                 <th>Customer Name</th>
@@ -74,7 +74,7 @@
                             <h4>Product Information</h4>
                             <asp:Repeater ID="rptProductInfo" runat="server">
                                 <HeaderTemplate>
-                                    <table class="table-responsive table data-table table-striped table-bordered nowrap">
+                                    <table class="table-responsive table data-table table-striped table-bordered nowrap"  EmptyDataText="No records available.">
                                         <thead>
                                             <tr>
                                                 <th>Product Name</th>
@@ -112,7 +112,7 @@
                             <h4>Plan / Payment Information</h4>
                             <asp:Repeater ID="rptPlanInfo" runat="server">
                                 <HeaderTemplate>
-                                    <table class="table-responsive table data-table table-striped table-bordered nowrap">
+                                    <table class="table-responsive table data-table table-striped table-bordered nowrap"  EmptyDataText="No records available.">
                                         <thead>
                                             <tr>
                                                 <th>Plan Name</th>
