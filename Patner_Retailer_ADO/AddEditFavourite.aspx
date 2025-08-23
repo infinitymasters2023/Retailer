@@ -240,7 +240,7 @@
                                     </div>
                                     <div class="plan-price">
                                         <div class="price-txt">Price:</div>
-                                        <div class="price-amount">₹<%# Eval("CustPriceINR") %></div>
+                                        <div class="price-amount"><%# Eval("CustPriceINR") %></div>
                                     </div>
                                     <asp:HiddenField ID="hdnPlanPrice" runat="server" Value='<%# Eval("CustPriceINR") %>' />
                                     <asp:HiddenField ID="hdnSKU" runat="server" Value='<%# Eval("SKU") %>' />

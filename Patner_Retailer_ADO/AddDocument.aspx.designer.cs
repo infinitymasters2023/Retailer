@@ -51,13 +51,13 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.TextBox txtDocumentNumber;
 
         /// <summary>
-        /// rfvDocumentNumber control.
+        /// hdnDocumentNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDocumentNumber;
+        protected global::System.Web.UI.WebControls.HiddenField hdnDocumentNumber;
 
         /// <summary>
         /// fuFrontSide control.
@@ -78,6 +78,15 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.Label lblDocument;
 
         /// <summary>
+        /// lblDocFormatError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDocFormatError;
+
+        /// <summary>
         /// btnUploadFront control.
         /// </summary>
         /// <remarks>
@@ -85,15 +94,6 @@ namespace Patner_Retailer_ADO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUploadFront;
-
-        /// <summary>
-        /// gvDocuments control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvDocuments;
 
         /// <summary>
         /// btnSubmit control.
@@ -112,5 +112,14 @@ namespace Patner_Retailer_ADO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnEdit;
+
+        /// <summary>
+        /// gvDocuments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvDocuments;
     }
 }

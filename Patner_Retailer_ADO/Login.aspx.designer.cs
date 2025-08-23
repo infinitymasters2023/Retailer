@@ -60,6 +60,15 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.HiddenField hdnPhoneNumber;
 
         /// <summary>
+        /// lblErrorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErrorMessage;
+
+        /// <summary>
         /// divotppanel control.
         /// </summary>
         /// <remarks>
@@ -78,6 +87,15 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.TextBox txtOTP;
 
         /// <summary>
+        /// hdnOtpExpiry control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnOtpExpiry;
+
+        /// <summary>
         /// lnkResendOTP control.
         /// </summary>
         /// <remarks>
@@ -94,6 +112,15 @@ namespace Patner_Retailer_ADO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCaptcha;
+
+        /// <summary>
+        /// lblCaptchaError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCaptchaError;
 
         /// <summary>
         /// lblCaptcha control.

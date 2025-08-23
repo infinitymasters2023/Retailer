@@ -361,7 +361,7 @@ namespace Patner_Retailer_ADO
                         object result = cmd.ExecuteScalar();
                         con.Close();
 
-                        if (result != null && result.ToString() == "1")
+                        if (result != null && result.ToString() != "0")
                         {
                             string script = @"<script type='text/javascript'>
                                                 alert('Dealer Details has been updated successfully!');

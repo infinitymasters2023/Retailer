@@ -60,6 +60,7 @@ namespace Patner_Retailer_ADO
 
                     ddlDocumentName.Items.Insert(0, new ListItem("-- Select Document --", ""));
                 }
+                con.Close();
             }
             catch (Exception)
             {
@@ -129,7 +130,7 @@ namespace Patner_Retailer_ADO
                         return;
                     }
                     string docName = ddlDocumentName.SelectedItem.Text;
-                    string docNumber = txtDocumentNumber.Text.Trim();
+                    string docNumber = txtDocumentNumber.Text.ToUpper().Trim();
                     string fileName = Path.GetFileName(fuFrontSide.FileName);
                     string folderPath = Server.MapPath("~/UploadedDocuments/");
                     string DocId = ddlDocumentName.SelectedValue.ToString();
@@ -139,7 +140,6 @@ namespace Patner_Retailer_ADO
                     string uniqueFileName = DateTime.Now.ToString("yyyyMMdd_HHmmss_") + fileName;
                     string fullPath = Path.Combine(folderPath, uniqueFileName);
                     fuFrontSide.SaveAs(fullPath);
-
 
                     DataTable dt;
                     if (ViewState["DocumentData"] == null)
@@ -205,10 +205,36 @@ namespace Patner_Retailer_ADO
             if (!fuFrontSide.HasFile)
             {
                 lblDocument.Visible = true;
+                if (gvDocuments.HeaderRow != null)
+                {
+                    gvDocuments.HeaderRow.TableSection = TableRowSection.TableHeader;
+                }
                 return;
             }
             try
             {
+                if(ddlDocumentName.SelectedValue == "13" || ddlDocumentName.SelectedValue == "57" || ddlDocumentName.SelectedValue == "58")
+                {
+                    string cleanedDocNumber = txtDocumentNumber.Text.Replace("-", "");
+                    if (!string.IsNullOrWhiteSpace(txtDocumentNumber.Text) && !System.Text.RegularExpressions.Regex.IsMatch(cleanedDocNumber, @"^\d{4}$"))
+                    {
+                        lblDocFormatError.Text = "Invalid Aadhaar number.";
+                        lblDocFormatError.CssClass = "text-danger";
+                        lblDocFormatError.Attributes.Add("style", "display:block");
+                        return;
+                    }
+                }
+                if (ddlDocumentName.SelectedValue == "19")
+                {
+                    if (!string.IsNullOrWhiteSpace(txtDocumentNumber.Text) && !System.Text.RegularExpressions.Regex.IsMatch(txtDocumentNumber.Text, @"^[A-Z]{5}[0-9]{4}[A-Z]$"))
+                    {
+                        lblDocFormatError.Text = "Invalid PAN Card format.";
+                        lblDocFormatError.CssClass = "text-danger";
+                        lblDocFormatError.Attributes.Add("style", "display:block");
+                        return;
+                    }
+                }
+
                 if (fuFrontSide.HasFile)
                 {
                     string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".pdf" };
@@ -236,23 +262,25 @@ namespace Patner_Retailer_ADO
                     cmd.Parameters.AddWithValue("@ProfileId", Session["RetailerUniqueID"].ToString().Trim());
                     cmd.Parameters.AddWithValue("@DocID", ddlDocumentName.SelectedValue.ToString());
                     cmd.Parameters.AddWithValue("@DocumentPath", uniqueFileName);
-                    cmd.Parameters.AddWithValue("@documentNumber", txtDocumentNumber.Text.Trim());
-                    cmd.Parameters.AddWithValue("@Remarks", txtDocumentNumber.Text.Trim());
+                    cmd.Parameters.AddWithValue("@documentNumber", txtDocumentNumber.Text.ToUpper().Replace("-", "").Trim());
+                    //cmd.Parameters.AddWithValue("@Remarks", txtDocumentNumber.Text.Trim());
                     cmd.Parameters.AddWithValue("@Status", "Uploaded");
                     cmd.Parameters.AddWithValue("@IPAddress", Request.UserHostAddress);
 
-                    con.Open();
+                    if (con.State != ConnectionState.Open)
+                        con.Open();
                     cmd.ExecuteNonQuery();
                     con.Close();
                 }
 
-                string script = $@"
-                            <script type='text/javascript'>
-                                alert('Documents have been saved successfully!');
-                                window.location.href = 'Profile.aspx';
-                            </script>";
+                //string script = $@"
+                //            <script type='text/javascript'>
+                //                alert('Documents have been saved successfully!');
+                //                window.location.href = 'Profile.aspx';
+                //            </script>";
 
-                ClientScript.RegisterStartupScript(this.GetType(), "ProfileRedirect", script);
+                //ClientScript.RegisterStartupScript(this.GetType(), "ProfileRedirect", script);
+                btnUploadFront_Click(sender, e);
             }
             catch (SqlException ex)
             {
@@ -294,17 +322,17 @@ namespace Patner_Retailer_ADO
                         string uniqueFileName = DateTime.Now.ToString("yyyyMMdd_HHmmss_") + fileName;
                         string fullPath = Path.Combine(folderPath, uniqueFileName);
                         fuFrontSide.SaveAs(fullPath);
-
-                        SqlCommand cmd = new SqlCommand("SP_IAPL_Retailer_Auth", con);
+                        string decoded = Encoding.UTF8.GetString(Convert.FromBase64String(qu));
+                        SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con);
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@Type", 31);
                         cmd.Parameters.AddWithValue("@ProfileId", Session["RetailerUniqueID"].ToString().Trim());
                         cmd.Parameters.AddWithValue("@DocID", ddlDocumentName.SelectedValue.ToString());
                         cmd.Parameters.AddWithValue("@DocumentPath", uniqueFileName);
-                        cmd.Parameters.AddWithValue("@documentNumber", txtDocumentNumber.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Remarks", txtDocumentNumber.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Status", "Uploaded");
-                        cmd.Parameters.AddWithValue("@IPAddress", Request.UserHostAddress);
+                        cmd.Parameters.AddWithValue("@documentNumber", txtDocumentNumber.Text.ToUpper().Trim());
+                        cmd.Parameters.AddWithValue("@Remarks", txtDocumentNumber.Text.ToUpper().Trim());
+                        cmd.Parameters.AddWithValue("@UserRole", Session["Role"]?.ToString() ?? "");
+                        cmd.Parameters.AddWithValue("@Mid", decoded);
 
                         con.Open();
                         cmd.ExecuteNonQuery();
@@ -314,7 +342,7 @@ namespace Patner_Retailer_ADO
                     string script = $@"
                             <script type='text/javascript'>
                                 alert('Documents have been saved successfully!');
-                                window.location.href = 'Profile.aspx';
+                                window.location.href = 'Profile.aspx?qu=Document';
                             </script>";
 
                     ClientScript.RegisterStartupScript(this.GetType(), "ProfileRedirect", script);
@@ -324,7 +352,7 @@ namespace Patner_Retailer_ADO
                     string script = $@"
                             <script type='text/javascript'>
                                 alert('Invalid Link');
-                                window.location.href = 'Profile.aspx';
+                                window.location.href = 'Profile.aspx?qu=Document';
                             </script>";
 
                     ClientScript.RegisterStartupScript(this.GetType(), "ProfileRedirect", script);

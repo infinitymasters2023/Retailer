@@ -67,6 +67,16 @@ namespace Patner_Retailer_ADO
                     txtPurchaseDate.Attributes.Add("ReadOnly", "readonly");
                     txtDateOfImpl.Attributes.Add("ReadOnly", "readonly");
                     btnEditPlan.Visible = false;
+                    if (Session["salesOrderID"] != null)
+                    {
+                        txtCustomerName.Text = Session["CustomerName"].ToString();
+                        txtCustomerEmail.Text = Session["CustomerEmailId"].ToString();
+                        txtCustomerMobile.Text = Session["CustomerMobileNo"].ToString();
+
+                        txtCustomerName.Enabled = false;
+                        txtCustomerEmail.Enabled = false;
+                        txtCustomerMobile.Enabled = false;
+                    }
                 }
                 else
                 {
@@ -298,6 +308,9 @@ namespace Patner_Retailer_ADO
                             Session["salesOrderID"] = salesOrderID;
                             Session["Customerorder"] = Customerorder;
                             Session["RetailerCustomerName"] = txtCustomerName.Text;
+                            Session["RetailerCustomerEmailId"] = txtCustomerEmail.Text.ToString();
+                            Session["RetailerCustomerMobileNo"] = txtCustomerMobile.Text.ToString();
+
                             Response.Redirect("RetailerCartDetails.aspx?salesorder=" + salesOrderID + "&qu=" + HttpUtility.UrlEncode(encoded) + "&dd=" + HttpUtility.UrlEncode(dd) + "&ed=" + HttpUtility.UrlEncode(ed));
                         }
                     }
@@ -349,7 +362,30 @@ namespace Patner_Retailer_ADO
                 return;
             }
 
-            if (txtCustomerMobile.Text != "")
+            bool checkcusotmer = CheckBlockCustomer();
+            if (!checkcusotmer)
+            {
+                return;
+            }
+            if (Session["salesOrderID"] != null)
+            {
+                PlanPanel.Visible = true;
+                btnSubmitOTP.Visible = false;
+                lblMessage.Visible = false;
+                lnkResendOTP.Visible = false;
+                OTPPanel.Visible = false;
+                BindPlanData();
+
+                if (rptPlans.Items.Count > 0)
+                {
+                    CheckBox chkFirst = (CheckBox)rptPlans.Items[0].FindControl("chkSelect");
+                    if (chkFirst != null)
+                    {
+                        chkFirst.Focus();
+                    }
+                }
+            }
+            else if(txtCustomerMobile.Text != "")
             {
                 string newopt = newotp();
                 Session.Remove("OTP");
@@ -506,6 +542,9 @@ namespace Patner_Retailer_ADO
                 txtDateOfImpl.Enabled = false;
                 txtDateOfImpl.Text = null;
                 txtSerialNo.Text = null;
+                serielNoDiv.Visible = false;
+                dateOfImplementationDic.Visible = false;
+                imeiNoDiv.Visible = true;
 
                 rfvIMEINo.Enabled = true;
                 rfvSerialNo.Enabled = false;
@@ -517,6 +556,9 @@ namespace Patner_Retailer_ADO
                 txtSerialNo.Enabled = true;
                 txtDateOfImpl.Enabled = true;
                 txtimeiNo.Text = null;
+                serielNoDiv.Visible = true;
+                dateOfImplementationDic.Visible = true;
+                imeiNoDiv.Visible = false;
 
                 rfvIMEINo.Enabled = false;
                 rfvSerialNo.Enabled = true;
@@ -744,6 +786,49 @@ namespace Patner_Retailer_ADO
             else
             {
                 args.IsValid = false;
+            }
+        }
+
+        protected bool CheckBlockCustomer()
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@CustomerMobileNo", SqlDbType.Int).Value = txtCustomerMobile.Text.ToString();
+                cmd.Parameters.AddWithValue("@CustomerEmailID", SqlDbType.Int).Value = txtCustomerEmail.Text.ToString();
+                cmd.Parameters.AddWithValue("@type", SqlDbType.Int).Value = 39;
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    string suspicious = dt.Rows[0]["suspicious"].ToString();
+                    if (suspicious == "1")
+                    {
+                        BlockCustomerErrorMessage.Text = "This Customer is Under Watch.Please contact your Manager";
+                        customerInfoDiv.Attributes.Add("style", "background:gray");
+                        return false;
+                    }
+                    else if (suspicious == "2")
+                    {
+                        BlockCustomerErrorMessage.Text = "This Customer is Black Listed..Please contact your Manager";
+                        customerInfoDiv.Attributes.Add("style", "background:pink");
+                        return false;
+
+                    }
+                    else if (suspicious == "")
+                    {
+                        customerInfoDiv.Attributes.Add("style", "background:white");
+                        BlockCustomerErrorMessage.Text = "";
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
 

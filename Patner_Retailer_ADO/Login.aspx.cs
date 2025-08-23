@@ -10,6 +10,9 @@ using Random = System.Random;
 using System.Net;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 using System.Data;
+using System.Text;
+using System.Security.Policy;
+using System.Text.RegularExpressions;
 
 namespace Patner_Retailer_ADO
 {
@@ -23,6 +26,7 @@ namespace Patner_Retailer_ADO
         {
             if (!IsPostBack)
             {
+                Session.RemoveAll();
                 GenerateCaptcha();
                 Session[OTPAttemptSessionKey] = 0;
             }
@@ -61,7 +65,7 @@ namespace Patner_Retailer_ADO
                 {
                     string generatedOTP = newotp();
                     Session["OTP"] = generatedOTP;
-                    lblMessage.Text = $"OTP sent to {mobileNumber} (for demo: {generatedOTP})";
+                    lblMessage.Text = $"OTP sent to {mobileNumber}";
                     sendSMSOTP(mobileNumber, generatedOTP);
                     Session[OTPAttemptSessionKey] = attempts + 1;
                 }
@@ -91,6 +95,9 @@ namespace Patner_Retailer_ADO
         {
             try
             {
+                DateTime expiryTime = DateTime.UtcNow.AddMinutes(5);
+                hdnOtpExpiry.Value = expiryTime.ToString("o");
+
                 string message = "Welcome to Infinity, Your OTP to Login to Infinity TechCare Lounge is " + otp + ". For Help, Call Infinity 8447882424. 9AM-6PM Mon-Sat";
                 string content_temID = "1107162426891569578";
                 string sender12 = "ISHILD";
@@ -110,19 +117,43 @@ namespace Patner_Retailer_ADO
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(hdnPhoneNumber.Value))
+            string phone = hdnPhoneNumber.Value.Replace("+91", "").Trim();
+
+            if (string.IsNullOrEmpty(hdnPhoneNumber.Value) || hdnPhoneNumber.Value.Replace("+91", "").Length != 10)
             {
-                lblMessage.Text = "Please enter your phone number.";
+                lblErrorMessage.Text = "Please enter your phone number.";
+                lblErrorMessage.Attributes.Add("style", "display:block");
                 return;
             }
 
+            if (phone.Length != 10)
+            {
+                lblErrorMessage.Text = "Invalid number.";
+                lblErrorMessage.Attributes.Add("style", "display:block");
+                return;
+            }
+
+            if (Regex.IsMatch(phone, @"^[0-5]"))
+            {
+                lblErrorMessage.Text = "Invalid number";
+                lblErrorMessage.Attributes.Add("style", "display:block");
+                return;
+            }
+
+            if (Regex.IsMatch(phone, @"^(\d)\1{9}$"))
+            {
+                lblErrorMessage.Text = "Invalid number.";
+                lblErrorMessage.Attributes.Add("style", "display:block");
+                return;
+            }
+            //SendWhatsApp();
             if (btnLogin.Text == "Get OTP")
             {
                 SqlCommand cmd = new SqlCommand("SP_IAPL_Retailer_Auth", con);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Type", 1);
-                cmd.Parameters.AddWithValue("@MobileNo", hdnPhoneNumber.Value.Replace("+91",""));
-              // cmd.Parameters.AddWithValue("@Password", txtPassword.Text);
+                cmd.Parameters.AddWithValue("@MobileNo", hdnPhoneNumber.Value.Replace("+91", ""));
+                // cmd.Parameters.AddWithValue("@Password", txtPassword.Text);
 
                 con.Open();
                 using (SqlDataReader dr = cmd.ExecuteReader())
@@ -133,49 +164,184 @@ namespace Patner_Retailer_ADO
                         Session["RetailerUniqueID"] = dr["RetailerUniqueID"];
                         Session["Name"] = dr["Name"];
                         Session["MobileNo"] = dr["MobileNo"];
+                        Session["Status"] = dr["Status"];
                         Session["Role"] = dr["Role"];
+                        Session["Email"] = dr["emailID"];
+                        Session["SellerGSTIN"] = dr["SellerGSTINNo"];
                         string newotpValue = newotp();
                         Session["OTP"] = newotpValue;
+                        Session["OTPGeneratedTime"] = DateTime.Now;
+                        Response.Redirect("Dashboard.aspx");
+                        //sendSMSOTP(hdnCountryCode.Value + hdnPhoneNumber.Value, newotpValue);
+                        lblMessage.Text = "OTP sent successfully.";
+                        btnLogin.Text = "Login";
+                        divotppanel.Visible = true;
+                        lblMessage.Style["color"] = "#2ec551 !important";
+                        ViewState["SalerNotExist"] = "";
+                    }
+                    else
+                    {
+                        string newotpValue = newotp();
+                        Session["OTP"] = newotpValue;
+                        Session["OTPGeneratedTime"] = DateTime.Now;
+                        Session["MobileNo"] = hdnPhoneNumber.Value.Replace("+91", "");
                         sendSMSOTP(hdnCountryCode.Value + hdnPhoneNumber.Value, newotpValue);
                         lblMessage.Text = "OTP sent successfully.";
                         btnLogin.Text = "Login";
                         divotppanel.Visible = true;
-                        
-                       // Response.Redirect("Dashboard.aspx");
-                    }
-                    else
-                    {
-                        lblMessage.Text = "Invalid MobileNo.";
+                        lblMessage.Style["color"] = "#2ec551 !important";
+                        ViewState["SalerNotExist"] = "NotExist";
                     }
                 }
-               
+
             }
             else
             {
                 if (string.IsNullOrEmpty(txtOTP.Text))
                 {
                     lblMessage.Text = "Please enter the OTP.";
+                    lblMessage.Style["color"] = "red !important";
                     return;
                 }
-
                 if (Session[CaptchaSessionKey] == null || txtCaptcha.Text.ToLower() != Session[CaptchaSessionKey].ToString().ToLower())
                 {
-                    lblMessage.Text = "Invalid Captcha.";
+                    lblCaptchaError.Text = "Invalid Captcha.";
                     GenerateCaptcha();
                     return;
                 }
+                string enteredOtp = txtOTP.Text.Trim();
+                string sessionOtp = Session["OTP"] as string;
+                DateTime? otpTime = Session["OTPGeneratedTime"] as DateTime?;
 
-                if (Session["OTP"] != null && txtOTP.Text == Session["OTP"].ToString())
+                if (sessionOtp == null || otpTime == null)
                 {
-                    FormsAuthentication.SetAuthCookie(hdnPhoneNumber.Value, false);
-                    Response.Redirect("Dashboard.aspx");
+                    lblMessage.Text = "OTP has expired or not generated.";
+                    lblMessage.Style["color"] = "red !important";
+                    return;
+                }
+
+                TimeSpan timeElapsed = DateTime.Now - otpTime.Value;
+                if (timeElapsed.TotalMinutes > 5)
+                {
+                    lblMessage.Text = "OTP expired. Please request a new one.";
+                    lblMessage.Style["color"] = "red !important";
+                    divotppanel.Visible = false;
+                    return;
+                }
+                if (ViewState["SalerNotExist"].ToString() == "NotExist" && Session["OTP"] != null && txtOTP.Text == Session["OTP"].ToString())
+                {
+                    Session["Message"] = "Mobile number not registered. Please register to continue.";
+                    Response.Redirect("SellerGSTIN.aspx");
+                }
+                else if (Session["OTP"] != null && txtOTP.Text == Session["OTP"].ToString())
+                {
+                    if (Session["Status"].ToString() == "1" || Session["Status"].ToString() == "2")
+                    {
+                        Response.Redirect("CreateAnAccount.aspx");
+                    }
+                    else if(Session["Status"].ToString() == "6")
+                    {
+                        lblMessage.Text = "Unfortunately, your application has been rejected due to incomplete or invalid information.";
+                        lblMessage.Style["color"] = "red !important";
+                    }
+                    else if (Session["Status"].ToString() == "8")
+                    {
+                        lblMessage.Text = "Your application has been terminated due to non-compliance or failure to meet the required criteria.";
+                        lblMessage.Style["color"] = "red !important";
+                    }
+                    else if (Session["Status"].ToString() == "9")
+                    {
+                        lblMessage.Text = "Your request to withdraw your application has been approved successfully.";
+                        lblMessage.Style["color"] = "red !important";
+                    }
+                    else
+                    {
+                        FormsAuthentication.SetAuthCookie(hdnPhoneNumber.Value, false);
+                        Response.Redirect("Dashboard.aspx");
+                    }
                 }
                 else
                 {
                     lblMessage.Text = "Invalid OTP.";
+                    lblMessage.Style["color"] = "red !important";
                 }
 
                 Session["OTP"] = null;
+            }
+        }
+
+        protected void SendWhatsApp()
+        {
+            string mobile = hdnPhoneNumber.Value;
+            string name = "Amaan";
+            string pincode = "110094";
+            string city = "Delhi";
+            string state = "New Delhi";
+            string area = "Old Mustafabad";
+            string dealerType = "Retailer";
+            string company = "ABC";
+
+            SendWhatsappMessage(mobile, name, pincode, city, state, area, dealerType, company);
+        }
+
+        private void SendWhatsappMessage(string mobile, string name, string pincode, string city, string state, string area, string dealerType, string company)
+        {
+            try
+            {
+                string url = "https://backend.api-wa.co/campaign/smartping/api/v2";
+                string fullMobile = "91" + mobile;
+
+                string jsonData = @"{
+            ""apiKey"": ""eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MWY1YWUwMTg3OWFjMGJlY2EyZmQ3ZSIsIm5hbWUiOiJJbmZ5U2hpZWxkIiwiYXBwTmFtZSI6IkFpU2Vuc3kiLCJjbGllbnRJZCI6IjY1OTNmZGI3MDBmODRmMzczMjNiODE5OCIsImlhdCI6MTczMDEwODEyOH0.LS_Trirwhav9NV-Vdp0F4MdkUU1C2f56h7ngUzdWqGU"",
+            ""campaignName"": ""partner_acknowledgement"",
+            ""destination"": """ + fullMobile + @""",
+            ""userName"": """ + name + @""",
+            ""templateParams"": [
+                """ + name + @""",
+                """ + mobile + @""",
+                """ + pincode + @""",
+                """ + city + @""",
+                """ + state + @""",
+                """ + area + @""",
+                """ + dealerType + @""",
+                """ + company + @"""
+            ],
+            ""source"": ""new-landing-page form"",
+            ""media"": {},
+            ""buttons"": [],
+            ""carouselCards"": [],
+            ""location"": {},
+            ""attributes"": {}
+        }";
+
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "POST";
+                request.ContentType = "application/json";
+
+                byte[] data = Encoding.UTF8.GetBytes(jsonData);
+                request.ContentLength = data.Length;
+
+                using (Stream requestStream = request.GetRequestStream())
+                {
+                    requestStream.Write(data, 0, data.Length);
+                }
+
+                using (WebResponse response = request.GetResponse())
+                {
+                    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        string result = reader.ReadToEnd();
+                        Response.Write("<pre>" + Server.HtmlEncode(result) + "</pre>");
+                    }
+                }
+            }
+            catch (WebException ex)
+            {
+                using (StreamReader reader = new StreamReader(ex.Response.GetResponseStream()))
+                {
+                    string error = reader.ReadToEnd();
+                    Response.Write("<pre>Error: " + Server.HtmlEncode(error) + "</pre>");
+                }
             }
         }
     }

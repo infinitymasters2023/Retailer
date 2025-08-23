@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
 using System.Text;
+using System.IO;
 
 namespace Patner_Retailer_ADO
 {
@@ -24,6 +25,8 @@ namespace Patner_Retailer_ADO
         {
             if (!IsPostBack)
             {
+                BindBankSupportingDocument();
+                fuSuppotingDoc.Attributes["accept"] = ".jpg,.jpeg,.png,.pdf";
                 string qu = Request.QueryString["qu"];
                 if (!string.IsNullOrWhiteSpace(qu))
                 {
@@ -39,14 +42,46 @@ namespace Patner_Retailer_ADO
                 txtBranchAddress.Enabled = false;
             }
         }
+        protected void BindBankSupportingDocument()
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Type", 55);
 
+                ddlSuppotingDoc.Items.Clear();
+                con.Open();
+                SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                DataSet ds = new DataSet();
+                adp.Fill(ds);
+                if (ds.Tables[0].Rows.Count > 0)
+                {
+                    ddlSuppotingDoc.DataSource = ds.Tables[0];
+                    ddlSuppotingDoc.DataTextField = "DocumentName";
+                    ddlSuppotingDoc.DataValueField = "mid";
+                    ddlSuppotingDoc.DataBind();
+
+                    ddlSuppotingDoc.Items.Insert(0, new ListItem("-- Select Document --", ""));
+                }
+                con.Close();
+            }
+            catch (Exception)
+            {
+            }
+        }
         protected void txtIFSC_TextChanged(object sender, EventArgs e)
         {
+            txtAccountNumber.Attributes["value"] = txtAccountNumber.Text;
+            txtConfirmAccountNumber.Attributes["value"] = txtConfirmAccountNumber.Text;
             string pattern = @"^[A-Z]{4}0[A-Z0-9]{6}$";
-            if (!Regex.IsMatch(txtIFSCCode.Text, pattern))
+            if (!Regex.IsMatch(txtIFSCCode.Text.ToUpper(), pattern))
             {
                 lblIFSCCode.Style["display"] = "block";
                 lblIFSCCode.Text = "Invalid IFSC code format.";
+                txtBankName.Text = null;
+                txtBranchName.Text = null;
+                txtBranchAddress.Text = null;
                 return;
             }
             SqlCommand cmd = new SqlCommand("sp_iapl_crm_newsrvcall", con);
@@ -96,13 +131,19 @@ namespace Patner_Retailer_ADO
 
                     if (dr.Read())
                     {
-                        txtAccountNumber.Text = dr["BankAccountNumber"] != DBNull.Value ? dr["BankAccountNumber"].ToString() : "";
-                        txtConfirmAccountNumber.Text = dr["BankAccountNumber"] != DBNull.Value ? dr["BankAccountNumber"].ToString() : "";
+                        txtAccountNumber.Attributes["value"] = dr["BankAccountNumber"] != DBNull.Value ? dr["BankAccountNumber"].ToString() : "";
+                        txtConfirmAccountNumber.Attributes["value"] = dr["BankAccountNumber"] != DBNull.Value ? dr["BankAccountNumber"].ToString() : "";
                         txtIFSCCode.Text = dr["IFSCCode"] != DBNull.Value ? dr["IFSCCode"].ToString() : "";
                         txtAccountHolderName.Text = dr["AccountHolderName"] != DBNull.Value ? dr["AccountHolderName"].ToString() : "";
                         txtBankName.Text = dr["BankName"] != DBNull.Value ? dr["BankName"].ToString() : "";
                         txtBranchName.Text = dr["BankBranch"] != DBNull.Value ? dr["BankBranch"].ToString() : "";
                         txtBranchAddress.Text = dr["BankBranchAddress"] != DBNull.Value ? dr["BankBranchAddress"].ToString() : "";
+                        txtUPIID.Text = dr["UPIID"] != DBNull.Value ? dr["UPIID"].ToString() : "";
+                        ddlTypeOfBank.SelectedValue = dr["TypeofBankAccount"] != DBNull.Value ? dr["TypeofBankAccount"].ToString() : "";
+                        chkJointAccount.SelectedValue = dr["IsThisYourJointAccount"] != DBNull.Value ? dr["IsThisYourJointAccount"].ToString() : "";
+                        txtJointHolderName.Text = dr["JointAccountHolderName"] != DBNull.Value ? dr["JointAccountHolderName"].ToString() : "";
+                        ddlSuppotingDoc.SelectedValue = dr["SupportingDocuments"] != DBNull.Value ? dr["SupportingDocuments"].ToString() : "";
+                        lblsupportingDocName.Text = dr["SupportingDocumentsPath"] != DBNull.Value ? dr["SupportingDocumentsPath"].ToString() : "";
                     }
                     else
                     {
@@ -113,6 +154,12 @@ namespace Patner_Retailer_ADO
                         txtBankName.Text = "";
                         txtBranchName.Text = "";
                         txtBranchAddress.Text = "";
+                        txtUPIID.Text = "";
+                        ddlTypeOfBank.SelectedValue = "";
+                        chkJointAccount.SelectedValue ="";
+                        txtJointHolderName.Text = "";
+                        ddlSuppotingDoc.SelectedValue = "";
+                        lblsupportingDocName.Text = "";
                     }
                     con.Close();
                 }
@@ -129,6 +176,28 @@ namespace Patner_Retailer_ADO
             {
                 int count = 0;
 
+                if (!fuSuppotingDoc.HasFile)
+                {
+                    lblSupportingDocumentError.Attributes.Add("style", "display: block;");
+                    lblSupportingDocumentError.Text = "Please upload the Supporting Document.";
+                    lblSupportingDocumentError.Focus();
+                    count++;
+                }
+                else
+                {
+                    lblsupportingDocError.Attributes.Add("style", "display: none;");
+                }
+                if (ddlSuppotingDoc.SelectedItem.Value == "")
+                {
+                    lblsupportingDocError.Attributes.Add("style", "display: block;");
+                    lblsupportingDocError.Text = "Please select the Supporting Document.";
+                    lblsupportingDocError.Focus();
+                    count++;
+                }
+                else
+                {
+                    lblsupportingDocError.Attributes.Add("style", "display: none;");
+                }
                 if (!string.IsNullOrWhiteSpace(txtAccountHolderName.Text) && txtAccountHolderName.Text.Length < 3)
                 {
                     lblAccountHoldername.Visible = true;
@@ -145,7 +214,7 @@ namespace Patner_Retailer_ADO
                 else { lblAccountHoldername.Visible = false; }
 
                 string pattern = @"^[A-Z]{4}0[A-Z0-9]{6}$";
-                if (!Regex.IsMatch(txtIFSCCode.Text, pattern))
+                if (!Regex.IsMatch(txtIFSCCode.Text.ToUpper(), pattern))
                 {
                     lblIFSCCode.Style["display"] = "block";
                     lblIFSCCode.Text = "Invalid IFSC code format.";
@@ -181,7 +250,11 @@ namespace Patner_Retailer_ADO
                     count++;
                 }
                 else { lblAccountNumber.Style["display"] = "none"; }
-
+                bool validatedAccount = AccountNumberValidation(txtAccountNumber.Text, "0");
+                if (validatedAccount)
+                {
+                    count++;
+                }
                 if (count > 0)
                 {
                     return;
@@ -190,17 +263,47 @@ namespace Patner_Retailer_ADO
                 {
                     if (Session["RetailerUniqueID"] != null)
                     {
+                        string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".pdf" };
+                        string fileExtension = Path.GetExtension(fuSuppotingDoc.FileName).ToLower();
+
+                        if (!allowedExtensions.Contains(fileExtension))
+                        {
+                            lblsupportingDocError.Text = "Please upload only jpg, jpeg, png and pdf format.";
+                            lblsupportingDocError.Attributes.Add("style", "display:block");
+                            return;
+                        }
+                        lblsupportingDocError.Attributes.Add("style", "display:none");
+                        
+                        string fileName = Path.GetFileName(fuSuppotingDoc.FileName);
+                        string folderPath = Server.MapPath("~/UploadedDocuments/");
+                        if (!Directory.Exists(folderPath))
+                            Directory.CreateDirectory(folderPath);
+
+                        string uniqueFileName = DateTime.Now.ToString("yyyyMMdd_HHmmss_") + fileName;
+                        string fullPath = Path.Combine(folderPath, uniqueFileName);
+                        fuSuppotingDoc.SaveAs(fullPath);
+
+
                         SqlCommand cmd = new SqlCommand("SP_IAPL_Retailer_Auth", con);
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@Type", 5);
+                        if (Session["Role"].ToString() == "Admin")
+                            cmd.Parameters.AddWithValue("@Type", 27);
+                        else
+                            cmd.Parameters.AddWithValue("@Type", 26);
                         cmd.Parameters.AddWithValue("@ProfileId", Session["RetailerUniqueID"].ToString().Trim());
                         cmd.Parameters.AddWithValue("@BankAccountNumber", txtAccountNumber.Text.Trim());
-                        cmd.Parameters.AddWithValue("@IFSCCode", txtIFSCCode.Text.Trim());
+                        cmd.Parameters.AddWithValue("@IFSCCode", txtIFSCCode.Text.ToUpper().Trim());
                         cmd.Parameters.AddWithValue("@AccountHolderName", txtAccountHolderName.Text.Trim());
                         cmd.Parameters.AddWithValue("@BankName", txtBankName.Text.Trim());
                         cmd.Parameters.AddWithValue("@BankBranch", txtBranchName.Text.Trim());
                         cmd.Parameters.AddWithValue("@BankBranchAddress", txtBranchAddress.Text.Trim());
-                        cmd.Parameters.AddWithValue("@Status", "Pending");
+                        cmd.Parameters.AddWithValue("@Status", "Secondary");
+                        cmd.Parameters.AddWithValue("@UPIID", txtUPIID.Text.ToString());
+                        cmd.Parameters.AddWithValue("@TypeofBankAccount", ddlTypeOfBank.SelectedValue == "" ? null : ddlTypeOfBank.SelectedValue.ToString());
+                        cmd.Parameters.AddWithValue("@IsThisYourJointAccount", chkJointAccount.SelectedValue == "" ? null : chkJointAccount.SelectedValue.ToString());
+                        cmd.Parameters.AddWithValue("@JointAccountHolderName", txtJointHolderName.Text.ToString());
+                        cmd.Parameters.AddWithValue("@SupportingDocuments", ddlSuppotingDoc.SelectedValue == "" ? null : ddlSuppotingDoc.SelectedValue.ToString());
+                        cmd.Parameters.AddWithValue("@SupportingDocumentsPath", uniqueFileName);
 
                         con.Open();
                         int i = cmd.ExecuteNonQuery();
@@ -209,7 +312,7 @@ namespace Patner_Retailer_ADO
                         string script = $@"
                             <script type='text/javascript'>
                                 alert('Bank Details has been saved successfully!');
-                                window.location.href = 'Profile.aspx';
+                                window.location.href = 'Profile.aspx?qu=Bank';
                             </script>";
 
                         ClientScript.RegisterStartupScript(this.GetType(), "ProfileRedirect", script);
@@ -230,8 +333,30 @@ namespace Patner_Retailer_ADO
                 string qu = Request.QueryString["qu"];
                 if (!string.IsNullOrWhiteSpace(qu))
                 {
+                    string decoded = Encoding.UTF8.GetString(Convert.FromBase64String(qu));
                     int count = 0;
-
+                    if (fuSuppotingDoc.HasFile || !string.IsNullOrWhiteSpace(lblsupportingDocName.Text))
+                    {
+                        lblsupportingDocError.Attributes.Add("style", "display: none;");
+                    }
+                    else
+                    {
+                        lblSupportingDocumentError.Attributes.Add("style", "display: block;");
+                        lblSupportingDocumentError.Text = "Please upload the Supporting Document.";
+                        lblSupportingDocumentError.Focus();
+                        count++;
+                    }
+                    if (ddlSuppotingDoc.SelectedItem.Value == "")
+                    {
+                        lblsupportingDocError.Attributes.Add("style", "display: block;");
+                        lblsupportingDocError.Text = "Please select the Supporting Document.";
+                        lblsupportingDocError.Focus();
+                        count++;
+                    }
+                    else
+                    {
+                        lblsupportingDocError.Attributes.Add("style", "display: none;");
+                    }
                     if (!string.IsNullOrWhiteSpace(txtAccountHolderName.Text) && txtAccountHolderName.Text.Length < 3)
                     {
                         lblAccountHoldername.Visible = true;
@@ -248,7 +373,7 @@ namespace Patner_Retailer_ADO
                     else { lblAccountHoldername.Visible = false; }
 
                     string pattern = @"^[A-Z]{4}0[A-Z0-9]{6}$";
-                    if (!Regex.IsMatch(txtIFSCCode.Text, pattern))
+                    if (!Regex.IsMatch(txtIFSCCode.Text.ToUpper(), pattern))
                     {
                         lblIFSCCode.Style["display"] = "block";
                         lblIFSCCode.Text = "Invalid IFSC code format.";
@@ -280,34 +405,74 @@ namespace Patner_Retailer_ADO
                     if (string.IsNullOrWhiteSpace(txtAccountNumber.Text))
                     {
                         lblAccountNumber.Style["display"] = "block";
+                        lblAccountNumber.Text = "Account Number is required.";
                         txtAccountNumber.Focus();
                         count++;
                     }
                     else { lblAccountNumber.Style["display"] = "none"; }
-
+                    bool validatedAccount = AccountNumberValidation(txtAccountNumber.Text, decoded);
+                    if (!string.IsNullOrWhiteSpace(txtAccountNumber.Text) && validatedAccount)
+                    {
+                        count++;
+                    }
                     if (count > 0)
                     {
                         return;
                     }
                     else
                     {
-
-                        string decoded = Encoding.UTF8.GetString(Convert.FromBase64String(qu));
                         if (Session["RetailerUniqueID"] != null)
                         {
+                            string uniqueFileName = string.Empty;                            
+                            if (fuSuppotingDoc.HasFile)
+                            {
+                                string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".pdf" };
+                                string fileExtension = Path.GetExtension(fuSuppotingDoc.FileName).ToLower();
+
+                                if (!allowedExtensions.Contains(fileExtension))
+                                {
+                                    lblSupportingDocumentError.Text = "Please upload only jpg, jpeg, png and pdf format.";
+                                    lblSupportingDocumentError.Attributes.Add("style", "display:block");
+                                    return;
+                                }
+                                lblSupportingDocumentError.Attributes.Add("style", "display:none");
+
+                                string fileName = Path.GetFileName(fuSuppotingDoc.FileName);
+                                string folderPath = Server.MapPath("~/UploadedDocuments/");
+                                if (!Directory.Exists(folderPath))
+                                    Directory.CreateDirectory(folderPath);
+
+                                uniqueFileName = DateTime.Now.ToString("yyyyMMdd_HHmmss_") + fileName;
+                                string fullPath = Path.Combine(folderPath, uniqueFileName);
+                                fuSuppotingDoc.SaveAs(fullPath);
+                            }
+                            else if(!string.IsNullOrWhiteSpace(lblsupportingDocName.Text))
+                                uniqueFileName = lblsupportingDocName.Text;
+                            else
+                            {
+                                lblSupportingDocumentError.Text = "Please upload only jpg, jpeg, png and pdf format.";
+                                lblSupportingDocumentError.Attributes.Add("style", "display:block");
+                                return;
+                            }
+
                             SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con);
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.Parameters.AddWithValue("@Type", 25);
                             cmd.Parameters.AddWithValue("@UserRole", Session["Role"]?.ToString() ?? "");
                             cmd.Parameters.AddWithValue("@Mid", decoded);
                             cmd.Parameters.AddWithValue("@BankAccountNumber", txtAccountNumber.Text.Trim());
-                            cmd.Parameters.AddWithValue("@IFSCCode", txtIFSCCode.Text.Trim());
+                            cmd.Parameters.AddWithValue("@IFSCCode", txtIFSCCode.Text.ToUpper().Trim());
                             cmd.Parameters.AddWithValue("@AccountHolderName", txtAccountHolderName.Text.Trim());
                             cmd.Parameters.AddWithValue("@BankName", txtBankName.Text.Trim());
                             cmd.Parameters.AddWithValue("@BankBranch", txtBranchName.Text.Trim());
                             cmd.Parameters.AddWithValue("@BankBranchAddress", txtBranchAddress.Text.Trim());
                             cmd.Parameters.AddWithValue("@IPAddress", Request.UserHostAddress);
-                            
+                            cmd.Parameters.AddWithValue("@UPIID", txtUPIID.Text.ToString());
+                            cmd.Parameters.AddWithValue("@TypeofBankAccount", ddlTypeOfBank.SelectedValue == "" ? null : ddlTypeOfBank.SelectedValue.ToString());
+                            cmd.Parameters.AddWithValue("@IsThisYourJointAccount", chkJointAccount.SelectedValue == "" ? null : chkJointAccount.SelectedValue.ToString());
+                            cmd.Parameters.AddWithValue("@JointAccountHolderName", txtJointHolderName.Text.ToString());
+                            cmd.Parameters.AddWithValue("@SupportingDocuments", ddlSuppotingDoc.SelectedValue == "" ? null : ddlSuppotingDoc.SelectedValue.ToString());
+                            cmd.Parameters.AddWithValue("@SupportingDocumentsPath", uniqueFileName);
 
                             con.Open();
                             int i = cmd.ExecuteNonQuery();
@@ -316,7 +481,7 @@ namespace Patner_Retailer_ADO
                             string script = $@"
                             <script type='text/javascript'>
                                 alert('Bank Details has been updated successfully!');
-                                window.location.href = 'Profile.aspx';
+                                window.location.href = 'Profile.aspx?qu=Bank';
                             </script>";
 
                             ClientScript.RegisterStartupScript(this.GetType(), "ProfileRedirect", script);
@@ -330,7 +495,7 @@ namespace Patner_Retailer_ADO
                     string script = $@"
                             <script type='text/javascript'>
                                 alert('Invalid Link');
-                                window.location.href = 'Profile.aspx';
+                                window.location.href = 'Profile.aspx?qu=Bank';
                             </script>";
 
                     ClientScript.RegisterStartupScript(this.GetType(), "ProfileRedirect", script);
@@ -341,6 +506,124 @@ namespace Patner_Retailer_ADO
             catch (Exception ex)
             {
                 DisplayMessage(this, ex.Message);
+            }
+        }
+        protected void ddlTypeOfBank_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ddlTypeOfBank.SelectedValue == "Savings")
+            {
+                jointAcountpnl.Visible = true;
+                chkJointAccount.Focus();
+            }
+            else
+            {
+                jointAcountpnl.Visible = false;
+                jointAcountHolderpnl.Visible = false;
+                ddlTypeOfBank.Focus();
+            }
+            if (!string.IsNullOrWhiteSpace(txtAccountNumber.Text))
+            {
+                lblAccountNumber.Style["display"] = "none";
+            }
+            if (!string.IsNullOrWhiteSpace(txtConfirmAccountNumber.Text))
+            {
+                lblConfirmAccountNumber.Style["display"] = "none";
+            }
+            if (!string.IsNullOrWhiteSpace(txtAccountHolderName.Text))
+            {
+                lblAccountHoldername.Style["display"] = "none";
+            }
+            if (ddlSuppotingDoc.SelectedItem.Value != "")
+            {
+                lblsupportingDocError.Style["display"] = "none";
+            }
+            if (!fuSuppotingDoc.HasFile)
+            {
+                lblSupportingDocumentError.Style["display"] = "none";
+            }
+        }
+        protected void chkJointAccount_Change(object sender, EventArgs e)
+        {
+            if (chkJointAccount.SelectedValue == "Yes")
+            {
+                jointAcountHolderpnl.Visible = true;
+                txtJointHolderName.Focus();
+            }
+            else
+            {
+                jointAcountHolderpnl.Visible = false;
+                ddlSuppotingDoc.Focus();
+            }
+            if (!string.IsNullOrWhiteSpace(txtAccountNumber.Text))
+            {
+                lblAccountNumber.Style["display"] = "none";
+            }
+            if (!string.IsNullOrWhiteSpace(txtConfirmAccountNumber.Text))
+            {
+                lblConfirmAccountNumber.Style["display"] = "none";
+            }
+            if (!string.IsNullOrWhiteSpace(txtAccountHolderName.Text))
+            {
+                lblAccountHoldername.Style["display"] = "none";
+            }
+            if (ddlSuppotingDoc.SelectedItem.Value != "")
+            {
+                lblsupportingDocError.Style["display"] = "none";
+            }
+            if (!fuSuppotingDoc.HasFile)
+            {
+                lblSupportingDocumentError.Style["display"] = "none";
+            }
+        }
+
+        protected void AccountNumberChange(object sender, EventArgs e)
+        {
+            try
+            {
+                string qu = Request.QueryString["qu"];
+                string decoded = "0";
+                if (!string.IsNullOrWhiteSpace(qu))
+                {
+                    decoded = Encoding.UTF8.GetString(Convert.FromBase64String(qu));
+                }
+                bool AccountNumber = AccountNumberValidation(txtAccountNumber.Text, decoded);
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(this, ex.Message);
+            }
+        }
+        protected bool AccountNumberValidation(string accountNumber, string mid)
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@type", SqlDbType.Int).Value = 82;
+                cmd.Parameters.AddWithValue("@ProfileId", SqlDbType.Int).Value = mid;
+                cmd.Parameters.AddWithValue("@BankAccountNumber", SqlDbType.NVarChar).Value = accountNumber;
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                if (dt.Rows.Count > 0)
+                {
+                    lblAccountNumber.Style.Add("display", "block");
+                    lblAccountNumber.Text = "This bank account number already exists in our records.";
+                    return true;
+                }
+                else
+                {
+                    lblAccountNumber.Style.Add("display", "none");
+                    lblAccountNumber.Text = "";
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(this, ex.Message);
+                return false;
             }
         }
     }

@@ -8,12 +8,13 @@ html {
 .leftArea {
     width: 50%;
     background: #0505A3;
-    height: 100vh;
-    /* padding-top: 80px; */
+    /*height: 100vh;*/
+    padding-top: 13rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    min-height: 100vh;
+    /*justify-content: center;*/
 }
 
 .Logo {
@@ -31,37 +32,37 @@ html {
     align-items: center;
 }
 
-    .Content-area h2 {
-        font-size: 24px;
-        text-align: center;
-        padding: 30px 0;
-        color: #ffff;
-        font-weight: 500;
+.Content-area h2 {
+    font-size: 24px;
+    text-align: center;
+    padding: 30px 0;
+    color: #ffff;
+    font-weight: 500;
+}
+
+.Content-area ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
     }
 
-    .Content-area ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        position: relative;
-    }
+.Content-area ul:before {
+    position: absolute;
+    background: #fff;
+    width: 2px;
+    height: 75%;
+    content: "";
+    left: 7px;
+    top: 30px;
+}
 
-        .Content-area ul:before {
-            position: absolute;
-            background: #fff;
-            width: 2px;
-            height: 75%;
-            content: "";
-            left: 7px;
-            top: 30px;
-        }
-
-        .Content-area ul li {
-            text-align: left;
-            color: #fff;
-            font-size: 16px;
-            line-height: 45px;
-            font-weight: 600;
+.Content-area ul li {
+    text-align: left;
+    color: #fff;
+    font-size: 16px;
+    line-height: 45px;
+    font-weight: 600;
         }
 
 .RightArea {
@@ -70,6 +71,12 @@ html {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position:relative;
+}
+.logout_btn_top {
+    position: absolute;
+    right: 30px;
+    top: 0;
 }
 
 .InfyLogo img {
@@ -84,10 +91,10 @@ button:focus,
     box-shadow: none;
 }
 
-.form-control:disabled,
+/*.form-control:disabled,
 .form-control[readonly] {
     background-color: #fff;
-}
+}*/
 /*----------step-wizard------------*/
 .d-flex {
     display: flex;
@@ -127,7 +134,7 @@ button:focus,
     height: 2px;
     background: #e0e0e0;
     position: absolute;
-    width: 80%;
+    width: 75%;
     margin: 0 auto;
     left: 0;
     right: 0;
@@ -181,7 +188,7 @@ span.round-tab {
 }
 
 .wizard .nav-tabs > li {
-    width: 20%;
+    width: 25%;
 }
 
 .wizard li:after {
@@ -313,7 +320,7 @@ span.round-tab {
 }
 
 .DocumentData .table {
-    margin-top: 30px;
+    /*margin-top: 30px;*/
     margin-bottom: 0;
 }
 
@@ -355,11 +362,11 @@ span.round-tab {
             transition: 0.5s;
         }
 
-.form-control[disabled],
+/*.form-control[disabled],
 .form-control[readonly],
 fieldset[disabled] .form-control {
     background-color: #fdfdfd;
-}
+}*/
 
 .list-box {
     padding: 10px;

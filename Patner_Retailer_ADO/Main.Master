@@ -3,11 +3,16 @@
 <!DOCTYPE html>
 <html>
 <head runat="server">
-    <title></title>
+    <title>Retailer</title>
+    <link rel="icon" type="image/png" href="../assets/images/Infyshield-logo.png" />
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
@@ -20,70 +25,378 @@
     <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/fixedHeader.bootstrap4.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap4.min.css" />
+
+    <!-- Slick CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+
+
+
+
+
     <style>
         /* CSS to style the active menu item */
+        .disabled-link {
+            pointer-events: none;
+            color: gray !important;
+            cursor: default;
+            opacity: 0.6;
+        }
 
+        .prev-step, .next-step {
+            font-size: 12px;
+            padding: 9px 15px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 28px;
+            color: #fff;
+        }
+
+        .next-step {
+            background: linear-gradient(90deg, rgba(78, 49, 170, 1) 0%, rgba(122, 28, 172, 1) 100%);
+        }
+
+        .prev-step:hover {
+            font-size: 12px;
+            padding: 9px 15px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 28px;
+            color: #fff;
+        }
+
+        .foot-infinity-details h4 {
+            font-size: 16px;
+            font-weight: 600;
+        }
 
         .nav-left-sidebar .navbar-nav .nav-item.active > .nav-link {
             background-color: rgb(100, 167, 189) !important;
             color: #fff !important;
         }
 
-        .nav-left-sidebar .navbar-nav .nav-item.active  .nav-link i
-        {
+        .nav-left-sidebar .navbar-nav .nav-item.active .nav-link i {
             color: #fff;
         }
+
         .nav-left-sidebar .navbar-nav .nav-item.active > .nav-link:hover {
             /* Optional: Style the hover effect even when active */
             background-color: rgb(100, 167, 189) !important;
         }
 
-        .nav-left-sidebar .navbar-nav .nav-item.active .nav-link svg {
+        /*.nav-left-sidebar .navbar-nav .nav-item.active .nav-link svg {
             fill: #fff !important;
+        }*/
+
+        .nav-left-sidebar .navbar-nav .nav-item .nav-link:hover {
+            background-color: rgb(100, 167, 189);
+            color: #fff;
         }
 
-        /* You might also want to style the default hover state */
-        .nav-left-sidebar .navbar-nav .nav-item .nav-link:hover {
-            background-color: #f0f0f0; /* Example default hover background color */
-            color: #000; /* Example default hover text color */
-        }
-        
         .dropdown-menu {
             min-width: 12rem;
-            right: 18px;
+            right: -90px;
+        }
+
+        li.nav-item.dropdown.cart {
+            display: flex;
+            align-items: center;
+        }
+
+            li.nav-item.dropdown.cart a {
+                border: 1px solid #e7e7e7;
+                padding: 7px !important;
+                border-radius: 5px;
+                font-size: 12px;
+                margin-right: 10px;
+                display: flex;
+                align-items: center;
+            }
+
+                li.nav-item.dropdown.cart a i {
+                    color: #0d6efd;
+                    padding-right: 5px;
+                }
+
+                li.nav-item.dropdown.cart a svg {
+                    color: #0d6efd;
+                    padding-right: 5px;
+                    height: 14px;
+                }
+
+        .role-txt {
+            font-size: 12px;
+            text-align: center;
+            display: block;
+            font-weight: 400;
+        }
+
+        .free-name-txt {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: .5px;
+            line-height: 18px;
+        }
+
+        .expend-menu-icon {
+            position: relative;
+            left: 75px;
+            cursor: pointer;
+        }
+        /* For sidebar toggle */
+        .sidebar-collapsed .nav-left-sidebar {
+            width: 56px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            min-width: 56px;
+        }
+
+        .sidebar-collapsed .dashboard-wrapper {
+            margin-left: 70px !important;
+            width: 95.5%;
+            transition: all 0.3s ease;
+        }
+
+        /* Default full sidebar */
+        .nav-left-sidebar {
+            width: 245px;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-wrapper {
+            margin-left: 264px;
+            transition: all 0.3s ease;
+        }
+        /* Hide text on collapsed menu */
+        .sidebar-collapsed .nav-left-sidebar .navbar-nav .nav-link span {
+            display: none;
+        }
+
+        /* Align icon center when sidebar is collapsed */
+        .sidebar-collapsed .nav-left-sidebar .navbar-nav .nav-item .nav-link {
+            text-align: center;
+        }
+
+        /* Icons always visible */
+        .nav-left-sidebar .navbar-nav .nav-item .nav-link i,
+        .nav-left-sidebar .navbar-nav .nav-item .nav-link svg {
+            vertical-align: middle;
+        }
+
+        /* Reduce svg margin when collapsed */
+        .sidebar-collapsed .nav-left-sidebar .navbar-nav .nav-item .nav-link svg,
+        .sidebar-collapsed .nav-left-sidebar .navbar-nav .nav-item .nav-link i {
+            margin-right: 0;
+        }
+
+        /* Animate transition */
+        .nav-left-sidebar, .dashboard-wrapper {
+            transition: all 0.3s ease;
+        }
+
+        .passbook-txt a {
+            font-size: 12px;
+            border: 1px solid #e7e7e7;
+            border-radius: 5px;
+            margin-right: 10px;
+            padding: 7px !important;
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        @media (max-width: 991px) {
+            .nav-left-sidebar {
+                position: fixed;
+                left: -260px;
+                top: 0;
+                height: 100%;
+                z-index: 999;
+                background: #fff;
+            }
+
+                .nav-left-sidebar.active {
+                    left: 0;
+                    top: 60px;
+                }
+
+            .dashboard-wrapper {
+                /* margin-left: 0 !important; */
+                width: auto;
+                margin: 15px;
+            }
+
+            .navbar-brand img {
+                /* max-width: 100%; */
+                max-width: 120px;
+                height: auto;
+            }
+
+            .navbar-brand {
+                margin-right: 0rem;
+                padding: 0px;
+            }
+
+            .collapse:not(.show) {
+                display: block !important;
+            }
+
+            .dashboard-header .navbar-collapse {
+                flex-basis: inherit;
+                margin-left: 15px;
+            }
+
+            .navbar-right-top {
+                flex-direction: row;
+                /*justify-content: space-between;*/
+            }
+
+            .dashboard-header .navbar {
+                padding: 0px;
+                border-bottom: 1px solid #e6e6f2;
+                -webkit-transition: all 0.3s ease;
+                min-height: 60px;
+                justify-content: start;
+                flex-wrap: nowrap;
+                gap: 15px;
+            }
+
+            .free-name-txt {
+                display: none;
+            }
+
+            .dashboard-header .navbar-nav .dropdown-menu {
+                position: absolute;
+                float: none;
+                right: 0px;
+            }
+
+            .dashboard-header .navbar .navbar-toggler {
+                padding: 0rem;
+            }
+
+            .expend-menu-icon {
+                display: none;
+            }
+
+            .dashboard-header .navbar .navbar-collapse .navbar-nav {
+                flex-direction: row;
+                justify-content: start;
+            }
+            .footer-mar-sty{
+                margin-left:0px !important;               
+            }
+        }
+
+        @media (min-width:992px) {
+            .navbar-expand-lg .navbar-nav .dropdown-menu {
+                right: 0;
+            }
+        }
+
+        html, body, #form1 {
+            height: 100%;
+        }
+
+        .dashboard-main-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+        }
+
+        .dashboard-wrapper {
+            flex-grow: 1;
+        }
+
+        .dropdown-menu {
+            min-width: 12rem;
+        }
+
+        .foot-infinity-details p {
+            font-size: 14px;
+        }
+        .footer-mar-sty{
+            margin-left:240px;
         }
     </style>
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 
 <body>
 
     <form id="form1" runat="server">
-        <asp:ScriptManager ID="ScriptManager1" runat="server" />
+        <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true" />
+
         <div class="dashboard-main-wrapper">
             <!-- Navbar -->
-            <div class="dashboard-header">
-                <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                    <a class="navbar-brand" href="https://www.infyshield.com/" target="_blank">
-                        <img src="assets/images/logo.png" alt="InfyShield" />
-                    </a>
 
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ml-auto navbar-right-top">
-                           <%-- <li class="nav-item">
-                                <div id="custom-search" class="top-search-bar">
-                                    <input class="form-control" type="text" maxlength="20" placeholder="Search..">
-                                </div>
-                            </li>--%>
+            <div class="dashboard-header">
+                <nav class="navbar navbar-expand-lg bg-white fixed-top d-flex justify-content-between align-items-center px-3">
+
+                    <!-- Left: Logo + Menu Toggler -->
+                    <div class="d-flex align-items-center">
+                        <a class="navbar-brand mr-3" href="https://www.infyshield.com/" target="_blank">
+                            <img src="assets/images/logo.png" alt="InfyShield" height="40" />
+                        </a>
+
+                        <!-- Menu Toggle Icon (Mobile) -->
+                        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <rect y="4" width="20" height="2" fill="currentColor" />
+                                <rect y="11" width="20" height="2" fill="currentColor" />
+                                <rect y="18" width="20" height="2" fill="currentColor" />
+                            </svg>
+                        </button>
+
+                        <div class="expend-menu-icon">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect y="4" width="20" height="2" fill="currentColor" />
+                                <rect y="11" width="20" height="2" fill="currentColor" />
+                                <rect y="18" width="20" height="2" fill="currentColor" />
+                            </svg>
+                        </div>
+
+                    </div>
+
+                    <!-- Right: Navbar Content -->
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+
+                        <ul class="navbar-nav mx-auto d-none d-lg-block">
+                            <!-- Center content -->
+                            <li class="nav-item d-flex align-items-center">
+                                <asp:Image ID="imgCompanyLogo" runat="server" Width="150" Height="35" CssClass="d-inline-block align-top mr-2" />
+                                <asp:Label ID="lbllegalNameHeader" runat="server" CssClass="font-weight-bold"
+                                    Style="font-size: 16px; color: #64a7bd"></asp:Label>
+                            </li>
+
+                        </ul>
+                        <ul class="navbar-nav align-items-center">
+
+
+
+
+                            <!-- Passbook -->
+                            <li class="nav-item passbook-txt">
+                                <a class="nav-link nav-icons px-2" href="Passbook.aspx">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="14" height="14">
+                                        <path fill="#000082" d="M64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-224c0-35.3-28.7-64-64-64L80 128c-8.8 0-16-7.2-16-16s7.2-16 16-16l368 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L64 32zM416 272a32 32 0 1 1 0 64 32 32 0 1 1 0-64z" />
+                                    </svg>
+                                    <span class="d-none d-lg-inline ml-1">Passbook</span>
+                                </a>
+                            </li>
 
                             <!-- Cart -->
-                            <li class="nav-item dropdown cart">
-                              <a class="nav-link nav-icons" href="#" id="navbarDropdownCart" data-toggle="dropdown"  <% = GetCartLinkAttributes() %>>
+
+                            <li class="nav-item dropdown cart" style="position: relative;">
+                                <a class="nav-link nav-icons px-2" href="#" id="navbarDropdownCart" data-toggle="dropdown" <%= GetCartLinkAttributes() %>>
                                     <i class="fas fa-shopping-cart"></i>
-                                    <%--<span class="indicator"></span>--%>
+                                    <span class="d-none d-lg-inline ml-1">Cart</span>
+
+                                    <span class="badge badge-pill badge-danger" style="position: absolute; top: -12px; right: 1px;">
+                                        <asp:Label ID="lblCartCount" runat="server" Text="0"></asp:Label>
+                                    </span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right cart-dropdown">
                                     <li>
@@ -92,7 +405,7 @@
                                             <div class="list-group">
                                                 <asp:Repeater ID="rptNotifications" runat="server">
                                                     <ItemTemplate>
-                                                        <a href="#" class="list-group-item list-group-item-action">
+                                                        <a href="CartDetails.aspx" class="list-group-item list-group-item-action">
                                                             <div class="notification-info d-flex align-items-center">
                                                                 <div class="notification-list-user-block">
                                                                     <span class="notification-list-user-name"><%# Eval("ProductName") %></span>
@@ -108,33 +421,30 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <div class="list-footer"><a href="cart.aspx">Go to Cart</a></div>
+                                        <div class="list-footer">
+                                            <a href="CartDetails.aspx">Go to Cart</a>
+                                        </div>
                                     </li>
                                 </ul>
                             </li>
 
 
-                            <!-- User Info & DateTime -->
-                            <li class="nav-item d-flex align-items-center text-dark px-2" style="font-size: 14px;">
-                                <div>
-                                    <strong><%= Session["Name"] %></strong><br />
-                                    <small><%= Session["Role"] %></small><br />
-                                    <span id="currentDateTime"></span>
-                                </div>
-                            </li>
-
-
                             <!-- User Profile -->
-                            <li class="nav-item dropdown nav-user">
+                            <li class="nav-item dropdown nav-user ml-lg-2">
                                 <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown">
-                                    <img src="../assets/images/avatar5.png" alt="" class="user-avatar-md rounded-circle">
+                                    <div class="d-flex align-items-center">
+                                        <%--<img src="../assets/images/avatar5.png" alt="" class="user-avatar-md rounded-circle mr-2" />--%>
+                                        <asp:Image ID="profileImage" runat="server" CssClass="user-avatar-md rounded-circle mr-2" />
+                                        <div class="d-none d-lg-block text-dark">
+                                            <div class="free-name-txt">
+                                                <%= Session["Name"] %><br />
+                                                <span class="role-txt"><%= Session["Role"] %></span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right nav-user-dropdown">
-                                   <%-- <div class="nav-user-info">
-                                        <h5 class="mb-0 text-white nav-user-name"><%= Session["Name"] %></h5>
-                                       <%-- <span class="status"></span><span class="ml-2">Available</span>
-                                    </div>--%>
-                                    <a class="dropdown-item" href="Profile.aspx"><i class="fas fa-user mr-2"></i>Account</a>
+                                    <a class="dropdown-item" href="Profile.aspx"><i class="fas fa-user mr-2"></i>Profile</a>
                                     <a class="dropdown-item" href="Login.aspx"><i class="fas fa-power-off mr-2"></i>Logout</a>
                                 </div>
                             </li>
@@ -147,73 +457,99 @@
             <div class="nav-left-sidebar sidebar-dark">
                 <div class="menu-list">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                        <%-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                             <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarNav">
+                        </button>--%>
+                        <div class="collapse navbar-collapse" id="navbarNav" style="overflow: auto;">
                             <ul class="navbar-nav flex-column">
                                 <%--<li class="nav-divider">Menu</li>--%>
                                 <li id="menuDashboard" runat="server" class="nav-item">
-                                    <a class="nav-link" href="Dashboard.aspx"><i class="fas fa-tachometer-alt">&nbsp;</i> Dashboard</a>
+                                    <a class="nav-link" id="linkDashboard" runat="server" href="Dashboard.aspx"><i data-feather="layout"></i>
+                                        <span class="menu-text">Dashboard</span>
+                                    </a>
                                 </li>
                                 <li id="menuBuyPlan" runat="server" class="nav-item">
-                                    <a class="nav-link" href="BuyInfySalePlan.aspx">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 616 512">
-                                            <path d="M602 118.6L537.1 15C531.3 5.7 521 0 510 0H106C95 0 84.7 5.7 78.9 15L14 118.6c-33.5 53.5-3.8 127.9 58.8 136.4 4.5 .6 9.1 .9 13.7 .9 29.6 0 55.8-13 73.8-33.1 18 20.1 44.3 33.1 73.8 33.1 29.6 0 55.8-13 73.8-33.1 18 20.1 44.3 33.1 73.8 33.1 29.6 0 55.8-13 73.8-33.1 18.1 20.1 44.3 33.1 73.8 33.1 4.7 0 9.2-.3 13.7-.9 62.8-8.4 92.6-82.8 59-136.4zM529.5 288c-10 0-19.9-1.5-29.5-3.8V384H116v-99.8c-9.6 2.2-19.5 3.8-29.5 3.8-6 0-12.1-.4-18-1.2-5.6-.8-11.1-2.1-16.4-3.6V480c0 17.7 14.3 32 32 32h448c17.7 0 32-14.3 32-32V283.2c-5.4 1.6-10.8 2.9-16.4 3.6-6.1 .8-12.1 1.2-18.2 1.2z"/>
-                                        </svg> Buy InfyShield Plans
+                                    <a class="nav-link" id="linkBuyPlan" runat="server" href="ProductInformation.aspx">
+                                        <i data-feather="shopping-cart"></i>
+                                        <span class="menu-text">Sell InfyShield Plans</span>
                                     </a>
                                 </li>
                                 <li id="menuSalesPerson" runat="server" class="nav-item">
-                                    <a class="nav-link" href="ViewSalesPerson.aspx"><i class="fas fa-users">&nbsp;</i> Sales Person</a>
+                                    <a class="nav-link" id="linkSalesPerson" runat="server" href="ViewSalesPerson.aspx"><i data-feather="user"></i>
+                                        <span class="menu-text">Sales Person</span>
+                                    </a>
                                 </li>
-                                <li id="menuClaims" runat="server" class="nav-item">
-                                    <a class="nav-link" href="ReportedClaims.aspx"><i class="fas fa-file-alt">&nbsp;</i> Claims</a>
-                                </li>
-                                <li id="menuReports" runat="server" class="nav-item">
-                                    <a class="nav-link" href="Reports.aspx"><i class="fas fa-fw fa-chart-pie">&nbsp;</i> Reports</a>
+                                <li id="menuIncomplete" runat="server" class="nav-item">
+                                    <a class="nav-link" id="linkIncomplete" runat="server" href="InCompletePurchased.aspx">
+                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill="none" d="M0 0h24v24H0V0z"></path>
+                                            <path d="M16.24 7.75A5.974 5.974 0 0 0 12 5.99v6l-4.24 4.24c2.34 2.34 6.14 2.34 8.49 0a5.99 5.99 0 0 0-.01-8.48zM12 1.99c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+                                        </svg>
+                                        <span class="menu-text">Incomplete Purchased</span>
+                                    </a>
                                 </li>
                                 <li id="menuSalesReport" runat="server" class="nav-item">
-                                    <a class="nav-link" href="SalesReports.aspx"><i class="fas fa-chart-area">&nbsp;</i> Sales Reports</a>
+                                    <a class="nav-link" id="linkSalesReport" runat="server" href="SalesReports.aspx"><i data-feather="bar-chart"></i>
+                                        <span class="menu-text">Sales Reports</span>
+                                    </a>
                                 </li>
-                                <li id="menuGenerateURL" runat="server" class="nav-item">
-                                    <a class="nav-link" href="RetailerAddURL.aspx"><i class="fas fa-link">&nbsp;</i> Generate URL</a>
+                                <li id="menuClaims" runat="server" class="nav-item">
+                                    <a class="nav-link" id="linkClaims" runat="server" href="ReportedClaims.aspx"><i data-feather="file-text"></i>
+                                        <span class="menu-text">Registration/Claim</span>
+                                    </a>
                                 </li>
-                               <%-- <li id="menuHowItWorks" runat="server" class="nav-item">
-                                    <a class="nav-link" href="RetailerAddURL.aspx">
-                                        <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                                        </svg>
-                                        &nbsp; How It Works</a>
+                                <%--  <li id="menuReports" runat="server" class="nav-item">
+                                    <a class="nav-link" id="linkReports" runat="server" href="Reports.aspx"><i data-feather="pie-chart"></i>Reports</a>
+                                </li>
+                               <li id="menuSalesPersonSalesReport" runat="server" class="nav-item">
+                                    <a class="nav-link" id="linkSalesPersonSalesReport" runat="server" href="SalesPersonSalesReport.aspx"><i data-feather="pie-chart"></i>Sales Person Wise Reports</a>
+                                </li>--%>
+                                <li id="menuGenerateURL" runat="server" class="nav-item" visible="false">
+                                    <a class="nav-link" id="linkGenerateURL" runat="server" href="RetailerAddURL.aspx"><i data-feather="link"></i>
+                                        <span class="menu-text">Generate URL</span>
+                                    </a>
                                 </li>
                                 <li id="menuFAQ" runat="server" class="nav-item">
-                                    <a class="nav-link" href="RetailerAddURL.aspx"><i class="far fa-question-circle">&nbsp;</i> FAQs</a>
+                                    <a class="nav-link" id="linkFAQ" runat="server" href="FAQ.aspx"><i data-feather="help-circle"></i>
+                                        <span class="menu-text">FAQ's</span>
+                                    </a>
                                 </li>
                                 <li id="menuUpgradePlan" runat="server" class="nav-item">
-                                    <a class="nav-link" href="RetailerAddURL.aspx"><i class="far fa-arrow-alt-circle-up">&nbsp;</i> Upgrade Plan</a>
+                                    <a class="nav-link" id="linkUpgradePlan" runat="server" href="UpgradePlan.aspx"><i data-feather="arrow-up-circle"></i>
+                                        <span class="menu-text">Upgrade Plan</span>
+                                    </a>
                                 </li>
                                 <li id="menuMyOffer" runat="server" class="nav-item">
-                                    <a class="nav-link" href="RetailerAddURL.aspx"><i class="fas fa-tag">&nbsp;</i> My Offers</a>
+                                    <a class="nav-link" id="linkMyOffer" runat="server" href="MyOffer.aspx"><i data-feather="tag"></i>
+                                        <span class="menu-text">My Offers</span>
+                                    </a>
                                 </li>
-                                <li id="menuReferFriend" runat="server" class="nav-item">
-                                    <a class="nav-link" href="RetailerAddURL.aspx"><i class="fas fa-share-alt">&nbsp;</i> Refer a Friend</a>
+                                <li id="menuHowItWorks" runat="server" class="nav-item">
+                                    <a class="nav-link" id="linkHowItWorks" runat="server" href="HowItWorks.aspx"><i data-feather="activity"></i>
+                                        <span class="menu-text">How It Works</span>
+                                    </a>
+                                </li>
+                                <li id="menuReferFriend" runat="server" class="nav-item" visible="false">
+                                    <a class="nav-link" id="linkReferFriend" runat="server" href="ReferFriend.aspx"><i data-feather="share-2"></i>
+                                        <span class="menu-text">Refer a Friend</span>
+                                    </a>
                                 </li>
                                 <li id="menuReachUs" runat="server" class="nav-item">
-                                    <a class="nav-link" href="RetailerAddURL.aspx">
-                                        <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
-                                            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
-                                        </svg>
-                                        &nbsp; Reach Us</a>
+                                    <a class="nav-link" id="linkReachUs" runat="server" href="ReachUs.aspx"><i data-feather="headphones"></i>
+                                        <span class="menu-text">Reach Us</span>
+                                    </a>
                                 </li>
                                 <li id="menuFeedback" runat="server" class="nav-item">
-                                    <a class="nav-link" href="RetailerAddURL.aspx">
+                                    <a class="nav-link" id="linkFeedback" runat="server" href="Feedback.aspx">
                                         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M4.5 1L4 1.5V3.02746C4.16417 3.00932 4.331 3 4.5 3C4.669 3 4.83583 3.00932 5 3.02746V2H14V7H12.2929L11 8.29289V7H8.97254C8.99068 7.16417 9 7.331 9 7.5C9 7.669 8.99068 7.83583 8.97254 8H10V9.5L10.8536 9.85355L12.7071 8H14.5L15 7.5V1.5L14.5 1H4.5Z"></path>
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M6.41705 10.4288C7.37039 9.80348 8 8.72527 8 7.5C8 5.567 6.433 4 4.5 4C2.567 4 1 5.567 1 7.5C1 8.72527 1.62961 9.80348 2.58295 10.4288C2.11364 10.6498 1.68557 10.9505 1.31802 11.318C0.900156 11.7359 0.568688 12.232 0.342542 12.7779C0.180451 13.1692 0.0747425 13.5807 0.0278638 14C0.00933826 14.1657 0 14.3326 0 14.5V15H1L0.999398 14.5C0.999398 14.4784 0.999599 14.4567 1 14.4351C1.00811 13.9975 1.09823 13.5651 1.26587 13.1604C1.44179 12.7357 1.69964 12.3498 2.0247 12.0247C2.34976 11.6996 2.73566 11.4418 3.16038 11.2659C3.57088 11.0958 4.00986 11.0056 4.45387 10.9997C4.46922 10.9999 4.4846 11 4.5 11C4.5154 11 4.53078 10.9999 4.54613 10.9997C4.99014 11.0056 5.42912 11.0958 5.83962 11.2659C6.26433 11.4418 6.65024 11.6996 6.9753 12.0247C7.30036 12.3498 7.55821 12.7357 7.73413 13.1604C7.90177 13.5651 7.99189 13.9975 8 14.4351C8.0004 14.4567 8.0006 14.4784 8.0006 14.5L8 15H9V14.5C9 14.3326 8.99066 14.1657 8.97214 14C8.92526 13.5807 8.81955 13.1692 8.65746 12.7779C8.43131 12.232 8.09984 11.7359 7.68198 11.318C7.31443 10.9505 6.88636 10.6498 6.41705 10.4288ZM4.5 10C3.11929 10 2 8.88071 2 7.5C2 6.11929 3.11929 5 4.5 5C5.88071 5 7 6.11929 7 7.5C7 8.88071 5.88071 10 4.5 10Z"></path>
                                         </svg>
-                                        &nbsp; Feedback</a>
-                                </li>--%>
-                               <%-- <li id="menuFavourite" runat="server" class="nav-item">
+                                        <span class="menu-text">Feedback</span>
+                                    </a>
+                                </li>
+
+                                <%-- <li id="menuFavourite" runat="server" class="nav-item">
                                     <a class="nav-link" href="Favourite.aspx"><i class="fas fa-star">&nbsp;</i> Favourite</a>
                                 </li>--%>
                                 <%--<li id="menuClaimList" runat="server" class="nav-item">
@@ -229,6 +565,120 @@
             <div class="dashboard-wrapper">
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
             </div>
+            <div class="copyright p-4 mt-4 bg-white footer-mar-sty d-none">
+                <div class="row">
+                    <div class="col-12 col-lg-4">
+                        <div class="foot-infinity-details">
+                            <div class="infinity-logo-img mb-2">
+                                <img alt="Infinity-logo" loading="lazy" width="164" height="46" decoding="async" data-nimg="1" class="img-fluid" src="https://infyvault.com/_next/static/media/infinity-logo.64218e71.png" style="color: transparent;">
+                            </div>
+                            <h4 class="mb-0">Infinity Assurance Solutions Pvt. Ltd.</h4>
+                            <p>Headquartered in New Delhi, India, we are an Indian Angel Network (IAN) portfolio and CeBIT Awarded company specialising in service administration of warranty programs and creating service plans for a wide variety of technology products across industries.<a target="_blank" href="https://www.infinityassurance.com">Read More...</a></p>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-3" style="display: none">
+                        <div class="foot-infinity-details">
+                            <div class="infinity-logo-img mb-2">
+                                <img alt="Future-Generali" loading="lazy" width="146" height="49" decoding="async" data-nimg="1" class="img-fluid" src="https://infyvault.com/_next/static/media/fg-logo.9dc858a9.png" style="color: transparent;">
+                            </div>
+                            <div class="contact-details-txt">
+                                <p class="mb-1">
+                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16.57 22a2 2 0 0 0 1.43-.59l2.71-2.71a1 1 0 0 0 0-1.41l-4-4a1 1 0 0 0-1.41 0l-1.6 1.59a7.55 7.55 0 0 1-3-1.59 7.62 7.62 0 0 1-1.59-3l1.59-1.6a1 1 0 0 0 0-1.41l-4-4a1 1 0 0 0-1.41 0L2.59 6A2 2 0 0 0 2 7.43 15.28 15.28 0 0 0 6.3 17.7 15.28 15.28 0 0 0 16.57 22zM6 5.41 8.59 8 7.3 9.29a1 1 0 0 0-.3.91 10.12 10.12 0 0 0 2.3 4.5 10.08 10.08 0 0 0 4.5 2.3 1 1 0 0 0 .91-.27L16 15.41 18.59 18l-2 2a13.28 13.28 0 0 1-8.87-3.71A13.28 13.28 0 0 1 4 7.41zM20 11h2a8.81 8.81 0 0 0-9-9v2a6.77 6.77 0 0 1 7 7z"></path><path d="M13 8c2.1 0 3 .9 3 3h2c0-3.22-1.78-5-5-5z"></path></svg>
+                                    +91 1800 220 233
+                                </p>
+                                <p class="mb-1">
+                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill="none" d="M0 0h24v24H0V0z"></path><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"></path></svg>
+                                    claims.fg@infinityassurance.com
+                                </p>
+                                <p class="mb-1">
+                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                        <g fill-opacity=".9">
+                                            <path d="M255.8 48C141 48 48 141.2 48 256s93 208 207.8 208c115 0 208.2-93.2 208.2-208S370.8 48 255.8 48zm.2 374.4c-91.9 0-166.4-74.5-166.4-166.4S164.1 89.6 256 89.6 422.4 164.1 422.4 256 347.9 422.4 256 422.4z"></path>
+                                            <path d="M266.4 152h-31.2v124.8l109.2 65.5 15.6-25.6-93.6-55.5V152z"></path>
+                                        </g></svg>
+                                    9:00 AM to 6:00 PM
+                                </p>
+                                <p class="mb-1">
+                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="416" height="384" x="48" y="80" fill="none" stroke-linejoin="round" stroke-width="32" rx="48"></rect><circle cx="296" cy="232" r="24"></circle><circle cx="376" cy="232" r="24"></circle><circle cx="296" cy="312" r="24"></circle><circle cx="376" cy="312" r="24"></circle><circle cx="136" cy="312" r="24"></circle><circle cx="216" cy="312" r="24"></circle><circle cx="136" cy="392" r="24"></circle><circle cx="216" cy="392" r="24"></circle><circle cx="296" cy="392" r="24"></circle><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M128 48v32m256-32v32"></path><path fill="none" stroke-linejoin="round" stroke-width="32" d="M464 160H48"></path></svg>
+                                    Mon to Sat (Excluding holidays)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="foot-infinity-details">
+                            <div class="infinity-logo-img">
+                                <img alt="InfyShield-logo" loading="lazy" width="155" height="170" decoding="async" data-nimg="1" class="img-fluid" src="https://infyvault.com/_next/static/media/new-logo-ews.a171945f.jpg" style="color: transparent; width: 65px;">
+                            </div>
+                            <div class="contact-details-txt">
+                                <p class="mb-1">
+                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16.57 22a2 2 0 0 0 1.43-.59l2.71-2.71a1 1 0 0 0 0-1.41l-4-4a1 1 0 0 0-1.41 0l-1.6 1.59a7.55 7.55 0 0 1-3-1.59 7.62 7.62 0 0 1-1.59-3l1.59-1.6a1 1 0 0 0 0-1.41l-4-4a1 1 0 0 0-1.41 0L2.59 6A2 2 0 0 0 2 7.43 15.28 15.28 0 0 0 6.3 17.7 15.28 15.28 0 0 0 16.57 22zM6 5.41 8.59 8 7.3 9.29a1 1 0 0 0-.3.91 10.12 10.12 0 0 0 2.3 4.5 10.08 10.08 0 0 0 4.5 2.3 1 1 0 0 0 .91-.27L16 15.41 18.59 18l-2 2a13.28 13.28 0 0 1-8.87-3.71A13.28 13.28 0 0 1 4 7.41zM20 11h2a8.81 8.81 0 0 0-9-9v2a6.77 6.77 0 0 1 7 7z"></path><path d="M13 8c2.1 0 3 .9 3 3h2c0-3.22-1.78-5-5-5z"></path></svg>
+                                    +91 9911 33 2320
+                                </p>
+                                <p class="mb-1">
+                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill="none" d="M0 0h24v24H0V0z"></path><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"></path></svg>
+                                    support@infyshield.com
+                                </p>
+                                <p class="mb-1">
+                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                        <g fill-opacity=".9">
+                                            <path d="M255.8 48C141 48 48 141.2 48 256s93 208 207.8 208c115 0 208.2-93.2 208.2-208S370.8 48 255.8 48zm.2 374.4c-91.9 0-166.4-74.5-166.4-166.4S164.1 89.6 256 89.6 422.4 164.1 422.4 256 347.9 422.4 256 422.4z"></path>
+                                            <path d="M266.4 152h-31.2v124.8l109.2 65.5 15.6-25.6-93.6-55.5V152z"></path>
+                                        </g></svg>
+                                    9:00 AM to 6:00 PM
+                                </p>
+                                <p class="mb-1">
+                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="416" height="384" x="48" y="80" fill="none" stroke-linejoin="round" stroke-width="32" rx="48"></rect><circle cx="296" cy="232" r="24"></circle><circle cx="376" cy="232" r="24"></circle><circle cx="296" cy="312" r="24"></circle><circle cx="376" cy="312" r="24"></circle><circle cx="136" cy="312" r="24"></circle><circle cx="216" cy="312" r="24"></circle><circle cx="136" cy="392" r="24"></circle><circle cx="216" cy="392" r="24"></circle><circle cx="296" cy="392" r="24"></circle><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M128 48v32m256-32v32"></path><path fill="none" stroke-linejoin="round" stroke-width="32" d="M464 160H48"></path></svg>
+                                    Mon to Sat (Excluding holidays)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-4">
+                        <div class="foot-infinity-details">
+                            <div class="infinity-logo-img" style="font-weight: 500; font-size: 18px;">
+                                Reach us 
+                            </div>
+                            <div class="contact-details-txt">
+                                <p class="mb-1">
+                                    Head Office:
+                                </p>
+                                <p class="mb-1">
+                                    Infinity Assurance Solutions Pvt. Ltd.
+                                </p>
+                                <p class="mb-2">
+                                    24, US Complex,
+                                    Adjacent to Jasola Apollo Metro Station
+                                    120, Mathura Road
+                                    New Delhi 110 076 (India)
+                                </p>
+
+                            </div>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14020.07115865258!2d77.282113!3d28.539185!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce3de43e7dfaf%3A0x570426e20a6064ec!2sInfinity%20Assurance%20Solutions%20Private%20Limited!5e0!3m2!1sen!2sus!4v1733554076849!5m2!1sen!2sus" width="100%" height="180" style="border: 0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-lg-12 text-center">
+                        <div class="f-w-400 py-2">Partner © 2025. Powered by:&nbsp;<a class="infinity-txt" target="_blank" href="https://www.infinityassurance.com/">Infinity Assurance Solutions Pvt Ltd.</a></div>
+                    </div>
+                </div>
+
+            </div>
+
+
         </div>
     </form>
 
@@ -242,21 +692,73 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>--%>
 
-    
 
-    
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.6-rc.1/dist/js/select2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.6-rc.1/dist/css/select2.min.css" rel="stylesheet" />
 
+
+    <link href="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet" />
+    <script src="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"></script>
+
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
+
+    <!-- jQuery -->
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.buyinfyshieldSlider').slick({
+                dots: true,
+                arrows: true,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000,
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 2
+                        }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 1
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
     <script>
         $(document).ready(function () {
             $('.data-table').DataTable({
                 responsive: false,
                 ordering: true
             });
+
+            feather.replace();
         });
+
+
+        $(".expend-menu-icon").on("click", function () {
+            $(".dashboard-main-wrapper").toggleClass("sidebar-collapsed");
+        });
+
+        // Toggle Sidebar - Mobile
+        $(".navbar-toggler").on("click", function () {
+            $(".nav-left-sidebar").toggleClass("active");
+        });
+
+
     </script>
 
 </body>

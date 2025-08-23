@@ -24,6 +24,15 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// lblRegistrationErrorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRegistrationErrorMessage;
+
+        /// <summary>
         /// txtGSTIN control.
         /// </summary>
         /// <remarks>

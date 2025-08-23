@@ -122,6 +122,10 @@
           color:red;
           font-size:13px;
      }
+     .select2-container .select2-selection--single {
+     height: 37px !important;
+ }
+
  </style>
 
     <!-- CSS -->
@@ -229,8 +233,6 @@
             return true;
         }
     </script>
-
-
 </head>
 
 <body>
@@ -322,7 +324,7 @@
                                             ForeColor="Red" Display="Dynamic" ValidationGroup="ProductInfo"></asp:RequiredFieldValidator>
                                     </div>
 
-                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12">
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="serielNoDiv" runat="server">
                                         <label>Serial No.</label>
                                         <asp:TextBox class="form-control mb-2" ID="txtSerialNo" CssClass="form-control mb-2" runat="server" placeholder="Serial No."
                                             MaxLength="20"></asp:TextBox>
@@ -333,7 +335,7 @@
 
                                 <div class="row">
 
-                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 ">
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="imeiNoDiv" runat="server">
                                         <label>IMEI No.</label>
                                         <asp:TextBox CssClass="form-control mb-2" ID="txtimeiNo" MaxLength="15" onblur="validateIMEI()" runat="server" placeholder="IMEI No."></asp:TextBox>
                                         <small id="imeiError" style="color: red; display: block;"></small>
@@ -341,7 +343,7 @@
                                             ErrorMessage="IMEI No. is required." ForeColor="Red" Display="Dynamic" ValidationGroup="ProductInfo" />
                                     </div>
 
-                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 ">
+                                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12" id="dateOfImplementationDic" runat="server">
                                         <label>Product Installation Date</label>
                                         <div class="input-group">
                                             <asp:TextBox ID="txtDateOfImpl" runat="server" CssClass="form-control"
@@ -413,7 +415,7 @@
                                 </div>
 
 
-                                <div class="row">
+                                <div class="row" id="customerInfoDiv" runat="server">
 
                                      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 ">
                                          <label>Customer Name</label>
@@ -436,6 +438,7 @@
                                             pattern="\d{10}" title="Please enter a valid 10-digit mobile number" oninput="validateMobileNo()"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ControlToValidate="txtCustomerMobile" ErrorMessage="Customer Mobile is required."
                                             ForeColor="Red" Display="Dynamic" ValidationGroup="ProductInfo"></asp:RequiredFieldValidator>
+                                         <asp:Label ID="BlockCustomerErrorMessage" runat="server" ForeColor="Red"></asp:Label>
                                     </div>
 
                                      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 ">
@@ -506,7 +509,7 @@
                                                         </div>
                                                         <div class="plan-price">
                                                             <div class="price-txt">Price:</div>
-                                                            <div class="price-amount">₹<%# Eval("CustPriceINR") %></div>
+                                                            <div class="price-amount">Rs. <%# Eval("CustPriceINR") %></div>
                                                         </div>
 
                                                         <asp:HiddenField ID="hdnPlanPrice" runat="server" Value='<%# Eval("CustPriceINR") %>' />
@@ -650,15 +653,55 @@
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.6-rc.1/dist/js/select2.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.0.6-rc.1/dist/css/select2.min.css" rel="stylesheet" />
 
-    <script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        ss();
+
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+        if (prm != null) {
+            prm.add_endRequest(function (sender, e) {
+                if (sender._postBackSettings.panelsToUpdate != null) {
+                    ss();
+                }
+            });
+        }
+
+        function ss() {
+            var ddlddlsubcatg = $('#<%= ddlsubcatg.ClientID %>');
+            var ddlddlProductType = $('#<%= ddlProductType.ClientID %>');
+        var ddlddlBrand = $('#<%= ddlBrand.ClientID %>');
+
+            if (typeof $.fn.select2 !== 'function') {
+                setTimeout(ss, 100);
+                return;
+            }
+
+            if (ddlddlsubcatg.length) {
+                ddlddlsubcatg.select2();
+            }
+            if (ddlddlProductType.length) {
+                ddlddlProductType.select2();
+            }
+            if (ddlddlBrand.length) {
+                ddlddlBrand.select2();
+            }
+        }
+    });
+</script>
+
+<%--    <script>
         $(document).ready(function () {
             $('.data-table').DataTable({
                 responsive: false,
                 ordering: true
             });
         });
-    </script>
+    </script>--%>
+
+    
 
 </body>
 </html>

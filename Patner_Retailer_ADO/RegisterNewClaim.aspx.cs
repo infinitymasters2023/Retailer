@@ -14,6 +14,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Drawing;
 using Ionic.Zip;
+using static Patner_Retailer_ADO.ViewClaims;
 
 namespace Patner_Retailer_ADO
 {
@@ -30,8 +31,15 @@ namespace Patner_Retailer_ADO
             if (!IsPostBack)
             {
                 txtDamageDate.Attributes.Add("ReadOnly", "readonly");
+                txtPreferredDate.Attributes.Add("ReadOnly", "readonly");
                 this.DataBind();
                 BindInformation();
+                getdocuments();
+                bindProblemCategory(txtProductName.Text);
+                if (prodcuCat.Value == "2")
+                {
+                    mobileDiv.Visible = true;
+                }
             }
         }
         private void BindInformation()
@@ -52,15 +60,16 @@ namespace Patner_Retailer_ADO
                     DataRow dr = dt.Rows[0];
 
                     txtFirstName.Text = dr["CustomerName"].ToString();
-                    txtLastName.Text = "";
                     txtEmail.Text = dr["EmailID"].ToString();
                     txtCustomerMobileNo.Text = dr["MobileNo"].ToString();
                     txtWhatsappNo.Text = dr["WhatsAppNo"].ToString();
                     txtPincode.Text = dr["PINCode"].ToString();
                     txtCity.Text = dr["City"].ToString();
                     txtState.Text = dr["State"].ToString();
-                    txtAddressLine1.Value = dr["AddressLine1"].ToString();
-                    txtLandmark.Value = dr["AddressLine2"].ToString();
+                    txtAddressLine1.Text = dr["AddressLine1"].ToString();
+                    txtLandmark.Text = dr["AddressLine2"].ToString();
+                    //txtAddressLine1.Value = dr["AddressLine1"].ToString();
+                    //txtLandmark.Value = dr["AddressLine2"].ToString();
                     txtProductName.Text = dr["Productname"].ToString();
                     txtProductsubcategoryname.Text = dr["Productsubcategoryname"].ToString();
                     txtBrand.Text = dr["Brand"].ToString();
@@ -75,19 +84,22 @@ namespace Patner_Retailer_ADO
                     lblcertificate.Text = dr["certificateno"].ToString();
                     lblloan.Text = dr["LoanNo"].ToString();
                     lblclamno.Text = dr["CrnNo"].ToString();
+                    prodcuCat.Value = dr["ProductSubCatgID"].ToString();
+                    hdnPlanId.Value = dr["CallType"].ToString();
                 }
                 else
                 {
                     txtFirstName.Text = "";
-                    txtLastName.Text = "";
                     txtEmail.Text = "";
                     txtCustomerMobileNo.Text = "";
                     txtWhatsappNo.Text = "";
                     txtPincode.Text = "";
                     txtCity.Text = "";
                     txtState.Text = "";
-                    txtAddressLine1.Value = "";
-                    txtLandmark.Value = "";
+                    txtAddressLine1.Text = "";
+                    txtLandmark.Text = "";
+                    //txtAddressLine1.Value = "";
+                    //txtLandmark.Value = "";
                     txtProductName.Text = "";
                     txtProductsubcategoryname.Text = "";
                     txtBrand.Text = "";
@@ -109,25 +121,25 @@ namespace Patner_Retailer_ADO
                 lblProblemDesc.Visible = true;
                 count++;
             }
-            if (!rdoPhysical.Checked && !rdoLiquid.Checked && !rdoBoth.Checked)
+            if (!rdoPhysical.Checked && !rdoLiquid.Checked && !rdoBoth.Checked && mobileDiv.Visible == true)
             {
                 lblDamageType.Text = "Please select the Type of Damage.";
                 lblDamageType.Visible = true;
                 count++;
             }
-            if (!rblphoneswitchingon.Checked && !rblphoneswitchingnot.Checked)
+            if (!rblphoneswitchingon.Checked && !rblphoneswitchingnot.Checked && mobileDiv.Visible == true)
             {
                 lblDeviceSwitchOn.Text = "Please specify whether the device is switching on.";
                 lblDeviceSwitchOn.Visible = true;
                 count++;
             }
-            if (!chkDefectiveParts.Items.Cast<ListItem>().Any(i => i.Selected))
+            if (!chkDefectiveParts.Items.Cast<ListItem>().Any(i => i.Selected) && mobileDiv.Visible == true)
             {
                 lblDefectiveParts.Text = "Please select at least one defective part.";
                 lblDefectiveParts.Visible = true;
                 count++;
             }
-            if (!touchworking.Checked && !touchworkingnot.Checked)
+            if (!touchworking.Checked && !touchworkingnot.Checked && mobileDiv.Visible == true)
             {
                 lblTouchWorking.Text = "Please specify whether the touch screen is working.";
                 lblTouchWorking.Visible = true;
@@ -199,30 +211,30 @@ namespace Patner_Retailer_ADO
                     {
                         ticketno = LogComplaint(ViewState["sku"].ToString(), ViewState["reg"].ToString());
                     }
+                }
+                if (ticketno != "")
+                {
+                    SaveProxyinfo();
+                    Label5.Visible = true;
+                    Label2.Text = ticketno.Trim();
+                    lbltkt.Text = "Thank you for submitting the details. <span style='color:red'> Claim is Registered against Ticket No.: " + ticketno.Trim() + ". <span> Please mention this Ticket No. in all future communications.";
+                    btnRegisterClaim.Text = "Edit";
+                    btnRegisterClaim.Enabled = false;
+                    textboxdisable();
+                    divdoc.Visible = true;
+                    //btndownload.Visible = true;
 
-                    if (ticketno != "")
-                    {
-                        SaveProxyinfo();
-                        Label5.Visible = true;
-                        Label2.Text = ticketno.Trim();
-                        lbltkt.Text = "Thank you for submitting the details. <span style='color:red'> Claim is Registered against Ticket No.: " + ticketno.Trim() + ". <span> Please mention this Ticket No. in all future communications.";
-                        btnRegisterClaim.Text = "Edit";
-                        btnRegisterClaim.Enabled = false;
-                        textboxdisable();
-                        divdoc.Visible = true;
-                        btndownload.Visible = true;
-
-                        string url = "";
-                        url = "RegisterNewClaim.aspx?TKT=" + ticketno.Trim() + "&sr=Newcall" + "";
-                        Response.Redirect(url, false);
-                    }
-                    else
-                    {
-                        DisplayMessage(this, "server Error !!");
-                        return;
-                    }
+                    //string url = "";
+                    //url = "RegisterNewClaim.aspx?TKT=" + ticketno.Trim() + "&sr=Newcall" + "";
+                    //Response.Redirect(url, false);
+                }
+                else
+                {
+                    DisplayMessage(this, "server Error !!");
+                    return;
                 }
             }
+
         }
 
         protected string LogComplaint(string SKU, string Regno)
@@ -239,8 +251,9 @@ namespace Patner_Retailer_ADO
             int checkReocrd = 0;
             bool flag = false;
             DateTime Todaydate = DateTime.Now;
-        
+
             string damagedate = Convert.ToDateTime(txtDamageDate.Text).ToString("MM/dd/yyyy");
+            string PreferredDate = Convert.ToDateTime(txtPreferredDate.Text).ToString("MM/dd/yyyy");
             string txtFormClaimDatereg = Convert.ToDateTime(DateTime.Now).ToString("MM/dd/yyyy");
             string txtFormClaimTimeR = Convert.ToDateTime(DateTime.Now).ToString("hh:mm tt");
 
@@ -254,12 +267,13 @@ namespace Patner_Retailer_ADO
             cmds.Parameters.AddWithValue("@ticketno", SqlDbType.VarChar).Value = tic;
             cmds.Parameters.AddWithValue("@RegistrationNo", SqlDbType.VarChar).Value = Regno;
             cmds.Parameters.AddWithValue("@ProblemNo", SqlDbType.Int).Value = 1;
-            cmds.Parameters.AddWithValue("@CallSource", SqlDbType.Int).Value = 15;
+            cmds.Parameters.AddWithValue("@CallSource", SqlDbType.Int).Value = 9;//Change
             cmds.Parameters.AddWithValue("@CallPriority", SqlDbType.Int).Value = 1;
-            cmds.Parameters.AddWithValue("@CallType", SqlDbType.Int).Value = 28;
-            cmds.Parameters.AddWithValue("@CallTypes", SqlDbType.Int).Value = 9;
+            cmds.Parameters.AddWithValue("@CallType", SqlDbType.Int).Value = !string.IsNullOrWhiteSpace(hdnPlanId.Value) ? hdnPlanId.Value : "28";
+            cmds.Parameters.AddWithValue("@CallTypes", SqlDbType.Int).Value = 0;//Change
             cmds.Parameters.AddWithValue("@OtherProblemDescription", SqlDbType.VarChar).Value = txtProblemDesc.Value;
-            cmds.Parameters.AddWithValue("@Symptoms", SqlDbType.Int).Value = 0;
+            cmds.Parameters.AddWithValue("@ProblemDescription", SqlDbType.VarChar).Value = ddlProblemCategory.SelectedItem.Value;
+            cmds.Parameters.AddWithValue("@Symptoms", SqlDbType.VarChar).Value = ddlSymptomsProblem.SelectedItem.Value;
             cmds.Parameters.AddWithValue("@otherSymptoms", SqlDbType.VarChar).Value = txtProblemDesc.Value;
             cmds.Parameters.AddWithValue("@ProblemReported", SqlDbType.VarChar).Value = txtProblemDesc.Value;
             if (txtRemarks.Value == "")
@@ -271,6 +285,7 @@ namespace Patner_Retailer_ADO
             cmds.Parameters.AddWithValue("@CallStatus", SqlDbType.Int).Value = 19;
             cmds.Parameters.AddWithValue("@ServiceType", SqlDbType.Int).Value = 1;
             cmds.Parameters.AddWithValue("@DamageDateTime", SqlDbType.VarChar).Value = damagedate.Replace('-', '/') + " " + txtDamageTime.Text;
+            cmds.Parameters.AddWithValue("@PreferredDateTime", SqlDbType.VarChar).Value = PreferredDate.Replace('-', '/') + " " + txtPreferredTime.Text;
             cmds.Parameters.AddWithValue("@Claim_settlement", SqlDbType.VarChar).Value = "ASC Not Yet Assigned";
             cmds.Parameters.AddWithValue("@MIS_status", SqlDbType.VarChar).Value = "Documents Pending, Telephonic Follow-up Stage";
             cmds.Parameters.AddWithValue("@claimstatus", SqlDbType.VarChar).Value = "Open";
@@ -279,6 +294,7 @@ namespace Patner_Retailer_ADO
             cmds.Parameters.AddWithValue("@FG_Resourceid", SqlDbType.Int).Value = 0;
             cmds.Parameters.AddWithValue("@CauseRemark", SqlDbType.VarChar).Value = "104";
             cmds.Parameters.AddWithValue("@ActionStatus", SqlDbType.VarChar).Value = "59";
+            cmds.Parameters.AddWithValue("@SuspectedParts", SqlDbType.VarChar).Value = txtSuspectedParts.Text;
             cmds.Parameters.AddWithValue("@FunctionareaID", SqlDbType.Int).Value = 15;
             cmds.Parameters.AddWithValue("@userID", SqlDbType.Int).Value = Session["RetailerUniqueID"].ToString();
 
@@ -321,7 +337,7 @@ namespace Patner_Retailer_ADO
             partsname = partsname.TrimEnd(',');
             cmds.Parameters.AddWithValue("@PartsDamaged", SqlDbType.VarChar).Value = partsname;
             cmds.Parameters.AddWithValue("@PlaceofDamage", SqlDbType.VarChar).Value = txtPlaceOfDamage.Text;
-            cmds.Parameters.AddWithValue("@UserName", SqlDbType.VarChar).Value = Session["Name"].ToString();
+            cmds.Parameters.AddWithValue("@UserName", SqlDbType.VarChar).Value = Session["Name"] != null ? Session["Name"].ToString() : null;
             string touchWorkingValue = "";
 
             if (touchworking.Checked)
@@ -375,17 +391,17 @@ namespace Patner_Retailer_ADO
             SqlCommand cmd = new SqlCommand("sp_Promoter_claim", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@Type", type);
-            cmd.Parameters.AddWithValue("@ProxyMobile1", Session["P_MobileNo"].ToString());
-            cmd.Parameters.AddWithValue("@P_Name", Session["P_Name"].ToString());
-            cmd.Parameters.AddWithValue("@P_EmailID", Session["P_EmailID"].ToString());
-            cmd.Parameters.AddWithValue("@P_Relationship", Session["P_Relationship"].ToString());
+            cmd.Parameters.AddWithValue("@ProxyMobile1", Session["MobileNo"].ToString());
+            cmd.Parameters.AddWithValue("@P_Name", Session["Name"].ToString());
+            //cmd.Parameters.AddWithValue("@P_EmailID", Session["P_EmailID"].ToString());
+            cmd.Parameters.AddWithValue("@P_Relationship", "1");
             cmd.Parameters.AddWithValue("@skuandserialno", ViewState["sku"].ToString().ToString());
 
             con.Open();
             int i = cmd.ExecuteNonQuery();
             con.Close();
         }
-        protected void Deletefile(object sender, EventArgs e)
+     /*   protected void Deletefile(object sender, EventArgs e)
         {
             try
             {
@@ -431,30 +447,32 @@ namespace Patner_Retailer_ADO
                 DisplayMessage(this, ex.Message);
                 return;
             }
-        }
+        }*/
         public void doclist(string tic)
         {
-            SqlCommand cmd = new SqlCommand("sp_Promoter_claim", con);
+            SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@Type", SqlDbType.Int).Value = 6;
+            cmd.Parameters.AddWithValue("@type", SqlDbType.Int).Value = 74;
             cmd.Parameters.AddWithValue("@ticketno", SqlDbType.Int).Value = tic;
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
             if (dt.Rows.Count > 0)
             {
-                GridView1.DataSource = dt;
-                GridView1.DataBind();
-                GridView1.Visible = true;
+                GVSupportingDoc.DataSource = dt;
+                GVSupportingDoc.DataBind();
+                GVSupportingDoc.CssClass = "table data-table table-striped nowrap";
+                if (GVSupportingDoc.HeaderRow != null)
+                    GVSupportingDoc.HeaderRow.TableSection = TableRowSection.TableHeader;
             }
             else
             {
-                GridView1.DataSource = null;
-                GridView1.EmptyDataText = "No documents are available";
-                GridView1.DataBind();
+                GVSupportingDoc.DataSource = null;
+                GVSupportingDoc.DataBind();
+                GVSupportingDoc.CssClass = "table table-striped nowrap";
             }
         }
-        protected void DownloadAll(object sender, EventArgs e)
+       /* protected void DownloadAll(object sender, EventArgs e)
         {
             string CRNONO = txtFirstName.Text.Trim().Replace(" ", "_") + "_" + txtIMEI.Text.Trim();
             string Mfilename = "";
@@ -498,8 +516,8 @@ namespace Patner_Retailer_ADO
                     return;
                 }
             }
-        }
-        protected void gvFiles_RowCommand(object sender, GridViewCommandEventArgs e)
+        }*/
+      /*  protected void gvFiles_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             string FilePath2 = ConfigurationManager.AppSettings["FilePath2"].ToString();
             string FilePath4 = ConfigurationManager.AppSettings["FilePath4"].ToString();
@@ -548,7 +566,7 @@ namespace Patner_Retailer_ADO
                     Response.Write("<script>window.open('" + redirectUrl + "', '_blank');</script>");
                 }
             }
-        }
+        }*/
         private bool UrlExists(string url)
         {
             try
@@ -569,11 +587,13 @@ namespace Patner_Retailer_ADO
         }
         protected void getdocuments()
         {
+            string sku = Request.QueryString["qe"];
             if (con.State == ConnectionState.Open)
                 con.Close();
-            SqlCommand cmd = new SqlCommand("sp_Promoter_claim", con);
+            SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@Type", SqlDbType.Int).Value = 13;
+            cmd.Parameters.AddWithValue("@Type", SqlDbType.Int).Value = 72;
+            cmd.Parameters.AddWithValue("@TicketNo", sku);
 
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
@@ -589,111 +609,87 @@ namespace Patner_Retailer_ADO
         }
         protected void UploadImage1(object sender, EventArgs e)
         {
-            if (ddldocumentattached2.SelectedIndex == 0)
+            if (!fupupload2.HasFile)
             {
-                DisplayMessage(this, "Please select Documnts type");
-                ddldocumentattached2.Focus();
+                lblMessage.Text = "Please select a file to upload.";
                 return;
             }
-            if (Label2.Text != null)
+            if (string.IsNullOrEmpty(ddldocumentattached2.SelectedValue))
             {
-                string Ticket = Label2.Text;
-                try
+                lblMessage.Text = "Please select a document name from the dropdown.";
+                return;
+            }
+            try
+            {
+                string ticketNo = ViewState["NewTicket"].ToString();
+                String yy = DateTime.Now.Year.ToString();
+                String mn = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.Now.Month);
+
+                bool existsClient = System.IO.Directory.Exists("F:\\Documents\\InfyShield\\");
+                if (!existsClient)
+                    System.IO.Directory.CreateDirectory("F:\\Documents\\InfyShield\\");
+
+                bool existsYear = System.IO.Directory.Exists("F:\\Documents\\InfyShield\\" + yy);
+                if (!existsYear)
+                    System.IO.Directory.CreateDirectory("F:\\Documents\\InfyShield\\" + yy);
+                bool existsMonth = System.IO.Directory.Exists("F:\\Documents\\InfyShield\\" + yy + "/" + mn);
+                if (!existsMonth)
+                    System.IO.Directory.CreateDirectory("F:\\Documents\\InfyShield\\" + yy + "/" + mn);
+
+                string originalFileName = fupupload2.PostedFile.FileName;
+                string sanitizedFileName = SanitizeFileName(originalFileName);
+                sanitizedFileName = sanitizedFileName.Replace(" ", "_");
+
+
+                string fn = ticketNo.ToString().Replace("/", "") + '_' + "InfyShield" + '_' + sanitizedFileName.Replace(" ", "_");
+                fupupload2.SaveAs("F:\\Documents\\InfyShield\\" + yy + "/" + mn + "/" + fn);
+
+                List<DocumentInfo> docs = Session["UploadedDocuments"] as List<DocumentInfo> ?? new List<DocumentInfo>();
+
+                docs.Add(new DocumentInfo
                 {
-                    nickname();
-                    if (ddldocumentattached2.SelectedIndex == 0)
-                    {
-                        DisplayMessage(this, "Please select Documnts type");
-                        ddldocumentattached2.Focus();
-                        return;
-                    }
-                    else
-                    {
-                        ViewState["Mis_Report"] = "1";
-                        ViewState["docstatus"] = "VP";
+                    Mid = "0",
+                    DocumentName = ddldocumentattached2.SelectedItem.Text,
+                    FullDocumentPath = "https://doc.infyshield.com/Documents/InfyShield/" + yy + "/" + mn + "/" + fn,
+                    UploadedDate = DateTime.Now.ToString("dd-MMM-yyyy HH:mm tt"),
+                    Status = "Pending"
+                });
 
-                        string FilePath1 = ConfigurationManager.AppSettings["FilePath1"].ToString();
-                        string Nickname_doc = ViewState["nick_name"].ToString();
-                        if (fupupload2.HasFile)
-                        {
-                            string ext = System.IO.Path.GetExtension(this.fupupload2.PostedFile.FileName);
-                            String yy = DateTime.Now.Year.ToString();
-                            String mn = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.Now.Month);
-
-                            bool existsClient = System.IO.Directory.Exists(ViewState["filePath"].ToString() + "/" + ViewState["Client"].ToString());
-                            if (!existsClient)
-                                System.IO.Directory.CreateDirectory(ViewState["filePath"].ToString() + "/" + ViewState["Client"].ToString());
-                            bool existsYear = System.IO.Directory.Exists(ViewState["filePath"].ToString() + "/" + ViewState["Client"].ToString() + "/" + yy);
-                            if (!existsYear)
-                                System.IO.Directory.CreateDirectory(ViewState["filePath"].ToString() + "/" + ViewState["Client"].ToString() + "/" + yy);
-                            bool existsMonth = System.IO.Directory.Exists(ViewState["filePath"].ToString() + "/" + ViewState["Client"].ToString() + "/" + yy + "/" + mn);
-                            if (!existsMonth)
-                                System.IO.Directory.CreateDirectory(ViewState["filePath"].ToString() + "/" + ViewState["Client"].ToString() + "/" + yy + "/" + mn);
-                            if (ext.ToLower() == ".jpeg" || ext.ToLower() == ".jpg" || ext.ToLower() == ".png" || ext.ToLower() == ".pdf" || ext.ToLower() == ".mp4")
-                            {
-                                if (fupupload2.HasFile)
-                                {
-                                    string originalFileName = fupupload2.PostedFile.FileName;
-                                    string sanitizedFileName = SanitizeFileName(originalFileName);
-                                    sanitizedFileName = sanitizedFileName.Replace(" ", "_");
-                                    string fn = Ticket.ToString().Replace("/", "") + '_' + Nickname_doc + '_' + sanitizedFileName.Replace(" ", "_");
-
-                                    fupupload2.SaveAs(ViewState["filePath"].ToString() + ViewState["Client"].ToString() + "/" + yy + "/" + mn + "/" + fn);
-                                    ViewState["picnamenew"] = fn.ToString();
-
-                                    SqlCommand cmd = new SqlCommand("Iapl_crm_usp_getProblemStatus", con);
-                                    cmd.CommandType = CommandType.StoredProcedure;
-                                    cmd.Parameters.AddWithValue("@type", SqlDbType.Int).Value = 710;
-                                    cmd.Parameters.AddWithValue("@TicketNo", SqlDbType.NVarChar).Value = Ticket;
-                                    cmd.Parameters.AddWithValue("@UserName", SqlDbType.NVarChar).Value = Session["Name"].ToString();
-                                    cmd.Parameters.AddWithValue("@doc", ddldocumentattached2.SelectedItem.Value);
-                                    cmd.Parameters.AddWithValue("@path", ViewState["Client"].ToString() + "/" + yy + "/" + mn + "/" + fn);
-                                    cmd.Parameters.AddWithValue("@DocStatus", SqlDbType.VarChar).Value = ViewState["docstatus"].ToString();
-                                    cmd.Parameters.AddWithValue("@Mis_Report", SqlDbType.VarChar).Value = ViewState["Mis_Report"].ToString();
-
-                                    con.Open();
-                                    int check1 = cmd.ExecuteNonQuery();
-                                    con.Close();
-                                    if (check1 > 0)
-                                    {
-                                        doclist(Ticket);
-                                        ddldocumentattached2.SelectedIndex = 0;
-                                        DisplayMessage(this, "Document uploaded Successfully");
-                                        return;
-                                    }
-                                    else
-                                    {
-                                        ViewState["picname"] = null;
-                                        DisplayMessage(this, "Error !!! in Document upload");
-                                        return;
-                                    }
-                                }
-                                else
-                                {
-                                    DisplayMessage(this, "Please Upload a file");
-                                    return;
-                                }
-                            }
-                            else
-                            {
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            return;
-                        }
-                    }
-                }
-                catch (Exception ex)
+                Session["UploadedDocuments"] = docs;
+                UploadDocuemt("0", ddldocumentattached2.SelectedItem.Value, ("InfyShield/" + yy + "/" + mn + "/" + fn));
+                doclist(Label2.Text.Trim());
+                lblMessage.Text = "Document uploaded and saved successfully!";
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = "Upload failed: " + ex.Message;
+            }
+        }
+        protected void UploadDocuemt(string mid, string documentNumber, string documentPath)
+        {
+            try
+            {
+                string ticketNo = ViewState["NewTicket"].ToString();
+                using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
                 {
-                    DisplayMessage(this, ex.Message);
-                    return;
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@type", 73);
+                    cmd.Parameters.AddWithValue("@Mid", mid);
+                    cmd.Parameters.AddWithValue("@ticketno", ticketNo);
+                    cmd.Parameters.AddWithValue("@documentNumber", documentNumber);
+                    cmd.Parameters.AddWithValue("@DocumentPath", documentPath);
+                    cmd.Parameters.AddWithValue("@CreatedBy", Session["Name"].ToString());
+
+                    if (con.State != ConnectionState.Open)
+                        con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
                 }
             }
-            else
+            catch (Exception ex)
             {
-                DisplayMessage(this, "Ticket number not open ");
+                DisplayMessage(this, ex.Message);
                 return;
             }
         }
@@ -721,37 +717,40 @@ namespace Patner_Retailer_ADO
             string sanitizedFileName = Regex.Replace(fileName, pattern, "");
             return sanitizedFileName;
         }
-        public void ChangeColour(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                System.Web.UI.WebControls.Label lblDocStatus = (e.Row.FindControl("lblverify") as System.Web.UI.WebControls.Label);
-                if (lblDocStatus.Text == "Approved")
-                {
-                    e.Row.ForeColor = Color.Green;
-                }
-                else if (lblDocStatus.Text == "Verification Pending")
-                {
-                    e.Row.BackColor = Color.Yellow;
-                }
-                else if (lblDocStatus.Text == "Reverification")
-                {
-                }
-                else if (lblDocStatus.Text == "Reject")
-                {
-                    e.Row.ForeColor = Color.Red;
-                }
-                else if (lblDocStatus.Text == "Not-Verifiable")
-                {
-                    e.Row.ForeColor = Color.Red;
-                }
-                else if (lblDocStatus.Text == "")
-                {
-                }
-            }
-        }
+        //public void ChangeColour(object sender, GridViewRowEventArgs e)
+        //{
+        //    if (e.Row.RowType == DataControlRowType.DataRow)
+        //    {
+        //        System.Web.UI.WebControls.Label lblDocStatus = (e.Row.FindControl("lblverify") as System.Web.UI.WebControls.Label);
+        //        if (lblDocStatus.Text == "Approved")
+        //        {
+        //            e.Row.ForeColor = Color.Green;
+        //        }
+        //        else if (lblDocStatus.Text == "Verification Pending")
+        //        {
+        //            e.Row.BackColor = Color.Yellow;
+        //        }
+        //        else if (lblDocStatus.Text == "Reverification")
+        //        {
+        //        }
+        //        else if (lblDocStatus.Text == "Reject")
+        //        {
+        //            e.Row.ForeColor = Color.Red;
+        //        }
+        //        else if (lblDocStatus.Text == "Not-Verifiable")
+        //        {
+        //            e.Row.ForeColor = Color.Red;
+        //        }
+        //        else if (lblDocStatus.Text == "")
+        //        {
+        //        }
+        //    }
+        //}
         protected void textboxdisable()
         {
+            ddlProblemCategory.Enabled = false;
+            txtproblemcategory.Enabled = false;
+            ddlSymptomsProblem.Enabled = false;
             txtProblemDesc.Attributes.Add("Readonly", "readonly");
             rdoPhysical.Enabled = false;
             rdoLiquid.Enabled = false;
@@ -765,6 +764,99 @@ namespace Patner_Retailer_ADO
             txtDamageTime.Enabled = false;
             txtPlaceOfDamage.Enabled = false;
             txtRemarks.Attributes.Add("Readonly", "readonly");
+        }
+
+        protected void bindProblemCategory(string procat)
+        {
+            try
+            {
+
+                //string planname = GV.Rows[1].Cells[3].Text;
+                SqlCommand cmd = new SqlCommand("sp_usp_CrmgetMasters", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@type", SqlDbType.Int).Value = 11;
+                cmd.Parameters.AddWithValue("@Procat", SqlDbType.NVarChar).Value = prodcuCat.Value;
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    ddlProblemCategory.DataValueField = "SymptomCategory";
+                    ddlProblemCategory.DataTextField = "SymptomCategory";
+                    ddlProblemCategory.DataSource = dt;
+                    ddlProblemCategory.DataBind();
+                    ddlProblemCategory.Items.Insert(0, "Select Problem Category");
+                    ddlProblemCategory.Items.Insert(ddlProblemCategory.Items.Count, "Others");
+                }
+                else
+                {
+                    ddlProblemCategory.Items.Clear();
+                    ddlProblemCategory.Items.Insert(0, "Select Problem Category");
+                    ddlProblemCategory.Items.Insert(ddlProblemCategory.Items.Count, "Others");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(this, ex.Message);
+                return;
+            }
+        }
+        protected void problemCategoryChange(object sender, EventArgs e)
+        {
+            BindSymptoms(ddlProblemCategory.SelectedValue);
+        }
+
+        protected void BindSymptoms(string ProblemCat)
+        {
+            try
+            {
+                if (ddlProblemCategory.SelectedItem.Text == "Others")
+                {
+                    txtproblemcategory.Visible = true;
+                    ddlProblemCategory.Visible = false;
+                    // txtproblemcategory.Focus();
+                }
+                else
+                {
+                    txtproblemcategory.Visible = false;
+
+                }
+                SqlCommand cmd = new SqlCommand("sp_usp_CrmgetMasters", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Type", SqlDbType.Int).Value = 12;
+                cmd.Parameters.AddWithValue("@ProblemCat", SqlDbType.VarChar).Value = ProblemCat;
+                cmd.Parameters.AddWithValue("@Procat", SqlDbType.VarChar).Value = prodcuCat.Value;
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                ddlSymptomsProblem.Items.Clear();
+                if (dt.Rows.Count > 0)
+                {
+                    ddlSymptomsProblem.DataValueField = "mid";
+                    ddlSymptomsProblem.DataTextField = "ProblemDescription";
+                    ddlSymptomsProblem.DataSource = dt;
+                    ddlSymptomsProblem.DataBind();
+                    //ddlSymptomsProblem.Items.Insert(0, "Select Symptoms / Problems ");
+                    //ddlSymptomsProblem.Items.Insert(ddlSymptomsProblem.Items.Count, "Others");
+                    ddlSymptomsProblem.Items.Insert(0, new ListItem("Select Symptoms / Problems", ""));
+                    ddlSymptomsProblem.Items.Insert(ddlSymptomsProblem.Items.Count, new ListItem("Others", ""));
+                }
+                else
+                {
+                    ddlSymptomsProblem.DataSource = null;
+                    ddlSymptomsProblem.DataBind();
+                    //ddlSymptomsProblem.Items.Insert(0, "Select Symptoms / Problems ");
+                    //ddlSymptomsProblem.Items.Insert(ddlSymptomsProblem.Items.Count, "Others");
+                    ddlSymptomsProblem.Items.Insert(0, new ListItem("Select Symptoms / Problems", ""));
+                    ddlSymptomsProblem.Items.Insert(ddlSymptomsProblem.Items.Count, new ListItem("Others", ""));
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(this, ex.Message);
+                return;
+            }
         }
 
     }

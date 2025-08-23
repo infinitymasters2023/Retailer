@@ -177,6 +177,15 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator6;
 
         /// <summary>
+        /// serielNoDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl serielNoDiv;
+
+        /// <summary>
         /// txtSerialNo control.
         /// </summary>
         /// <remarks>
@@ -195,6 +204,15 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvSerialNo;
 
         /// <summary>
+        /// imeiNoDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl imeiNoDiv;
+
+        /// <summary>
         /// txtimeiNo control.
         /// </summary>
         /// <remarks>
@@ -211,6 +229,15 @@ namespace Patner_Retailer_ADO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvIMEINo;
+
+        /// <summary>
+        /// dateOfImplementationDic control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dateOfImplementationDic;
 
         /// <summary>
         /// txtDateOfImpl control.
@@ -411,6 +438,15 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.DropDownList ddlCustomDays;
 
         /// <summary>
+        /// customerInfoDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl customerInfoDiv;
+
+        /// <summary>
         /// txtCustomerName control.
         /// </summary>
         /// <remarks>
@@ -463,6 +499,15 @@ namespace Patner_Retailer_ADO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator11;
+
+        /// <summary>
+        /// BlockCustomerErrorMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label BlockCustomerErrorMessage;
 
         /// <summary>
         /// btnSubmitPlan control.

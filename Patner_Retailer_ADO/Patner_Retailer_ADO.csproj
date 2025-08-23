@@ -43,16 +43,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxControlToolkit">
-      <HintPath>C:\Users\Amaan\Desktop\AjaxControlToolkit.dll</HintPath>
+    <Reference Include="AjaxControlToolkit, Version=20.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\AjaxControlToolkit.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetZip">
-      <HintPath>C:\Users\Amaan\Desktop\DotNetZip.dll</HintPath>
+    <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\DotNetZip.dll</HintPath>
     </Reference>
-    <Reference Include="EPPlus">
-      <HintPath>C:\Users\Amaan\Desktop\EPPlus.dll</HintPath>
+    <Reference Include="EPPlus, Version=4.5.3.2, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Patner_Retailer_ADO\Patner_Retailer_ADO\bin\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.1.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Amaan\Desktop\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="paytm, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\paytm.dll</HintPath>
@@ -85,6 +92,7 @@
     <Content Include="AddDocument.aspx" />
     <Content Include="AddEditFavourite.aspx" />
     <Content Include="assets\css\bootstrap.min.css" />
+    <Content Include="assets\css\jquery.multiselect.css" />
     <Content Include="assets\css\signup.css" />
     <Content Include="assets\images\avatar-1.jpg" />
     <Content Include="assets\images\avatar-2.jpg" />
@@ -97,6 +105,7 @@
     <Content Include="assets\images\card-img-2.jpg" />
     <Content Include="assets\images\card-img-3.jpg" />
     <Content Include="assets\images\card-img.jpg" />
+    <Content Include="assets\images\Comingsoon.png" />
     <Content Include="assets\images\down-arrow.png" />
     <Content Include="assets\images\drag-indicator.png" />
     <Content Include="assets\images\dribbble.png" />
@@ -120,7 +129,10 @@
     <Content Include="assets\images\product-pic-3.jpg" />
     <Content Include="assets\images\product-pic-4.jpg" />
     <Content Include="assets\images\product-pic.jpg" />
+    <Content Include="assets\images\refer.png" />
+    <Content Include="assets\images\Retailersupport.png" />
     <Content Include="assets\images\slack.png" />
+    <Content Include="assets\images\social-share.png" />
     <Content Include="assets\images\switch.png" />
     <Content Include="assets\libs\css\style.css" />
     <Content Include="assets\libs\js\dashboard-ecommerce.js" />
@@ -131,6 +143,15 @@
     <Content Include="assets\libs\js\google_map.js" />
     <Content Include="assets\libs\js\jvectormap.custom.js" />
     <Content Include="assets\libs\js\main-js.js" />
+    <Content Include="assets\login.css" />
+    <Content Include="assets\Multiselect\jquery.multiselect.css" />
+    <Content Include="assets\Multiselect\jquery.multiselect.js" />
+    <Content Include="assets\slick\ajax-loader.gif" />
+    <Content Include="assets\slick\fonts\slick.svg" />
+    <Content Include="assets\slick\slick-theme.css" />
+    <Content Include="assets\slick\slick.css" />
+    <Content Include="assets\slick\slick.js" />
+    <Content Include="assets\slick\slick.min.js" />
     <Content Include="assets\vendor\bootstrap-colorpicker\%40claviska\jquery-minicolors\jquery.minicolors.css" />
     <Content Include="assets\vendor\bootstrap-colorpicker\%40claviska\jquery-minicolors\jquery.minicolors.min.js" />
     <Content Include="assets\vendor\bootstrap-colorpicker\%40claviska\jquery-minicolors\jquery.minicolors.png" />
@@ -453,6 +474,7 @@
     <Content Include="assets\vendor\inputmask\css\inputmask.css" />
     <Content Include="assets\vendor\inputmask\js\jquery.inputmask.bundle.js" />
     <Content Include="assets\vendor\jquery\jquery-3.3.1.min.js" />
+    <Content Include="assets\vendor\jquery\jquery.multiselect.js" />
     <Content Include="assets\vendor\jvectormap\jquery-jvectormap-2.0.2.css" />
     <Content Include="assets\vendor\jvectormap\jquery-jvectormap-2.0.2.min.js" />
     <Content Include="assets\vendor\jvectormap\jquery-jvectormap-au-mill.js" />
@@ -483,21 +505,36 @@
     <Content Include="CreateSalesPerson.aspx" />
     <Content Include="Dashboard.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="EmailTemplateFormat\CustomerPurchase.html" />
+    <Content Include="EmailTemplateFormat\RetailerPurchase.html" />
+    <Content Include="EmailTemplateFormat\SignUp.html" />
+    <Content Include="FAQ.aspx" />
     <Content Include="Favourite.aspx" />
+    <Content Include="Feedback.aspx" />
+    <Content Include="HowItWorks.aspx" />
     <Content Include="InCompletePurchased.aspx" />
     <Content Include="InvalidLink.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="MyOffer.aspx" />
+    <Content Include="Passbook.aspx" />
     <Content Include="PaymentConfirmation.aspx" />
+    <Content Include="ProductInformation.aspx" />
     <Content Include="Profile.aspx" />
+    <Content Include="ReachUs.aspx" />
+    <Content Include="ReferFriend.aspx" />
     <Content Include="RegisterNewClaim.aspx" />
+    <Content Include="RegistrationDetails.aspx" />
     <Content Include="ReportedClaims.aspx" />
     <Content Include="Reports.aspx" />
     <Content Include="RetailerAddURL.aspx" />
     <Content Include="RetailerBuyInfySalePlan.aspx" />
     <Content Include="RetailerCartDetails.aspx" />
     <Content Include="RetailerPaymentConfirmation.aspx" />
+    <Content Include="SalesPersonSalesReport.aspx" />
     <Content Include="SalesReports.aspx" />
     <Content Include="SellerGSTIN.aspx" />
+    <Content Include="TransactionEarningsReport.aspx" />
+    <Content Include="UpgradePlan.aspx" />
     <Content Include="ViewClaims.aspx" />
     <Content Include="ViewSalesPerson.aspx" />
     <Content Include="Web.config" />
@@ -580,12 +617,33 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="FAQ.aspx.cs">
+      <DependentUpon>FAQ.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FAQ.aspx.designer.cs">
+      <DependentUpon>FAQ.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Favourite.aspx.cs">
       <DependentUpon>Favourite.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Favourite.aspx.designer.cs">
       <DependentUpon>Favourite.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Feedback.aspx.cs">
+      <DependentUpon>Feedback.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Feedback.aspx.designer.cs">
+      <DependentUpon>Feedback.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HowItWorks.aspx.cs">
+      <DependentUpon>HowItWorks.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HowItWorks.aspx.designer.cs">
+      <DependentUpon>HowItWorks.aspx</DependentUpon>
     </Compile>
     <Compile Include="InCompletePurchased.aspx.cs">
       <DependentUpon>InCompletePurchased.aspx</DependentUpon>
@@ -615,12 +673,33 @@
     <Compile Include="Main.Master.designer.cs">
       <DependentUpon>Main.Master</DependentUpon>
     </Compile>
+    <Compile Include="MyOffer.aspx.cs">
+      <DependentUpon>MyOffer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyOffer.aspx.designer.cs">
+      <DependentUpon>MyOffer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Passbook.aspx.cs">
+      <DependentUpon>Passbook.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Passbook.aspx.designer.cs">
+      <DependentUpon>Passbook.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PaymentConfirmation.aspx.cs">
       <DependentUpon>PaymentConfirmation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="PaymentConfirmation.aspx.designer.cs">
       <DependentUpon>PaymentConfirmation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProductInformation.aspx.cs">
+      <DependentUpon>ProductInformation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProductInformation.aspx.designer.cs">
+      <DependentUpon>ProductInformation.aspx</DependentUpon>
     </Compile>
     <Compile Include="Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
@@ -630,12 +709,33 @@
       <DependentUpon>Profile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReachUs.aspx.cs">
+      <DependentUpon>ReachUs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReachUs.aspx.designer.cs">
+      <DependentUpon>ReachUs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReferFriend.aspx.cs">
+      <DependentUpon>ReferFriend.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReferFriend.aspx.designer.cs">
+      <DependentUpon>ReferFriend.aspx</DependentUpon>
+    </Compile>
     <Compile Include="RegisterNewClaim.aspx.cs">
       <DependentUpon>RegisterNewClaim.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="RegisterNewClaim.aspx.designer.cs">
       <DependentUpon>RegisterNewClaim.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RegistrationDetails.aspx.cs">
+      <DependentUpon>RegistrationDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RegistrationDetails.aspx.designer.cs">
+      <DependentUpon>RegistrationDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="ReportedClaims.aspx.cs">
       <DependentUpon>ReportedClaims.aspx</DependentUpon>
@@ -679,6 +779,13 @@
     <Compile Include="RetailerPaymentConfirmation.aspx.designer.cs">
       <DependentUpon>RetailerPaymentConfirmation.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SalesPersonSalesReport.aspx.cs">
+      <DependentUpon>SalesPersonSalesReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesPersonSalesReport.aspx.designer.cs">
+      <DependentUpon>SalesPersonSalesReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SalesReports.aspx.cs">
       <DependentUpon>SalesReports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -692,6 +799,20 @@
     </Compile>
     <Compile Include="SellerGSTIN.aspx.designer.cs">
       <DependentUpon>SellerGSTIN.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TransactionEarningsReport.aspx.cs">
+      <DependentUpon>TransactionEarningsReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TransactionEarningsReport.aspx.designer.cs">
+      <DependentUpon>TransactionEarningsReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UpgradePlan.aspx.cs">
+      <DependentUpon>UpgradePlan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UpgradePlan.aspx.designer.cs">
+      <DependentUpon>UpgradePlan.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewClaims.aspx.cs">
       <DependentUpon>ViewClaims.aspx</DependentUpon>
@@ -748,6 +869,14 @@
     <Content Include="assets\vendor\summernote\css\font\summernote.woff2" />
     <Content Include="Main.Master" />
     <Content Include="libman.json" />
+    <Content Include="assets\slick\config.rb" />
+    <Content Include="assets\slick\fonts\slick.eot" />
+    <Content Include="assets\slick\fonts\slick.ttf" />
+    <Content Include="assets\slick\fonts\slick.woff" />
+    <Content Include="assets\slick\slick-theme.less" />
+    <Content Include="assets\slick\slick-theme.scss" />
+    <Content Include="assets\slick\slick.less" />
+    <Content Include="assets\slick\slick.scss" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -774,7 +903,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63058</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:44302/</IISUrl>
+          <IISUrl>http://localhost:44304/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

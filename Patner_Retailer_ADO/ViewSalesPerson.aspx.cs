@@ -40,7 +40,7 @@ namespace Patner_Retailer_ADO
                     da.Fill(dt);
                     if (dt.Rows.Count > 0)
                     {
-                        GvSalePerson.CssClass = "table-responsive table data-table table-striped table-bordered nowrap";
+                        GvSalePerson.CssClass = "table data-table table-striped nowrap";
                         GvSalePerson.DataSource = dt;
                         GvSalePerson.DataBind();
                         if (GvSalePerson.HeaderRow != null)
@@ -50,7 +50,7 @@ namespace Patner_Retailer_ADO
                     }
                     else
                     {
-                        GvSalePerson.CssClass = "table-responsive table table-striped table-bordered nowrap";
+                        GvSalePerson.CssClass = "table table-striped nowrap";
                         GvSalePerson.DataSource = null;
                         GvSalePerson.DataBind();
                     }
@@ -102,10 +102,10 @@ namespace Patner_Retailer_ADO
         {
             using (SqlCommand cmd = new SqlCommand("SP_IAPL_Retailer_Auth", con))
             {
-                if (currentStatus == "Active")
-                    currentStatus = "Pending";
+                if (currentStatus == "Approved")
+                    currentStatus = "3";
                 else
-                    currentStatus = "Active";
+                    currentStatus = "5";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Type", 21);
                 cmd.Parameters.AddWithValue("@ProfileId", profileId);

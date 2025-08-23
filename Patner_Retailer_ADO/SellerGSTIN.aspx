@@ -5,7 +5,8 @@
 <head runat="server">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Seller GSTIN</title>
+    <title>Retailer</title>
+<link rel="icon" type="image/png" href="../assets/images/Infyshield-logo.png" />
     <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
     <link href="../assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/libs/css/style.css">
@@ -103,6 +104,7 @@
                 <h2 class="mt-3">GSTIN</h2>
             </div>
             <div class="form-group" style="display: grid">
+                <asp:Label ID="lblRegistrationErrorMessage" runat="server" ForeColor="Red"></asp:Label>
                 <label for="lblGSTIN" class="form-label">GSTIN</label>
                 <asp:TextBox ID="txtGSTIN" runat="server" MaxLength="15" CssClass="form-control" oninput="validateGSTIN()" autocomplete="off"></asp:TextBox>
                 <asp:Label ID="gstinError" Style="color: red;" runat="server"></asp:Label>

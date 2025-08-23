@@ -42,6 +42,15 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.Label Label2;
 
         /// <summary>
+        /// lbl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbl;
+
+        /// <summary>
         /// lblcertificate control.
         /// </summary>
         /// <remarks>
@@ -51,6 +60,15 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.Label lblcertificate;
 
         /// <summary>
+        /// Label4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label4;
+
+        /// <summary>
         /// lblloan control.
         /// </summary>
         /// <remarks>
@@ -58,6 +76,15 @@ namespace Patner_Retailer_ADO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblloan;
+
+        /// <summary>
+        /// Label6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label6;
 
         /// <summary>
         /// lblclamno control.
@@ -75,34 +102,7 @@ namespace Patner_Retailer_ADO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFirstName;
-
-        /// <summary>
-        /// rfvFirstName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvFirstName;
-
-        /// <summary>
-        /// txtLastName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLastName;
-
-        /// <summary>
-        /// rfvLastName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvLastName;
+        protected global::System.Web.UI.WebControls.Label txtFirstName;
 
         /// <summary>
         /// txtEmail control.
@@ -111,25 +111,7 @@ namespace Patner_Retailer_ADO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEmail;
-
-        /// <summary>
-        /// rfvEmail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
-
-        /// <summary>
-        /// revEmail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revEmail;
+        protected global::System.Web.UI.WebControls.Label txtEmail;
 
         /// <summary>
         /// txtCustomerMobileNo control.
@@ -138,25 +120,7 @@ namespace Patner_Retailer_ADO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCustomerMobileNo;
-
-        /// <summary>
-        /// rfvCustomerMobile control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCustomerMobile;
-
-        /// <summary>
-        /// revCustomerMobile control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revCustomerMobile;
+        protected global::System.Web.UI.WebControls.Label txtCustomerMobileNo;
 
         /// <summary>
         /// txtWhatsappNo control.
@@ -165,25 +129,7 @@ namespace Patner_Retailer_ADO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtWhatsappNo;
-
-        /// <summary>
-        /// rfvWhatsapp control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvWhatsapp;
-
-        /// <summary>
-        /// revWhatsapp control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revWhatsapp;
+        protected global::System.Web.UI.WebControls.Label txtWhatsappNo;
 
         /// <summary>
         /// txtPincode control.
@@ -192,25 +138,7 @@ namespace Patner_Retailer_ADO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPincode;
-
-        /// <summary>
-        /// rfvPincode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPincode;
-
-        /// <summary>
-        /// revPincode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator revPincode;
+        protected global::System.Web.UI.WebControls.Label txtPincode;
 
         /// <summary>
         /// txtCity control.
@@ -219,16 +147,7 @@ namespace Patner_Retailer_ADO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCity;
-
-        /// <summary>
-        /// rfvCity control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCity;
+        protected global::System.Web.UI.WebControls.Label txtCity;
 
         /// <summary>
         /// txtState control.
@@ -237,16 +156,7 @@ namespace Patner_Retailer_ADO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtState;
-
-        /// <summary>
-        /// rfvState control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvState;
+        protected global::System.Web.UI.WebControls.Label txtState;
 
         /// <summary>
         /// txtAddressLine1 control.
@@ -255,7 +165,7 @@ namespace Patner_Retailer_ADO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea txtAddressLine1;
+        protected global::System.Web.UI.WebControls.Label txtAddressLine1;
 
         /// <summary>
         /// txtLandmark control.
@@ -264,25 +174,7 @@ namespace Patner_Retailer_ADO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea txtLandmark;
-
-        /// <summary>
-        /// lblLandmarkError control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLandmarkError;
-
-        /// <summary>
-        /// rfvLandmark control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvLandmark;
+        protected global::System.Web.UI.WebControls.Label txtLandmark;
 
         /// <summary>
         /// txtProductName control.
@@ -291,7 +183,7 @@ namespace Patner_Retailer_ADO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtProductName;
+        protected global::System.Web.UI.WebControls.Label txtProductName;
 
         /// <summary>
         /// txtProductsubcategoryname control.
@@ -300,7 +192,16 @@ namespace Patner_Retailer_ADO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtProductsubcategoryname;
+        protected global::System.Web.UI.WebControls.Label txtProductsubcategoryname;
+
+        /// <summary>
+        /// prodcuCat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField prodcuCat;
 
         /// <summary>
         /// txtBrand control.
@@ -309,7 +210,7 @@ namespace Patner_Retailer_ADO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBrand;
+        protected global::System.Web.UI.WebControls.Label txtBrand;
 
         /// <summary>
         /// txtModelname control.
@@ -318,7 +219,7 @@ namespace Patner_Retailer_ADO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtModelname;
+        protected global::System.Web.UI.WebControls.Label txtModelname;
 
         /// <summary>
         /// txtIMEI control.
@@ -327,7 +228,7 @@ namespace Patner_Retailer_ADO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtIMEI;
+        protected global::System.Web.UI.WebControls.Label txtIMEI;
 
         /// <summary>
         /// txtDevicePurchasePrice control.
@@ -336,7 +237,7 @@ namespace Patner_Retailer_ADO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDevicePurchasePrice;
+        protected global::System.Web.UI.WebControls.Label txtDevicePurchasePrice;
 
         /// <summary>
         /// txtProductPurchaseDate control.
@@ -345,7 +246,7 @@ namespace Patner_Retailer_ADO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtProductPurchaseDate;
+        protected global::System.Web.UI.WebControls.Label txtProductPurchaseDate;
 
         /// <summary>
         /// txtPlanName control.
@@ -354,7 +255,16 @@ namespace Patner_Retailer_ADO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPlanName;
+        protected global::System.Web.UI.WebControls.Label txtPlanName;
+
+        /// <summary>
+        /// hdnPlanId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnPlanId;
 
         /// <summary>
         /// txtPlanPrice control.
@@ -363,7 +273,43 @@ namespace Patner_Retailer_ADO
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPlanPrice;
+        protected global::System.Web.UI.WebControls.Label txtPlanPrice;
+
+        /// <summary>
+        /// ddlProblemCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlProblemCategory;
+
+        /// <summary>
+        /// txtproblemcategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtproblemcategory;
+
+        /// <summary>
+        /// ddlSymptomsProblem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSymptomsProblem;
+
+        /// <summary>
+        /// txtSuspectedParts control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSuspectedParts;
 
         /// <summary>
         /// txtProblemDesc control.
@@ -382,6 +328,15 @@ namespace Patner_Retailer_ADO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblProblemDesc;
+
+        /// <summary>
+        /// mobileDiv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mobileDiv;
 
         /// <summary>
         /// rdoPhysical control.
@@ -537,6 +492,51 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.Label lblDamageTime;
 
         /// <summary>
+        /// txtPreferredDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPreferredDate;
+
+        /// <summary>
+        /// CalendarExtender1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
+
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
+
+        /// <summary>
+        /// txtPreferredTime control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPreferredTime;
+
+        /// <summary>
+        /// Label3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label3;
+
+        /// <summary>
         /// txtPlaceOfDamage control.
         /// </summary>
         /// <remarks>
@@ -591,13 +591,13 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divdoc;
 
         /// <summary>
-        /// Div1 control.
+        /// UploadDocumentPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div1;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl UploadDocumentPanel;
 
         /// <summary>
         /// ddldocumentattached2 control.
@@ -627,6 +627,15 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.Button btnfuupload;
 
         /// <summary>
+        /// lblMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessage;
+
+        /// <summary>
         /// impPrev control.
         /// </summary>
         /// <remarks>
@@ -636,21 +645,12 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.Image impPrev;
 
         /// <summary>
-        /// GridView1 control.
+        /// GVSupportingDoc control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
-
-        /// <summary>
-        /// btndownload control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btndownload;
+        protected global::System.Web.UI.WebControls.GridView GVSupportingDoc;
     }
 }

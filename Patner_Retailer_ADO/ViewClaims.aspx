@@ -3,783 +3,369 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <style>
-        .table-cell {
-            width: 200px;
-            padding: 5px;
-        }
-
-        .label {
-            display: block;
-            width: 100%;
-        }
-
-        .mydatagrid tr th {
-            font-size: 13px;
-            padding: 5px;
-            font-weight: 400;
-            white-space: nowrap;
-        }
-
-        .mydatagrid tr td {
-            padding: 5px;
-            font-weight: 400;
-        }
-        .notes-sty ol {
-            margin: 0;
-            padding: 0 0 0 26px;
-        }
-        .notes-sty ol li {
-            line-height: 24px;
-        }
-    
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial;
-        }
-
-        .modal1 {
-            position: fixed;
-            z-index: 999;
-            height: 100%;
-            width: 100%;
-            top: 0;
-            background-color: Black;
-            filter: alpha(opacity=60);
-            opacity: 0.6;
-            -moz-opacity: 0.8;
-        }
-
-        .center {
-            z-index: 1000;
-            margin: 300px auto;
-            padding: 10px;
-            width: 90px;
-            background-color: White;
-            border-radius: 10px;
-            filter: alpha(opacity=100);
-            opacity: 1;
-            -moz-opacity: 1;
-        }
-
-        .center img {
-            height: 75px;
-            width: 75px;
-        }
-
-        .radio-inline {
-            display: inline-block;
-            padding-left: 40px;
-            margin-bottom: 0px;
-            font-weight: 400;
-            vertical-align: middle;
-            cursor: pointer;
-        }
-
-        .approve {
-            background-color: #0080004f;
-        }
-
-        .reject {
-            background-color: #ff000066;
-        }
-
-        .reject1 {
-            background-color: White;
-        }
-
-        .hold {
-            background-color: #ffff0096;
-        }
-
-        .hold1 {
-            background-color: White;
-        }
-
-        .header {
-            background-color: #29b5d2cc;
-            font-family: Arial;
-            border: none 0px transparent;
-            height: 15px;
-            text-align: center;
-            font-size: 13px;
-        }
-
-        .rows:hover {
-            font-family: Arial;
-            text-align: left;
-        }
-    </style>
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <%--<link href="Css/jquery.multiselect.css" rel="stylesheet" type="text/css" />
-    <script src="Css/jquery.multiselect.js" type="text/javascript"></script>
-    <link href="CSS/bootstrap-timepicker.min.css" rel="stylesheet" type="text/css" />
-    <script src="CSS/bootstrap-timepicker.min.js" type="text/javascript"></script>--%>
-    <style>
-        .radio-inline {
-            display: inline-block;
-            padding-left: 25px;
-            margin-bottom: 0;
-            font-weight: normal;
-            vertical-align: middle;
-            cursor: pointer;
-            font-weight: 800;
-            font-size: 14px;
-        }
-
-        .hc {
-            text-align: center;
-        }
-    </style>
-    <style type="text/css">
-        .red {
-            color: red;
-        }
-
-        .ques {
-            border: 0px solid white;
-            margin: 5px;
-            background-color: #337ab747;
-            padding: 15px;
-        }
-
-        .btn-info:hover {
-            color: #fff;
-            background-color: #650d6d;
-            border-color: #650d6d;
-        }
-
-        .btn-info {
-            color: #fff;
-            background-color: #650d6d;
-            border-color: #650d6d;
-        }
-
-        .header {
-            font-family: Arial;
-            border: none 0px transparent;
-            height: 15px;
-            text-align: center;
-            font-size: 10px;
-        }
-
-        .rows {
-            background-color: white;
-            font-family: Arial;
-            font-size: 12px;
-            color: #333333;
-            min-height: 10px;
-            text-align: left;
-            border: 1px solid;
-            border-color: #e7dbe8;
-        }
-
-            .rows:hover {
-                background-color: #e7dbe8;
-                font-family: Arial;
-                color: Black !important;
-                text-align: left;
-            }
-
-        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
-            padding: 3px;
-            line-height: 1.42857143;
-            vertical-align: top;
-            border-top: 1px solid #ddd;
-        }
-
-        .radio-inline {
-            display: inline-block;
-            padding-left: 32px;
-            margin-bottom: 0px;
-            font-weight: 400;
-            vertical-align: middle;
-            cursor: pointer;
-        }
-
-        input[type="radio"], input[type="checkbox"] {
-            margin: 6px 8px -1px;
-            margin-top: 1px \9;
-            line-height: normal;
-        }
-
-        .radio-inline {
-            display: inline-block;
-            padding-left: 25px;
-            margin-bottom: 0;
-            font-weight: normal;
-            vertical-align: middle;
-            cursor: pointer;
-            font-weight: 800;
-            font-size: 14px;
-        }
-
-        .hc {
-            text-align: center;
-        }
-
-        .red {
-            color: red;
-        }
-
-        .btn-info:hover {
-            color: #fff;
-            background-color: #650d6d;
-            border-color: #650d6d;
-        }
-
-        .btn-info {
-            color: #fff;
-            background-color: #650d6d;
-            border-color: #650d6d;
-        }
-
-        .header {
-            font-family: Arial;
-            border: none 0px transparent;
-            height: 15px;
-            text-align: center;
-            font-size: 10px;
-        }
-
-        .rows {
-            background-color: white;
-            font-family: Arial;
-            font-size: 12px;
-            color: #333333;
-            min-height: 10px;
-            text-align: left;
-            border: 1px solid;
-            border-color: #e7dbe8;
-        }
-
-            .rows:hover {
-                background-color: #ffffff;
-                font-family: Arial;
-                text-align: left;
-            }
-
-        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
-            padding: 3px;
-            line-height: 1.42857143;
-            vertical-align: top;
-            border-top: 1px solid #ddd;
-        }
-        .panel-body{
+        .ValueClass {
+            font-weight: 500;
             color: #000;
         }
+
+        .TagClass {
+            font-size: 13px;
+        }
+
+        .text-dark {
+            color: #000000 !important;
+            font-size: 1rem;
+        }
+
+        .flexContent {
+            display: flex;
+            gap: 5px;
+            /* flex-direction: row; */
+            flex-wrap: wrap;
+            flex: 0 0 32%;
+            padding: 0px 10px;
+        }
+
+        .page-main-heading {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+            .page-main-heading h2 {
+                font-size: 18px;
+                color: #000;
+                margin-bottom: 0px;
+            }
+
+                .page-main-heading h2 svg {
+                    vertical-align: middle;
+                }
+
+        .thead {
+            background: #4397a7 !important;
+            color: #fff !important;
+        }
+
+            .thead th {
+                background: #4397a7 !important;
+                color: #fff !important;
+            }
+
+        .dataTables_filter {
+            display: none;
+        }
+
+        .dataTables_length {
+            display: none;
+        }
+
+        .dataTables_info {
+            display: none;
+        }
+
+        .dataTables_paginate {
+            display: none;
+        }
+        .UploadDocumentCls{
+            text-align: center;
+    margin-top: 10px;
+    justify-content: space-around;
+        }
     </style>
-    <%--<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script> 
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" type="text/css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js" type="text/javascript"></script>--%>
-    <asp:UpdatePanel ID="up1" runat="server">
-        <Triggers>
-            <asp:PostBackTrigger ControlID="btnfuupload" />
-        </Triggers>
-        <ContentTemplate>
 
-            <div class="card p-3 mt-4">
-                <div class="panel panel-info pt-0">
-                    <div class="panel-body">
-                        <div class="form-group mb-0">
-                            <div class="">
-                                <div id="divcert" runat="server">
-                                    <div class="row mb-3">
-                                        <div class="col-lg-3">
-                                            <asp:Label ID="Label5" runat="server" Text="Ticket No.: "></asp:Label>
-                                            <asp:Label ID="Label2" runat="server" Font-Bold="true"></asp:Label>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            CoI No.:
-                                        <asp:Label ID="lblcertificate" Font-Bold="true" runat="server"></asp:Label>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            Loan No.:
-                                        <asp:Label ID="lblloan" Font-Bold="true" runat="server"></asp:Label>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            Claim No.:
-                                        <asp:Label ID="lblclamno" Font-Bold="true" runat="server"></asp:Label>
-                                        </div>
-                                    </div>
-                                </div>
+    <script>
+        setTimeout(function () {
+            const rows1 = document.querySelectorAll('#ContentPlaceHolder1_GvCustomerDetails_wrapper .row');
+            const rows2 = document.querySelectorAll('#ContentPlaceHolder1_GVProductDetails_wrapper .row');
+            const rows3 = document.querySelectorAll('#ContentPlaceHolder1_GVPlanDetails_wrapper .row');
+            const rows4 = document.querySelectorAll('#ContentPlaceHolder1_GVCommissionDetails_wrapper .row');
+            if (rows1.length > 1) {
+                rows1[1].classList.add('table-responsive');
+            }
+            if (rows2.length > 1) {
+                rows2[1].classList.add('table-responsive');
+            }
+            if (rows3.length > 1) {
+                rows3[1].classList.add('table-responsive');
+            }
+            if (rows4.length > 1) {
+                rows4[1].classList.add('table-responsive');
+            }
+        }, 500);
+    </script>
+    <script type="text/javascript">
+        function pageLoad() {
+            $('.multiselect').multiselect({
+                includeSelectAllOption: true,
+                enableFiltering: true,
+                enableCaseInsensitiveFiltering: true,
+                filterPlaceholder: 'Search',
+                buttonWidth: '100%',
+                nonSelectedText: 'Select',
+                selectAllText: 'Select All',
+            });
+        }
+    </script>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
 
-                                <div class="form-group">
-                                    <div class="card">
-                                        <table align='left' cellpadding='5' cellspacing='0' class="table table-striped table-bordered">
-                                            <tr>
-                                                <td>Branch Code / Name :
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblBranchcode" Font-Bold="true" Style="color: green; font-weight: 600;" runat="server"></asp:Label>
-                                                </td>
-                                                <td>Branch Emp Code / Name :
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblBranchName" Font-Bold="true" Style="color: green; font-weight: 600;" runat="server"></asp:Label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Customer :
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblname2" runat="server"></asp:Label>
-                                                </td>
-                                                <td>Mobile No. :
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblmobile" Text="" runat="server"></asp:Label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Email ID :
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblemail" runat="server"></asp:Label>
-                                                </td>
-                                                <td>Address :
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lbladdress" runat="server"></asp:Label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>City:
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblcity" runat="server"></asp:Label>
-                                                </td>
-                                                <td>State:
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblsate" runat="server"></asp:Label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Pincode :
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblpin" runat="server"></asp:Label>
-                                                </td>
-                                                <td>Make &amp; Model :
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblbrand" runat="server"></asp:Label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>IMEI No :
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblIMEINo" runat="server"></asp:Label>
-                                                </td>
-                                                <td>Sum Assured (Rs.) :
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblSumAssured" runat="server"></asp:Label>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Plan :
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblplan" runat="server" Style="color: green; font-weight: 600;"></asp:Label>
-                                                </td>
-                                                <td>Plan Period :
-                                                </td>
-                                                <td>
-                                                    <asp:Label ID="lblplanperiod" runat="server" Style="color: green; font-weight: 600;"></asp:Label>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-4">
-                                    <div class="">
-                                        <table class="mydatagrid" cellspacing="0" rules="all" border="1" id="ctl00_ContentPlaceHolder1_GridView2"
-                                            style="width: 100%; border-collapse: collapse;">
-                                            <tbody>
-                                                <tr class="header" style="color: White;">
-                                                    <th scope="col">Sr. No</th>
-                                                    <th scope="col">Summary</th>
-                                                    <th scope="col">Status</th>
-                                                </tr>
-                                                <tr class="rows">
-                                                    <td>1</td>
-                                                    <td><span id="Span1">Estimate</span></td>
-                                                    <td>
-                                                        <asp:Label ID="lbleststatus" runat="server" Style="font-weight: 600;"></asp:Label></td>
-                                                </tr>
-                                                <tr class="rows">
-                                                    <td>2</td>
-                                                    <td><span id="Span2">ASC</span></td>
-                                                    <td>
-                                                        <asp:Label ID="lblascststus" runat="server" Style="font-weight: 600;"></asp:Label></td>
-                                                </tr>
-                                                <tr class="rows">
-                                                    <td>3</td>
-                                                    <td><span id="Span3">Documents </span></td>
-                                                    <td>
-                                                        <asp:Label ID="lbldocstatus" runat="server" Style="font-weight: 600;"></asp:Label></td>
-                                                </tr>
-                                                <tr class="rows">
-                                                    <td>4</td>
-                                                    <td><span id="Span6">Claim Settlement </span></td>
-                                                    <td>
-                                                        <asp:Label ID="lblClaim_settlement" runat="server" Style="font-weight: 600; color: Green"></asp:Label>
-                                                        <br />
-                                                        <asp:Label ID="Label1" runat="server" Style="font-weight: 200; color: Red"></asp:Label>
-                                                    </td>
-                                                </tr>
-                                                <tr class="rows">
-                                                    <td>5</td>
-                                                    <td><span id="Span4">Status </span></td>
-                                                    <td>
-                                                        <asp:Label ID="lblcallstatus" runat="server" Style="font-weight: 600; color: Green"></asp:Label>
-                                                    </td>
-                                                </tr>
-                                                <tr id="divrem2" runat="server" visible="false" class="rows">
-                                                    <td>6</td>
-                                                    <td><span id="Span7">Remarks </span></td>
-                                                    <td>
-                                                        <asp:Label ID="Label9" runat="server" Style="font-weight: 600; color: Green"></asp:Label>
-                                                    </td>
-                                                </tr>
-                                                <tr id="divrem1" runat="server" visible="false" class="rows">
-                                                    <td>7</td>
-                                                    <td><span id="Span5">Remarks </span></td>
-                                                    <td>
-                                                        <asp:Label ID="lblremarks" runat="server" Style="font-weight: 600; color: Green"></asp:Label>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="">
-                                        <table align='left' cellpadding='5' cellspacing='0' class="table table-bordered table-striped mb-3">
-                                            <tr>
-                                                <td>Problem Reported / Voice of Customer (VoC):</td>
-                                                <td style="width: 600px;">
-                                                    <asp:Label ID="lblproblemreported" runat="server"></asp:Label></td>
-                                                <td>Type of Damage :</td>
-                                                <td>
-                                                    <asp:Label ID="lbltypeofdamage" Text="" runat="server"></asp:Label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Is your device switching on :</td>
-                                                <td>
-                                                    <asp:Label ID="lbldeviceswitchon" runat="server"></asp:Label></td>
-                                                <td>Parts is Damaged :</td>
-                                                <td>
-                                                    <asp:Label ID="lblpartdamaged" runat="server"></asp:Label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Place of Damage:</td>
-                                                <td>
-                                                    <asp:Label ID="lblplaceofdamage" runat="server"></asp:Label></td>
-                                                <td>Touch Screen Working:</td>
-                                                <td>
-                                                    <asp:Label ID="lbltouchscreenworking" runat="server"></asp:Label></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Damage Date / Time :</td>
-                                                <td>
-                                                    <asp:Label ID="lbldamagedatae" runat="server"></asp:Label></td>
-                                                <td></td>
-                                                <td>
-                                                    <asp:Label ID="lblclaimreporteddate" runat="server"></asp:Label></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div id="divproblemupdate" runat="server" visible="false">
-                                    <div class="form-group">
-                                        <div>
-                                            <asp:Label ID="lblsc" runat="server" Style="color: Red" Text="Please Submit Below Information"></asp:Label>
-                                        </div>
-                                        <table align='left' cellpadding='5' cellspacing='0' class="table table-bordered table-striped">
-                                            <tr>
-                                                <td>Problem Reported :</td>
-                                                <td style="width: 300px;">
-                                                    <asp:TextBox ID="txtpreported" Style="width: 303px; height: 43px; min-width: 303px; max-width: 313px; max-height: 50px;"
-                                                        TextMode="MultiLine" runat="server"></asp:TextBox>
-                                                </td>
-                                                <td>Type of Damage :</td>
-                                                <td>
-                                                    <asp:RadioButtonList CssClass="inline-rb" ID="rbltypeofdamage" RepeatDirection="Horizontal"
-                                                        Style="font-size: 10px; width: 230px" runat="server">
-                                                        <asp:ListItem Text="Physical" Value="Physical"></asp:ListItem>
-                                                        <asp:ListItem Text="Liquid" Value="Liquid"></asp:ListItem>
-                                                        <asp:ListItem Text="Both" Value="Both"></asp:ListItem>
-                                                    </asp:RadioButtonList>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Is your device switching on :</td>
-                                                <td>
-                                                    <asp:RadioButtonList CssClass="inline-rb" ID="rblphoneswitchingonornot" RepeatDirection="Horizontal"
-                                                        Style="font-size: 10px; width: 170px" runat="server">
-                                                        <asp:ListItem Text="Yes" Value="Yes" Enabled="true"></asp:ListItem>
-                                                        <asp:ListItem Text="No" Value="No"></asp:ListItem>
-                                                    </asp:RadioButtonList>
-                                                </td>
-                                                <td>Parts is Damaged :</td>
-                                                <td>
-                                                    <asp:CheckBoxList CssClass="inline-rb" ID="rblpartdamage" RepeatColumns="3" Style="font-size: 10px; width: 290px"
-                                                        RepeatDirection="Horizontal" runat="server">
-                                                        <asp:ListItem Text="Screen" Value="Screen"></asp:ListItem>
-                                                        <asp:ListItem Text="Camera" Value="Camera"></asp:ListItem>
-                                                        <asp:ListItem Text="Touch Screen" Value="Touch Screen"></asp:ListItem>
-                                                        <asp:ListItem Text="Button" Value="Button"></asp:ListItem>
-                                                        <asp:ListItem Text="Others" Value="Others"></asp:ListItem>
-                                                    </asp:CheckBoxList>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Place of Damage:</td>
-                                                <td>
-                                                    <asp:TextBox ID="txtplacedamage" runat="server"></asp:TextBox></td>
-                                                <td>Touch Screen Working:</td>
-                                                <td>
-                                                    <asp:RadioButtonList ID="rbltouchworking" CssClass="inline-rb" RepeatColumns="3"
-                                                        Style="font-size: 10px; width: 170px; margin-top: 8px;" RepeatDirection="Horizontal"
-                                                        runat="server">
-                                                        <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
-                                                        <asp:ListItem Text="No" Value="No"></asp:ListItem>
-                                                    </asp:RadioButtonList>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Damage Date :</td>
-                                                <td>
-                                                    <asp:TextBox ID="txtddate" runat="server" AutoCompleteType="Disabled" AutoComplete="off"></asp:TextBox>
-                                                    <cc1:CalendarExtender ID="CalendarExtender3" runat="server" Format="MM/dd/yyyy" TargetControlID="txtddate"></cc1:CalendarExtender>
-                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" ControlToValidate="txtddate"
-                                                        ValidationGroup="log" ErrorMessage="" runat="Server"></asp:RequiredFieldValidator>
-                                                </td>
-                                                <td>Damage Time :</td>
-                                                <td>
-                                                    <asp:TextBox ID="txtdtime" data-provide="timepicker" placeholder="Damage Time" runat="server"
-                                                        autocomplete="off" CssClass="timepicker" MaxLength="12">
-                                                    </asp:TextBox>
-                                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator12" ControlToValidate="txtdtime"
-                                                        ValidationGroup="log" ErrorMessage="" runat="Server"> </asp:RequiredFieldValidator>
-                                                </td>
-                                            </tr>
-                                            <td>
-                                                <td colspan="5">
-                                                    <asp:Button ID="btnsave" runat="server" OnClick="btnsave_click" Text="Save" class="btn btn-success" />
-                                                </td>
-                                            </td>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div id="closeTicketInfo" runat="server">
-                                    <div class="mt-0">
-                                        <h3 class="mb-0" style="text-align: center;">Information Submission - Please Click on the Relevant Weblink (POPUP should not be blocked)</h3>
-                                    </div>
+    <div class="page-main-heading">
+        <h2> 
+           <a id="anchorBackButton" runat="server" class="btnBackSalesPerson" name="BackButton">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 18 18">
+                    <path fill-rule="evenodd" d="M5.854 3.646a.5.5 0 0 1 0 .708L2.707 7.5H14.5a.5.5 0 0 1 0 1H2.707l3.147 3.146a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 0 1 .708 0z" />
+                </svg>
+            </a>
+            View Details</h2>
+    </div>
+    <div class="card mb-3">
+        <h5 class="card-header mt-0 text-dark">Registered Owner Details</h5>
+        <div class="card-body py-2">
+            <div class="row">
 
-                                    <div id="divlinkgn" runat="server">
 
-                                        <div class="">
 
-                                            <table align='left' cellpadding='5' cellspacing='0' class="table table-bordered table-striped mt-3 mb-3">
-                                                <tr>
-                                                    <td>Claim Form</td>
-                                                    <td>
-                                                        <a runat="server" id="A1" style="margin-left: 3px;" target="_blank"></a>
-                                                        <asp:Label ID="Label4" runat="server"></asp:Label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Bank Details for Reimbursement / Claim Settlement Amount</td>
-                                                    <td>
-                                                        <a runat="server" id="A2" style="margin-left: 3px;" target="_blank"></a>
-                                                        <asp:Label ID="Label6" runat="server"></asp:Label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Make Excess Charge Payment</td>
-                                                    <td>
-                                                        <a runat="server" id="A4" style="margin-left: 3px;" target="_blank"></a>
-                                                        <asp:Label ID="Label7" runat="server"></asp:Label>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Consent Form for Device Pickup Request</td>
-                                                    <td>
-                                                        <a runat="server" id="A3" style="margin-left: 3px;" target="_blank"></a>
-                                                        <asp:Label ID="Label8" runat="server"></asp:Label>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
+                <div class="flexContent">
+                    <asp:Label ID="Label1" CssClass="ValueClass" runat="server" Text="Ticket No. : " />
+                    <asp:Label ID="lblticketNo" CssClass="" runat="server" />
+                </div>
 
-                                    </div>
-                                    <asp:Panel ID="Panelc" runat="server">
-                                        <div class="form-group">
-                                            <div class="">
-                                                <div class="notes-sty">
-                                                    <h4 class="mb-0">Please note:</h4>
-                                                    <ol>
-                                                        <li>Select CORRECT DOCUMENT TITLE to Submit Supporting DOCUMENT / IMAGE FILES
-                                                        </li>
-                                                        <li>Do not submit MULTIPLE IMAGES or MULTIPLE DOCUMENTS in a single file.
-                                                        </li>
-                                                        <li>Each Document / Image file should be attached separately to avoid rejection.
-                                                        </li>
-                                                        <li>Submit only VERY GOOD QUALITY DOCUMENTS / IMAGES which are readable and relevant to the claim.
-                                                        </li>
-                                                    </ol>
 
-                                                </div>
-                                                <hr />
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <label>
-                                                            <asp:DropDownList ID="ddldocumentattached2" runat="server" CssClass="form-control ">
-                                                            </asp:DropDownList>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <asp:FileUpload ID="fupupload2" runat="server" CssClass="form-control input-sm" />
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <asp:Button ID="btnfuupload" OnClick="UploadImage1" runat="server" CssClass="btn btn-success"
-                                                            Text="Submit" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group mb-0">
-                                            <div class="">
-                                                <asp:GridView ID="GridView2" Visible="true" OnRowCommand="gvFiles_RowCommand" Width="100%"
-                                                    OnRowDataBound="ChangeColour" AutoGenerateColumns="false" runat="server" RowStyle-CssClass="rows"
-                                                    HeaderStyle-CssClass="header" CssClass="mydatagrid">
-                                                    <Columns>
-                                                        <asp:TemplateField HeaderText="Sr. No.">
-                                                            <ItemTemplate>
-                                                                <%# Container.DataItemIndex+ 1 %>
-                                                            </ItemTemplate>
-                                                            <ItemStyle HorizontalAlign="Center" Width="30px" />
-                                                        </asp:TemplateField>
-                                                        <asp:TemplateField Visible="false" HeaderText="View">
-                                                            <ItemTemplate>
-                                                                <asp:LinkButton ID="lnkview" Enabled='<%#Bind("ststus") %>' ForeColor=" green" ToolTip="View Uploaded Documents"
-                                                                    Width="40px" CommandName="ViewDOC" Text="View DOC" CommandArgument='<%#Eval("DocumentPath") %>'
-                                                                    runat="server"> <i class="fa fa-share" aria-hidden="true" style="font-size: 28px;"></i>
-                                                                </asp:LinkButton>
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="View" Visible="true">
-                                                            <ItemTemplate>
-                                                                <asp:LinkButton ID="lnkopen" Visible='<%#Bind("ststus") %>' ForeColor="green" ToolTip="Open Uploaded Documents in tab"
-                                                                    Width="40px" CommandName="ViewDOCopen" CommandArgument='<%# Eval("DocumentPath") %>'
-                                                                    runat="server">
-                                                                    <i id="seys" runat="server" class="fa fa-eye" aria-hidden="true" style="font-size: 16px;"></i>
-                                                                </asp:LinkButton>
-                                                            </ItemTemplate>
-                                                            <ItemStyle HorizontalAlign="Center" Width="50px" />
-                                                        </asp:TemplateField>
-                                                        <asp:TemplateField Visible="false" HeaderText="Ticket No">
-                                                            <ItemTemplate>
-                                                                <asp:Label ID="lblticketno" runat="server" Text='<%#Bind("TicketNo") %>'></asp:Label>
-                                                                <asp:Label ID="lblid" runat="server" Text='<%#Bind("mid") %>'></asp:Label>
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Document Title">
-                                                            <ItemTemplate>
-                                                                <asp:Label ID="lbldocumentname" runat="server" Width="120px" Text='<%#Bind("DocumentName") %>'></asp:Label>
-                                                            </ItemTemplate>
-                                                            <ItemStyle Width="320px" Wrap="false" />
-                                                        </asp:TemplateField>
-                                                        <asp:TemplateField Visible="false" HeaderText="Document Attached">
-                                                            <ItemTemplate>
-                                                                <asp:Label ID="lblDocumentPath" runat="server" Text='<%#Bind("DocumentPath") %>'></asp:Label>
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Uploaded Date">
-                                                            <ItemTemplate>
-                                                                <asp:Label ID="lblcreateddate" Width="125px" runat="server" Text='<%#Bind("CreateDate") %>'></asp:Label>
-                                                            </ItemTemplate>
-                                                            <ItemStyle Width="150px" />
-                                                        </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Uploaded By" Visible="true">
-                                                            <ItemTemplate>
-                                                                <asp:Label ID="lbluoloadedby" Width="75px" runat="server" Text='<%#Bind("CreatedBy") %>'></asp:Label>
-                                                            </ItemTemplate>
-                                                            <ItemStyle Width="150px" />
-                                                        </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Remarks">
-                                                            <ItemTemplate>
-                                                                <asp:Label ID="lbldocremarks" runat="server" Text='<%#Bind("docremarks") %>' Width="250px"></asp:Label>
-                                                            </ItemTemplate>
-                                                            <ItemStyle Width="250px" Wrap="true" />
-                                                        </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText="Status" Visible="true">
-                                                            <ItemTemplate>
-                                                                <asp:Label ID="lblverify" Width="150px" runat="server" Text='<%#Bind("DocStatus") %>'></asp:Label>
-                                                            </ItemTemplate>
-                                                            <ItemStyle Width="150px" />
-                                                        </asp:TemplateField>
-                                                        <asp:TemplateField Visible="false" HeaderText="Request To Ignore">
-                                                            <ItemTemplate>
-                                                                <asp:TextBox ID="txthold" TextMode="MultiLine" MaxLength="200" class="form-control input-sm"
-                                                                    Text="" runat="server"></asp:TextBox>
-                                                                <div style="margin-left: 78px;">
-                                                                    <asp:LinkButton ID="lnkdelete" ToolTip="Ignore Uploaded Documents" Width="40px" Text="View DOC"
-                                                                        OnClick="Deletefile" OnClientClick="return confirm('Are you sure you want to Request To Ignore this file?');"
-                                                                        runat="server"> <i class="fa fa-eraser" aria-hidden="true" style="font-size: 21px;color: red;"></i>
-                                                                    </asp:LinkButton>
-                                                                </div>
-                                                            </ItemTemplate>
-                                                        </asp:TemplateField>
-                                                    </Columns>
-                                                    <HeaderStyle ForeColor="White" />
-                                                </asp:GridView>
-                                            </div>
-                                        </div>
-                                    </asp:Panel>
-                                </div>
-                                <div class="col-md-12">
-                                    <asp:Label ID="lbldoccontrolmsg" Style="color: Red; font-size: 20px; background: yellow;"
-                                        runat="server"></asp:Label>
-                                </div>
-                                <asp:Button Text="Select All" ID="Button1" CssClass="btn-info btn-sm" Visible="false"
-                                    OnClick="checkall" runat="server" />
-                            </div>
-                        </div>
-                    </div>
+                <div class="flexContent">
+                    <asp:Label ID="Label3" CssClass="ValueClass" runat="server" Text="Certificate of InfyShield No.: " />
+                    <asp:Label ID="lblcoi" CssClass="" runat="server" />
+                </div>
+
+
+                <div class="flexContent">
+                    <asp:Label ID="Label5" runat="server" CssClass="ValueClass" Text="Product Status : " />
+                    <asp:Label ID="lblstatus" CssClass="" runat="server" />
+                </div>
+
+                <div class="flexContent">
+                    <asp:Label ID="lblName" CssClass="ValueClass" runat="server" Text="Name : " />
+                    <asp:Label ID="lblNameValue" CssClass="" runat="server" />
+                </div>
+
+
+                <div class="flexContent">
+                    <asp:Label ID="lblMobileNo" CssClass="ValueClass" runat="server" Text="Mobile No : " />
+                    <asp:Label ID="lblMobileNoValue" CssClass="" runat="server" />
+                </div>
+                <div class="flexContent">
+                    <asp:Label ID="lblAltModileNo" CssClass="ValueClass" runat="server" Text="Alter Mobile No : " />
+                    <asp:Label ID="lblAltModileNoValue" CssClass="" runat="server" />
+                </div>
+
+                <div class="flexContent">
+                    <asp:Label ID="lblWhatsappNo" runat="server" CssClass="ValueClass" Text="WhatsApp No : " />
+                    <asp:Label ID="lblWhatsappNoValue" CssClass="" runat="server" />
+                </div>
+
+
+                <div class="flexContent">
+                    <asp:Label ID="lblEmail" runat="server" CssClass="ValueClass" Text="Email : " />
+                    <asp:Label ID="lblEmailValue" CssClass="" runat="server" />
+                </div>
+
+
+                <div class="flexContent">
+                    <asp:Label ID="lblPincode" runat="server" CssClass="ValueClass" Text="Pin Code : " />
+                    <asp:Label ID="lblPincodeValue" CssClass="" runat="server" />
+                </div>
+
+
+                <div class="flexContent">
+                    <asp:Label ID="lblCity" runat="server" CssClass="ValueClass" Text="City : " />
+                    <asp:Label ID="lblCityValue" CssClass="" runat="server" />
+                </div>
+
+
+                <div class="flexContent">
+                    <asp:Label ID="lblState" runat="server" CssClass="ValueClass" Text="State : " />
+                    <asp:Label ID="lblStateValue" CssClass="" runat="server" />
+                </div>
+
+                <div class="flexContent">
+                    <asp:Label ID="lblAddress" runat="server" CssClass="ValueClass" Text="Address Line 1 : " />
+                    <asp:Label ID="lblAddressValue" CssClass="" runat="server" />
+                </div>
+                <div class="flexContent">
+                    <asp:Label ID="Label11" runat="server" CssClass="ValueClass" Text="Address Line 2 : " />
+                    <asp:Label ID="lblAddressValue2" CssClass="" runat="server" />
+                </div>
+                <div class="flexContent">
+                    <asp:Label ID="Label13" runat="server" CssClass="ValueClass" Text="LandMark : " />
+                    <asp:Label ID="lblAddressValue3" CssClass="" runat="server" />
                 </div>
             </div>
 
+        </div>
 
+    </div>
+    <div class="card mb-3">
+        <h5 class="card-header mt-0 text-dark">Product Details / Service Plan</h5>
+        <div class="card-body py-2">
 
-        </ContentTemplate>
-    </asp:UpdatePanel>
-    <asp:UpdateProgress ID="UpdateProgress" runat="server">
-        <ProgressTemplate>
-        </ProgressTemplate>
-    </asp:UpdateProgress>
-    <%-- <cc1:ModalPopupExtender ID="modalPopup" runat="server" TargetControlID="UpdateProgress"
-        PopupControlID="UpdateProgress" BackgroundCssClass="modalPopup" />--%>
-    <script type="text/javascript" language="javascript">
-        Sys.UI.Point = function Sys$UI$Point(x, y) {
+            <div class="row">
+                <div class="flexContent">
+                    <asp:Label ID="lblCategory" runat="server" CssClass="ValueClass" Text="Category Name: " />
+                    <asp:Label ID="lblCategoryValue" CssClass="" runat="server" />
+                </div>
+                <div class="flexContent">
+                    <asp:Label ID="lblProduct" runat="server" CssClass="ValueClass" Text="Product Name: " />
+                    <asp:Label ID="lblProductValue" CssClass="" runat="server" />
+                </div>
+                <div class="flexContent">
+                    <asp:Label ID="lblBrand" runat="server" CssClass="ValueClass" Text="Brand Name: " />
+                    <asp:Label ID="lblBrandValue" CssClass="" runat="server" />
+                </div>
+                <div class="flexContent">
+                    <asp:Label ID="lblModel" runat="server" CssClass="ValueClass" Text="Modal: " />
+                    <asp:Label ID="lblModelValue" CssClass="" runat="server" />
+                </div>
+                <div class="flexContent">
+                    <asp:Label ID="lblIMEI1" runat="server" CssClass="ValueClass" Text="IMEI No. 1: " />
+                    <asp:Label ID="lblIMEI1Value" CssClass="" runat="server" />
+                </div>
+                <div class="flexContent">
+                    <asp:Label ID="lblIMEI2" runat="server" CssClass="ValueClass" Text="IMEI No. 2: " />
+                    <asp:Label ID="lblIMEI2Value" CssClass="" runat="server" />
+                </div>
+            <div class="flexContent">
+                <asp:Label ID="Label9" runat="server" CssClass="ValueClass" Text="Serial No. : " />
+                <asp:Label ID="lblserialNo" CssClass="" runat="server" />
+            </div>
+            <div class="flexContent">
+                <asp:Label ID="lblDevicePrice" runat="server" CssClass="ValueClass" Text="Device Price: " />
+                <asp:Label ID="lblDevicePriceValue" CssClass="" runat="server" />
+            </div>
+            <div class="flexContent">
+                <asp:Label ID="lblDeviceDate" runat="server" CssClass="ValueClass" Text="Product Purchase Date: " />
+                <asp:Label ID="lblDeviceDateValue" CssClass="" runat="server" />
+            </div>
+            <div class="flexContent">
+                <asp:Label ID="lblProductStatus" runat="server" CssClass="ValueClass" Text="Status: " />
+                <asp:Label ID="lblProductStatusValue" CssClass="" runat="server" />
+            </div>
 
-            x = Math.round(x);
-            y = Math.round(y);
+            <div class="flexContent">
+                <asp:Label ID="lblPlan" runat="server" CssClass="ValueClass" Text="Plan Name: " />
+                <asp:Label ID="lblPlanValue" CssClass="" runat="server" />
+            </div>
+            <div class="flexContent" id="divdes" runat="server" visible="false">
+                <asp:Label ID="lblDescription" runat="server" CssClass="ValueClass" Text="Plan Description: " />
+                <asp:Label ID="lblDescriptionValue" CssClass="" runat="server" />
+            </div>
+            <div class="flexContent">
+                <asp:Label ID="lblSKU" runat="server" CssClass="ValueClass" Text="Plan SKU: " />
+                <asp:Label ID="lblSKUValue" CssClass="" runat="server" />
+            </div>
+            <div class="flexContent">
+                <asp:Label ID="lblOffer" runat="server" CssClass="ValueClass" Text="Offer Price: " />
+                <asp:Label ID="lblOfferValue" CssClass="" runat="server" />
+            </div>
+            <div class="flexContent">
+                <asp:Label ID="lblDiscount" runat="server" CssClass="ValueClass" Text="Discount: " />
+                <asp:Label ID="lblDiscountValue" CssClass="" runat="server" />
+            </div>
+            <div class="flexContent">
+                <asp:Label ID="lblMRP" runat="server" CssClass="ValueClass" Text="MRP: " />
+                <asp:Label ID="lblMRPValue" CssClass="" runat="server" />
+            </div>
+            <div class="flexContent" style="flex: auto;">
+                <asp:Label ID="lblPlanPeriod" runat="server" CssClass="ValueClass" Text="Plan Period: " />
+                <asp:Label ID="lblPlanPeriodValue" CssClass="" runat="server" />
+            </div>
+            <div class="flexContent" runat="server" visible="false">
+                <asp:Label ID="lblPlanStatus" runat="server" CssClass="ValueClass" Text="Status: " />
+                <asp:Label ID="lblPlanStatusValue" CssClass="" runat="server" />
+            </div>
 
-            var e = Function._validateParams(arguments, [
-                { name: "x", type: Number, integer: true },
-                { name: "y", type: Number, integer: true }
-            ]);
-            if (e) throw e;
-            this.x = x;
-            this.y = y;
-        }
-    </script>
+        </div>
+    </div>
+    </div>
+
+    <div class="card mb-3">
+        <h5 class="card-header mt-0 text-dark">Supporting Documents</h5>
+        <div class="card-body py-2">
+            <div class="row">
+                <div id="UploadDocumentPanel" runat="server" >
+                <div class=" col-md-12">
+                    <p class="text-left">
+                        Please submit supporting documents by selecting Correct Document Title.
+                            <br />
+                        Please submit each document file separately. Files containing multiple images may
+                            be rejected.
+                            <br />
+                        Before submitting, please check that the image quality is good, readable and relevant
+                            to the claim. This will help us to serve you better.
+                    </p>
+                </div>
+                <div class="row UploadDocumentCls">
+                    <div class=" col-md-3">
+                        <label>
+                            <asp:DropDownList ID="ddldocumentattached2" runat="server" CssClass="form-control ">
+                            </asp:DropDownList>
+                        </label>
+                    </div>
+                    <div class=" col-md-3">
+                        <asp:FileUpload runat="server" name="ImageUpload" accept=".jpg,.jpeg,.png,.pdf"
+                            ID="fupupload2" onchange="ShowPreview(this)" />
+                    </div>
+                    <div class=" col-md-2">
+                        <asp:Button ID="btnfuupload" OnClick="UploadImage1" runat="server" CssClass="btn next-step mt-0"
+                            Text="Submit Document" />
+                    </div>
+                    <asp:Label ID="lblMessage" runat="server" CssClass="text-success"></asp:Label>
+                </div>
+                <div class="col-md-4 hidden" visible="false" runat="server">
+                    <span>Image Preview</span><br />
+                    <asp:Image ID="impPrev" runat="server" Width="300px" Height="330px" ImageUrl="../Document/not_available.jpg" />
+                </div>
+                </div>
+                <div class="col-md-12">
+                    <asp:GridView ID="GVSupportingDoc" runat="server" AutoGenerateColumns="false" UseAccessibleHeader="true" HeaderStyle-CssClass="thead" EmptyDataText="No records available. Please refine your search."
+                         OnRowDataBound="GVSupportingDoc_RowDataBound">
+                        <Columns>
+                            <asp:TemplateField HeaderText="S.No.">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblSerial" runat="server" Text='<%# Container.DataItemIndex + 1 %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="MID" Visible="false">
+                                <ItemTemplate>
+                                    <asp:HiddenField ID="lblMid" runat="server" Value='<%# Eval("Mid") %>'></asp:HiddenField>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="View Document">
+                                <ItemTemplate>
+                                    <a href='<%# Eval("FullDocumentPath") %>' target="_blank" title="View Document">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Document Name">
+                                <ItemTemplate>
+                                    <%# Eval("DocumentName") %>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Uploaded Date">
+                                <ItemTemplate>
+                                    <%# Eval("UploadedDate") %>'
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Status">
+                                <ItemTemplate>
+                                       <asp:Label ID="lblDocStatus" runat="server" Text='<%# Eval("Status") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
+                </div>
+            </div>
+        </div>
+    </div>
 </asp:Content>

@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Invoice - InfyShield</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f6f6f6;
+        }
+
+        .email-container {
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 30px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+            table th,
+            table td {
+                border: 1px solid #ddd;
+                padding: 10px;
+                text-align: left;
+            }
+
+            table th {
+                background-color: #f0f0f0;
+            }
+
+        .total-row {
+            font-weight: bold;
+            background-color: #f9f9f9;
+        }
+
+        .fotercls p {
+            line-height: 0.6;
+        }
+
+        .fotercls a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <h2>Invoice Summary</h2>
+
+        <p>Dear {CustomerName},</p>
+        <p>Thank you for your purchase. Below is the summary of your invoice:</p>
+
+        <!-- Customer Info -->
+        <h3>Customer Information</h3>
+        {CustomerTable}
+
+        <h3>Product Details</h3>
+        {ProductTable}
+
+        <h3>Plan Details</h3>
+        {PlanTable}
+
+        <p>If you have any questions, feel free to contact our support team.</p>
+        <p>Thank you for choosing InfyShield!</p>
+
+        <p>
+            Best regards,<br />
+            <strong>Team InfyShield</strong>
+        </p>
+
+        <!-- Footer -->
+        <div class="fotercls">
+            <p><strong>InfyShield Customer Care:</strong> +91 9911 33 2320</p>
+            <p><strong>Email:</strong> <a href="mailto:support@infyshield.com">support@infyshield.com</a></p>
+            <p><strong>InfyVault:</strong> <a href="https://infyvault.com" target="_blank">https://infyvault.com</a></p>
+            <p><strong>Website:</strong> <a href="https://www.infinityassurance.com" target="_blank">https://www.infinityassurance.com</a></p>
+        </div>
+    </div>
+</body>
+</html>
