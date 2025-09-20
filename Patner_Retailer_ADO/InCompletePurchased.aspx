@@ -123,6 +123,11 @@
         .plan-card a:hover {
             color: #71748d;
         }
+
+         #<%= GvReport.ClientID %> td {
+            word-wrap: break-word;
+             text-wrap-mode: nowrap;
+        }
 /*
         .plan-card:hover {
             border: 1px solid #8ad1e5;
@@ -265,7 +270,7 @@
                 </div>
                 <asp:MultiView ID="mvViewType" runat="server" ActiveViewIndex="0">
                     <asp:View ID="viewList" runat="server">
-                        <asp:GridView ID="GvReport" runat="server" AutoGenerateColumns="false" UseAccessibleHeader="true" HeaderStyle-CssClass="thead" EmptyDataText="No records available. Please refine your search.">
+                        <asp:GridView ID="GvReport" runat="server" AutoGenerateColumns="false" UseAccessibleHeader="true" HeaderStyle-CssClass="thead" EmptyDataText="No records available. Please refine your search." BorderStyle="None">
                             <Columns>
                                 <asp:TemplateField HeaderText="S.No.">
                                     <ItemTemplate>

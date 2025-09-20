@@ -13,6 +13,13 @@ using System.Data;
 using System.Text;
 using System.Security.Policy;
 using System.Text.RegularExpressions;
+using System.Web;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
+using OfficeOpenXml.FormulaParsing.LexicalAnalysis;
+using System.Globalization;
+using PdfSharp.Pdf;
+using PdfSharp.Drawing;
+
 
 namespace Patner_Retailer_ADO
 {
@@ -27,6 +34,18 @@ namespace Patner_Retailer_ADO
             if (!IsPostBack)
             {
                 Session.RemoveAll();
+                string token = Request.QueryString["qa"];
+                if(token != null && !string.IsNullOrWhiteSpace(token))
+                {
+                    bool flag = CheckToken(token);
+                    if (!flag)
+                    {
+                        lblErrorMessage.Text = "Invalid Token.";
+                        lblErrorMessage.Attributes.Add("style", "display:block");
+                        return;
+                    }
+                    mobile_code.Value = Session["MobileNo1"] != null ? Session["MobileNo1"].ToString() : "";
+                }
                 GenerateCaptcha();
                 Session[OTPAttemptSessionKey] = 0;
             }
@@ -154,8 +173,8 @@ namespace Patner_Retailer_ADO
                 cmd.Parameters.AddWithValue("@Type", 1);
                 cmd.Parameters.AddWithValue("@MobileNo", hdnPhoneNumber.Value.Replace("+91", ""));
                 // cmd.Parameters.AddWithValue("@Password", txtPassword.Text);
-
-                con.Open();
+                if (con.State != ConnectionState.Open)
+                    con.Open();
                 using (SqlDataReader dr = cmd.ExecuteReader())
                 {
                     if (dr.HasRows)
@@ -193,6 +212,7 @@ namespace Patner_Retailer_ADO
                         ViewState["SalerNotExist"] = "NotExist";
                     }
                 }
+                con.Close();
 
             }
             else
@@ -230,8 +250,44 @@ namespace Patner_Retailer_ADO
                 }
                 if (ViewState["SalerNotExist"].ToString() == "NotExist" && Session["OTP"] != null && txtOTP.Text == Session["OTP"].ToString())
                 {
-                    Session["Message"] = "Mobile number not registered. Please register to continue.";
-                    Response.Redirect("SellerGSTIN.aspx");
+                    string token = Request.QueryString["qa"];
+                    if (token != null && !string.IsNullOrWhiteSpace(token))
+                    {
+                        string mobile = Session["MobileNo1"] != null ? Session["MobileNo1"].ToString() : "";
+                        if (!string.IsNullOrWhiteSpace(mobile) && mobile == hdnPhoneNumber.Value.Replace("+91", ""))
+                        {
+                            Session["Message"] = "Mobile number not registered. Please register to continue.";
+                            string LoginAttemptType = "Mobile number not registered.";
+                            string Status = "Success";
+                            CreateLog(LoginAttemptType, Status);
+                            Response.Redirect("SellerGSTIN.aspx?qa=" + token);
+                        }
+                        else
+                        {
+                            Session["Message"] = "Mobile number not registered. Please register to continue.";
+                            lblErrorMessage.Text = "The mobile number associated with this link does not match your registered number.";
+                            lblErrorMessage.Attributes.Add("style", "display:block");
+                            string LoginAttemptType = "The mobile number associated with this link does not match your registered number.";
+                            string Status = "Failed";
+                            CreateLog(LoginAttemptType, Status);
+                            Response.Redirect("SellerGSTIN.aspx?qa=" + token);
+                        }
+                    }
+                    else
+                    {
+                        Session["Message"] = "Mobile number not registered. Please register to continue.";
+                        bool checkByMobile = CheckRetailerByMobile();
+                        if(checkByMobile)
+                        {
+                            string LoginAttemptType = "Retailer does not login with the Invitation link.";
+                            string Status = "Failed";
+                            token = Session["token"] != null ? Session["token"].ToString() : "";
+                            CreateLog(LoginAttemptType, Status);
+                            if(!string.IsNullOrWhiteSpace(token))
+                                Response.Redirect("SellerGSTIN.aspx?qa=" + token);
+                        }
+                        Response.Redirect("SellerGSTIN.aspx");
+                    }
                 }
                 else if (Session["OTP"] != null && txtOTP.Text == Session["OTP"].ToString())
                 {
@@ -344,5 +400,206 @@ namespace Patner_Retailer_ADO
                 }
             }
         }
+
+        protected bool CheckToken(string token)
+        {
+            if (string.IsNullOrWhiteSpace(token))
+                return false;
+         
+            using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@type", 88);
+                cmd.Parameters.AddWithValue("@token", token);
+                if (con.State != ConnectionState.Open)
+                    con.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        string mobile = reader["MobileNo1"].ToString();
+                        string InvitationId = reader["mid"].ToString();
+                        Session["MobileNo1"] = mobile;
+                        Session["InvitationId"] = InvitationId;
+                        return true;
+                    }
+                }
+                con.Close();
+            }
+
+            return false;
+        }
+        protected void CreateLog(string LoginAttemptType, string Status)
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@type", 89);
+                    cmd.Parameters.AddWithValue("@InvitationId", Session["InvitationId"] != null ? Session["InvitationId"].ToString() : "0");
+                    cmd.Parameters.AddWithValue("@InvitationMobileNo", Session["MobileNo1"] != null ? Session["MobileNo1"].ToString() : null);
+                    cmd.Parameters.AddWithValue("@LoginMobileNo", Session["MobileNo"] != null ? Session["MobileNo"].ToString() : null);
+                    cmd.Parameters.AddWithValue("@LoginAttemptType", LoginAttemptType);
+                    cmd.Parameters.AddWithValue("@Status", Status);
+                    cmd.Parameters.AddWithValue("@CreatedBy", Session["MobileNo"] != null ? Session["MobileNo"].ToString() : null);
+
+                    if (con.State != ConnectionState.Open)
+                        con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+        }
+
+        protected bool CheckRetailerByMobile()
+        {
+            if (Session["MobileNo"] == null || string.IsNullOrWhiteSpace(Session["MobileNo"].ToString()))
+                return false;
+
+            using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@type", 91);
+                cmd.Parameters.AddWithValue("@mobileno", Session["MobileNo"] != null ? Session["MobileNo"].ToString() : "");
+
+                if (con.State != ConnectionState.Open)
+                    con.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        string mobile = reader["MobileNo1"].ToString();
+                        string token = reader["UniqueToken"].ToString();
+                        Session["MobileNo1"] = mobile;
+                        Session["token"] = token;
+                        return true;
+                    }
+                }
+                con.Close();
+            }
+
+            return false;
+        }
+        public void GenerateReceipt(string filePath, string amount, string bankTxnId, string paytmTxnId, DateTime txnDate, string orderRef, string ticketNo, string customerName, string iprnNo)
+        {
+            // Map image paths from server
+            string leftImagePath = HttpContext.Current.Server.MapPath("~/assets/images/infinity-logo.png");
+            string rightImagePath = HttpContext.Current.Server.MapPath("~/assets/images/Infyshield-logo.png");
+
+            PdfDocument document = new PdfDocument();
+            document.Info.Title = "Payment Receipt";
+
+            PdfPage page = document.AddPage();
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+
+            // Fonts
+            XFont headerFont = new XFont("Arial", 16, XFontStyle.Bold);
+            XFont normalFont = new XFont("Arial", 12, XFontStyle.Regular);
+            XFont smallFont = new XFont("Arial", 9, XFontStyle.Regular); // smaller font for footer
+            XFont italicFont = new XFont("Arial", 10, XFontStyle.Italic);
+
+            // Colors
+            XColor mainColor = XColor.FromArgb(0x01, 0x18, 0x93); // #011893
+            XColor greenColor = XColor.FromArgb(0, 128, 0); // green for contact info
+
+            // Draw logos
+            if (File.Exists(leftImagePath))
+            {
+                XImage leftImage = XImage.FromFile(leftImagePath);
+                gfx.DrawImage(leftImage, 40, 30, 120, 40); // adjust size as needed
+            }
+
+            if (File.Exists(rightImagePath))
+            {
+                XImage rightImage = XImage.FromFile(rightImagePath);
+                gfx.DrawImage(rightImage, page.Width - 160, 20, 120, 120); // adjust size
+            }
+
+            double y = 150; // Start below logos
+
+            // Title
+            gfx.DrawString("RECEIPT", headerFont, new XSolidBrush(mainColor), new XRect(0, y, page.Width, 30), XStringFormats.TopCenter);
+            y += 40;
+            // Fonts
+            XFont labelFont = new XFont("Arial", 10, XFontStyle.Regular);
+            XFont valueFont = new XFont("Arial", 10, XFontStyle.Bold); // regular values
+            double lineSpacing = 25; // space between lines
+
+       
+            gfx.DrawString("We have received acknowledgement from PayTm for payment of following charges", labelFont, XBrushes.Black, new XRect(60, y, page.Width - 80, lineSpacing), XStringFormats.TopLeft);
+            y += lineSpacing + 5;
+
+            // Payment details as bold label + regular value
+            void DrawDetail(string label, string value)
+            {
+                gfx.DrawString("•", labelFont, XBrushes.Black, 70, y);
+                gfx.DrawString($"{label} - ", labelFont, XBrushes.Black, 90, y);
+                gfx.DrawString(value, valueFont, XBrushes.Black, 90 + 130, y);
+                y += lineSpacing;
+            }
+
+            // Example usage
+            DrawDetail("Amount", $"Rs. {amount} (Rupees) via UPI");
+            DrawDetail("Bank Transaction ID", bankTxnId);
+            DrawDetail("Paytm Transaction ID", paytmTxnId);
+            DrawDetail("Transaction Date", $"{txnDate:dd/MMM/yyyy hh:mm tt}");
+            DrawDetail("Our Order Reference No.", orderRef);
+            DrawDetail("Reference Ticket No.", $"{ticketNo} ({customerName})");
+
+          
+          
+            XFont footerTitleFont = new XFont("Arial", 18, XFontStyle.Bold);
+            // Footer (at bottom of page)
+            double pageHeight = page.Height;
+            double footerY = pageHeight - 80;
+
+            gfx.DrawString($"(Infinity Receipt No.{iprnNo} dated {txnDate:dd MMM yyyy} for Internal Office Use)", italicFont, XBrushes.Black, new XRect(0, footerY, page.Width, 20), XStringFormats.TopCenter);
+
+            footerY += 18;
+
+            // Horizontal line
+            gfx.DrawLine(new XPen(mainColor, 1), 40, footerY, page.Width - 40, footerY);
+            footerY += 18;
+
+            // Company name
+            gfx.DrawString("Infinity Assurance Solutions Pvt. Ltd.", footerTitleFont, new XSolidBrush(mainColor),
+                           new XRect(0, footerY, page.Width, 20), XStringFormats.TopCenter);
+            footerY += 22;
+
+            // Address
+            gfx.DrawString("Regd. Office: 24, US Complex, Adjacent to Jasola Apollo Metro Station, 120, Mathura Road, New Delhi 110 076",
+                           smallFont, new XSolidBrush(mainColor), new XRect(0, footerY, page.Width, 15), XStringFormats.TopCenter);
+            footerY += 15;
+
+            // Contact info
+    /*        gfx.DrawString("Future Generali Claims: Tel: +91 8447 88 2424    email: claims.fg@infinityassurance.com",
+                           smallFont, new XSolidBrush(greenColor), new XRect(0, footerY, page.Width, 15), XStringFormats.TopCenter);
+            footerY += 15;
+
+            gfx.DrawString("Tel: +91 8010 11 2277    email: contact@infinityassurance.com",
+                           smallFont, new XSolidBrush(greenColor), new XRect(0, footerY, page.Width, 15), XStringFormats.TopCenter);
+            footerY += 15;
+
+            gfx.DrawString("Web: www.infinityassurance.com    www.infyshield.com",
+                           smallFont, new XSolidBrush(greenColor), new XRect(0, footerY, page.Width, 15), XStringFormats.TopCenter);*/
+
+            // Save PDF
+            document.Save(filePath);
+        }
+       
+        private string SanitizeFileName(string fileName)
+        {
+            string pattern = "[^a-zA-Z0-9-_\\. ]";
+            string sanitizedFileName = Regex.Replace(fileName, pattern, "");
+
+            return sanitizedFileName;
+        }
+
     }
 }

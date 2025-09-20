@@ -27,7 +27,7 @@ namespace Patner_Retailer_ADO
         {
             if (Session["MobileNo"] == null)
             {
-                Response.Redirect("Login.aspx");
+                Response.Redirect("index.aspx");
                 return;
             }
             if (!IsPostBack)

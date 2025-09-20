@@ -40,7 +40,7 @@ namespace Patner_Retailer_ADO
                     da.Fill(dt);
                     if (dt.Rows.Count > 0)
                     {
-                        GvSalePerson.CssClass = "table data-table table-striped nowrap";
+                        GvSalePerson.CssClass = "table table-striped nowrap";
                         GvSalePerson.DataSource = dt;
                         GvSalePerson.DataBind();
                         if (GvSalePerson.HeaderRow != null)

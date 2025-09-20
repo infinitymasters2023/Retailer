@@ -331,7 +331,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="card p-3">
         <div class="btn-group">
-            <a class="btn btn-primary" href="ViewSalesPerson.aspx"><i class="fa fa-list"></i>&nbsp View Sales Person List</a>
+            <a class="btn btn-primary" href="ViewSalesPerson.aspx"><i class="fa fa-list"></i>&nbsp View Sales Executive List</a>
         </div>
     </div>
 
@@ -504,7 +504,7 @@
                                 <asp:Label ID="lblAccount" runat="server" Text="Account Number">Account Number<span style="color:red;">*</span></asp:Label>
                                 <asp:HiddenField ID="hdnAccount" runat="server" />
                                 <asp:TextBox ID="txtAccount" runat="server" CssClass="form-control" MaxLength="20" onpaste="return false;" oncopy="return false;" oncut="return false;" AutoComplete="off"
-                                    AutoPostBack="true" OnTextChanged="AccountNumberChange"></asp:TextBox>
+                                    AutoPostBack="true" OnTextChanged="AccountNumberChange" TextMode="Password"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="rfvAccountNumber" runat="server" ControlToValidate="txtAccount" Font-Size="12px"
                                     ErrorMessage="Account Number is required" CssClass="text-danger" ValidationGroup="vgPersonal" Display="Dynamic" />
                                 <asp:RegularExpressionValidator ID="revAccountNumber" runat="server" ControlToValidate="txtAccount" Font-Size="12px"

@@ -15,6 +15,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
+using AjaxControlToolkit.HtmlEditor.ToolbarButtons;
+using System.Xml.Linq;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
+using System.Globalization;
+using PdfSharp.Pdf;
+using PdfSharp.Drawing;
+
 
 namespace Patner_Retailer_ADO
 {
@@ -30,8 +37,16 @@ namespace Patner_Retailer_ADO
         {
             if (!IsPostBack)
             {
-                BindPaymentInfo();
-                //BindProductInfo();
+                var qe = Request.QueryString["qu"];
+                if (!string.IsNullOrWhiteSpace(qe))
+                {
+                    TicketPanel.Visible = false;
+                    Session["salesOrderID"] = qe;
+                    BindProductInfo();
+                    Session.Remove("salesOrderID");
+                }
+                else
+                    BindPaymentInfo();
             }
         }
 
@@ -253,6 +268,8 @@ namespace Patner_Retailer_ADO
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@type", 8);
                     cmd.Parameters.AddWithValue("@SalesOrderID", Session["salesOrderID"].ToString());
+                    if(Session["Role"] != null && Session["Role"].ToString() == "Agent")
+                        cmd.Parameters.AddWithValue("@UserRole", Session["Role"].ToString());
 
                     if (con.State != ConnectionState.Open)
                         con.Open();
@@ -564,7 +581,11 @@ namespace Patner_Retailer_ADO
                         {
                             AddServicePlan(skunos, planNameSelection, planid, newPlanId, subcatid, PlanSKU);
                         }
-
+                        //string bankTxnId = string.Empty;
+                        //string paytmTxnId = string.Empty;                        
+                        //string orderRef = string.Empty;                        
+                        
+                        PaySlip(tic, row["CustomerName"].ToString().Trim().Replace("&nbsp;", ""), IPRN, row["TotalAmountPay"].ToString().Trim().Replace("&nbsp;", ""));
                         UpdateProductInfo(regno, skunos, row["prodMid"].ToString().Trim().Replace("&nbsp;", ""),
                             row["custMid"].ToString().Trim().Replace("&nbsp;", ""), row["payMid"].ToString().Trim().Replace("&nbsp;", ""), IPRN, planid, newPlanId, subcatid, PlanSKU);
                         UpdateCommision(row["payMid"].ToString().Trim().Replace("&nbsp;", ""), "Under Aproval", planid);
@@ -1098,5 +1119,187 @@ namespace Patner_Retailer_ADO
             }
         }
 
+
+        protected void PaySlip(string ticketNo, string customerName, string iprnNo, string amount)
+        {
+            try
+            {
+                string filePath = string.Empty;
+                string bankTxnId = string.Empty;
+                string paytmTxnId = string.Empty;
+                DateTime txnDate = DateTime.Now;
+                string orderRef = Session["salesOrderID"].ToString();
+
+                string basePath = ConfigurationManager.AppSettings["FilePath3"];
+                String yy = DateTime.Now.Year.ToString();
+                String mn = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.Now.Month);
+
+                bool existsClient = System.IO.Directory.Exists(basePath + "\\InfyShield\\");
+                if (!existsClient)
+                    System.IO.Directory.CreateDirectory(basePath + "\\InfyShield\\");
+
+                bool existsYear = System.IO.Directory.Exists(basePath + "\\InfyShield\\" + yy);
+                if (!existsYear)
+                    System.IO.Directory.CreateDirectory(basePath + "\\InfyShield\\" + yy);
+                bool existsMonth = System.IO.Directory.Exists(basePath + "\\InfyShield\\" + yy + "/" + mn);
+                if (!existsMonth)
+                    System.IO.Directory.CreateDirectory(basePath + "\\InfyShield\\" + yy + "/" + mn);
+
+                string originalFileName = "OnlinePaymentAdvice" + DateTime.Now.ToString("MMddyymmss");
+                string sanitizedFileName = SanitizeFileName(originalFileName);
+                sanitizedFileName = sanitizedFileName.Replace(" ", "_") + ".pdf";
+
+
+                string fn = ticketNo.ToString().Replace("/", "") + '_' + "InfyShield" + '_' + sanitizedFileName.Replace(" ", "_");
+                //fupupload2.SaveAs(basePath + "\\InfyShield\\" + yy + "/" + mn + "/" + fn);
+                filePath = basePath + "\\InfyShield\\" + yy + "/" + mn + "/" + fn;
+
+                GenerateReceipt(filePath, amount, bankTxnId, paytmTxnId, txnDate, orderRef, ticketNo, customerName, iprnNo);
+                SaveDocument(filePath, ticketNo, "17");
+            }
+            catch(Exception)
+            {
+                return;
+            }
+        }
+        private string SanitizeFileName(string fileName)
+        {
+            string pattern = "[^a-zA-Z0-9-_\\. ]";
+            string sanitizedFileName = Regex.Replace(fileName, pattern, "");
+
+            return sanitizedFileName;
+        }
+
+        public void GenerateReceipt(string filePath, string amount, string bankTxnId, string paytmTxnId, DateTime txnDate, string orderRef, string ticketNo, string customerName, string iprnNo)
+        {
+            string leftImagePath = HttpContext.Current.Server.MapPath("~/assets/images/infinity-logo.png");
+            string rightImagePath = HttpContext.Current.Server.MapPath("~/assets/images/Infyshield-logo.png");
+
+            PdfDocument document = new PdfDocument();
+            document.Info.Title = "Payment Receipt";
+
+            PdfPage page = document.AddPage();
+            XGraphics gfx = XGraphics.FromPdfPage(page);
+
+            // Fonts
+            XFont headerFont = new XFont("Arial", 16, XFontStyle.Bold);
+            XFont normalFont = new XFont("Arial", 12, XFontStyle.Regular);
+            XFont smallFont = new XFont("Arial", 9, XFontStyle.Regular); // smaller font for footer
+            XFont italicFont = new XFont("Arial", 10, XFontStyle.Italic);
+
+            // Colors
+            XColor mainColor = XColor.FromArgb(0x01, 0x18, 0x93); // #011893
+            XColor greenColor = XColor.FromArgb(0, 128, 0); // green for contact info
+
+            // Draw logos
+            if (File.Exists(leftImagePath))
+            {
+                XImage leftImage = XImage.FromFile(leftImagePath);
+                gfx.DrawImage(leftImage, 40, 30, 120, 40); // adjust size as needed
+            }
+
+            if (File.Exists(rightImagePath))
+            {
+                XImage rightImage = XImage.FromFile(rightImagePath);
+                gfx.DrawImage(rightImage, page.Width - 160, 20, 120, 120); // adjust size
+            }
+
+            double y = 150; // Start below logos
+
+            // Title
+            gfx.DrawString("RECEIPT", headerFont, new XSolidBrush(mainColor), new XRect(0, y, page.Width, 30), XStringFormats.TopCenter);
+            y += 40;
+            // Fonts
+            XFont labelFont = new XFont("Arial", 10, XFontStyle.Regular);
+            XFont valueFont = new XFont("Arial", 10, XFontStyle.Bold); // regular values
+            double lineSpacing = 25; // space between lines
+
+
+            gfx.DrawString("We have received acknowledgement from PayTm for payment of following charges", labelFont, XBrushes.Black, new XRect(60, y, page.Width - 80, lineSpacing), XStringFormats.TopLeft);
+            y += lineSpacing + 5;
+
+            // Payment details as bold label + regular value
+            void DrawDetail(string label, string value)
+            {
+                gfx.DrawString("•", labelFont, XBrushes.Black, 70, y);
+                gfx.DrawString($"{label} - ", labelFont, XBrushes.Black, 90, y);
+                gfx.DrawString(value, valueFont, XBrushes.Black, 90 + 130, y);
+                y += lineSpacing;
+            }
+
+            // Example usage
+            DrawDetail("Amount", $"Rs. {amount} (Rupees) via UPI");
+            DrawDetail("Bank Transaction ID", bankTxnId);
+            DrawDetail("Paytm Transaction ID", paytmTxnId);
+            DrawDetail("Transaction Date", $"{txnDate:dd/MMM/yyyy hh:mm tt}");
+            DrawDetail("Our Order Reference No.", orderRef);
+            DrawDetail("Reference Ticket No.", $"{ticketNo} ({customerName})");
+
+
+
+            XFont footerTitleFont = new XFont("Arial", 18, XFontStyle.Bold);
+            // Footer (at bottom of page)
+            double pageHeight = page.Height;
+            double footerY = pageHeight - 80;
+
+            gfx.DrawString($"(Infinity Receipt No.{iprnNo} dated {txnDate:dd MMM yyyy} for Internal Office Use)", italicFont, XBrushes.Black, new XRect(0, footerY, page.Width, 20), XStringFormats.TopCenter);
+
+            footerY += 18;
+
+            // Horizontal line
+            gfx.DrawLine(new XPen(mainColor, 1), 40, footerY, page.Width - 40, footerY);
+            footerY += 18;
+
+            // Company name
+            gfx.DrawString("Infinity Assurance Solutions Pvt. Ltd.", footerTitleFont, new XSolidBrush(mainColor),
+                           new XRect(0, footerY, page.Width, 20), XStringFormats.TopCenter);
+            footerY += 22;
+
+            // Address
+            gfx.DrawString("Regd. Office: 24, US Complex, Adjacent to Jasola Apollo Metro Station, 120, Mathura Road, New Delhi 110 076",
+                           smallFont, new XSolidBrush(mainColor), new XRect(0, footerY, page.Width, 15), XStringFormats.TopCenter);
+            footerY += 15;
+
+            // Contact info
+            /*        gfx.DrawString("Future Generali Claims: Tel: +91 8447 88 2424    email: claims.fg@infinityassurance.com",
+                                   smallFont, new XSolidBrush(greenColor), new XRect(0, footerY, page.Width, 15), XStringFormats.TopCenter);
+                    footerY += 15;
+
+                    gfx.DrawString("Tel: +91 8010 11 2277    email: contact@infinityassurance.com",
+                                   smallFont, new XSolidBrush(greenColor), new XRect(0, footerY, page.Width, 15), XStringFormats.TopCenter);
+                    footerY += 15;
+
+                    gfx.DrawString("Web: www.infinityassurance.com    www.infyshield.com",
+                                   smallFont, new XSolidBrush(greenColor), new XRect(0, footerY, page.Width, 15), XStringFormats.TopCenter);*/
+
+            // Save PDF
+            document.Save(filePath);
+        }
+        protected void SaveDocument(string filePath, string ticketNo, string documentName)
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@type", 73);
+                    cmd.Parameters.AddWithValue("@Mid", "0");
+                    cmd.Parameters.AddWithValue("@ticketno", ticketNo);
+                    cmd.Parameters.AddWithValue("@documentNumber", documentName);
+                    cmd.Parameters.AddWithValue("@DocumentPath", filePath);
+                    cmd.Parameters.AddWithValue("@CreatedBy", Session["Name"].ToString());
+
+                    if (con.State != ConnectionState.Open)
+                        con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+        }
     }
 }

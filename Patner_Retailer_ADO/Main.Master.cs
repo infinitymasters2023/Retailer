@@ -19,7 +19,7 @@ namespace Patner_Retailer_ADO
             profileImage.ImageUrl = "../assets/images/avatar5.png";
             if (Session["MobileNo"] == null)
             {
-                Response.Redirect("Login.aspx");
+                Response.Redirect("index.aspx");
                 return;
             }
 
@@ -182,6 +182,7 @@ namespace Patner_Retailer_ADO
                 menuSalesPerson.Visible = false;
                 menuSalesReport.Visible = false;
                 menuGenerateURL.Visible = false;
+                //menuRequestFromSalesPerson.Visible = false;
             }
         }
 
@@ -234,6 +235,10 @@ namespace Patner_Retailer_ADO
             else if (page == "reachus.aspx") SetActive(menuReachUs);
             else if (page == "feedback.aspx") SetActive(menuFeedback);
             else if (page == "incompletepurchased.aspx") SetActive(menuIncomplete);
+            else if (page == "requestfromsalesperson.aspx") SetActive(menuRequestFromSalesPerson);
+            else if (page == "incentive_dashboard.aspx") SetActive(menuIncentive_Dashboard);
+            else if (page == "commissiondetails.aspx") SetActive(menuCommisionDetails);
+            else if (page == "productpriceband.aspx") SetActive(menuProductPriceBand);
         }
 
         private void SetActive(HtmlGenericControl menuItem)
@@ -248,7 +253,7 @@ namespace Patner_Retailer_ADO
                 linkBuyPlan, linkIncomplete, linkSalesPerson,
                 linkClaims, linkSalesReport, linkGenerateURL,
                 linkHowItWorks, linkFAQ, linkUpgradePlan,
-                linkMyOffer, linkReferFriend, linkReachUs, linkFeedback
+                linkMyOffer, linkReferFriend, linkReachUs, linkFeedback, linkRequestFromSalesPerson, linkIncentive_Dashboard, linkCommisionDetails, linkProductPriceBand
             };
 
             foreach (var link in links)

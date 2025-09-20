@@ -27,6 +27,11 @@ namespace Patner_Retailer_ADO
                 LodBind();
                 BindbankDetails();
                 BindCalculationHistory();
+                if (Session["Role"] != null && Session["Role"].ToString() == "Agent")
+                {
+                    SettledGSTAmountPanel.Visible = false;
+                    UnsettledGSTAmountPanel.Visible = false;
+                }
             }
         }
 
@@ -46,9 +51,15 @@ namespace Patner_Retailer_ADO
                     if (dr.Read())
                     {
                         lblRevenue.Text = "Rs. " + (!dr.IsDBNull(dr.GetOrdinal("TotalAmount")) ? Convert.ToDecimal(dr["TotalAmount"]).ToString("N2") : "0.00");
-                        lblApprovedAmount.Text = "Rs. " + (!dr.IsDBNull(dr.GetOrdinal("TotalApprovedAmount")) ? Convert.ToDecimal(dr["TotalApprovedAmount"]).ToString("N2") : "0.00");
+                        /*lblApprovedAmount.Text = "Rs. " + (!dr.IsDBNull(dr.GetOrdinal("TotalApprovedAmount")) ? Convert.ToDecimal(dr["TotalApprovedAmount"]).ToString("N2") : "0.00");
                         lblWithdrawal.Text = "Rs. " + (!dr.IsDBNull(dr.GetOrdinal("TotalWithdrawalAmount")) ? Convert.ToDecimal(dr["TotalWithdrawalAmount"]).ToString("N2") : "0.00");
-                        lblUnderProcess.Text = "Rs. " + (!dr.IsDBNull(dr.GetOrdinal("TotalUnderApprovedAmount")) ? Convert.ToDecimal(dr["TotalUnderApprovedAmount"]).ToString("N2") : "0.00");
+                        lblUnderProcess.Text = "Rs. " + (!dr.IsDBNull(dr.GetOrdinal("TotalUnderApprovedAmount")) ? Convert.ToDecimal(dr["TotalUnderApprovedAmount"]).ToString("N2") : "0.00");*/
+                        
+                        lblSettledAmount.Text = "Rs. " + (!dr.IsDBNull(dr.GetOrdinal("SelletedAmount")) ? Convert.ToDecimal(dr["SelletedAmount"]).ToString("N2") : "0.00");
+                        lblUnsettledAmount.Text = "Rs. " + (!dr.IsDBNull(dr.GetOrdinal("UnselletedAmount")) ? Convert.ToDecimal(dr["UnselletedAmount"]).ToString("N2") : "0.00");
+                        lblSettledGSTAmount.Text = "Rs. " + (!dr.IsDBNull(dr.GetOrdinal("SelletedGSTAmount")) ? Convert.ToDecimal(dr["SelletedGSTAmount"]).ToString("N2") : "0.00");
+                        lblUnsettledGSTAmount.Text = "Rs. " + (!dr.IsDBNull(dr.GetOrdinal("UnselletedGSTAmount")) ? Convert.ToDecimal(dr["UnselletedGSTAmount"]).ToString("N2") : "0.00");
+
                         lblPaymentFailed.Text = "Rs. " + (!dr.IsDBNull(dr.GetOrdinal("TotalFailedAmount")) ? Convert.ToDecimal(dr["TotalFailedAmount"]).ToString("N2") : "0.00");
                         lblPanelty.Text = "Rs. " + (!dr.IsDBNull(dr.GetOrdinal("TotalPaneltyAmount")) ? Convert.ToDecimal(dr["TotalPaneltyAmount"]).ToString("N2") : "0.00");
                         lblCancellationCharges.Text = "Rs. " + (!dr.IsDBNull(dr.GetOrdinal("TotalCancellationCharges")) ? Convert.ToDecimal(dr["TotalCancellationCharges"]).ToString("N2") : "0.00");
@@ -56,9 +67,9 @@ namespace Patner_Retailer_ADO
                     else
                     {
                         lblRevenue.Text = "Rs. 0";
-                        lblApprovedAmount.Text = "Rs. 0";
+                        /*lblApprovedAmount.Text = "Rs. 0";
                         lblWithdrawal.Text = "Rs. 0";
-                        lblUnderProcess.Text = "Rs. 0";
+                        lblUnderProcess.Text = "Rs. 0";*/
                         lblPaymentFailed.Text = "Rs. 0";
                         lblPanelty.Text = "Rs. 0";
                         lblCancellationCharges.Text = "Rs. 0";
@@ -179,6 +190,23 @@ namespace Patner_Retailer_ADO
         {
             Response.Redirect("TransactionEarningsReport.aspx?Transaction=CancellationCharges");
         }
+        protected void SettledAmount_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("TransactionEarningsReport.aspx?Transaction=SettledAmount");
+        }
+        protected void UnsettledAmount_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("TransactionEarningsReport.aspx?Transaction=UnsettledAmount");
+        }
+        protected void SettledGSTAmount_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("TransactionEarningsReport.aspx?Transaction=SettledGST");
+        }
+        protected void UnsettledGSTAmount_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("TransactionEarningsReport.aspx?Transaction=UnsettledGST");
+        }
+
 
     }
 }

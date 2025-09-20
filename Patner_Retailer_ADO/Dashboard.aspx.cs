@@ -101,6 +101,8 @@ namespace Patner_Retailer_ADO
                             lblPlansSoldApproved.Text = reader["PlansSoldApproved"].ToString();
                             lblPlansRejected.Text = reader["PlansRejected"].ToString();
                             lblPlansUnderRegistrationApproval.Text = reader["PlansUnderRegistrationApproval"].ToString();
+
+                           
                             //lblPlansInCart.Text = reader["PlanInCart"].ToString();
                             if (reader.NextResult() && reader.Read())
                             {
@@ -112,6 +114,7 @@ namespace Patner_Retailer_ADO
                                 lblUnsoldPlanInCart.Text = reader["TotalUnsoldPlansInCart"].ToString();
                                 lblMissedSales.Text = reader["MissedSalesNotInCart"].ToString();
                             }
+                          
 
                             // Optional if you have data for these:
                             //lblPlansAfterOTP.Text = "0";
@@ -170,6 +173,18 @@ namespace Patner_Retailer_ADO
         { }
         protected void RefundUnderApprovel_Click(object sender, EventArgs e)
         { }
+        protected void BaseMargin_Click(object sender, EventArgs e)
+        {
+        }
+        protected void NoClaimBonus_Click(object sender, EventArgs e)
+        {
+        }
+        protected void EWMargin_Click(object sender, EventArgs e)
+        {
+        }
+        protected void Incentive_Click(object sender, EventArgs e)
+        {
+        }
         protected void TokenRedirection(string token)
         {
             try

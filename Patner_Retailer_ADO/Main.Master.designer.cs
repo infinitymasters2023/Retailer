@@ -105,6 +105,24 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.HtmlControls.HtmlAnchor linkDashboard;
 
         /// <summary>
+        /// menuIncentive_Dashboard control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl menuIncentive_Dashboard;
+
+        /// <summary>
+        /// linkIncentive_Dashboard control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor linkIncentive_Dashboard;
+
+        /// <summary>
         /// menuBuyPlan control.
         /// </summary>
         /// <remarks>
@@ -159,6 +177,24 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.HtmlControls.HtmlAnchor linkIncomplete;
 
         /// <summary>
+        /// menuRequestFromSalesPerson control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl menuRequestFromSalesPerson;
+
+        /// <summary>
+        /// linkRequestFromSalesPerson control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor linkRequestFromSalesPerson;
+
+        /// <summary>
         /// menuSalesReport control.
         /// </summary>
         /// <remarks>
@@ -193,6 +229,42 @@ namespace Patner_Retailer_ADO
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor linkClaims;
+
+        /// <summary>
+        /// menuCommisionDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl menuCommisionDetails;
+
+        /// <summary>
+        /// linkCommisionDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor linkCommisionDetails;
+
+        /// <summary>
+        /// menuProductPriceBand control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl menuProductPriceBand;
+
+        /// <summary>
+        /// linkProductPriceBand control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor linkProductPriceBand;
 
         /// <summary>
         /// menuGenerateURL control.

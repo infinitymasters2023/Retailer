@@ -3,16 +3,20 @@ using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Information;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.RefAndLookup;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
+using OfficeOpenXml.FormulaParsing.LexicalAnalysis;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.EnterpriseServices.CompensatingResourceManager;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Runtime.InteropServices;
 using System.Runtime.Remoting.Lifetime;
 using System.Security.Principal;
 using System.Text;
@@ -22,6 +26,7 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml;
+using static Patner_Retailer_ADO.ViewClaims;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Net.WebRequestMethods;
 
@@ -34,18 +39,22 @@ namespace Patner_Retailer_ADO
         {
             if (!IsPostBack)
             {
-                /*if(Session["SellerGSTIN"] == null)
+                string token = Request.QueryString["qa"];
+                if (token != null && !string.IsNullOrWhiteSpace(token))
                 {
-                    Response.Redirect("Login.aspx");
-                }*/
-
-
+                    bool flag = CheckToken(token);
+                    if (!flag)
+                    {
+                        lblSellerName.InnerText = "Invalid Token.";
+                        lblSellerName.Attributes.Add("style", "display:block");
+                        return;
+                    }
+                }
                 if (Session["MobileNo"] == null || Session["SellerGSTIN"] == null)
                 {
-                    Response.Redirect("~/Login.aspx"); // Change the path if your login page is at a different location
+                    Response.Redirect("~/index.aspx");
                     return;
                 }
-
                 txtMobileNumber.Text = Session["MobileNo"] != null ? Session["MobileNo"].ToString() : "";
                 txtOfficialMobileNo.Text = Session["MobileNo"] != null ? Session["MobileNo"].ToString() : "";
                 txtGSTIN.Text = Session["SellerGSTIN"] != null ? Session["SellerGSTIN"].ToString() : null;
@@ -84,7 +93,8 @@ namespace Patner_Retailer_ADO
                 cmd.Parameters.AddWithValue("@Type", 10);
 
                 ddlDocumentName.Items.Clear();
-                con.Open();
+                if (con.State != ConnectionState.Open)
+                    con.Open();
                 SqlDataAdapter adp = new SqlDataAdapter(cmd);
                 DataSet ds = new DataSet();
                 adp.Fill(ds);
@@ -113,7 +123,8 @@ namespace Patner_Retailer_ADO
                 cmd.Parameters.AddWithValue("@Type", 55);
 
                 ddlSuppotingDoc.Items.Clear();
-                con.Open();
+                if (con.State != ConnectionState.Open)
+                    con.Open();
                 SqlDataAdapter adp = new SqlDataAdapter(cmd);
                 DataSet ds = new DataSet();
                 adp.Fill(ds);
@@ -302,7 +313,7 @@ namespace Patner_Retailer_ADO
 
         protected void btnLogout_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Login.aspx", false);
+            Response.Redirect("index.aspx", false);
         }
 
         protected void btnNext_Click(object sender, EventArgs e)
@@ -585,7 +596,8 @@ namespace Patner_Retailer_ADO
                     cmd.Parameters.AddWithValue("@SupportingDocuments", ddlSuppotingDoc.SelectedValue == "" ? null : ddlSuppotingDoc.SelectedValue.ToString());
                     cmd.Parameters.AddWithValue("@SupportingDocumentsPath", uniqueFileName);
 
-                    con.Open();
+                    if (con.State != ConnectionState.Open)
+                        con.Open();
                     object result = cmd.ExecuteScalar();
                     con.Close();
                     if (result != null)
@@ -636,9 +648,21 @@ namespace Patner_Retailer_ADO
                             cmd.Parameters.AddWithValue("@Status", status);
                             cmd.Parameters.AddWithValue("@IPAddress", Request.UserHostAddress);
 
-                            con.Open();
-                            cmd.ExecuteNonQuery();
+                            if (con.State != ConnectionState.Open)
+                                con.Open();
+
+                            // Capture inserted Mid
+                            object result = cmd.ExecuteScalar();
                             con.Close();
+
+                            int insertedMid = (result != null) ? Convert.ToInt32(result) : 0;
+
+                            // Now pass it to your method
+                            if (insertedMid > 0)
+                            {
+                                UploadDocumentTicket(insertedMid);
+                            }
+
                         }
                         SqlCommand cmd1 = new SqlCommand("SP_IAPL_Retailer_Auth", con);
                         cmd1.CommandType = CommandType.StoredProcedure;
@@ -648,6 +672,7 @@ namespace Patner_Retailer_ADO
                             con.Open();
                         cmd1.ExecuteNonQuery();
                         con.Close();
+                        //UploadDocumentTicket();
                     }
 
                     string script = "$('.nav-tabs > .active').next('li').find('a').click();";
@@ -1315,6 +1340,16 @@ namespace Patner_Retailer_ADO
                         bool dealer = AddEditDealer();
                         if (dealer)
                         {
+                            bool checkByMobile = CheckRetailerByMobile();
+                            if (!checkByMobile)
+                            {
+                                CreateTicket();
+                            }
+                            else
+                            {
+                                UpdateRetailerSKU();
+                            }
+
                             string script = "$('.nav-tabs > .active').next('li').find('a').click();";
                             ScriptManager.RegisterStartupScript(this, GetType(), "MoveToNextTab", script, true);
                             //hdnActiveTab.Value = "#step1";
@@ -1578,7 +1613,8 @@ namespace Patner_Retailer_ADO
             cmd.Parameters.AddWithValue("@Mid", Session["RetailerUniqueID"].ToString());
 
             cmd.Parameters.AddWithValue("@UserRole", Session["Role"].ToString());
-            con.Open();
+            if (con.State != ConnectionState.Open)
+                con.Open();
             SqlDataReader dr = cmd.ExecuteReader();
             if (dr.HasRows)
             {
@@ -1972,7 +2008,8 @@ namespace Patner_Retailer_ADO
             cmd.Parameters.AddWithValue("@FirmType", ddlFirmType.SelectedItem.Text.Trim());
             cmd.Parameters.AddWithValue("@ProfileId", Session["UniqueMid"].ToString().Trim());
 
-            con.Open();
+            if (con.State != ConnectionState.Open)
+                con.Open();
             object result = cmd.ExecuteScalar();
             con.Close();
             if (result != null && result.ToString() == "0")
@@ -2028,7 +2065,8 @@ namespace Patner_Retailer_ADO
             outputMid.Direction = ParameterDirection.Output;
             cmd.Parameters.Add(outputMid);
 
-            con.Open();
+            if (con.State != ConnectionState.Open)
+                con.Open();
             int i = cmd.ExecuteNonQuery();
             con.Close();
             if (outputMid.Value != null && outputMid.Value.ToString() == "-2")
@@ -2143,7 +2181,7 @@ namespace Patner_Retailer_ADO
             if (Session["MobileNo"] == null)
             {
                 // Redirect to login if session expired
-                Response.Redirect("~/Login.aspx");
+                Response.Redirect("~/index.aspx");
                 return;
             }
 
@@ -2152,7 +2190,8 @@ namespace Patner_Retailer_ADO
             cmd.Parameters.AddWithValue("@Type", 1);
             cmd.Parameters.AddWithValue("@MobileNo", Session["MobileNo"] != null ? Session["MobileNo"].ToString() : txtMobileNumber.Text.Trim());
 
-            con.Open();
+            if (con.State != ConnectionState.Open)
+                con.Open();
             using (SqlDataReader dr = cmd.ExecuteReader())
             {
                 if (dr.HasRows)
@@ -2167,12 +2206,13 @@ namespace Patner_Retailer_ADO
                     Response.Redirect("Dashboard.aspx");
                 }
             }
+            con.Close();
         }
         protected void chkGSTIN_Change(object sender, EventArgs e)
         {
             if (Session["SellerGSTIN"] == null)
             {
-                Response.Redirect("~/Login.aspx");
+                Response.Redirect("~/index.aspx");
                 return;
             }
             if (chckGSTIN.Checked)
@@ -2238,6 +2278,307 @@ namespace Patner_Retailer_ADO
                 return false;
             }
         }
+        protected bool CheckToken(string token)
+        {
+            if (string.IsNullOrWhiteSpace(token))
+                return false;
+
+            using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@type", 88);
+                cmd.Parameters.AddWithValue("@token", token);
+
+                if (con.State != ConnectionState.Open)
+                    con.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        string mobile = reader["MobileNo1"].ToString();
+                        return true;
+                    }
+                }
+                con.Close();
+            }
+            return false;
+        }
+
+        protected bool CheckRetailerByMobile()
+        {
+            if (txtMobileNumber.Text == null || string.IsNullOrWhiteSpace(txtMobileNumber.Text.ToString()))
+                return false;
+
+            using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@type", 91);
+                cmd.Parameters.AddWithValue("@mobileno", txtMobileNumber.Text != null ? txtMobileNumber.Text.ToString() : "");
+                if (con.State != ConnectionState.Open)
+                    con.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        string mobile = reader["MobileNo1"].ToString();
+                        if (string.IsNullOrWhiteSpace(mobile))
+                            return false;
+                        Session["MobileNo1"] = mobile;
+                        return true;
+                    }
+                }
+                con.Close();
+            }
+
+            return false;
+        }
+
+        protected void CreateTicket()
+        {
+            try
+            {
+                    
+                    using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@type", 90);
+                        cmd.Parameters.AddWithValue("@PlanID", "1");
+                        cmd.Parameters.AddWithValue("@ProCat","3");
+                        cmd.Parameters.AddWithValue("@userID", Session["UniqueMid"] != null ? Session["UniqueMid"].ToString() : "");
+
+                        cmd.Parameters.AddWithValue("@customername", txtFirstName.Text);
+                        cmd.Parameters.AddWithValue("@addressline1", txtAddress.Text);
+                        cmd.Parameters.AddWithValue("@addressline2", txtAddress1.Text);
+                        cmd.Parameters.AddWithValue("@addressline3", "");
+                        cmd.Parameters.AddWithValue("@city", txtCity.Text);
+                        cmd.Parameters.AddWithValue("@state", txtState.Text);
+                        cmd.Parameters.AddWithValue("@pincode", txtPinCode.Text);
+                        cmd.Parameters.AddWithValue("@mobileno", txtMobileNumber.Text);
+                        cmd.Parameters.AddWithValue("@emailidaddress", txtEmail.Text);
+                        cmd.Parameters.AddWithValue("@productID", "22");
+                        cmd.Parameters.AddWithValue("@ProductSubCatgID", "222");
+                        cmd.Parameters.AddWithValue("@brand", "Bluestar");
+                        cmd.Parameters.AddWithValue("@serialno", "98419812002132165149");
+                        cmd.Parameters.AddWithValue("@model", "Bluestar");
+                        cmd.Parameters.AddWithValue("@purchasefrom_productdetails", "");
+                        cmd.Parameters.AddWithValue("@invoiceno_productdetails", "");
+                        cmd.Parameters.AddWithValue("@invoicedate_productdetails", DateTime.Now.ToString("MM/dd/yyyy"));
+                        cmd.Parameters.AddWithValue("@invoiceamount_productdetails", "60000");
+                        cmd.Parameters.AddWithValue("@manufacturewarrantystartdate", DateTime.Now.ToString("MM/dd/yyyy"));
+                        cmd.Parameters.AddWithValue("@manufacturewarrantyenddate", DateTime.Now.AddYears(1).AddDays(-1).ToString("MM/dd/yyyy"));
+                        cmd.Parameters.AddWithValue("@extendedwarrantystartdate", DateTime.Now.ToString("MM/dd/yyyy"));
+                        cmd.Parameters.AddWithValue("@extendedwarrantyenddate", DateTime.Now.AddYears(1).AddDays(-1).ToString("MM/dd/yyyy"));
+                        cmd.Parameters.AddWithValue("@adpstartdate", DateTime.Now.ToString("MM/dd/yyyy"));
+                        cmd.Parameters.AddWithValue("@adpenddate", DateTime.Now.AddYears(1).AddDays(-1).ToString("MM/dd/yyyy"));
+                        cmd.Parameters.AddWithValue("@Status", "Under Approval");
+                        cmd.Parameters.AddWithValue("@ClientID", "1479");
+                        cmd.Parameters.AddWithValue("@warrnatyYear", "1");
+                        cmd.Parameters.AddWithValue("@WarrantyMonth", "0");
+                        cmd.Parameters.AddWithValue("@WarrantyDay", "0");
+                        cmd.Parameters.AddWithValue("@ProSubcatID", "46");
+                        cmd.Parameters.AddWithValue("@ContactPerson", txtFirstName.Text);
+                        cmd.Parameters.AddWithValue("@Make", "Bluestar");
+                        cmd.Parameters.AddWithValue("@ProductPincode", "0");
+                        cmd.Parameters.AddWithValue("@BalSumAssured", "0.00");
+                        cmd.Parameters.AddWithValue("@SumAssured", "60000.00");
+                        cmd.Parameters.AddWithValue("@IsDelete", "0");
+                        cmd.Parameters.AddWithValue("@ProjectId", "65");
+                        
+                        //  Service Calls Table
+                        cmd.Parameters.AddWithValue("@ProblemNo", "1");
+                        cmd.Parameters.AddWithValue("@CallSource", "19");
+                        cmd.Parameters.AddWithValue("@CallPriority", "1");
+                        cmd.Parameters.AddWithValue("@CallTypes", "18");
+                        cmd.Parameters.AddWithValue("@ServiceType", "10");
+                        cmd.Parameters.AddWithValue("@Symptoms", "0");
+                        cmd.Parameters.AddWithValue("@ProblemReported", "Partner Registration Inquiry");
+                        cmd.Parameters.AddWithValue("@Charges", "0");
+                        cmd.Parameters.AddWithValue("@InfinityRemarks", "Partner Registration Inquiry");
+                        cmd.Parameters.AddWithValue("@CallAction", "201");
+                        cmd.Parameters.AddWithValue("@CallStatus", "19");
+                        cmd.Parameters.AddWithValue("@ClaimReportedDate", DateTime.Now.ToString("MM/dd/yyyy"));
+                        cmd.Parameters.AddWithValue("@ClaimReportedTime", DateTime.Now.ToString("hh:mm tt"));
+                        cmd.Parameters.AddWithValue("@DeviceSwitchingOn", "2");
+                        cmd.Parameters.AddWithValue("@SurverMailStatus", "No");
+                        cmd.Parameters.AddWithValue("@lastupdateDate", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@CallactionDate", DateTime.Now.ToString("MM/dd/yyyy"));
+                        cmd.Parameters.AddWithValue("@CallActionTime", DateTime.Now.ToString("hh:mm tt"));
+                        cmd.Parameters.AddWithValue("@NextActionDate", DateTime.Now.ToString("MM/dd/yyyy"));
+                        cmd.Parameters.AddWithValue("@NextActionTime", DateTime.Now.ToString("hh:mm tt"));
+                        cmd.Parameters.AddWithValue("@lastupdatedby", "System Generated / Updated by System");
+                        cmd.Parameters.AddWithValue("@claimstatus", "Open");
+                        cmd.Parameters.AddWithValue("@UserRole", "Admin");
+
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+
+                        if (dt.Rows.Count > 0)
+                        {
+                            string resultMessage = dt.Rows[0]["ResultMessage"]?.ToString() ?? string.Empty;
+                            if (resultMessage.Contains("already available"))
+                            {
+                                lblMessage.Text = "Retailer is already registered with this mobile number.";
+                                lblMessage.ForeColor = System.Drawing.Color.Red;
+                                return;
+                            }
+                            else
+                            {
+                                lblMessage.Text = "Registration successful.";
+                                lblMessage.ForeColor = System.Drawing.Color.Green;
+                            }
+                        }
+                    }
+                
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        protected void UploadDocumentTicket(int insertedMid)
+        {
+            try
+            {
+                if (ViewState["DocumentData"] != null)
+                {
+                    DataTable dt = (DataTable)ViewState["DocumentData"];
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        string docName = row["DocumentName"].ToString();
+                        string DocumentPath = row["DocumentPath"].ToString();
+                        string DocId = row["DocId"].ToString();
+                        
+                        UploadImage1(docName, DocId, DocumentPath, insertedMid);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        protected void UploadImage1(string docName, string docId, string tempFileName, int insertedMid)
+        {
+            try
+            {
+                string basePath = ConfigurationManager.AppSettings["FilePath3"];
+                string ticketNo = GetTicketno(txtMobileNumber.Text != null ? txtMobileNumber.Text.ToString() : "");
+                string yy = DateTime.Now.Year.ToString();
+                string mn = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.Now.Month);
+
+                string targetFolder = Path.Combine(basePath, "InfyShield", yy, mn);
+                if (!Directory.Exists(targetFolder))
+                    Directory.CreateDirectory(targetFolder);
+
+                string fileExtension = Path.GetExtension(tempFileName);
+                string sanitizedFileName = SanitizeFileName(docName).Replace(" ", "_");
+                string fn = ticketNo.Replace("/", "") + "InfyShield" + sanitizedFileName + fileExtension;
+                string sourcePath = Server.MapPath("~/UploadedDocuments/") + tempFileName;
+                string destPath = Path.Combine(targetFolder, fn);
+                if (System.IO.File.Exists(sourcePath))
+                {
+                    System.IO.File.Copy(sourcePath, destPath, true);
+                }
+                UploadDocuemt("0", docId, "InfyShield/" + yy + "/" + mn + "/" + fn, insertedMid);
+                lblMessage.Text = "Document uploaded and saved successfully!";
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = "Upload failed: " + ex.Message;
+            }
+        }
+
+
+        private string SanitizeFileName(string fileName)
+        {
+            string pattern = "[^a-zA-Z0-9-_\\. ]";
+            string sanitizedFileName = Regex.Replace(fileName, pattern, "");
+
+            return sanitizedFileName;
+        }
+        protected void UploadDocuemt(string mid, string documentNumber, string documentPath, int insertedMid)
+        {
+            try
+            {
+                string ticketNo = GetTicketno(txtMobileNumber.Text != null ? txtMobileNumber.Text.ToString() : "");
+                if (!string.IsNullOrWhiteSpace(ticketNo))
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@type", 94);
+                        cmd.Parameters.AddWithValue("@Mid", mid);
+                        cmd.Parameters.AddWithValue("@ticketno", ticketNo);
+                        cmd.Parameters.AddWithValue("@documentNumber", documentNumber);
+                        cmd.Parameters.AddWithValue("@DocumentPath", documentPath);
+                        cmd.Parameters.AddWithValue("@CreatedBy", txtFirstName.Text);
+                        cmd.Parameters.AddWithValue("@insertedMid", insertedMid);
+                        cmd.Parameters.AddWithValue("@UserRole", "Admin");
+
+                        if (con.State != ConnectionState.Open)
+                            con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(this, ex.Message);
+                return;
+            }
+        }
+
+        protected string GetTicketno(string mobileNo)
+        {
+            string ticketNo = string.Empty;
+            using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@type", 92);
+                cmd.Parameters.AddWithValue("@mobileno", mobileNo);
+
+                if (con.State != ConnectionState.Open)
+                    con.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        ticketNo = reader["TicketNO"] != DBNull.Value ? reader["TicketNO"].ToString() : string.Empty;
+                    }
+                }
+                con.Close();
+            }
+            return ticketNo;
+        }
+        protected void UpdateRetailerSKU()
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@type", 93);
+                    cmd.Parameters.AddWithValue("@mobileno", txtMobileNumber.Text != null ? txtMobileNumber.Text.ToString() : "");
+
+                    if (con.State != ConnectionState.Open)
+                        con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch 
+            {
+                return;
+            }
+        }
+
 
     }
 }

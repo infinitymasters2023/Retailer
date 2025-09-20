@@ -135,32 +135,17 @@
                 <p class="mb-2">Your plan is currently under review, and we will notify you once it has been verified and activated.</p>
 
                 <hr />
-                <p class="firstLine mb-2"><strong>Track Your Request</strong> </p>
-                <div class="d-flex">
-                    <p class="mb-2">You can track the status of your service plan using the <b>Ticket No:</b> &nbsp;</p>
-                    <p id="ticketNo" runat="server" class="TicketNoPanel mb-2"></p>
+                <div runat="server" id="TicketPanel">
+                    <p class="firstLine mb-2"><strong>Track Your Request</strong> </p>
+                    <div class="d-flex">
+                        <p class="mb-2">You can track the status of your service plan using the <b>Ticket No:</b> &nbsp;</p>
+                        <p id="ticketNo" runat="server" class="TicketNoPanel mb-2"></p>
+                    </div>
+                    <p class="mb-2">To track or manage your request, including uploading any supporting documents, please visit: <a href="https://infyvault.com/" target="_blank" class="InfyVaultLink">https://infyvault.com/ </a></p>
+                    <hr />
+                    <p class="text-danger mb-2"><strong>Important Reminder:</strong></p>
+                    <p>Please ensure that all required supporting documents (such as Invoice, Serial Number proof,) are uploaded to avoid any delays in verification and activation.</p>
                 </div>
-                <p class="mb-2">To track or manage your request, including uploading any supporting documents, please visit: <a href="https://infyvault.com/" target="_blank" class="InfyVaultLink">https://infyvault.com/ </a></p>
-                <hr />
-                <p class="text-danger mb-2"><strong>Important Reminder:</strong></p>
-                <p>Please ensure that all required supporting documents (such as Invoice, Serial Number proof,) are uploaded to avoid any delays in verification and activation.</p>
-                <%--<div style="font-family: Arial, sans-serif; font-size: 14px; color: #333; line-height: 1.6; max-width: 600px;">
-                    <p>To ensure smooth verification and activation of your protection plan, please upload the following documents:</p>
-
-                    <ul>
-                        <li><strong>Purchase Invoice</strong>: Clearly showing the product details, date of purchase, and seller information.</li>
-                        <li><strong>IMEI Number / Serial Number Proof</strong>:
-                        <ul>
-                            <li><strong>For mobiles/tablets:</strong> IMEI number (can be found in device settings or on the box).</li>
-                            <li><strong>For appliances (e.g., AC, TV):</strong> Serial number (usually on a sticker on the device or packaging).</li>
-                        </ul>
-                        </li>
-                    </ul>
-
-                    <p style="color: #d9534f;"><strong>⚠️ Please ensure all documents are clear and legible. Incomplete or incorrect uploads may lead to delays in processing your plan.</strong></p>
-
-                    <p>Thank you for choosing our protection services.</p>
-                </div>--%>
             </div>
         </div>
 

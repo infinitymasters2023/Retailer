@@ -248,6 +248,93 @@
                             </div>
                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 pl-1">
                                 <div class="card mb-3 mx-0 mt-0 p-3" style="background: #8bd3e6;">
+                                    <asp:LinkButton runat="server" OnClick="SettledAmount_Click" CssClass="text-decoration-none text-dark">
+                                        <div class="card-body p-0">
+                                            <div class="float-right icon-circle-medium icon-box-lg bg-info-light mt-1">
+                                                <i class="fas fa-hand-holding-usd text-primary"></i>
+                                            </div>
+                                            <div class="d-inline-block">
+                                                <h5 class="text-muted">Settled Amount</h5>
+                                                <h2 class="mb-0">
+                                                    <asp:Label ID="lblSettledAmount" runat="server" Text="0"></asp:Label>
+                                                </h2>
+                                            </div>
+                                        </div>
+                                    </asp:LinkButton>
+                                    <button class="btn btn-view-details btn-block" runat="server" onserverclick="SettledAmount_Click">View Details <i class="fa fa-arrow-right mr-0">&nbsp;</i></button>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                                <div class="card bg-light-blue mb-3 mx-0 mt-0 p-3">
+                                    <asp:LinkButton runat="server" OnClick="UnsettledAmount_Click" CssClass="text-decoration-none text-dark">
+                                        <div class="card-body p-0">
+                                            <div class="float-right icon-circle-medium  icon-box-lg  bg-info-light mt-1">
+                                                <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none">
+                                                    <rect x="10" y="24" width="44" height="28" rx="4" fill="#4CAF50" stroke="#388E3C" stroke-width="2" />
+                                                    <rect x="10" y="20" width="44" height="10" rx="2" fill="#66BB6A" stroke="#388E3C" stroke-width="2" />
+                                                    <circle cx="48" cy="38" r="5" fill="#FFD54F" stroke="#FBC02D" stroke-width="2" />
+                                                    <text x="48" y="42" text-anchor="middle" font-size="10" font-family="Arial" fill="#555" font-weight="bold">Rs. </text>
+                                                    <path d="M32 10v16" stroke="#F57C00" stroke-width="4" stroke-linecap="round" />
+                                                    <path d="M26 20l6 6 6-6" fill="none" stroke="#F57C00" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg>
+                                            </div>
+                                            <div class="d-inline-block">
+                                                <h5 class="text-muted">Unsettled Amount</h5>
+                                                <h2 class="mb-0">
+                                                    <asp:Label ID="lblUnsettledAmount" runat="server" Text="0"></asp:Label>
+                                                </h2>
+                                            </div>
+                                        </div>
+                                    </asp:LinkButton>
+                                    <button class="btn btn-view-details btn-block" runat="server" onserverclick="UnsettledAmount_Click">View Details <i class="fa fa-arrow-right mr-0">&nbsp;</i></button>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 pl-1" runat="server" id="SettledGSTAmountPanel">
+                                <div class="card mb-3 mx-0 mt-0 p-3" style="background: #8bd3e6;">
+                                    <asp:LinkButton runat="server" OnClick="SettledGSTAmount_Click" CssClass="text-decoration-none text-dark">
+                                        <div class="card-body p-0">
+                                            <div class="float-right icon-circle-medium icon-box-lg bg-info-light mt-1">
+                                                <i class="fas fa-hand-holding-usd text-primary"></i>
+                                            </div>
+                                            <div class="d-inline-block">
+                                                <h5 class="text-muted">Settled GST Amount</h5>
+                                                <h2 class="mb-0">
+                                                    <asp:Label ID="lblSettledGSTAmount" runat="server" Text="0"></asp:Label>
+                                                </h2>
+                                            </div>
+                                        </div>
+                                    </asp:LinkButton>
+                                    <button class="btn btn-view-details btn-block" runat="server" onserverclick="SettledGSTAmount_Click">View Details <i class="fa fa-arrow-right mr-0">&nbsp;</i></button>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6" runat="server" id="UnsettledGSTAmountPanel">
+                                <div class="card bg-light-blue mb-3 mx-0 mt-0 p-3">
+                                    <asp:LinkButton runat="server" OnClick="UnsettledGSTAmount_Click" CssClass="text-decoration-none text-dark">
+                                        <div class="card-body p-0">
+                                            <div class="float-right icon-circle-medium  icon-box-lg  bg-info-light mt-1">
+                                                <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" fill="none">
+                                                    <rect x="10" y="24" width="44" height="28" rx="4" fill="#4CAF50" stroke="#388E3C" stroke-width="2" />
+                                                    <rect x="10" y="20" width="44" height="10" rx="2" fill="#66BB6A" stroke="#388E3C" stroke-width="2" />
+                                                    <circle cx="48" cy="38" r="5" fill="#FFD54F" stroke="#FBC02D" stroke-width="2" />
+                                                    <text x="48" y="42" text-anchor="middle" font-size="10" font-family="Arial" fill="#555" font-weight="bold">Rs. </text>
+                                                    <path d="M32 10v16" stroke="#F57C00" stroke-width="4" stroke-linecap="round" />
+                                                    <path d="M26 20l6 6 6-6" fill="none" stroke="#F57C00" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg>
+                                            </div>
+                                            <div class="d-inline-block">
+                                                <h5 class="text-muted">Unsettled GST Amount</h5>
+                                                <h2 class="mb-0">
+                                                    <asp:Label ID="lblUnsettledGSTAmount" runat="server" Text="0"></asp:Label>
+                                                </h2>
+                                            </div>
+                                        </div>
+                                    </asp:LinkButton>
+                                    <button class="btn btn-view-details btn-block" runat="server" onserverclick="UnsettledGSTAmount_Click">View Details <i class="fa fa-arrow-right mr-0">&nbsp;</i></button>
+                                </div>
+                            </div>
+                            
+                   <%--         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 pl-1">
+                                <div class="card mb-3 mx-0 mt-0 p-3" style="background: #8bd3e6;">
                                     <asp:LinkButton runat="server" OnClick="ApprovedAmount_Click" CssClass="text-decoration-none text-dark">
                                         <div class="card-body p-0">
                                             <div class="float-right icon-circle-medium icon-box-lg bg-info-light mt-1">
@@ -311,8 +398,8 @@
                                     </asp:LinkButton>
                                     <button class="btn btn-view-details btn-block" runat="server" onserverclick="UnderProcess_Click">View Details <i class="fa fa-arrow-right mr-0">&nbsp;</i></button>
                                 </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                            </div>--%>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 pl-1">
                                 <div class="card mb-3 mx-0 mt-0 p-3" style="background: #f7a5a5;">
                                     <asp:LinkButton runat="server" OnClick="PaymentFailed_Click" CssClass="text-decoration-none text-dark">
                                         <div class="card-body p-0">
@@ -337,7 +424,7 @@
                                     <button class="btn btn-view-details btn-block" runat="server" onserverclick="PaymentFailed_Click">View Details <i class="fa fa-arrow-right mr-0">&nbsp;</i></button>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 pl-1">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
                                 <div class="card mb-3 mx-0 mt-0 p-3" style="background: #c77c78;">
                                     <asp:LinkButton runat="server" OnClick="Penalty_Click" CssClass="text-decoration-none text-dark">
                                         <div class="card-body p-0">
@@ -369,7 +456,7 @@
                                     <button class="btn btn-view-details btn-block" runat="server" onserverclick="Penalty_Click">View Details <i class="fa fa-arrow-right mr-0">&nbsp;</i></button>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 pl-1">
                                 <div class="card bg-light-red mb-3 mx-0 mt-0 p-3">
                                     <asp:LinkButton runat="server" OnClick="CancellationCharges_Click" CssClass="text-decoration-none text-dark">
                                         <div class="card-body p-0">
@@ -453,7 +540,7 @@
                     <div class="col-md-3">
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" runat="server" visible="false">
                     <div class="col-md-12">
                         <asp:GridView ID="GvTransactionDetails" runat="server" AutoGenerateColumns="false" UseAccessibleHeader="true" HeaderStyle-CssClass="thead"
                             EmptyDataText="No records available. Please refine your search.">
@@ -463,9 +550,9 @@
                                         <asp:Label ID="lblSerial" runat="server" Text='<%# Container.DataItemIndex + 1 %>'></asp:Label>
                                     </ItemTemplate>
                                 </asp:TemplateField>
-                                <asp:BoundField DataField="Name" HeaderText="Sales Person Name" />
-                                <asp:BoundField DataField="emailID" HeaderText="Sales Person Email Id" />
-                                <asp:BoundField DataField="MobileNo" HeaderText="Sales Person Mobile No" />
+                                <asp:BoundField DataField="Name" HeaderText="Sales Executive Name" />
+                                <asp:BoundField DataField="emailID" HeaderText="Sales Executive Email Id" />
+                                <asp:BoundField DataField="MobileNo" HeaderText="Sales Executive Mobile No" />
                                 <asp:BoundField DataField="CustomerName" HeaderText="Customer Name" />
                                 <asp:BoundField DataField="MobileNo" HeaderText="Mobile No" />
                                 <asp:BoundField DataField="EmailIDAddress" HeaderText="Email Id" />

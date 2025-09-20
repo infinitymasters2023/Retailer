@@ -9,11 +9,18 @@
             }
         }, 500);
     </script>
+    <style>
+        #<%= GvSalePerson.ClientID %> td {
+             text-wrap-mode: nowrap;
+            word-wrap: break-word;
+        }
+    </style>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="card px-4 pt-3">
         <div class="btn-group">
-            <a class="btn btn-primary" href="CreateSalesPerson.aspx"><i class="fa fa-plus"></i>&nbsp  Add Sales Person</a>
+            <a class="btn btn-primary" href="CreateSalesPerson.aspx"><i class="fa fa-plus"></i>&nbsp  Add Sales Executive</a>
         </div>
     </div>
     <div class="card">

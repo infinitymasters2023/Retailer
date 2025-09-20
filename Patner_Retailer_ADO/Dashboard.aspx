@@ -402,6 +402,8 @@
                     </div>
                 </div>
                 <div class="row dashboard" id="mainpanal" runat="server">
+
+
                     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
                         <div class="card mb-3 mx-0 mt-0 p-3">
                             <asp:LinkButton runat="server" OnClick="TotalEarning_Click" CssClass="text-decoration-none text-dark">
@@ -489,6 +491,10 @@
                             <button class="btn btn-view-details btn-block" runat="server" onserverclick="InProcess_Click">View Details <i class="fa fa-arrow-right mr-0">&nbsp;</i></button>
                         </div>
                     </div>
+
+                    <%--Commision Slab--%>
+
+
                     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
                         <div class="card mb-3 mx-0 mt-0 p-3">
                             <asp:LinkButton runat="server" OnClick="PlanUnderApproval_Click" CssClass="text-decoration-none text-dark">
@@ -656,6 +662,100 @@
                             <button class="btn btn-view-details btn-block" runat="server" onserverclick="Refund_Click">View Details <i class="fa fa-arrow-right mr-0">&nbsp;</i></button>
                         </div>
                     </div>
+
+
+                   <%-- <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="card mb-3 mx-0 mt-0 p-3">
+                            <asp:LinkButton runat="server" OnClick="BaseMargin_Click" CssClass="text-decoration-none text-dark">
+                                <div class="card-body align-items-center gap-3 p-0">
+                                    <div class="float-right icon-circle-medium  icon-box-lg mt-1" style="background: rgba(60, 128, 151, 0.78);">
+                                        <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6 3h12"></path><path d="M6 8h12"></path>
+                                            <path d="m6 13 8.5 8"></path>
+                                            <path d="M6 13h3"></path>
+                                            <path d="M9 13c6.667 0 6.667-10 0-10"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="d-inline-block">
+                                        <h5 class="text-muted">Base Margin(Total Selles/ Add More / Addition Commision)</h5>
+                                        <h2 class="mb-0">
+                                            <asp:Label ID="lblBaseMarginSelles" runat="server" Text="0"></asp:Label>/
+                           <asp:Label ID="lblBaseMarginAddMore" runat="server" Text="0"></asp:Label>/
+                           <asp:Label ID="lblBaseMarginCommision" runat="server" Text="0"></asp:Label>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </asp:LinkButton>
+                            <button class="btn btn-view-details btn-block" runat="server" onserverclick="BaseMargin_Click">View Details <i class="fa fa-arrow-right mr-0">&nbsp;</i></button>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 pl-lg-0">
+                        <div class="card mb-3 mx-0 mt-0 p-3">
+                            <asp:LinkButton runat="server" OnClick="NoClaimBonus_Click" CssClass="text-decoration-none text-dark">
+                                <div class="card-body align-items-center gap-3 p-0">
+                                    <div class="float-right icon-circle-medium  icon-box-lg mt-1" style="background: rgb(108, 69, 191);">
+                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M396.8 352h22.4c6.4 0 12.8-6.4 12.8-12.8V108.8c0-6.4-6.4-12.8-12.8-12.8h-22.4c-6.4 0-12.8 6.4-12.8 12.8v230.4c0 6.4 6.4 12.8 12.8 12.8zm-192 0h22.4c6.4 0 12.8-6.4 12.8-12.8V140.8c0-6.4-6.4-12.8-12.8-12.8h-22.4c-6.4 0-12.8 6.4-12.8 12.8v198.4c0 6.4 6.4 12.8 12.8 12.8zm96 0h22.4c6.4 0 12.8-6.4 12.8-12.8V204.8c0-6.4-6.4-12.8-12.8-12.8h-22.4c-6.4 0-12.8 6.4-12.8 12.8v134.4c0 6.4 6.4 12.8 12.8 12.8zM496 400H48V80c0-8.84-7.16-16-16-16H16C7.16 64 0 71.16 0 80v336c0 17.67 14.33 32 32 32h464c8.84 0 16-7.16 16-16v-16c0-8.84-7.16-16-16-16zm-387.2-48h22.4c6.4 0 12.8-6.4 12.8-12.8v-70.4c0-6.4-6.4-12.8-12.8-12.8h-22.4c-6.4 0-12.8 6.4-12.8 12.8v70.4c0 6.4 6.4 12.8 12.8 12.8z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="d-inline-block">
+                                        <h5 class="text-muted">No Claim Bonus(Bonos value/ Nos./ Rs.)</h5>
+                                        <h2 class="mb-0">
+                                            <asp:Label ID="lblNCBValue" runat="server" Text="0"></asp:Label>/
+                           <asp:Label ID="lblNCBNo" runat="server" Text="0"></asp:Label>/
+                           <asp:Label ID="lblNCBRs" runat="server" Text="0"></asp:Label>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </asp:LinkButton>
+                            <button class="btn btn-view-details btn-block" runat="server" onserverclick="NoClaimBonus_Click">View Details <i class="fa fa-arrow-right mr-0">&nbsp;</i></button>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 pl-lg-0">
+                        <div class="card mb-3 mx-0 mt-0 p-3">
+                            <asp:LinkButton runat="server" OnClick="EWMargin_Click" CssClass="text-decoration-none text-dark">
+                                <div class="card-body align-items-center gap-3 p-0">
+                                    <div class="float-right icon-circle-medium  icon-box-lg mt-1" style="background: rgba(217, 186, 28, 0.84);">
+                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="35px" width="200px" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M16 12h2v4h-2z"></path>
+                                            <path d="M20 7V5c0-1.103-.897-2-2-2H5C3.346 3 2 4.346 2 6v12c0 2.201 1.794 3 3 3h15c1.103 0 2-.897 2-2V9c0-1.103-.897-2-2-2zM5 5h13v2H5a1.001 1.001 0 0 1 0-2zm15 14H5.012C4.55 18.988 4 18.805 4 18V8.815c.314.113.647.185 1 .185h15v10z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="d-inline-block">
+                                        <h5 class="text-muted">EW Margin (Nos./ Rs.)</h5>
+                                        <h2 class="mb-0">
+                                            <asp:Label ID="lblEWMarginNo" runat="server" Text="0"></asp:Label>/
+                           <asp:Label ID="lblEWMarginRs" runat="server" Text="0"></asp:Label>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </asp:LinkButton>
+                            <button class="btn btn-view-details btn-block" runat="server" onserverclick="EWMargin_Click">View Details <i class="fa fa-arrow-right mr-0">&nbsp;</i></button>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 pl-lg-0">
+                        <div class="card mb-3 mx-0 mt-0 p-3">
+                            <asp:LinkButton runat="server" OnClick="Incentive_Click" CssClass="text-decoration-none text-dark">
+                                <div class="card-body align-items-center gap-3 p-0">
+                                    <div class="float-right icon-circle-medium  icon-box-lg mt-1" style="background: rgba(217, 186, 28, 0.84);">
+                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="35px" width="200px" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M16 12h2v4h-2z"></path>
+                                            <path d="M20 7V5c0-1.103-.897-2-2-2H5C3.346 3 2 4.346 2 6v12c0 2.201 1.794 3 3 3h15c1.103 0 2-.897 2-2V9c0-1.103-.897-2-2-2zM5 5h13v2H5a1.001 1.001 0 0 1 0-2zm15 14H5.012C4.55 18.988 4 18.805 4 18V8.815c.314.113.647.185 1 .185h15v10z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="d-inline-block">
+                                        <h5 class="text-muted">Incentive (Selles Rs/ Incentive Rs.)</h5>
+                                        <h2 class="mb-0">
+                                            <asp:Label ID="lblIncentiveSellesRs" runat="server" Text="0"></asp:Label>/
+                           <asp:Label ID="IncentiveRs" runat="server" Text="0"></asp:Label>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </asp:LinkButton>
+                            <button class="btn btn-view-details btn-block" runat="server" onserverclick="Incentive_Click">View Details <i class="fa fa-arrow-right mr-0">&nbsp;</i></button>
+                        </div>
+                    </div>--%>
+
                 </div>
             </div>
         </div>

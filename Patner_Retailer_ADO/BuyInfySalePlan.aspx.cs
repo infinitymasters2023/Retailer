@@ -29,7 +29,7 @@ namespace Patner_Retailer_ADO
         {
             if (Session["MobileNo"] == null)
             {
-                Response.Redirect("Login.aspx");
+                Response.Redirect("index.aspx");
                 return;
             }
             if (!IsPostBack)
@@ -485,6 +485,7 @@ namespace Patner_Retailer_ADO
                 cmd.Parameters.AddWithValue("@subcatgId", ddlsubcatg.SelectedValue);
                 cmd.Parameters.AddWithValue("@ProductPrice", txtPrice.Text.ToString());
                 cmd.Parameters.AddWithValue("@SubProductType", ddlProductSubType.SelectedValue);
+                cmd.Parameters.AddWithValue("@ProductPurchaseDate", !string.IsNullOrWhiteSpace(txtPurchaseDate.Text) ? Convert.ToDateTime(txtPurchaseDate.Text.ToString()) : DateTime.Now);
                 cmd.Parameters.AddWithValue("@ProfileId", Session["RetailerUniqueID"].ToString());
 
                 if (con.State != ConnectionState.Open)

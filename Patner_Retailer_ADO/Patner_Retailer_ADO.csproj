@@ -64,6 +64,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\paytm.dll</HintPath>
     </Reference>
+    <Reference Include="PdfSharp, Version=6.2.1.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Amaan\Desktop\PdfSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -91,6 +95,7 @@
     <Content Include="AddDealer.aspx" />
     <Content Include="AddDocument.aspx" />
     <Content Include="AddEditFavourite.aspx" />
+    <Content Include="AdditionalMargin.aspx" />
     <Content Include="assets\css\bootstrap.min.css" />
     <Content Include="assets\css\jquery.multiselect.css" />
     <Content Include="assets\css\signup.css" />
@@ -105,6 +110,10 @@
     <Content Include="assets\images\card-img-2.jpg" />
     <Content Include="assets\images\card-img-3.jpg" />
     <Content Include="assets\images\card-img.jpg" />
+    <Content Include="assets\images\cities.png" />
+    <Content Include="assets\images\claim-process.png" />
+    <Content Include="assets\images\claim-sattled.png" />
+    <Content Include="assets\images\combinedlogo.png" />
     <Content Include="assets\images\Comingsoon.png" />
     <Content Include="assets\images\down-arrow.png" />
     <Content Include="assets\images\drag-indicator.png" />
@@ -119,20 +128,29 @@
     <Content Include="assets\images\eco-slider-img-3.png" />
     <Content Include="assets\images\error-img.png" />
     <Content Include="assets\images\github.png" />
+    <Content Include="assets\images\hero-illustration.png" />
+    <Content Include="assets\images\Idea.png" />
     <Content Include="assets\images\infinity-logo.png" />
     <Content Include="assets\images\Infyshield-logo.png" />
     <Content Include="assets\images\LinkExpired.jpg" />
     <Content Include="assets\images\loader.svg" />
     <Content Include="assets\images\logo.png" />
     <Content Include="assets\images\mail_chimp.png" />
+    <Content Include="assets\images\omni-channel.png" />
+    <Content Include="assets\images\pincode-covers.png" />
     <Content Include="assets\images\product-pic-2.jpg" />
     <Content Include="assets\images\product-pic-3.jpg" />
     <Content Include="assets\images\product-pic-4.jpg" />
     <Content Include="assets\images\product-pic.jpg" />
     <Content Include="assets\images\refer.png" />
     <Content Include="assets\images\Retailersupport.png" />
+    <Content Include="assets\images\Rupee.png" />
+    <Content Include="assets\images\sales-partner.png" />
+    <Content Include="assets\images\service-network.png" />
+    <Content Include="assets\images\Shopping cart.png" />
     <Content Include="assets\images\slack.png" />
     <Content Include="assets\images\social-share.png" />
+    <Content Include="assets\images\Supply chain.png" />
     <Content Include="assets\images\switch.png" />
     <Content Include="assets\libs\css\style.css" />
     <Content Include="assets\libs\js\dashboard-ecommerce.js" />
@@ -498,9 +516,11 @@
     <Content Include="assets\vendor\timeline\img\cd-icon-picture.svg" />
     <Content Include="assets\vendor\timeline\js\main.js" />
     <Content Include="assets\vendor\vector-map\jqvmap.css" />
+    <Content Include="BaseMargin.aspx" />
     <Content Include="BuyInfySalePlan.aspx" />
     <Content Include="CartDetails.aspx" />
     <Content Include="ClaimList.aspx" />
+    <Content Include="CommissionDetails.aspx" />
     <Content Include="CreateAnAccount.aspx" />
     <Content Include="CreateSalesPerson.aspx" />
     <Content Include="Dashboard.aspx" />
@@ -508,10 +528,22 @@
     <Content Include="EmailTemplateFormat\CustomerPurchase.html" />
     <Content Include="EmailTemplateFormat\RetailerPurchase.html" />
     <Content Include="EmailTemplateFormat\SignUp.html" />
+    <Content Include="EWMargin.aspx" />
     <Content Include="FAQ.aspx" />
     <Content Include="Favourite.aspx" />
     <Content Include="Feedback.aspx" />
     <Content Include="HowItWorks.aspx" />
+    <Content Include="Incentive.aspx" />
+    <Content Include="Incentive_Dashboard.aspx" />
+    <Content Include="Index.aspx" />
+    <Content Include="NoClaimBonus.aspx" />
+    <Content Include="PhonePay\PaymentCallback.aspx" />
+    <Content Include="PhonePay\PhonePeTest.aspx" />
+    <Content Include="ProductPriceBand.aspx" />
+    <Content Include="SalesExecutiveEarning.aspx" />
+    <Content Include="terms-and-conditions.html" />
+    <Content Include="privacy-policy.html" />
+    <Content Include="refund.html" />
     <Content Include="InCompletePurchased.aspx" />
     <Content Include="InvalidLink.aspx" />
     <Content Include="Login.aspx" />
@@ -526,6 +558,7 @@
     <Content Include="RegistrationDetails.aspx" />
     <Content Include="ReportedClaims.aspx" />
     <Content Include="Reports.aspx" />
+    <Content Include="RequestfromSalesperson.aspx" />
     <Content Include="RetailerAddURL.aspx" />
     <Content Include="RetailerBuyInfySalePlan.aspx" />
     <Content Include="RetailerCartDetails.aspx" />
@@ -568,6 +601,20 @@
     <Compile Include="AddEditFavourite.aspx.designer.cs">
       <DependentUpon>AddEditFavourite.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AdditionalMargin.aspx.cs">
+      <DependentUpon>AdditionalMargin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdditionalMargin.aspx.designer.cs">
+      <DependentUpon>AdditionalMargin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BaseMargin.aspx.cs">
+      <DependentUpon>BaseMargin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BaseMargin.aspx.designer.cs">
+      <DependentUpon>BaseMargin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BuyInfySalePlan.aspx.cs">
       <DependentUpon>BuyInfySalePlan.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -588,6 +635,13 @@
     </Compile>
     <Compile Include="ClaimList.aspx.designer.cs">
       <DependentUpon>ClaimList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CommissionDetails.aspx.cs">
+      <DependentUpon>CommissionDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CommissionDetails.aspx.designer.cs">
+      <DependentUpon>CommissionDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="CreateAnAccount.aspx.cs">
       <DependentUpon>CreateAnAccount.aspx</DependentUpon>
@@ -617,6 +671,13 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="EWMargin.aspx.cs">
+      <DependentUpon>EWMargin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EWMargin.aspx.designer.cs">
+      <DependentUpon>EWMargin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FAQ.aspx.cs">
       <DependentUpon>FAQ.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -645,12 +706,33 @@
     <Compile Include="HowItWorks.aspx.designer.cs">
       <DependentUpon>HowItWorks.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Incentive.aspx.cs">
+      <DependentUpon>Incentive.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Incentive.aspx.designer.cs">
+      <DependentUpon>Incentive.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Incentive_Dashboard.aspx.cs">
+      <DependentUpon>Incentive_Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Incentive_Dashboard.aspx.designer.cs">
+      <DependentUpon>Incentive_Dashboard.aspx</DependentUpon>
+    </Compile>
     <Compile Include="InCompletePurchased.aspx.cs">
       <DependentUpon>InCompletePurchased.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="InCompletePurchased.aspx.designer.cs">
       <DependentUpon>InCompletePurchased.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
     <Compile Include="InvalidLink.aspx.cs">
       <DependentUpon>InvalidLink.aspx</DependentUpon>
@@ -680,6 +762,13 @@
     <Compile Include="MyOffer.aspx.designer.cs">
       <DependentUpon>MyOffer.aspx</DependentUpon>
     </Compile>
+    <Compile Include="NoClaimBonus.aspx.cs">
+      <DependentUpon>NoClaimBonus.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="NoClaimBonus.aspx.designer.cs">
+      <DependentUpon>NoClaimBonus.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Passbook.aspx.cs">
       <DependentUpon>Passbook.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -694,12 +783,33 @@
     <Compile Include="PaymentConfirmation.aspx.designer.cs">
       <DependentUpon>PaymentConfirmation.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PhonePay\PaymentCallback.aspx.cs">
+      <DependentUpon>PaymentCallback.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PhonePay\PaymentCallback.aspx.designer.cs">
+      <DependentUpon>PaymentCallback.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PhonePay\PhonePeTest.aspx.cs">
+      <DependentUpon>PhonePeTest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PhonePay\PhonePeTest.aspx.designer.cs">
+      <DependentUpon>PhonePeTest.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ProductInformation.aspx.cs">
       <DependentUpon>ProductInformation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ProductInformation.aspx.designer.cs">
       <DependentUpon>ProductInformation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProductPriceBand.aspx.cs">
+      <DependentUpon>ProductPriceBand.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProductPriceBand.aspx.designer.cs">
+      <DependentUpon>ProductPriceBand.aspx</DependentUpon>
     </Compile>
     <Compile Include="Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
@@ -751,6 +861,13 @@
     <Compile Include="Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
     </Compile>
+    <Compile Include="RequestfromSalesperson.aspx.cs">
+      <DependentUpon>RequestfromSalesperson.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RequestfromSalesperson.aspx.designer.cs">
+      <DependentUpon>RequestfromSalesperson.aspx</DependentUpon>
+    </Compile>
     <Compile Include="RetailerAddURL.aspx.cs">
       <DependentUpon>RetailerAddURL.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -778,6 +895,13 @@
     </Compile>
     <Compile Include="RetailerPaymentConfirmation.aspx.designer.cs">
       <DependentUpon>RetailerPaymentConfirmation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SalesExecutiveEarning.aspx.cs">
+      <DependentUpon>SalesExecutiveEarning.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SalesExecutiveEarning.aspx.designer.cs">
+      <DependentUpon>SalesExecutiveEarning.aspx</DependentUpon>
     </Compile>
     <Compile Include="SalesPersonSalesReport.aspx.cs">
       <DependentUpon>SalesPersonSalesReport.aspx</DependentUpon>
@@ -888,6 +1012,7 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

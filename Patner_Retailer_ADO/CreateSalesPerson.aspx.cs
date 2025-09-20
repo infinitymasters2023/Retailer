@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -1564,6 +1565,8 @@ namespace Patner_Retailer_ADO
                     decoded = qu;
                 }
                 bool AccountNumber = AccountNumberValidation(txtAccount.Text, decoded);
+                txtAccount.Text = txtAccount.Text;
+                txtAccount.Attributes["value"] = txtAccount.Text;
             }
             catch (Exception ex)
             {
@@ -1604,6 +1607,259 @@ namespace Patner_Retailer_ADO
             }
         }
 
+        protected void CreateTicket()
+        {
+            try
+            {
+                string mobile = Session["MobileNo1"] != null ? Session["MobileNo1"].ToString() : "";
+                if (!string.IsNullOrWhiteSpace(mobile) && mobile == txtMobile.Text.Trim())
+                {
+                    return;
+                }
+                else
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@type", 90);
+                        cmd.Parameters.AddWithValue("@PlanID", "1");
+                        cmd.Parameters.AddWithValue("@ProCat", "3");
+                        cmd.Parameters.AddWithValue("@userID", Session["UniqueMid"] != null ? Session["UniqueMid"].ToString() : "");
+
+                        cmd.Parameters.AddWithValue("@customername", txtFirstName.Text);
+                        cmd.Parameters.AddWithValue("@addressline1", txtCommAddress.Text);
+                        cmd.Parameters.AddWithValue("@addressline2", "");
+                        cmd.Parameters.AddWithValue("@addressline3", "");
+                        cmd.Parameters.AddWithValue("@city", txtCity.Text);
+                        cmd.Parameters.AddWithValue("@state", txtState.Text);
+                        cmd.Parameters.AddWithValue("@pincode", txtPIN.Text);
+                        cmd.Parameters.AddWithValue("@mobileno", txtMobile.Text);
+                        cmd.Parameters.AddWithValue("@emailidaddress", txtEmail.Text);
+                        cmd.Parameters.AddWithValue("@productID", "22");
+                        cmd.Parameters.AddWithValue("@ProductSubCatgID", "222");
+                        cmd.Parameters.AddWithValue("@brand", "Bluestar");
+                        cmd.Parameters.AddWithValue("@serialno", "98419812002132165149");
+                        cmd.Parameters.AddWithValue("@model", "Bluestar");
+                        cmd.Parameters.AddWithValue("@purchasefrom_productdetails", "");
+                        cmd.Parameters.AddWithValue("@invoiceno_productdetails", "");
+                        cmd.Parameters.AddWithValue("@invoicedate_productdetails", DateTime.Now.ToString("MM/dd/yyyy"));
+                        cmd.Parameters.AddWithValue("@invoiceamount_productdetails", "60000");
+                        cmd.Parameters.AddWithValue("@manufacturewarrantystartdate", DateTime.Now.ToString("MM/dd/yyyy"));
+                        cmd.Parameters.AddWithValue("@manufacturewarrantyenddate", DateTime.Now.AddYears(1).AddDays(-1).ToString("MM/dd/yyyy"));
+                        cmd.Parameters.AddWithValue("@extendedwarrantystartdate", DateTime.Now.ToString("MM/dd/yyyy"));
+                        cmd.Parameters.AddWithValue("@extendedwarrantyenddate", DateTime.Now.AddYears(1).AddDays(-1).ToString("MM/dd/yyyy"));
+                        cmd.Parameters.AddWithValue("@adpstartdate", DateTime.Now.ToString("MM/dd/yyyy"));
+                        cmd.Parameters.AddWithValue("@adpenddate", DateTime.Now.AddYears(1).AddDays(-1).ToString("MM/dd/yyyy"));
+                        cmd.Parameters.AddWithValue("@Status", "Under Approval");
+                        cmd.Parameters.AddWithValue("@ClientID", "1479");
+                        cmd.Parameters.AddWithValue("@warrnatyYear", "1");
+                        cmd.Parameters.AddWithValue("@WarrantyMonth", "0");
+                        cmd.Parameters.AddWithValue("@WarrantyDay", "0");
+                        cmd.Parameters.AddWithValue("@ProSubcatID", "46");
+                        cmd.Parameters.AddWithValue("@ContactPerson", txtFirstName.Text);
+                        cmd.Parameters.AddWithValue("@Make", "Bluestar");
+                        cmd.Parameters.AddWithValue("@ProductPincode", "0");
+                        cmd.Parameters.AddWithValue("@BalSumAssured", "0.00");
+                        cmd.Parameters.AddWithValue("@SumAssured", "60000.00");
+                        cmd.Parameters.AddWithValue("@IsDelete", "0");
+                        cmd.Parameters.AddWithValue("@ProjectId", "65");
+
+                        //  Service Calls Table
+                        cmd.Parameters.AddWithValue("@ProblemNo", "1");
+                        cmd.Parameters.AddWithValue("@CallSource", "19");
+                        cmd.Parameters.AddWithValue("@CallPriority", "1");
+                        cmd.Parameters.AddWithValue("@CallTypes", "18");
+                        cmd.Parameters.AddWithValue("@ServiceType", "10");
+                        cmd.Parameters.AddWithValue("@Symptoms", "0");
+                        cmd.Parameters.AddWithValue("@ProblemReported", "Partner Registration Inquiry");
+                        cmd.Parameters.AddWithValue("@Charges", "0");
+                        cmd.Parameters.AddWithValue("@InfinityRemarks", "Partner Registration Inquiry");
+                        cmd.Parameters.AddWithValue("@CallAction", "201");
+                        cmd.Parameters.AddWithValue("@CallStatus", "19");
+                        cmd.Parameters.AddWithValue("@ClaimReportedDate", DateTime.Now.ToString("MM/dd/yyyy"));
+                        cmd.Parameters.AddWithValue("@ClaimReportedTime", DateTime.Now.ToString("hh:mm tt"));
+                        cmd.Parameters.AddWithValue("@DeviceSwitchingOn", "2");
+                        cmd.Parameters.AddWithValue("@SurverMailStatus", "No");
+                        cmd.Parameters.AddWithValue("@lastupdateDate", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@CallactionDate", DateTime.Now.ToString("MM/dd/yyyy"));
+                        cmd.Parameters.AddWithValue("@CallActionTime", DateTime.Now.ToString("hh:mm tt"));
+                        cmd.Parameters.AddWithValue("@NextActionDate", DateTime.Now.ToString("MM/dd/yyyy"));
+                        cmd.Parameters.AddWithValue("@NextActionTime", DateTime.Now.ToString("hh:mm tt"));
+                        cmd.Parameters.AddWithValue("@lastupdatedby", "System Generated / Updated by System");
+                        cmd.Parameters.AddWithValue("@claimstatus", "Open");
+
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+
+                        if (dt.Rows.Count > 0)
+                        {
+                            string resultMessage = dt.Rows[0]["ResultMessage"]?.ToString() ?? string.Empty;
+                            if (resultMessage.Contains("already available"))
+                            {
+                                //lblMessage.Text = "Retailer is already registered with this mobile number.";
+                                //lblMessage.ForeColor = System.Drawing.Color.Red;
+                                return;
+                            }
+                            else
+                            {
+                                //lblMessage.Text = "Registration successful.";
+                                //lblMessage.ForeColor = System.Drawing.Color.Green;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        protected void UploadDocumentTicket(int insertedMid)
+        {
+            try
+            {
+                if (ViewState["DocumentData"] != null)
+                {
+                    DataTable dt = (DataTable)ViewState["DocumentData"];
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        string docName = row["DocumentName"].ToString();
+                        string docNumber = row["DocumentNumber"].ToString();
+                        string status = row["Status"].ToString();
+                        string size = row["Size"].ToString();
+                        string DocumentPath = row["DocumentPath"].ToString();
+                        string DocId = row["DocId"].ToString();
+
+                        UploadImage1(docName, DocId, DocumentPath, insertedMid);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        protected void UploadImage1(string docName, string docId, string tempFileName, int insertedMid)
+        {
+            try
+            {
+                string basePath = ConfigurationManager.AppSettings["FilePath3"];
+                string ticketNo = GetTicketno(txtMobile.Text != null ? txtMobile.Text.ToString() : "");
+                string yy = DateTime.Now.Year.ToString();
+                string mn = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.Now.Month);
+
+                string targetFolder = Path.Combine(basePath, "InfyShield", yy, mn);
+                if (!Directory.Exists(targetFolder))
+                    Directory.CreateDirectory(targetFolder);
+
+                string fileExtension = Path.GetExtension(tempFileName);
+                string sanitizedFileName = SanitizeFileName(docName).Replace(" ", "_");
+                string fn = ticketNo.Replace("/", "") + "InfyShield" + sanitizedFileName + fileExtension;
+                string sourcePath = Server.MapPath("~/UploadedDocuments/") + tempFileName;
+                string destPath = Path.Combine(targetFolder, fn);
+                if (System.IO.File.Exists(sourcePath))
+                {
+                    System.IO.File.Copy(sourcePath, destPath, true);
+                }
+                UploadDocuemt("0", docId, "InfyShield/" + yy + "/" + mn + "/" + fn, insertedMid);
+                //lblMessage.Text = "Document uploaded and saved successfully!";
+            }
+            catch (Exception ex)
+            {
+                //lblMessage.Text = "Upload failed: " + ex.Message;
+            }
+        }
+
+
+        private string SanitizeFileName(string fileName)
+        {
+            string pattern = "[^a-zA-Z0-9-_\\. ]";
+            string sanitizedFileName = Regex.Replace(fileName, pattern, "");
+
+            return sanitizedFileName;
+        }
+        protected void UploadDocuemt(string mid, string documentNumber, string documentPath, int insertedMid)
+        {
+            try
+            {
+                string ticketNo = GetTicketno(txtMobile.Text != null ? txtMobile.Text.ToString() : "");
+                if (!string.IsNullOrWhiteSpace(ticketNo))
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@type", 94);
+                        cmd.Parameters.AddWithValue("@Mid", mid);
+                        cmd.Parameters.AddWithValue("@ticketno", ticketNo);
+                        cmd.Parameters.AddWithValue("@documentNumber", documentNumber);
+                        cmd.Parameters.AddWithValue("@DocumentPath", documentPath);
+                        cmd.Parameters.AddWithValue("@CreatedBy", txtFirstName.Text);
+                        cmd.Parameters.AddWithValue("@insertedMid", insertedMid);
+                        cmd.Parameters.AddWithValue("@UserRole", Session["Role"] != null ? Session["Role"].ToString() : "");
+
+                        if (con.State != ConnectionState.Open)
+                            con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(this, ex.Message);
+                return;
+            }
+        }
+
+        protected string GetTicketno(string mobileNo)
+        {
+            string ticketNo = string.Empty;
+            using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@type", 92);
+                cmd.Parameters.AddWithValue("@mobileno", mobileNo);
+
+                if (con.State != ConnectionState.Open)
+                    con.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        ticketNo = reader["TicketNO"] != DBNull.Value ? reader["TicketNO"].ToString() : string.Empty;
+                    }
+                }
+                con.Close();
+            }
+            return ticketNo;
+        }
+        protected void UpdateRetailerSKU()
+        {
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@type", 93);
+                    cmd.Parameters.AddWithValue("@mobileno", txtMobile.Text != null ? txtMobile.Text.ToString() : "");
+
+                    if (con.State != ConnectionState.Open)
+                        con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch
+            {
+                return;
+            }
+        }
 
     }
 }

@@ -271,9 +271,9 @@
                                 <asp:BoundField DataField="CommissionTaxValue" HeaderText="Retailer Commision Tax(18%)" DataFormatString="Rs. {0:N2}" HtmlEncode="false" />
                                 <asp:BoundField DataField="TotalAmountPay" HeaderText="Total Amount Pay" DataFormatString="Rs. {0:N2}" HtmlEncode="false" />
                                 <asp:BoundField DataField="PaymentDate" HeaderText="Payment Date" DataFormatString="{0:dd-MM-yyyy}" />
-                                <asp:BoundField DataField="Name" HeaderText="Sales Person Name" />
-                                <asp:BoundField DataField="emailID" HeaderText="Sales Person Email Id" />
-                                <asp:BoundField DataField="MobileNo" HeaderText="Sales Person Mobile No" />
+                                <asp:BoundField DataField="Name" HeaderText="Sales Executive Name" />
+                                <asp:BoundField DataField="emailID" HeaderText="Sales Executive Email Id" />
+                                <asp:BoundField DataField="MobileNo" HeaderText="Sales Executive Mobile No" />
                                 <asp:BoundField DataField="CustomerName" HeaderText="Customer Name" />
                                 <asp:BoundField DataField="MobileNo" HeaderText="Mobile No" />
                                 <asp:BoundField DataField="EmailIDAddress" HeaderText="Email Id" />

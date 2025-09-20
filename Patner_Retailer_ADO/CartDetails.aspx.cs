@@ -42,8 +42,16 @@ namespace Patner_Retailer_ADO
                 {
                     BindCustomerInfo();
                 }
+                if (!string.IsNullOrWhiteSpace(mes) && mes == "Requestfromsalesperson")
+                {
+                    BindCustomerInfo(); 
+                }
                 BindProductInfo();
                 BindOrderSummary();
+                if(Session["Role"] != null && Session["Role"].ToString() == "Agent")
+                {
+                    btnContinuePayment.Text = "Request to Retailer";
+                }    
             }
         }
 
@@ -467,7 +475,16 @@ namespace Patner_Retailer_ADO
                 {
                     return;
                 }
-                bool payment = AddPayment();
+                bool payment = false;
+                if (Session["Role"] != null && Session["Role"].ToString() == "Agent")
+                {
+                    RequestToRetailerIncomepltePurchase();
+                    payment = AddPaymentSalesPerson();
+                }
+                else
+                {
+                    payment = AddPayment();
+                }
                 if (payment)
                 {
                     using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
@@ -496,21 +513,21 @@ namespace Patner_Retailer_ADO
                         cmd.Parameters.AddWithValue("@TaxableValue", TaxableValue.InnerText.Replace("Rs. ", "").Replace(",", "").Trim());
                         cmd.Parameters.AddWithValue("@TaxAmout", TaxAmout.InnerText.Replace("Rs. ", "").Replace(",", "").Trim());
                         cmd.Parameters.AddWithValue("@TotalAmountPay", TotalAmountPay.InnerText.Replace("Rs. ", "").Replace(",", "").Trim());
-                        if (Commossiontag.InnerText.Contains("%"))
-                        {
-                            cmd.Parameters.AddWithValue("@CommissionType", "Percantage");
-                            cmd.Parameters.AddWithValue("@CommissionValue", "0");
-                            cmd.Parameters.AddWithValue("@CommissionPercentage", ViewState["CommissionPercantage"] != null ? ViewState["CommissionPercantage"].ToString() : "0");
-                        }
-                        else
-                        {
-                            cmd.Parameters.AddWithValue("@CommissionType", "Value");
-                            cmd.Parameters.AddWithValue("@CommissionValue", CommisionValue.InnerText.Replace("Rs. ", "").Replace(",", "").Replace("-", "").Trim());
-                            cmd.Parameters.AddWithValue("@CommissionPercentage", "0");
-                        }
-                        cmd.Parameters.AddWithValue("@GSTCommissionValue", "");
-                        cmd.Parameters.AddWithValue("@GSTCommissionPercentage", "18");
-                        cmd.Parameters.AddWithValue("@GSTCommissionPaid", "No");
+                        //if (Commossiontag.InnerText.Contains("%"))
+                        //{
+                        //    cmd.Parameters.AddWithValue("@CommissionType", "Percantage");
+                        //    cmd.Parameters.AddWithValue("@CommissionValue", "0");
+                        //    cmd.Parameters.AddWithValue("@CommissionPercentage", ViewState["CommissionPercantage"] != null ? ViewState["CommissionPercantage"].ToString() : "0");
+                        //}
+                        //else
+                        //{
+                        //    cmd.Parameters.AddWithValue("@CommissionType", "Value");
+                        //    cmd.Parameters.AddWithValue("@CommissionValue", CommisionValue.InnerText.Replace("Rs. ", "").Replace(",", "").Replace("-", "").Trim());
+                        //    cmd.Parameters.AddWithValue("@CommissionPercentage", "0");
+                        //}
+                        //cmd.Parameters.AddWithValue("@GSTCommissionValue", "");
+                        //cmd.Parameters.AddWithValue("@GSTCommissionPercentage", "18");
+                        //cmd.Parameters.AddWithValue("@GSTCommissionPaid", "No");
                         cmd.Parameters.AddWithValue("@TranStatus", "Pending");
                         cmd.Parameters.AddWithValue("@PaymentDate", DateTime.Now);
                         cmd.Parameters.AddWithValue("@OrderId", "");
@@ -524,17 +541,27 @@ namespace Patner_Retailer_ADO
                         if (paymentType)
                         {
                             //Commision
-                            //ViewState["ItemPrice"] = TotalAmountPay.InnerText.Replace("Rs. ", "").Replace(",", "").Trim();
-                            ViewState["ItemPrice"] = "1";
+                            ViewState["ItemPrice"] = TotalAmountPay.InnerText.Replace("Rs. ", "").Replace(",", "").Trim();
+                            //ViewState["ItemPrice"] = "1";
                         }
                         else
                         {
                             //Full payment
-                            //ViewState["ItemPrice"] = TotalValue.InnerText.Replace("Rs. ", "").Replace(",", "").Trim();
-                            ViewState["ItemPrice"] = "1";
+                            ViewState["ItemPrice"] = TotalValue.InnerText.Replace("Rs. ", "").Replace(",", "").Trim();
+                            //ViewState["ItemPrice"] = "1";
                         }
-                        UpdateIncomepltePurchase();
-                        getpaytm();
+                        if (Session["Role"] != null && Session["Role"].ToString() == "Agent")
+                        {
+                            con.Close();
+                            Response.Redirect("PaymentConfirmation.aspx?qu=" + Session["salesOrderID"].ToString(), false);
+                            Context.ApplicationInstance.CompleteRequest();
+                            return;
+                        }
+                        else
+                        {
+                            UpdateIncomepltePurchase();
+                            getpaytm();
+                        }
                         con.Close();
                     }
                 }
@@ -1031,6 +1058,40 @@ namespace Patner_Retailer_ADO
                 cmd.ExecuteNonQuery();
             }
         }
+        protected void RequestToRetailerIncomepltePurchase()
+        {
+            using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@type", 59);
+                cmd.Parameters.AddWithValue("@SalesOrderID", Session["salesOrderID"].ToString());
+                cmd.Parameters.AddWithValue("@Status", "Request for Retailer payment");
+                cmd.Parameters.AddWithValue("@AddressLine1", txtAddressLine1.Value.ToString());
+                cmd.Parameters.AddWithValue("@City", txtCity.Text.ToString());
+                cmd.Parameters.AddWithValue("@State", txtState.Text.ToString());
+                cmd.Parameters.AddWithValue("@Pincode", txtPincode.Text.ToString());
+                cmd.Parameters.AddWithValue("@Landmark", txtLandmark.Value.ToString());
+                if (Commossiontag.InnerText.Contains("%"))
+                {
+                    cmd.Parameters.AddWithValue("@PaymentMethod", "Percantage");
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@PaymentMethod", "Value");
+                }
+                cmd.Parameters.AddWithValue("@AlternativeMobile", txtAlternativeMobile.Text.ToString());
+                cmd.Parameters.AddWithValue("@AlternativeEmail", txtAlternativeEmail.Text.ToString());
+                cmd.Parameters.AddWithValue("@installedLandmark", txtinstalledLandmark.Value.ToString());
+                cmd.Parameters.AddWithValue("@Availity", txtAvaility.Value.ToString());
+                cmd.Parameters.AddWithValue("@customer_status", "Request for Retailer payment");
+                cmd.Parameters.AddWithValue("@Retailer_FreelanceID", Session["MobileNo"] != null ? Session["MobileNo"].ToString() : null);
+
+                if (con.State != ConnectionState.Open)
+                    con.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
         protected void chkWhatsAppChange(object sender, EventArgs e)
         {
             if (chkWhatsAppNo.Checked)
@@ -1322,6 +1383,74 @@ namespace Patner_Retailer_ADO
 
                         cmd.Parameters.AddWithValue("@type", 69);
                         cmd.Parameters.AddWithValue("@SalesOrderID", Session["salesOrderID"].ToString());
+                        cmd.Parameters.AddWithValue("@Saleschannel", "Retailer");
+                        cmd.Parameters.AddWithValue("@TaxableValue", taxableamount);
+                        cmd.Parameters.AddWithValue("@TaxAmout", taxAmount);
+                        cmd.Parameters.AddWithValue("@TotalAmountPay", totalAmountPay);
+                        if (Commossiontag.InnerText.Contains("%"))
+                        {
+                            cmd.Parameters.AddWithValue("@CommissionType", "Percantage");
+                            cmd.Parameters.AddWithValue("@CommissionValue", "0");
+                            cmd.Parameters.AddWithValue("@CommissionPercentage", ViewState["CommissionPercantage"] != null ? ViewState["CommissionPercantage"].ToString() : "0");
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@CommissionType", "Value");
+                            cmd.Parameters.AddWithValue("@CommissionValue", commision);
+                            cmd.Parameters.AddWithValue("@CommissionPercentage", "0");
+                        }
+                        cmd.Parameters.AddWithValue("@GSTCommissionValue", "");
+                        cmd.Parameters.AddWithValue("@GSTCommissionPercentage", "18");
+                        cmd.Parameters.AddWithValue("@GSTCommissionPaid", "No");
+                        cmd.Parameters.AddWithValue("@TranStatus", "Pending");
+                        cmd.Parameters.AddWithValue("@PaymentDate", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@OrderId", "");
+                        cmd.Parameters.AddWithValue("@UID", hdnUID.Value);
+                        cmd.Parameters.AddWithValue("@CreatedBy", Session["RetailerUniqueID"].ToString());
+                        string mes = Request.QueryString["pay"];
+                        if (string.IsNullOrWhiteSpace(mes) && mes != "cancel")
+                        {
+                            cmd.Parameters.AddWithValue("@PaymentMethod", "New Payment");
+                        }
+                        if (con.State != ConnectionState.Open)
+                            con.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                con.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        protected bool AddPaymentSalesPerson()
+        {
+            try
+            {
+                foreach (RepeaterItem item in rptPlans.Items)
+                {
+                    Label lblPlanPrice = item.FindControl("lblPlanPrice") as Label;
+                    HiddenField hdnUID = item.FindControl("hdnUID") as HiddenField;
+
+                    decimal taxableValue = Convert.ToDecimal(lblPlanPrice.Text);
+                    decimal taxableamount = Math.Round(taxableValue / 1.18m, 2);
+                    decimal taxAmount = Math.Round(taxableamount * 0.18m, 2);
+
+                    decimal commision = calculateCommision(taxableValue);
+                    decimal Taxablecommision = Math.Round(commision / 1.18m, 2);
+                    decimal commisionTax = Math.Round(Taxablecommision * 0.18m, 2);
+                    decimal totalAmountPay = (taxableamount - Taxablecommision) + taxAmount;
+
+                    using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@type", 85);
+                        cmd.Parameters.AddWithValue("@SalesOrderID", Session["salesOrderID"].ToString());
+                        cmd.Parameters.AddWithValue("@ProfileId", Session["RetailerUniqueID"].ToString());
                         cmd.Parameters.AddWithValue("@Saleschannel", "Retailer");
                         cmd.Parameters.AddWithValue("@TaxableValue", taxableamount);
                         cmd.Parameters.AddWithValue("@TaxAmout", taxAmount);

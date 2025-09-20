@@ -117,7 +117,7 @@ namespace Patner_Retailer_ADO
                     ViewState["ReportInfo"] = dt;
                     if (dt.Rows.Count > 0)
                     {
-                        GvClaimReport.CssClass = "table data-table table-striped nowrap";
+                        GvClaimReport.CssClass = "table table-striped nowrap";
                         GvClaimReport.DataSource = dt;
                         GvClaimReport.DataBind();
                         //btnExportExcel.Visible = true;
@@ -241,7 +241,7 @@ namespace Patner_Retailer_ADO
             GvClaimReport.CssClass = "table table-striped nowrap";
             if (GvClaimReport.HeaderRow != null)
             {
-                GvClaimReport.CssClass = "table data-table table-striped nowrap";
+                GvClaimReport.CssClass = "table table-striped nowrap";
                 GvClaimReport.HeaderRow.TableSection = TableRowSection.TableHeader;
             }
             btnListView.Attributes["class"] = "btn btn-primary card-btn";

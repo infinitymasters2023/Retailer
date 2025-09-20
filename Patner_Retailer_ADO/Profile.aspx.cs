@@ -32,7 +32,7 @@ namespace Patner_Retailer_ADO
             }
             else
             {
-                Response.Redirect("Login.aspx");
+                Response.Redirect("index.aspx");
             }
             if (!IsPostBack)
             {
@@ -57,6 +57,8 @@ namespace Patner_Retailer_ADO
                 BindUploadedDocuments();
                 BindCommisionDetails();
                 BindAccountHistory();
+                BindProductAuthorization();
+                BindProductPriceBand();
 
                 btnPersonalInformation_Click(sender, e);
                 CheckTheStatusMessage();
@@ -992,7 +994,7 @@ namespace Patner_Retailer_ADO
                         string script = $@"
                             <script type='text/javascript'>
                                 alert('Session has been removed, Please re-login');
-                                window.location.href = 'Login.aspx';
+                                window.location.href = 'index.aspx';
                             </script>";
 
                         ClientScript.RegisterStartupScript(this.GetType(), "LoginRedirect", script);
@@ -1498,6 +1500,7 @@ namespace Patner_Retailer_ADO
             btnUploadedDocumentListView.Attributes["class"] = "btn btn-outline-primary card-btn";
             btnCommisionDetailsView.Attributes["class"] = "btn btn-outline-primary card-btn";
             btnAccountHistoryView.Attributes["class"] = "btn btn-outline-primary card-btn";
+            //btnProductPriceBand.Attributes["class"] = "btn btn-outline-primary card-btn";
         }
         protected void btnBandDetailsView_Click(object sender, EventArgs e)
         {
@@ -1507,6 +1510,7 @@ namespace Patner_Retailer_ADO
             btnUploadedDocumentListView.Attributes["class"] = "btn btn-outline-primary card-btn";
             btnCommisionDetailsView.Attributes["class"] = "btn btn-outline-primary card-btn";
             btnAccountHistoryView.Attributes["class"] = "btn btn-outline-primary card-btn";
+            //btnProductPriceBand.Attributes["class"] = "btn btn-outline-primary card-btn";
         }
         protected void btnUploadedDocumentListView_Click(object sender, EventArgs e)
         {
@@ -1516,6 +1520,7 @@ namespace Patner_Retailer_ADO
             btnBandDetailsView.Attributes["class"] = "btn btn-outline-primary card-btn";
             btnCommisionDetailsView.Attributes["class"] = "btn btn-outline-primary card-btn";
             btnAccountHistoryView.Attributes["class"] = "btn btn-outline-primary card-btn";
+            //btnProductPriceBand.Attributes["class"] = "btn btn-outline-primary card-btn";
         }
         protected void btnCommisionDetailsView_Click(object sender, EventArgs e)
         {
@@ -1525,11 +1530,23 @@ namespace Patner_Retailer_ADO
             btnBandDetailsView.Attributes["class"] = "btn btn-outline-primary card-btn";
             btnUploadedDocumentListView.Attributes["class"] = "btn btn-outline-primary card-btn";
             btnAccountHistoryView.Attributes["class"] = "btn btn-outline-primary card-btn";
+            //btnProductPriceBand.Attributes["class"] = "btn btn-outline-primary card-btn";
         }
         protected void btnAccountHistoryView_Click(object sender, EventArgs e)
         {
             mvViewType.ActiveViewIndex = 4;
             btnAccountHistoryView.Attributes["class"] = "btn btn-primary card-btn";
+            btnCommisionDetailsView.Attributes["class"] = "btn btn-outline-primary card-btn";
+            btnPersonalInformationView.Attributes["class"] = "btn btn-outline-primary card-btn";
+            btnBandDetailsView.Attributes["class"] = "btn btn-outline-primary card-btn";
+            btnUploadedDocumentListView.Attributes["class"] = "btn btn-outline-primary card-btn";
+            //btnProductPriceBand.Attributes["class"] = "btn btn-outline-primary card-btn";
+        }
+        protected void btnProductPriceBandView_Click(object sender, EventArgs e)
+        {
+            mvViewType.ActiveViewIndex = 5;
+            //btnProductPriceBand.Attributes["class"] = "btn btn-primary card-btn";
+            btnAccountHistoryView.Attributes["class"] = "btn btn-outline-primary card-btn";
             btnCommisionDetailsView.Attributes["class"] = "btn btn-outline-primary card-btn";
             btnPersonalInformationView.Attributes["class"] = "btn btn-outline-primary card-btn";
             btnBandDetailsView.Attributes["class"] = "btn btn-outline-primary card-btn";
@@ -1573,6 +1590,146 @@ namespace Patner_Retailer_ADO
                 DisplayMessage(this, ex.Message);
             }
         }
+        private void BindProductAuthorization()
+        {
+            try
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@type", 87);
+                    cmd.Parameters.AddWithValue("@ProfileId", Session["RetailerUniqueID"].ToString().Trim());
+                    cmd.Parameters.AddWithValue("@UserRole", Session["Role"].ToString().Trim());
+
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        if (dt.Rows.Count > 0)
+                        {
+                            rptProductAuthorization.DataSource = dt;
+                            rptProductAuthorization.DataBind();
+
+                        }
+                        else
+                        {
+                            rptProductAuthorization.DataSource = null;
+                            rptProductAuthorization.DataBind();
+                        }
+                    }
+                }
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(this, ex.Message);
+            }
+        }
+
+        private void BindProductPriceBand()
+        {
+            try
+            {
+                con.Open();
+                using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@type", 95);
+                    //cmd.Parameters.AddWithValue("@Retailer_MobileNo", Session["MobileNo"].ToString().Trim());
+
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        if (dt.Rows.Count > 0)
+                        {
+                            gvPlans.DataSource = dt;
+                            gvPlans.DataBind();
+
+                        }
+                        else
+                        {
+                            gvPlans.DataSource = null;
+                            gvPlans.DataBind();
+                        }
+                    }
+                }
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(this, ex.Message);
+            }
+        }
+
+
+        protected string lastProductType = string.Empty;
+
+        protected void gvPlans_RowCreated(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.Header)
+            {
+                GridView gv = (GridView)sender;
+
+
+                // Second row: EW merged columns
+                GridViewRow headerRow2 = new GridViewRow(1, 0, DataControlRowType.Header, DataControlRowState.Insert);
+
+                headerRow2.Cells.Add(new TableHeaderCell { Text = "PriceBand", RowSpan = 1, ColumnSpan = 2, HorizontalAlign = HorizontalAlign.Center });
+
+                string[] ewYears = { "1Y EW", "2Y EW", "3Y EW", "4Y EW" };
+                foreach (string year in ewYears)
+                {
+                    TableHeaderCell ewCell = new TableHeaderCell
+                    {
+                        Text = year,
+                        ColumnSpan = 2,
+                        HorizontalAlign = HorizontalAlign.Center
+                    };
+                    headerRow2.Cells.Add(ewCell);
+                }
+
+                gv.Controls[0].Controls.AddAt(0, headerRow2);
+                
+            }
+        }
+
+        protected void gvPlans_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                string currentProduct = DataBinder.Eval(e.Row.DataItem, "ProductType").ToString();
+                GridView gv = (GridView)sender;
+
+                if (lastProductType != currentProduct)
+                {
+                    
+                    Table gridTable = (Table)gv.Controls[0];
+                 
+                    int rowIndex = gridTable.Rows.GetRowIndex(e.Row);
+                    lastProductType = currentProduct;
+
+                    GridViewRow headerRow3 = new GridViewRow(rowIndex, 0, DataControlRowType.Header, DataControlRowState.Insert);
+
+                    headerRow3.Cells.Add(new TableHeaderCell { Text = currentProduct, RowSpan = 1, HorizontalAlign = HorizontalAlign.Center });
+
+                    for (int i = 0; i < 4; i++)
+                    {
+                        headerRow3.Cells.Add(new TableHeaderCell { Text = "MRP", RowSpan = 1, HorizontalAlign = HorizontalAlign.Center });
+                        headerRow3.Cells.Add(new TableHeaderCell { Text = "Discounted Price", RowSpan = 1, HorizontalAlign = HorizontalAlign.Center });
+                    }
+
+                    gv.Controls[0].Controls.AddAt(rowIndex, headerRow3);
+                }
+               
+            }
+        }
+
+
+
         protected void btnwithdrawalRequest_ServerClick(object sender, EventArgs e)
         {
             if (feedbackSection.Visible == true)
@@ -1907,7 +2064,7 @@ namespace Patner_Retailer_ADO
                         string script = $@"
                             <script type='text/javascript'>
                                 alert('Session has been removed, Please re-login');
-                                window.location.href = 'Login.aspx';
+                                window.location.href = 'index.aspx';
                             </script>";
 
                         ClientScript.RegisterStartupScript(this.GetType(), "LoginRedirect", script);

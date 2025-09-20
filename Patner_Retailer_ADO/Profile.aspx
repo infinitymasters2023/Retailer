@@ -115,6 +115,12 @@
                 WAaltMobileCodeInput.addEventListener('blur', WAupdateAltHiddenFields);
             }
         };
+
+
+        $('#example44').DataTable({
+            paging: false
+        });
+
     </script>
 
     <script>
@@ -129,14 +135,14 @@
         }
     </script>
 
-      <script>
-          setTimeout(function () {
-              const rows = document.querySelectorAll('#ContentPlaceHolder1_GVAccountHistory .row');
-              if (rows.length > 1) {
-                  rows[1].classList.add('table-responsive');
-              }
-          }, 500);
-      </script>
+    <script>
+        setTimeout(function () {
+            const rows = document.querySelectorAll('#ContentPlaceHolder1_GVAccountHistory .row');
+            if (rows.length > 1) {
+                rows[1].classList.add('table-responsive');
+            }
+        }, 500);
+    </script>
 
     <style>
         .profile-panel .row .col-md-3 label {
@@ -208,12 +214,17 @@
         .thead {
             background: #4397a7 !important;
             color: #fff !important;
+            text-wrap-mode: nowrap;
         }
 
-            .thead th {
-                background: #4397a7 !important;
-                color: #fff !important;
-            }
+        tbody {
+            text-wrap-mode: nowrap;
+        }
+
+        .thead th {
+            background: #4397a7 !important;
+            color: #fff !important;
+        }
 
         .dataTables_filter {
             display: none;
@@ -271,6 +282,7 @@
             font-size: 13px;
             letter-spacing: .5px;
         }
+
         .hideMessagecls {
             display: flex;
             justify-content: end;
@@ -299,7 +311,7 @@
      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" height="20">
          <path d="M320 112C434.9 112 528 205.1 528 320C528 434.9 434.9 528 320 528C205.1 528 112 434.9 112 320C112 205.1 205.1 112 320 112zM320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM231 231C221.6 240.4 221.6 255.6 231 264.9L286 319.9L231 374.9C221.6 384.3 221.6 399.5 231 408.8C240.4 418.1 255.6 418.2 264.9 408.8L319.9 353.8L374.9 408.8C384.3 418.2 399.5 418.2 408.8 408.8C418.1 399.4 418.2 384.2 408.8 374.9L353.8 319.9L408.8 264.9C418.2 255.5 418.2 240.3 408.8 231C399.4 221.7 384.2 221.6 374.9 231L319.9 286L264.9 231C255.5 221.6 240.3 221.6 231 231z"/>
      </svg>
- </asp:LinkButton>
+                </asp:LinkButton>
                 <div class="mb-1">Dear Partner,</div>
                 <ul class="mb-0 ms-0 ps-3">
                     <li>We have received your basic details. However, additional documents are required to proceed with the verification.</li>
@@ -311,7 +323,7 @@
      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" height="20">
          <path d="M320 112C434.9 112 528 205.1 528 320C528 434.9 434.9 528 320 528C205.1 528 112 434.9 112 320C112 205.1 205.1 112 320 112zM320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM231 231C221.6 240.4 221.6 255.6 231 264.9L286 319.9L231 374.9C221.6 384.3 221.6 399.5 231 408.8C240.4 418.1 255.6 418.2 264.9 408.8L319.9 353.8L374.9 408.8C384.3 418.2 399.5 418.2 408.8 408.8C418.1 399.4 418.2 384.2 408.8 374.9L353.8 319.9L408.8 264.9C418.2 255.5 418.2 240.3 408.8 231C399.4 221.7 384.2 221.6 374.9 231L319.9 286L264.9 231C255.5 221.6 240.3 221.6 231 231z"/>
      </svg>
- </asp:LinkButton>
+                </asp:LinkButton>
                 <div class="mb-1">Dear Partner,</div>
                 <ul class="mb-0 ms-0 ps-3">
                     <li>Unfortunately, your application has been rejected due to incomplete or invalid information.</li>
@@ -319,11 +331,11 @@
                 </ul>
             </div>
             <div id="PendingWithdrawApplicationMessage" runat="server" class="alert alert-danger" role="alert">
-               <asp:LinkButton CssClass="hideMessagecls" runat="server" ID="LinkButton3" OnClick="hideMessageClick">
+                <asp:LinkButton CssClass="hideMessagecls" runat="server" ID="LinkButton3" OnClick="hideMessageClick">
      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" height="20">
          <path d="M320 112C434.9 112 528 205.1 528 320C528 434.9 434.9 528 320 528C205.1 528 112 434.9 112 320C112 205.1 205.1 112 320 112zM320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM231 231C221.6 240.4 221.6 255.6 231 264.9L286 319.9L231 374.9C221.6 384.3 221.6 399.5 231 408.8C240.4 418.1 255.6 418.2 264.9 408.8L319.9 353.8L374.9 408.8C384.3 418.2 399.5 418.2 408.8 408.8C418.1 399.4 418.2 384.2 408.8 374.9L353.8 319.9L408.8 264.9C418.2 255.5 418.2 240.3 408.8 231C399.4 221.7 384.2 221.6 374.9 231L319.9 286L264.9 231C255.5 221.6 240.3 221.6 231 231z"/>
      </svg>
- </asp:LinkButton>
+                </asp:LinkButton>
                 <div class="mb-1">Dear Partner,</div>
                 <ul class="mb-0 ms-0 ps-3">
                     <li>Your request to withdraw your application has been received and is currently under review.</li>
@@ -335,7 +347,7 @@
      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" height="20">
          <path d="M320 112C434.9 112 528 205.1 528 320C528 434.9 434.9 528 320 528C205.1 528 112 434.9 112 320C112 205.1 205.1 112 320 112zM320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM231 231C221.6 240.4 221.6 255.6 231 264.9L286 319.9L231 374.9C221.6 384.3 221.6 399.5 231 408.8C240.4 418.1 255.6 418.2 264.9 408.8L319.9 353.8L374.9 408.8C384.3 418.2 399.5 418.2 408.8 408.8C418.1 399.4 418.2 384.2 408.8 374.9L353.8 319.9L408.8 264.9C418.2 255.5 418.2 240.3 408.8 231C399.4 221.7 384.2 221.6 374.9 231L319.9 286L264.9 231C255.5 221.6 240.3 221.6 231 231z"/>
      </svg>
- </asp:LinkButton>
+                </asp:LinkButton>
                 <div class="mb-1">Dear Partner,</div>
                 <ul class="mb-0 ms-0 ps-3">
                     <li>Your application has been terminated due to non-compliance or failure to meet the required criteria.</li>
@@ -343,11 +355,11 @@
                 </ul>
             </div>
             <div id="ApprovedWithdrawApplication" runat="server" class="alert alert-success" role="alert">
-               <asp:LinkButton CssClass="hideMessagecls" runat="server" ID="LinkButton5" OnClick="hideMessageClick">
+                <asp:LinkButton CssClass="hideMessagecls" runat="server" ID="LinkButton5" OnClick="hideMessageClick">
      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" height="20">
          <path d="M320 112C434.9 112 528 205.1 528 320C528 434.9 434.9 528 320 528C205.1 528 112 434.9 112 320C112 205.1 205.1 112 320 112zM320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM231 231C221.6 240.4 221.6 255.6 231 264.9L286 319.9L231 374.9C221.6 384.3 221.6 399.5 231 408.8C240.4 418.1 255.6 418.2 264.9 408.8L319.9 353.8L374.9 408.8C384.3 418.2 399.5 418.2 408.8 408.8C418.1 399.4 418.2 384.2 408.8 374.9L353.8 319.9L408.8 264.9C418.2 255.5 418.2 240.3 408.8 231C399.4 221.7 384.2 221.6 374.9 231L319.9 286L264.9 231C255.5 221.6 240.3 221.6 231 231z"/>
      </svg>
- </asp:LinkButton>
+                </asp:LinkButton>
                 <div class="mb-1">Dear Partner,</div>
                 <ul class="mb-0 ms-0 ps-3">
                     <li>Your request to withdraw your application has been approved successfully.</li>
@@ -361,7 +373,7 @@
      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" height="20">
          <path d="M320 112C434.9 112 528 205.1 528 320C528 434.9 434.9 528 320 528C205.1 528 112 434.9 112 320C112 205.1 205.1 112 320 112zM320 576C461.4 576 576 461.4 576 320C576 178.6 461.4 64 320 64C178.6 64 64 178.6 64 320C64 461.4 178.6 576 320 576zM231 231C221.6 240.4 221.6 255.6 231 264.9L286 319.9L231 374.9C221.6 384.3 221.6 399.5 231 408.8C240.4 418.1 255.6 418.2 264.9 408.8L319.9 353.8L374.9 408.8C384.3 418.2 399.5 418.2 408.8 408.8C418.1 399.4 418.2 384.2 408.8 374.9L353.8 319.9L408.8 264.9C418.2 255.5 418.2 240.3 408.8 231C399.4 221.7 384.2 221.6 374.9 231L319.9 286L264.9 231C255.5 221.6 240.3 221.6 231 231z"/>
      </svg>
- </asp:LinkButton>
+                </asp:LinkButton>
                 <div class="mb-1">Dear Partner,</div>
                 <ul class="mb-0 ms-0 ps-3">
                     <li>Your profile has been approved successfully.</li>
@@ -401,267 +413,273 @@
                     </svg>
                     Account History View
                 </button>
+                <%--<button id="btnProductPriceBand" style="border-radius: 7px;" runat="server" onserverclick="btnProductPriceBandView_Click">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="1em" width="1em">
+                        <path d="M288 64c106 0 192 86 192 192S394 448 288 448c-65.2 0-122.9-32.5-157.6-82.3-10.1-14.5-30.1-18-44.6-7.9s-18 30.1-7.9 44.6C124.1 468.6 201 512 288 512 429.4 512 544 397.4 544 256S429.4 0 288 0C202.3 0 126.5 42.1 80 106.7L80 80c0-17.7-14.3-32-32-32S16 62.3 16 80l0 112c0 17.7 14.3 32 32 32l24.6 0c.5 0 1 0 1.5 0l86 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-38.3 0C154.9 102.6 217 64 288 64zm24 88c0-13.3-10.7-24-24-24s-24 10.7-24 24l0 104c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65 0-94.1z" />
+                    </svg>
+                    Product Price Band View
+                </button>--%>
             </div>
             <asp:MultiView ID="mvViewType" runat="server" ActiveViewIndex="0">
                 <asp:View ID="PersonalInformationList" runat="server">
                     <div class="card">
                         <h5 class="card-header mt-0 text-dark">Profile Details</h5>
                         <div id="RetailerPersonalInfoPanel" runat="server">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblName" CssClass="lblTagName" runat="server" Text="Legal / Firm Name as per GSTIN: " />
-                                        <asp:Label ID="lblNameValue" runat="server" />
-                                        <asp:TextBox runat="server" CssClass="form-control text-uppercase" ID="txtFirstName" placeholder="" MaxLength="100" Visible="false" AutoComplete="off" />
-                                        <label id="lblFullName" runat="server" visible="false" style="color: red; font-size: 12px">Legal Name as per GSTIN is required.</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblGSTIN" CssClass="lblTagName" runat="server" Text="GSTIN: " />
-                                        <asp:Label ID="lblGSTINValue" runat="server" />
-                                        <asp:TextBox runat="server" CssClass="form-control text-uppercase" ID="txtGSTIN" placeholder="" MaxLength="15" Visible="false" AutoComplete="off" Enabled="false" />
-                                        <label id="lblGSTINError" runat="server" visible="false" style="color: red; font-size: 12px">GSTIN is required.</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblCEOName" CssClass="lblTagName" runat="server" Text="Name (CEO / MD / Main Partner / Proprietor): " />
-                                        <asp:Label ID="lblCEONameValue" runat="server" />
-                                        <asp:TextBox runat="server" CssClass="form-control" ID="txtCEOName" placeholder="" MaxLength="30" Visible="false" AutoComplete="off" />
-                                        <label id="lblCEONameEror" runat="server" visible="false" style="color: red; font-size: 12px">Name (CEO / MD / Main Partner / Proprietor) is required.</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblFirmType" CssClass="lblTagName" runat="server" Text="Firm Type: " />
-                                        <asp:Label ID="lblFirmTypeValue" runat="server" />
-                                        <asp:DropDownList ID="ddlFirmType" runat="server" CssClass="form-control" Visible="false">
-                                            <asp:ListItem Text="--Select--" Value="Select"></asp:ListItem>
-                                            <asp:ListItem Text="Proprietorship" Value="Proprietorship"></asp:ListItem>
-                                            <asp:ListItem Text="Partnership" Value="Partnership"></asp:ListItem>
-                                            <asp:ListItem Text="OPC" Value="OPC"></asp:ListItem>
-                                            <asp:ListItem Text="LLP" Value="LLP"></asp:ListItem>
-                                            <asp:ListItem Text="Private Limited" Value="Private Limited"></asp:ListItem>
-                                            <asp:ListItem Text="Limited" Value="Limited"></asp:ListItem>
-                                        </asp:DropDownList>
-                                        <label id="lblFirmTypeEror" runat="server" visible="false" style="color: red; font-size: 12px">Firm Type is required.</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblMobileNo" CssClass="lblTagName" runat="server" Text="Mobile No: " />
-                                        <asp:Label ID="lblMobileNoValue" runat="server" />
-                                        <asp:TextBox runat="server" CssClass="form-control" ID="txtMobileNumber" placeholder=" " MaxLength="10" Visible="false" AutoComplete="off"
-                                            pattern="\d{10}" title="Please enter a valid 10-digit mobile number" oninput="validateMobileNumber(this)" Enabled="false" />
-                                        <label id="lblErrorMobileNo" runat="server" visible="false" style="color: red; font-size: 12px">Mobile No is required.</label>
-                                    </div>
-                                    <asp:HiddenField ID="hdnCountryCode" runat="server" />
-                                    <asp:HiddenField ID="hdnPhoneNumber" runat="server" />
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblAlternateMobileNo" CssClass="lblTagName" runat="server" Text="Alternate Mobile No: " />
-                                        <asp:Label ID="lblAlternateMobileNoValue" runat="server" />
-                                        <asp:TextBox runat="server" CssClass="form-control" ID="txtAlternateMobile" placeholder=" " MaxLength="10" Visible="false"
-                                            pattern="\d{10}" title="Please enter a valid 10-digit mobile number" oninput="validateMobileNumber(this)" AutoComplete="off"
-                                            AutoPostBack="true" OnTextChanged="txtAltCustomerMobile_TextChanged" />
-                                        <asp:HiddenField ID="hdnAltCountryCode" runat="server" />
-                                        <asp:HiddenField ID="hdnAltMobile" runat="server" />
-                                        <label id="lblAlternateMobileNoError" runat="server" visible="false" style="color: red; font-size: 12px">Invalid Alternate Mobile No.</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblEmail" CssClass="lblTagName" runat="server" Text="Email ID: " />
-                                        <asp:Label ID="lblEmailValue" runat="server" />
-                                        <asp:TextBox runat="server" CssClass="form-control text-lowercase" ID="txtEmail" TextMode="Email" placeholder="" MaxLength="50" Visible="false" AutoComplete="off"
-                                            AutoPostBack="true" OnTextChanged="txtCustomerEmail_TextChanged" />
-                                        <label id="lblEmailAddress" runat="server" visible="false" style="color: red; font-size: 12px">Email Id is required.</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblAltEmail" CssClass="lblTagName" runat="server" Text="Alternate Email ID: " />
-                                        <asp:Label ID="lblAltEmailValue" runat="server" />
-                                        <asp:TextBox runat="server" CssClass="form-control text-lowercase" ID="txtAltEmail" TextMode="Email" placeholder="" MaxLength="50" Visible="false" AutoComplete="off"
-                                            AutoPostBack="true" OnTextChanged="txtCustomerAltEmail_TextChanged" />
-                                        <label id="lblAltEmailError" runat="server" visible="false" style="color: red; font-size: 12px"></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblDOB" CssClass="lblTagName" runat="server" Text="Date of Birth: " />
-                                        <asp:Label ID="lblDOBValue" runat="server" />
-                                        <asp:TextBox runat="server" CssClass="form-control" ID="TextBox1" placeholder="" Visible="false"
-                                            AutoPostBack="true" AutoCompleteType="Disabled" AutoComplete="off" />
-                                        <div class="input-group-append" runat="server" visible="false">
-                                            <span class="input-group-text" style="cursor: pointer;"
-                                                onclick="document.getElementById('<%= TextBox1.ClientID %>').focus();">
-                                                <i class="fa fa-calendar"></i>
-                                            </span>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblName" CssClass="lblTagName" runat="server" Text="Legal / Firm Name as per GSTIN: " />
+                                            <asp:Label ID="lblNameValue" runat="server" />
+                                            <asp:TextBox runat="server" CssClass="form-control text-uppercase" ID="txtFirstName" placeholder="" MaxLength="100" Visible="false" AutoComplete="off" />
+                                            <label id="lblFullName" runat="server" visible="false" style="color: red; font-size: 12px">Legal Name as per GSTIN is required.</label>
                                         </div>
-                                        <cc1:CalendarExtender ID="CalendarExtender3" runat="server" Format="dd-MMM-yyyy" TargetControlID="TextBox1"
-                                            EndDate="<%# DateTime.Today %>"></cc1:CalendarExtender>
-                                        <label id="lblDateOfBirth" runat="server" visible="false" style="color: red; font-size: 12px">Date of Birth is required.</label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblGSTIN" CssClass="lblTagName" runat="server" Text="GSTIN: " />
+                                            <asp:Label ID="lblGSTINValue" runat="server" />
+                                            <asp:TextBox runat="server" CssClass="form-control text-uppercase" ID="txtGSTIN" placeholder="" MaxLength="15" Visible="false" AutoComplete="off" Enabled="false" />
+                                            <label id="lblGSTINError" runat="server" visible="false" style="color: red; font-size: 12px">GSTIN is required.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblCEOName" CssClass="lblTagName" runat="server" Text="Name (CEO / MD / Main Partner / Proprietor): " />
+                                            <asp:Label ID="lblCEONameValue" runat="server" />
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtCEOName" placeholder="" MaxLength="30" Visible="false" AutoComplete="off" />
+                                            <label id="lblCEONameEror" runat="server" visible="false" style="color: red; font-size: 12px">Name (CEO / MD / Main Partner / Proprietor) is required.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblFirmType" CssClass="lblTagName" runat="server" Text="Firm Type: " />
+                                            <asp:Label ID="lblFirmTypeValue" runat="server" />
+                                            <asp:DropDownList ID="ddlFirmType" runat="server" CssClass="form-control" Visible="false">
+                                                <asp:ListItem Text="--Select--" Value="Select"></asp:ListItem>
+                                                <asp:ListItem Text="Proprietorship" Value="Proprietorship"></asp:ListItem>
+                                                <asp:ListItem Text="Partnership" Value="Partnership"></asp:ListItem>
+                                                <asp:ListItem Text="OPC" Value="OPC"></asp:ListItem>
+                                                <asp:ListItem Text="LLP" Value="LLP"></asp:ListItem>
+                                                <asp:ListItem Text="Private Limited" Value="Private Limited"></asp:ListItem>
+                                                <asp:ListItem Text="Limited" Value="Limited"></asp:ListItem>
+                                            </asp:DropDownList>
+                                            <label id="lblFirmTypeEror" runat="server" visible="false" style="color: red; font-size: 12px">Firm Type is required.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblMobileNo" CssClass="lblTagName" runat="server" Text="Mobile No: " />
+                                            <asp:Label ID="lblMobileNoValue" runat="server" />
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtMobileNumber" placeholder=" " MaxLength="10" Visible="false" AutoComplete="off"
+                                                pattern="\d{10}" title="Please enter a valid 10-digit mobile number" oninput="validateMobileNumber(this)" Enabled="false" />
+                                            <label id="lblErrorMobileNo" runat="server" visible="false" style="color: red; font-size: 12px">Mobile No is required.</label>
+                                        </div>
+                                        <asp:HiddenField ID="hdnCountryCode" runat="server" />
+                                        <asp:HiddenField ID="hdnPhoneNumber" runat="server" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblAlternateMobileNo" CssClass="lblTagName" runat="server" Text="Alternate Mobile No: " />
+                                            <asp:Label ID="lblAlternateMobileNoValue" runat="server" />
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtAlternateMobile" placeholder=" " MaxLength="10" Visible="false"
+                                                pattern="\d{10}" title="Please enter a valid 10-digit mobile number" oninput="validateMobileNumber(this)" AutoComplete="off"
+                                                AutoPostBack="true" OnTextChanged="txtAltCustomerMobile_TextChanged" />
+                                            <asp:HiddenField ID="hdnAltCountryCode" runat="server" />
+                                            <asp:HiddenField ID="hdnAltMobile" runat="server" />
+                                            <label id="lblAlternateMobileNoError" runat="server" visible="false" style="color: red; font-size: 12px">Invalid Alternate Mobile No.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblEmail" CssClass="lblTagName" runat="server" Text="Email ID: " />
+                                            <asp:Label ID="lblEmailValue" runat="server" />
+                                            <asp:TextBox runat="server" CssClass="form-control text-lowercase" ID="txtEmail" TextMode="Email" placeholder="" MaxLength="50" Visible="false" AutoComplete="off"
+                                                AutoPostBack="true" OnTextChanged="txtCustomerEmail_TextChanged" />
+                                            <label id="lblEmailAddress" runat="server" visible="false" style="color: red; font-size: 12px">Email Id is required.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblAltEmail" CssClass="lblTagName" runat="server" Text="Alternate Email ID: " />
+                                            <asp:Label ID="lblAltEmailValue" runat="server" />
+                                            <asp:TextBox runat="server" CssClass="form-control text-lowercase" ID="txtAltEmail" TextMode="Email" placeholder="" MaxLength="50" Visible="false" AutoComplete="off"
+                                                AutoPostBack="true" OnTextChanged="txtCustomerAltEmail_TextChanged" />
+                                            <label id="lblAltEmailError" runat="server" visible="false" style="color: red; font-size: 12px"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblDOB" CssClass="lblTagName" runat="server" Text="Date of Birth: " />
+                                            <asp:Label ID="lblDOBValue" runat="server" />
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="TextBox1" placeholder="" Visible="false"
+                                                AutoPostBack="true" AutoCompleteType="Disabled" AutoComplete="off" />
+                                            <div class="input-group-append" runat="server" visible="false">
+                                                <span class="input-group-text" style="cursor: pointer;"
+                                                    onclick="document.getElementById('<%= TextBox1.ClientID %>').focus();">
+                                                    <i class="fa fa-calendar"></i>
+                                                </span>
+                                            </div>
+                                            <cc1:CalendarExtender ID="CalendarExtender3" runat="server" Format="dd-MMM-yyyy" TargetControlID="TextBox1"
+                                                EndDate="<%# DateTime.Today %>"></cc1:CalendarExtender>
+                                            <label id="lblDateOfBirth" runat="server" visible="false" style="color: red; font-size: 12px">Date of Birth is required.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblGender" CssClass="lblTagName" runat="server" Text="Gender: " />
+                                            <asp:Label ID="lblGenderValue" runat="server" />
+                                            <asp:DropDownList ID="ddlGender" runat="server" CssClass="form-control" Visible="false">
+                                                <asp:ListItem Text="--Select--" Value=""></asp:ListItem>
+                                                <asp:ListItem Text="Male" Value="Male"></asp:ListItem>
+                                                <asp:ListItem Text="Female" Value="Female"></asp:ListItem>
+                                            </asp:DropDownList>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblWhatsAppNo" CssClass="lblTagName" runat="server" Text="WhatsApp No 1: " />
+                                            <asp:Label ID="lblWhatsAppNoValue" runat="server" />
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtWhatsAppNo" placeholder=" " MaxLength="10" Visible="false" AutoComplete="off"
+                                                pattern="\d{10}" title="Please enter a valid 10-digit mobile number" oninput="validateMobileNumber(this)"
+                                                AutoPostBack="true" OnTextChanged="txtWhatsAppCustomerMobile_TextChanged" />
+                                            <label id="Label3" runat="server" visible="false" style="color: red; font-size: 12px"></label>
+                                            <asp:HiddenField ID="hdnWhatsAppNo" runat="server" />
+                                            <asp:HiddenField ID="hdnWhatsAppNoCountry" runat="server" />
+                                            <label id="lblhdnWhatsAppNo1Error" runat="server" visible="false" style="color: red; font-size: 12px">WhatsApp Mobile No 1 is required.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblWhatsAppNo2" CssClass="lblTagName" runat="server" Text="WhatsApp Mobile No 2: " />
+                                            <asp:Label ID="lblWhatsAppNo2Value" runat="server" />
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtWhatsAppNo2" placeholder=" " MaxLength="10" Visible="false"
+                                                pattern="\d{10}" title="Please enter a valid 10-digit mobile number" oninput="validateMobileNumber(this)" AutoComplete="off"
+                                                AutoPostBack="true" OnTextChanged="txtWhatsAppAltCustomerMobile_TextChanged" />
+                                            <asp:HiddenField ID="hdnWhatsAppNo2" runat="server" />
+                                            <asp:HiddenField ID="hdnWhatsAppNoCountry2" runat="server" />
+                                            <label id="lblhdnWhatsAppNo2Error" runat="server" visible="false" style="color: red; font-size: 12px">Invalid WhatsApp Mobile No 2.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <h4 class="regs-text-address">Registered Office Address</h4>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblPincode" CssClass="lblTagName" runat="server" Text="Pin Code: " />
+                                            <asp:Label ID="lblPincodeValue" runat="server" />
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtPinCode" AutoPostBack="true" OnTextChanged="txtPinCode_TextChanged" placeholder=""
+                                                MaxLength="6" title="Enter a 6-digit Pincode" oninput="validatePincode(this)" Visible="false" AutoComplete="off" />
+                                            <label id="lblErrorPincode" runat="server" visible="false" style="color: red; font-size: 12px">PIN Code is required.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblCity" CssClass="lblTagName" runat="server" Text="City: " />
+                                            <asp:Label ID="lblCityValue" runat="server" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblState" CssClass="lblTagName" runat="server" Text="State: " />
+                                            <asp:Label ID="lblStateValue" runat="server" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblAddress" CssClass="lblTagName" runat="server" Text="Address Line 1: " />
+                                            <asp:Label ID="lblAddressValue" runat="server" />
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtAddress" TextMode="MultiLine" Rows="2" placeholder="" MaxLength="150" Visible="false" AutoComplete="off" />
+                                            <label id="lblCurrentAddress" runat="server" visible="false" style="color: red; font-size: 12px">Address Line 1 is required.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblAddress2" CssClass="lblTagName" runat="server" Text="Address Line 2: " />
+                                            <asp:Label ID="lblAddress2Value" runat="server" />
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtAddress2" TextMode="MultiLine" Rows="2" placeholder="" MaxLength="150" Visible="false" AutoComplete="off" />
+                                            <label id="lblAddress2Error" runat="server" visible="false" style="color: red; font-size: 12px"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblLandMark" CssClass="lblTagName" runat="server" Text="Landmark: " />
+                                            <asp:Label ID="lblLandMarkValue" runat="server" />
+                                            <asp:TextBox runat="server" CssClass="form-control mb-3" ID="txtLandmark" TextMode="MultiLine" Rows="2" placeholder="" MaxLength="150" Visible="false" AutoComplete="off" />
+                                            <label id="lblLandMarkError" runat="server" visible="false" style="color: red; font-size: 12px">Landmark is required.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <h4 class="regs-text-address">Corporate / Main Office Address</h4>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblDealerPincode" CssClass="lblTagName" runat="server" Text="Pin Code: " />
+                                            <asp:Label ID="lblDealerPincodeValue" runat="server" />
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtDealerPincode" AutoPostBack="true" OnTextChanged="txtPinCode_TextChanged" placeholder=""
+                                                MaxLength="6" title="Enter a 6-digit Pincode" oninput="validatePincode(this)" Visible="false" AutoComplete="off" />
+                                            <label id="lblDealerPincodeError" runat="server" visible="false" style="color: red; font-size: 12px">PIN Code is required.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblDealerCity" CssClass="lblTagName" runat="server" Text="City: " />
+                                            <asp:Label ID="lblDealerCityValue" runat="server" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblDealerState" CssClass="lblTagName" runat="server" Text="State: " />
+                                            <asp:Label ID="lblDealerStateValue" runat="server" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblDealerAddressLine1" CssClass="lblTagName" runat="server" Text="Address Line 1: " />
+                                            <asp:Label ID="lblDealerAddressLine1Value" runat="server" />
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtDealerAddressLine1" TextMode="MultiLine" Rows="2" placeholder="" MaxLength="150" Visible="false" AutoComplete="off" />
+                                            <label id="lblDealerAddressLine1Error" runat="server" visible="false" style="color: red; font-size: 12px">Address Line 1 is required.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblDealerAddressLine2" CssClass="lblTagName" runat="server" Text="Address Line 2: " />
+                                            <asp:Label ID="lblDealerAddressLine2Value" runat="server" />
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtDealerAddressLine2" TextMode="MultiLine" Rows="2" placeholder="" MaxLength="150" Visible="false" AutoComplete="off" />
+                                            <label id="lblDealerAddressLine2Error" runat="server" visible="false" style="color: red; font-size: 12px"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblDealerLandmark" CssClass="lblTagName" runat="server" Text="Landmark: " />
+                                            <asp:Label ID="lblDealerLandmarkValue" runat="server" />
+                                            <asp:TextBox runat="server" CssClass="form-control" ID="txtDealerLandmark" TextMode="MultiLine" Rows="2" placeholder="" MaxLength="150" Visible="false" AutoComplete="off" />
+                                            <label id="lblDealerLandmarkError" runat="server" visible="false" style="color: red; font-size: 12px">Landmark is required.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblProfileImage" CssClass="lblTagName" runat="server" Text="Profile Image:" />
+                                            <asp:Image ID="imgProfile" runat="server" CssClass="img-thumbnail mt-2" Width="120px" Height="120px" ImageUrl="../assets/images/avatar5.png" />
+                                            <asp:FileUpload ID="fuProfileImage" runat="server" CssClass="form-control mt-2" Visible="false" accept=".jpg,.jpeg,.png" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="profile-txt-area">
+                                            <asp:Label ID="lblCompanyLogo" CssClass="lblTagName" runat="server" Text="Company Logo: " />
+                                            <asp:Image ID="imgCompanyLogo" runat="server" CssClass="img-thumbnail mt-2" Width="30%" Height="30%" ImageUrl="../assets/images/avatar5.png" />
+                                            <asp:FileUpload ID="fuCompanyLogo" runat="server" CssClass="form-control mt-2" Visible="false" accept=".jpg,.jpeg,.png" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblGender" CssClass="lblTagName" runat="server" Text="Gender: " />
-                                        <asp:Label ID="lblGenderValue" runat="server" />
-                                        <asp:DropDownList ID="ddlGender" runat="server" CssClass="form-control" Visible="false">
-                                            <asp:ListItem Text="--Select--" Value=""></asp:ListItem>
-                                            <asp:ListItem Text="Male" Value="Male"></asp:ListItem>
-                                            <asp:ListItem Text="Female" Value="Female"></asp:ListItem>
-                                        </asp:DropDownList>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblWhatsAppNo" CssClass="lblTagName" runat="server" Text="WhatsApp No 1: " />
-                                        <asp:Label ID="lblWhatsAppNoValue" runat="server" />
-                                        <asp:TextBox runat="server" CssClass="form-control" ID="txtWhatsAppNo" placeholder=" " MaxLength="10" Visible="false" AutoComplete="off"
-                                            pattern="\d{10}" title="Please enter a valid 10-digit mobile number" oninput="validateMobileNumber(this)"
-                                            AutoPostBack="true" OnTextChanged="txtWhatsAppCustomerMobile_TextChanged" />
-                                        <label id="Label3" runat="server" visible="false" style="color: red; font-size: 12px"></label>
-                                        <asp:HiddenField ID="hdnWhatsAppNo" runat="server" />
-                                        <asp:HiddenField ID="hdnWhatsAppNoCountry" runat="server" />
-                                        <label id="lblhdnWhatsAppNo1Error" runat="server" visible="false" style="color: red; font-size: 12px">WhatsApp Mobile No 1 is required.</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblWhatsAppNo2" CssClass="lblTagName" runat="server" Text="WhatsApp Mobile No 2: " />
-                                        <asp:Label ID="lblWhatsAppNo2Value" runat="server" />
-                                        <asp:TextBox runat="server" CssClass="form-control" ID="txtWhatsAppNo2" placeholder=" " MaxLength="10" Visible="false"
-                                            pattern="\d{10}" title="Please enter a valid 10-digit mobile number" oninput="validateMobileNumber(this)" AutoComplete="off"
-                                            AutoPostBack="true" OnTextChanged="txtWhatsAppAltCustomerMobile_TextChanged" />
-                                        <asp:HiddenField ID="hdnWhatsAppNo2" runat="server" />
-                                        <asp:HiddenField ID="hdnWhatsAppNoCountry2" runat="server" />
-                                        <label id="lblhdnWhatsAppNo2Error" runat="server" visible="false" style="color: red; font-size: 12px">Invalid WhatsApp Mobile No 2.</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <h4 class="regs-text-address">Registered Office Address</h4>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblPincode" CssClass="lblTagName" runat="server" Text="Pin Code: " />
-                                        <asp:Label ID="lblPincodeValue" runat="server" />
-                                        <asp:TextBox runat="server" CssClass="form-control" ID="txtPinCode" AutoPostBack="true" OnTextChanged="txtPinCode_TextChanged" placeholder=""
-                                            MaxLength="6" title="Enter a 6-digit Pincode" oninput="validatePincode(this)" Visible="false" AutoComplete="off" />
-                                        <label id="lblErrorPincode" runat="server" visible="false" style="color: red; font-size: 12px">PIN Code is required.</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblCity" CssClass="lblTagName" runat="server" Text="City: " />
-                                        <asp:Label ID="lblCityValue" runat="server" />
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblState" CssClass="lblTagName" runat="server" Text="State: " />
-                                        <asp:Label ID="lblStateValue" runat="server" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblAddress" CssClass="lblTagName" runat="server" Text="Address Line 1: " />
-                                        <asp:Label ID="lblAddressValue" runat="server" />
-                                        <asp:TextBox runat="server" CssClass="form-control" ID="txtAddress" TextMode="MultiLine" Rows="2" placeholder="" MaxLength="150" Visible="false" AutoComplete="off" />
-                                        <label id="lblCurrentAddress" runat="server" visible="false" style="color: red; font-size: 12px">Address Line 1 is required.</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblAddress2" CssClass="lblTagName" runat="server" Text="Address Line 2: " />
-                                        <asp:Label ID="lblAddress2Value" runat="server" />
-                                        <asp:TextBox runat="server" CssClass="form-control" ID="txtAddress2" TextMode="MultiLine" Rows="2" placeholder="" MaxLength="150" Visible="false" AutoComplete="off" />
-                                        <label id="lblAddress2Error" runat="server" visible="false" style="color: red; font-size: 12px"></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblLandMark" CssClass="lblTagName" runat="server" Text="Landmark: " />
-                                        <asp:Label ID="lblLandMarkValue" runat="server" />
-                                        <asp:TextBox runat="server" CssClass="form-control mb-3" ID="txtLandmark" TextMode="MultiLine" Rows="2" placeholder="" MaxLength="150" Visible="false" AutoComplete="off" />
-                                        <label id="lblLandMarkError" runat="server" visible="false" style="color: red; font-size: 12px">Landmark is required.</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <h4 class="regs-text-address">Corporate / Main Office Address</h4>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblDealerPincode" CssClass="lblTagName" runat="server" Text="Pin Code: " />
-                                        <asp:Label ID="lblDealerPincodeValue" runat="server" />
-                                        <asp:TextBox runat="server" CssClass="form-control" ID="txtDealerPincode" AutoPostBack="true" OnTextChanged="txtPinCode_TextChanged" placeholder=""
-                                            MaxLength="6" title="Enter a 6-digit Pincode" oninput="validatePincode(this)" Visible="false" AutoComplete="off" />
-                                        <label id="lblDealerPincodeError" runat="server" visible="false" style="color: red; font-size: 12px">PIN Code is required.</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblDealerCity" CssClass="lblTagName" runat="server" Text="City: " />
-                                        <asp:Label ID="lblDealerCityValue" runat="server" />
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblDealerState" CssClass="lblTagName" runat="server" Text="State: " />
-                                        <asp:Label ID="lblDealerStateValue" runat="server" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblDealerAddressLine1" CssClass="lblTagName" runat="server" Text="Address Line 1: " />
-                                        <asp:Label ID="lblDealerAddressLine1Value" runat="server" />
-                                        <asp:TextBox runat="server" CssClass="form-control" ID="txtDealerAddressLine1" TextMode="MultiLine" Rows="2" placeholder="" MaxLength="150" Visible="false" AutoComplete="off" />
-                                        <label id="lblDealerAddressLine1Error" runat="server" visible="false" style="color: red; font-size: 12px">Address Line 1 is required.</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblDealerAddressLine2" CssClass="lblTagName" runat="server" Text="Address Line 2: " />
-                                        <asp:Label ID="lblDealerAddressLine2Value" runat="server" />
-                                        <asp:TextBox runat="server" CssClass="form-control" ID="txtDealerAddressLine2" TextMode="MultiLine" Rows="2" placeholder="" MaxLength="150" Visible="false" AutoComplete="off" />
-                                        <label id="lblDealerAddressLine2Error" runat="server" visible="false" style="color: red; font-size: 12px"></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblDealerLandmark" CssClass="lblTagName" runat="server" Text="Landmark: " />
-                                        <asp:Label ID="lblDealerLandmarkValue" runat="server" />
-                                        <asp:TextBox runat="server" CssClass="form-control" ID="txtDealerLandmark" TextMode="MultiLine" Rows="2" placeholder="" MaxLength="150" Visible="false" AutoComplete="off" />
-                                        <label id="lblDealerLandmarkError" runat="server" visible="false" style="color: red; font-size: 12px">Landmark is required.</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="profile-txt-area">
-                                         <asp:Label ID="lblProfileImage" CssClass="lblTagName" runat="server" Text="Profile Image:" />
-                                        <asp:Image ID="imgProfile" runat="server" CssClass="img-thumbnail mt-2" Width="120px" Height="120px" ImageUrl="../assets/images/avatar5.png" />
-                                        <asp:FileUpload ID="fuProfileImage" runat="server" CssClass="form-control mt-2" Visible="false" accept=".jpg,.jpeg,.png" />
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="profile-txt-area">
-                                        <asp:Label ID="lblCompanyLogo" CssClass="lblTagName" runat="server" Text="Company Logo: " />
-                                        <asp:Image ID="imgCompanyLogo" runat="server" CssClass="img-thumbnail mt-2" Width="30%" Height="30%" ImageUrl="../assets/images/avatar5.png" />
-                                        <asp:FileUpload ID="fuCompanyLogo" runat="server" CssClass="form-control mt-2" Visible="false" accept=".jpg,.jpeg,.png" />
+                                <div class="row mt-3 px-2">
+                                    <div class="w-100 d-flex justify-content-end">
+                                        <asp:Button ID="btnEditProfile" runat="server" Text="Edit Profile" CssClass="btn btn-primary next-step" OnClick="btnEditProfile_Click" />
+                                        <asp:Button ID="btnCancelProfile" runat="server" Text="Cancel" CssClass="btn prev-step bg-dark mr-3" Visible="false" OnClick="btnCancelProfile_Click" />
+                                        <asp:Button ID="btnUpdateProfile" runat="server" Text="Update Profile" CssClass="btn btn-primary next-step" Visible="false" OnClick="btnUpdateProfile_Click" />
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mt-3 px-2">
-                                <div class="w-100 d-flex justify-content-end">
-                                    <asp:Button ID="btnEditProfile" runat="server" Text="Edit Profile" CssClass="btn btn-primary next-step" OnClick="btnEditProfile_Click" />
-                                    <asp:Button ID="btnCancelProfile" runat="server" Text="Cancel" CssClass="btn prev-step bg-dark mr-3" Visible="false" OnClick="btnCancelProfile_Click" />
-                                    <asp:Button ID="btnUpdateProfile" runat="server" Text="Update Profile" CssClass="btn btn-primary next-step" Visible="false" OnClick="btnUpdateProfile_Click" />
-                                </div>
-                            </div>
-                        </div>
                         </div>
                         <div id="SalesPersonPersonalInfoPanel" runat="server">
                             <div class="card-body">
@@ -757,7 +775,7 @@
                                             <label id="lblSalesPersonWhatsap2Error" runat="server" visible="false" style="color: red; font-size: 12px">Invalid WhatsApp Mobile No 2.</label>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-3">
                                         <div class="profile-txt-area">
                                             <asp:Label ID="lblSalesPersonGender" CssClass="lblTagName" runat="server" Text="Gender: " />
@@ -798,7 +816,7 @@
                                             <label id="lblSalesPersonAddressError" runat="server" visible="false" style="color: red; font-size: 12px">Address is required.</label>
                                         </div>
                                     </div>
-                                  
+
                                     <div class="col-md-3">
                                         <div class="profile-txt-area">
                                             <asp:Label ID="lblSalesPersonAdminName" CssClass="lblTagName" runat="server" Text="Associate Name: " />
@@ -832,7 +850,7 @@
                                         <asp:Button ID="btnSalesPersonSave" runat="server" Text="Update Profile" CssClass="btn btn-primary next-step" Visible="false" OnClick="btnUpdateSalesPersonProfile_Click" />
                                     </div>
                                 </div>
-                          
+
                             </div>
                         </div>
                     </div>
@@ -853,7 +871,7 @@
                                     <div class="table-responsive">
                                         <asp:Repeater ID="RepeaterBankDetails" runat="server" OnItemCommand="RepeaterBankDetails_ItemCommand">
                                             <HeaderTemplate>
-                                                <table id="example44" class="table-responsive table data-table table-striped table-bordered nowrap" style="width: 100%">
+                                                <table id="example44" class="table-responsive table table-striped table-bordered nowrap" style="width: 100%">
                                                     <thead class="thead">
                                                         <tr>
                                                             <th>S.No.</th>
@@ -895,7 +913,8 @@
                                                     <i class="fa fa-check-circle text-success" style="font-size:18px;"></i>
                                                         </asp:LinkButton>
                                                     </td>
-                                                    <td><asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status") %>' Visible="false"></asp:Label><%# Eval("Status") %></td>
+                                                    <td>
+                                                        <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("Status") %>' Visible="false"></asp:Label><%# Eval("Status") %></td>
                                                     <td><%# Eval("BankAccountNumber") %></td>
                                                     <td><%# Eval("IFSCCode") %></td>
                                                     <td><%# Eval("BankName") %></td>
@@ -1091,7 +1110,7 @@
                                     <div class="table-responsive">
                                         <asp:Repeater ID="rptCommissionDetails" runat="server" OnItemCommand="RepeaterBankDetails_ItemCommand">
                                             <HeaderTemplate>
-                                                <table id="example44" class="table data-table table-striped table-bordered nowrap" style="width: 100%">
+                                                <table id="example44" class="table table-striped table-bordered nowrap" style="width: 100%">
                                                     <thead class="thead">
                                                         <tr>
                                                             <th>S.No.</th>
@@ -1175,6 +1194,63 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="d-flex justify-content-between">
+                                        <h5 class="mb-0">Product Authorize Details </h5>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <asp:Repeater ID="rptProductAuthorization" runat="server">
+                                            <HeaderTemplate>
+                                                <table id="example44" class="table table-striped table-bordered nowrap" style="width: 100%">
+                                                    <thead class="thead">
+                                                        <tr>
+                                                            <th>S.No.</th>
+                                                            <th>Plan Status</th>
+                                                            <th>Plan Name</th>
+                                                            <th>Category</th>
+                                                            <th>Sub Category</th>
+                                                            <th>Product Type</th>
+                                                            <th>Brands</th>
+                                                            <th>Product Sub Type</th>
+                                                            <th>Created At</th>
+                                                            <th>Created By</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                            </HeaderTemplate>
+                                            <ItemTemplate>
+                                                <tr>
+                                                    <td><%# Container.ItemIndex + 1 %></td>
+                                                    <td><%# Eval("PlanStatus") %></td>
+                                                    <td><%# Eval("PlanName") %></td>
+                                                    <td><%# Eval("Category") %></td>
+                                                    <td><%# Eval("SubCategory") %></td>
+                                                    <td><%# Eval("ProductType") %></td>
+                                                    <td><%# Eval("Brands") %></td>
+                                                    <td><%# Eval("ProductSubType") %></td>
+                                                    <td><%# Eval("CreatedAt", "{0:dd-MMM-yyyy}") %></td>
+                                                    <td><%# Eval("CreatedBy") %></td>
+                                                </tr>
+                                            </ItemTemplate>
+                                            <FooterTemplate>
+                                                </tbody>
+                  </table>
+                                            </FooterTemplate>
+                                        </asp:Repeater>
+                                        <asp:Label ID="Label1" runat="server" CssClass="text-center text-danger fw-bold" Visible="false">
+                         <b>Note</b>: Commission details will be available once the approval process is completed.
+                                        </asp:Label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </asp:View>
                 <asp:View ID="AccountHistoryList" runat="server">
                     <div class="card">
@@ -1190,14 +1266,15 @@
                                         <path fill="none" d="M0 0h24v24H0V0z"></path>
                                         <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17l-.59.59-.58.58V4h16v12zm-9-4h2v2h-2zm0-6h2v4h-2z"></path>
                                     </svg>--%>
-                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24"  height="18" width="18" xmlns="http://www.w3.org/2000/svg">
+                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="18" width="18" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M14 14.252V16.3414C13.3744 16.1203 12.7013 16 12 16C8.68629 16 6 18.6863 6 22H4C4 17.5817 7.58172 14 12 14C12.6906 14 13.3608 14.0875 14 14.252ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11ZM19 17.5858L21.1213 15.4645L22.5355 16.8787L20.4142 19L22.5355 21.1213L21.1213 22.5355L19 20.4142L16.8787 22.5355L15.4645 21.1213L17.5858 19L15.4645 16.8787L16.8787 15.4645L19 17.5858Z"></path>
                                     </svg>
                                     Withdrawal Request
                                 </button>
                             </div>
                             <div id="feedbackSection" runat="server" visible="false">
-                                <label>Current Status: <asp:Label ID="lblCurruntStatus" runat="server" Font-Bold="true"></asp:Label></label>
+                                <label>Current Status:
+                                    <asp:Label ID="lblCurruntStatus" runat="server" Font-Bold="true"></asp:Label></label>
                                 <div class="form-group">
                                     <textarea class="form-control" rows="4" placeholder="Write your Remarks here..." runat="server" id="txtRemarks"></textarea>
                                 </div>
@@ -1210,7 +1287,7 @@
                                 </div>
                             </div>
                             <div class="mt-3">
-                               <%-- <asp:GridView ID="GVAccountHistory" runat="server" AutoGenerateColumns="false" UseAccessibleHeader="true" HeaderStyle-CssClass="thead" EmptyDataText="No records available. Please refine your search.">
+                                <%-- <asp:GridView ID="GVAccountHistory" runat="server" AutoGenerateColumns="false" UseAccessibleHeader="true" HeaderStyle-CssClass="thead" EmptyDataText="No records available. Please refine your search.">
                                     <Columns>
                                         <asp:TemplateField HeaderText="S.No.">
                                             <ItemTemplate>
@@ -1227,7 +1304,7 @@
                                 <div class="table-responsive">
                                     <asp:Repeater ID="GVAccountHistory" runat="server">
                                         <HeaderTemplate>
-                                            <table id="example44" class="table data-table table-striped table-bordered nowrap" style="width: 100%">
+                                            <table id="example44" class="table table-striped table-bordered nowrap" style="width: 100%">
                                                 <thead class="thead">
                                                     <tr>
                                                         <th>S.No.</th>
@@ -1255,6 +1332,91 @@
                                             </table>
                                         </FooterTemplate>
                                     </asp:Repeater>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </asp:View>
+
+                <asp:View ID="ProductPriceBandList" runat="server">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="mb-0">Product Price Band</h5>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="mt-3">
+                                <div class="table-responsive">
+                                    <%--<asp:Repeater ID="rptProductPriceBandView" runat="server">
+                                        <HeaderTemplate>
+                                            <table id="example44" class="table table-striped table-bordered nowrap" style="width: 100%">
+                                                <thead class="thead">
+                                                    <tr>
+                                                        <th>S.No.</th>
+                                                        <th>Product Type</th>
+                                                        <th>Priced Between</th>
+                                                        <th>1 Year Extended Warranty</th>
+                                                        <th>1 Year Extended Warranty Discount</th>
+                                                        <th>1 Year Extended Warranty Offer Price</th>
+                                                        <th>2 Year Extended Warranty</th>
+                                                        <th>2 Year Extended Warranty Discount</th>
+                                                        <th>2 Year Extended Warranty Offer Price</th>
+                                                        <th>3 Year Extended Warranty</th>
+                                                        <th>3 Year Extended Warranty Discount</th>
+                                                        <th>3 Year Extended Warranty Offer Price</th>
+                                                        <th>4 Year Extended Warranty</th>
+                                                        <th>4 Year Extended Warranty Discount</th>
+                                                        <th>4 Year Extended Warranty Offer Price</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                        </HeaderTemplate>
+                                        <ItemTemplate>
+                                            <tr>
+                                                <td><%# Container.ItemIndex + 1 %></td>
+                                                <td><%# Eval("ProductType") %></td>
+                                                <td><%# Eval("PricedBetween") %></td>
+                                                <td><%# Eval("1YearExtendedWarranty") %></td>
+                                                <td><%# Eval("1Yr_DiscountAmount") %></td>
+                                                <td><%# Eval("1Yr_OfferPrice") %></td>
+                                                <td><%# Eval("2YearsExtendedWarranty") %></td>
+                                                <td><%# Eval("2Yr_DiscountAmount") %></td>
+                                                <td><%# Eval("2Yr_OfferPrice") %></td>
+                                                <td><%# Eval("3YearsExtendedWarranty") %></td>
+                                                <td><%# Eval("3Yr_DiscountAmount") %></td>
+                                                <td><%# Eval("3Yr_OfferPrice") %></td>
+                                                <td><%# Eval("4YearsExtendedWarranty") %></td>
+                                                <td><%# Eval("4Yr_DiscountAmount") %></td>
+                                                <td><%# Eval("4Yr_OfferPrice") %></td>
+                                            </tr>
+                                        </ItemTemplate>
+                                        <FooterTemplate>
+                                                </tbody>
+                                            </table>
+                                        </FooterTemplate>
+                                    </asp:Repeater>--%>
+
+                                <asp:GridView ID="gvPlans" runat="server" AutoGenerateColumns="False"
+    OnRowCreated="gvPlans_RowCreated" OnRowDataBound="gvPlans_RowDataBound"
+    CssClass="table table-bordered" ShowHeader="true">
+
+    <Columns>
+        <asp:BoundField DataField="ProductType" HeaderText="Product Type" />
+        <asp:BoundField DataField="PriceBand" HeaderText="PriceBand" />
+        <asp:BoundField DataField="MRP1Y" HeaderText="MRP" />
+        <asp:BoundField DataField="Disc1Y" HeaderText="Discounted Price" />
+        <asp:BoundField DataField="MRP2Y" HeaderText="MRP" />
+        <asp:BoundField DataField="Disc2Y" HeaderText="Discounted Price" />
+        <asp:BoundField DataField="MRP3Y" HeaderText="MRP" />
+        <asp:BoundField DataField="Disc3Y" HeaderText="Discounted Price" />
+        <asp:BoundField DataField="MRP4Y" HeaderText="MRP" />
+        <asp:BoundField DataField="Disc4Y" HeaderText="Discounted Price" />
+    </Columns>
+</asp:GridView>
+
+
+
                                 </div>
                             </div>
                         </div>

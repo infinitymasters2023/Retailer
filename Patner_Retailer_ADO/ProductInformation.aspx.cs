@@ -35,6 +35,7 @@ namespace Patner_Retailer_ADO
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@type", 52);
             cmd.Parameters.AddWithValue("@ProfileId", Session["RetailerUniqueID"].ToString());
+            cmd.Parameters.AddWithValue("@UserRole", Session["Role"].ToString());
 
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();

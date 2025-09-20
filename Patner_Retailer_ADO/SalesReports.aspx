@@ -139,6 +139,10 @@
         .plan-card:hover{
             border: 1px solid #8ad1e5;
         }
+          #<%= GvReport.ClientID %> td {
+              word-wrap: break-word;
+              text-wrap-mode: nowrap;
+          }
     </style>
     <script>
         setTimeout(function () {
@@ -210,7 +214,7 @@
                         <cc1:CalendarExtender ID="CalendarExtender2" runat="server" Format="dd-MMM-yyyy" TargetControlID="txttodate"></cc1:CalendarExtender>
                     </div>
                     <div class="col-12 col-lg-2 mb-2 mb-lg-2">
-                        <label>Sales Person</label>
+                        <label>Sales Executive</label>
                         <%--<asp:ListBox ID="ddlsalesPerson" Style="width: 356px;" runat="server" SelectionMode="Multiple"
                                 name="basic[]" class="3col active form-control" multiple="multiple"></asp:ListBox>--%>
                         <asp:ListBox ID="ddlsalesPerson" CssClass="form-control multiselect" SelectionMode="Multiple" runat="server"></asp:ListBox>
@@ -271,7 +275,7 @@
                 </div>
                 <asp:MultiView ID="mvViewType" runat="server" ActiveViewIndex="0">
                     <asp:View ID="viewList" runat="server">
-                        <asp:GridView ID="GvReport" runat="server" AutoGenerateColumns="false" UseAccessibleHeader="true" HeaderStyle-CssClass="thead" EmptyDataText="No records available. Please refine your search.">
+                        <asp:GridView ID="GvReport" runat="server" AutoGenerateColumns="false" UseAccessibleHeader="true" HeaderStyle-CssClass="thead" EmptyDataText="No records available. Please refine your search." BorderStyle="None">
                             <Columns>
                                 <asp:TemplateField HeaderText="S.No.">
                                     <ItemTemplate>

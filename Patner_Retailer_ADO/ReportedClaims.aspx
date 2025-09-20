@@ -141,6 +141,11 @@
         .plan-card:hover {
             border: 1px solid #8ad1e5;
         }
+
+          #<%= GvClaimReport.ClientID %> td {
+              word-wrap: break-word;
+              text-wrap-mode: nowrap;
+          }
     </style>
     <script>
         setTimeout(function () {
@@ -271,7 +276,7 @@
                 </div>
                 <asp:MultiView ID="mvViewType" runat="server" ActiveViewIndex="0">
                     <asp:View ID="viewList" runat="server">
-                        <asp:GridView ID="GvClaimReport" runat="server" AutoGenerateColumns="false" UseAccessibleHeader="true" HeaderStyle-CssClass="thead" EmptyDataText="No records available. Please refine your search.">
+                        <asp:GridView ID="GvClaimReport" runat="server" AutoGenerateColumns="false" UseAccessibleHeader="true" HeaderStyle-CssClass="thead" EmptyDataText="No records available. Please refine your search." BorderStyle="None">
                             <Columns>
                                 <asp:TemplateField HeaderText="S.No.">
                                     <ItemTemplate>
@@ -350,7 +355,7 @@
                                 <ItemTemplate>
                                     <%--<div class="col-xl-5 col-lg-5 col-12 mb-3">--%>
                                     <div class="plan-card">
-                                        <a href="RegistrationDetails.aspx?qe=<%# Eval("skuandserialno") %>">
+                                        <a href="ClaimList.aspx?sku=<%# Eval("skuandserialno") %>">
                                             <div class="logo-parts  mt-3">
                                                 <img src="assets/images/infinity-logo.png" class="infinity-logo" alt="" />
                                                 <img src="assets/images/Infyshield-logo.png" class="infyshield-logo" alt="" />

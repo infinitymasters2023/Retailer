@@ -24,31 +24,58 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.Label lblRevenue;
 
         /// <summary>
-        /// lblApprovedAmount control.
+        /// lblSettledAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblApprovedAmount;
+        protected global::System.Web.UI.WebControls.Label lblSettledAmount;
 
         /// <summary>
-        /// lblWithdrawal control.
+        /// lblUnsettledAmount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWithdrawal;
+        protected global::System.Web.UI.WebControls.Label lblUnsettledAmount;
 
         /// <summary>
-        /// lblUnderProcess control.
+        /// SettledGSTAmountPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUnderProcess;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SettledGSTAmountPanel;
+
+        /// <summary>
+        /// lblSettledGSTAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSettledGSTAmount;
+
+        /// <summary>
+        /// UnsettledGSTAmountPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl UnsettledGSTAmountPanel;
+
+        /// <summary>
+        /// lblUnsettledGSTAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUnsettledGSTAmount;
 
         /// <summary>
         /// lblPaymentFailed control.

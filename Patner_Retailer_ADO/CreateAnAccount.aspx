@@ -732,7 +732,7 @@
                                                                 <p class="text-danger mt-2 mb-2" style="font-size: 13px;"><strong>Note<sup>*</sup></strong> jpg, jpeg, png and pdf format is acceptable.</p>
                                                             </div>
                                                         </div>
-                                                        <div class="d-flex justify-content-between align-items-center mt-0">
+                                                        <div class="d-flex justify-content-between align-items-center my-3">
                                                             <div>
                                                                 <asp:LinkButton ID="btnBackDealer" runat="server" CssClass="default-btn prev-step bg-dark" OnClick="btnBackDealerInfo" UseSubmitBehavior="false">
                                                                     <i class="fa fa-angle-double-left font14"></i>&nbsp; Back
@@ -831,6 +831,7 @@
                                                             </div>
 
                                                         </div>
+                                                        <div class="my-3">
                                                         <ul class="list-inline pull-right mt-3">
                                                             <li>
                                                                 <asp:LinkButton ID="btnBankDetails" runat="server" CssClass="default-btn prev-step bg-dark" OnClick="btnBackBankDetails" UseSubmitBehavior="false">
@@ -845,6 +846,7 @@
 
                                                             </li>
                                                         </ul>
+                                                            </div>
                                                     </div>
                                                     <div class="tab-pane" role="tabpanel" id="step5">
                                                         <div class="all-info-container">

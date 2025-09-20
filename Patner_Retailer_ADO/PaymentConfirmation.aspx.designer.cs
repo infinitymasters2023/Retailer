@@ -60,6 +60,15 @@ namespace Patner_Retailer_ADO
         protected global::System.Web.UI.WebControls.Label lblPlanName;
 
         /// <summary>
+        /// TicketPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl TicketPanel;
+
+        /// <summary>
         /// ticketNo control.
         /// </summary>
         /// <remarks>

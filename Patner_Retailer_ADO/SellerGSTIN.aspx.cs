@@ -16,6 +16,17 @@ namespace Patner_Retailer_ADO
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["iaplConnectionString"].ConnectionString);
         protected void Page_Load(object sender, EventArgs e)
         {
+            string token = Request.QueryString["qa"];
+            if (token != null && !string.IsNullOrWhiteSpace(token))
+            {
+                bool flag = CheckToken(token);
+                if (!flag)
+                {
+                    lblRegistrationErrorMessage.Text = "Invalid Token.";
+                    lblRegistrationErrorMessage.Attributes.Add("style", "display:block");
+                    return;
+                }
+            }
             if (Session["Message"] != null)
             {
                 lblRegistrationErrorMessage.Text = Session["Message"].ToString();
@@ -32,7 +43,8 @@ namespace Patner_Retailer_ADO
             cmd.Parameters.AddWithValue("@Type", 38);
             cmd.Parameters.AddWithValue("@SellerGSTINNo", txtGSTIN.Text.Trim());
 
-            con.Open();
+            if (con.State != ConnectionState.Open)
+                con.Open();
             object result = cmd.ExecuteScalar();
             con.Close();
             if (result != null && result.ToString() == "0")
@@ -47,9 +59,44 @@ namespace Patner_Retailer_ADO
             }
             else
             {
-                Session["SellerGSTIN"] = txtGSTIN.Text;
-                Response.Redirect("CreateAnAccount.aspx");
+                string token = Request.QueryString["qa"];
+                if (token != null && !string.IsNullOrWhiteSpace(token))
+                {
+                    Session["SellerGSTIN"] = txtGSTIN.Text;
+                    Response.Redirect("CreateAnAccount.aspx?qa=" + token);
+                }
+                else
+                {
+                    Session["SellerGSTIN"] = txtGSTIN.Text;
+                    Response.Redirect("CreateAnAccount.aspx");
+                }
             }
+        }
+        protected bool CheckToken(string token)
+        {
+            if (string.IsNullOrWhiteSpace(token))
+                return false;
+
+            using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@type", 88);
+                cmd.Parameters.AddWithValue("@token", token);
+
+                if (con.State != ConnectionState.Open)
+                    con.Open();
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        string mobile = reader["MobileNo1"].ToString();
+                        return true;
+                    }
+                }
+                con.Close();
+            }
+
+            return false;
         }
     }
 }

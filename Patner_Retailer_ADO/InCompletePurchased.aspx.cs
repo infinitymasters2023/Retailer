@@ -122,7 +122,7 @@ namespace Patner_Retailer_ADO
                     ViewState["ReportInfo"] = dt;
                     if (dt.Rows.Count > 0)
                     {
-                        GvReport.CssClass = "table-responsive table data-table table-striped nowrap";
+                        GvReport.CssClass = "table-responsive table table-striped nowrap";
 
                         GvReport.DataSource = dt;
                         GvReport.DataBind();
@@ -241,7 +241,7 @@ namespace Patner_Retailer_ADO
             GvReport.CssClass = "table-responsive table table-striped nowrap";
             if (GvReport.HeaderRow != null)
             {
-                GvReport.CssClass = "table-responsive table data-table table-striped nowrap";
+                GvReport.CssClass = "table-responsive table table-striped nowrap";
                 GvReport.HeaderRow.TableSection = TableRowSection.TableHeader;
             }
             btnListView.Attributes["class"] = "btn btn-primary card-btn";

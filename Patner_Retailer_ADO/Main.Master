@@ -373,10 +373,6 @@
 
                         </ul>
                         <ul class="navbar-nav align-items-center">
-
-
-
-
                             <!-- Passbook -->
                             <li class="nav-item passbook-txt">
                                 <a class="nav-link nav-icons px-2" href="Passbook.aspx">
@@ -445,7 +441,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right nav-user-dropdown">
                                     <a class="dropdown-item" href="Profile.aspx"><i class="fas fa-user mr-2"></i>Profile</a>
-                                    <a class="dropdown-item" href="Login.aspx"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                                    <a class="dropdown-item" href="Index.aspx"><i class="fas fa-power-off mr-2"></i>Logout</a>
                                 </div>
                             </li>
                         </ul>
@@ -468,6 +464,11 @@
                                         <span class="menu-text">Dashboard</span>
                                     </a>
                                 </li>
+                                <li id="menuIncentive_Dashboard" runat="server" class="nav-item">
+                                    <a class="nav-link" id="linkIncentive_Dashboard" runat="server" href="Incentive_Dashboard.aspx"><i data-feather="layout"></i>
+                                        <span class="menu-text">Incentive Dashboard</span>
+                                    </a>
+                                </li>
                                 <li id="menuBuyPlan" runat="server" class="nav-item">
                                     <a class="nav-link" id="linkBuyPlan" runat="server" href="ProductInformation.aspx">
                                         <i data-feather="shopping-cart"></i>
@@ -476,7 +477,7 @@
                                 </li>
                                 <li id="menuSalesPerson" runat="server" class="nav-item">
                                     <a class="nav-link" id="linkSalesPerson" runat="server" href="ViewSalesPerson.aspx"><i data-feather="user"></i>
-                                        <span class="menu-text">Sales Person</span>
+                                        <span class="menu-text">Sales Executive</span>
                                     </a>
                                 </li>
                                 <li id="menuIncomplete" runat="server" class="nav-item">
@@ -488,6 +489,15 @@
                                         <span class="menu-text">Incomplete Purchased</span>
                                     </a>
                                 </li>
+                                <li id="menuRequestFromSalesPerson" runat="server" class="nav-item">
+                                    <a class="nav-link" id="linkRequestFromSalesPerson" runat="server" href="RequestfromSalesperson.aspx">
+                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill="none" d="M0 0h24v24H0V0z"></path>
+                                            <path d="M16.24 7.75A5.974 5.974 0 0 0 12 5.99v6l-4.24 4.24c2.34 2.34 6.14 2.34 8.49 0a5.99 5.99 0 0 0-.01-8.48zM12 1.99c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+                                        </svg>
+                                        <span class="menu-text">Request from Sales Executive</span>
+                                    </a>
+                                </li>
                                 <li id="menuSalesReport" runat="server" class="nav-item">
                                     <a class="nav-link" id="linkSalesReport" runat="server" href="SalesReports.aspx"><i data-feather="bar-chart"></i>
                                         <span class="menu-text">Sales Reports</span>
@@ -496,6 +506,16 @@
                                 <li id="menuClaims" runat="server" class="nav-item">
                                     <a class="nav-link" id="linkClaims" runat="server" href="ReportedClaims.aspx"><i data-feather="file-text"></i>
                                         <span class="menu-text">Registration/Claim</span>
+                                    </a>
+                                </li>
+                                <li id="menuCommisionDetails" runat="server" class="nav-item">
+                                    <a class="nav-link" id="linkCommisionDetails" runat="server" href="CommissionDetails.aspx"><i data-feather="file-text"></i>
+                                        <span class="menu-text">Commission Details</span>
+                                    </a>
+                                </li>
+                                <li id="menuProductPriceBand" runat="server" class="nav-item">
+                                    <a class="nav-link" id="linkProductPriceBand" runat="server" href="ProductPriceBand.aspx"><i data-feather="file-text"></i>
+                                        <span class="menu-text">Product Price Band</span>
                                     </a>
                                 </li>
                                 <%--  <li id="menuReports" runat="server" class="nav-item">

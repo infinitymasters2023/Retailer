@@ -1,12 +1,15 @@
 ﻿using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
+using PdfSharp.Pdf.Content.Objects;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -185,7 +188,6 @@ namespace Patner_Retailer_ADO
                     dr["Status"] = "Uploaded";
                     dr["Size"] = (fuFrontSide.PostedFile.ContentLength / 1024.0).ToString("0.00") + " KB";
                     dt.Rows.Add(dr);
-
                     ViewState["DocumentData"] = dt;
                     gvDocuments.DataSource = dt;
                     gvDocuments.DataBind();
@@ -269,8 +271,17 @@ namespace Patner_Retailer_ADO
 
                     if (con.State != ConnectionState.Open)
                         con.Open();
-                    cmd.ExecuteNonQuery();
+
+                    object result = cmd.ExecuteScalar();
                     con.Close();
+
+                    int insertedMid = (result != null) ? Convert.ToInt32(result) : 0;
+
+                    // Now pass it to your method
+                    if (insertedMid > 0)
+                    {
+                        UploadDocumentTicket(insertedMid, ddlDocumentName.SelectedItem.Text, ddlDocumentName.SelectedValue, uniqueFileName);
+                    }
                 }
 
                 //string script = $@"
@@ -363,6 +374,115 @@ namespace Patner_Retailer_ADO
             {
                 DisplayMessage(this, ex.Message);
             }
+        }
+
+        protected void UploadDocumentTicket(int insertedMid, string docName, string DocId,string DocumentPath)
+        {
+            try
+            {
+                UploadImage1(docName, DocId, DocumentPath, insertedMid);
+            }
+            catch (Exception)
+            {
+                return;
+            }
+        }
+
+        protected void UploadImage1(string docName, string docId, string tempFileName, int insertedMid)
+        {
+            try
+            {
+                string basePath = ConfigurationManager.AppSettings["FilePath3"];
+                string ticketNo = GetTicketno(Session["MobileNo"] != null ? Session["MobileNo"].ToString() : "");
+                string yy = DateTime.Now.Year.ToString();
+                string mn = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.Now.Month);
+
+                string targetFolder = Path.Combine(basePath, "InfyShield", yy, mn);
+                if (!Directory.Exists(targetFolder))
+                    Directory.CreateDirectory(targetFolder);
+
+                string fileExtension = Path.GetExtension(tempFileName);
+                string sanitizedFileName = SanitizeFileName(docName).Replace(" ", "_");
+                string fn = ticketNo.Replace("/", "") + "InfyShield" + sanitizedFileName + fileExtension;
+                string sourcePath = Server.MapPath("~/UploadedDocuments/") + tempFileName;
+                string destPath = Path.Combine(targetFolder, fn);
+                if (System.IO.File.Exists(sourcePath))
+                {
+                    System.IO.File.Copy(sourcePath, destPath, true);
+                }
+                UploadDocuemt("0", docId, "InfyShield/" + yy + "/" + mn + "/" + fn, insertedMid);
+                //lblMessage.Text = "Document uploaded and saved successfully!";
+            }
+            catch (Exception ex)
+            {
+                //lblMessage.Text = "Upload failed: " + ex.Message;
+            }
+        }
+
+
+        private string SanitizeFileName(string fileName)
+        {
+            string pattern = "[^a-zA-Z0-9-_\\. ]";
+            string sanitizedFileName = Regex.Replace(fileName, pattern, "");
+
+            return sanitizedFileName;
+        }
+        protected void UploadDocuemt(string mid, string documentNumber, string documentPath, int insertedMid)
+        {
+            try
+            {
+                string ticketNo = GetTicketno(Session["MobileNo"] != null ? Session["MobileNo"].ToString() : "");
+                if (!string.IsNullOrWhiteSpace(ticketNo))
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@type", 94);
+                        cmd.Parameters.AddWithValue("@Mid", mid);
+                        cmd.Parameters.AddWithValue("@ticketno", ticketNo);
+                        cmd.Parameters.AddWithValue("@documentNumber", documentNumber);
+                        cmd.Parameters.AddWithValue("@DocumentPath", documentPath);
+                        cmd.Parameters.AddWithValue("@CreatedBy", Session["Name"] != null ? Session["Name"].ToString() : "");
+                        cmd.Parameters.AddWithValue("@insertedMid", insertedMid);
+                        cmd.Parameters.AddWithValue("@UserRole", Session["Role"] != null? Session["Role"].ToString() : "");
+
+                        if (con.State != ConnectionState.Open)
+                            con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(this, ex.Message);
+                return;
+            }
+        }
+
+        protected string GetTicketno(string mobileNo)
+        {
+            string ticketNo = string.Empty;
+            using (SqlCommand cmd = new SqlCommand("sp_iapl_PartnerRetailer", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@type", 92);
+                cmd.Parameters.AddWithValue("@mobileno", mobileNo);
+
+                if (con.State != ConnectionState.Open)
+                    con.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        ticketNo = reader["TicketNO"] != DBNull.Value ? reader["TicketNO"].ToString() : string.Empty;
+                    }
+                }
+                con.Close();
+            }
+            return ticketNo;
         }
     }
 }

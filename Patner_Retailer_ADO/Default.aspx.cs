@@ -11,7 +11,11 @@ namespace Patner_Retailer_ADO
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Response.Redirect("Login.aspx");
+            string token = Request.QueryString["token"];
+            if (token != null)
+                Response.Redirect("Index.aspx?token="+token);
+            else
+                Response.Redirect("Index.aspx");
         }
     }
 }

@@ -105,7 +105,7 @@ namespace Patner_Retailer_ADO
                     ViewState["ReportInfo"] = dt;
                     if (dt.Rows.Count > 0)
                     {
-                        GvReport.CssClass = "table data-table table-striped nowrap";
+                        GvReport.CssClass = "table table-striped nowrap";
                         GvReport.DataSource = dt;
                         GvReport.DataBind();
                         //btnExportExcel.Visible = true;
@@ -223,7 +223,7 @@ namespace Patner_Retailer_ADO
             GvReport.CssClass = "table table-striped nowrap";
             if (GvReport.HeaderRow != null)
             {
-                GvReport.CssClass = "table data-table table-striped nowrap";
+                GvReport.CssClass = "table table-striped nowrap";
                 GvReport.HeaderRow.TableSection = TableRowSection.TableHeader;
             }
             btnListView.Attributes["class"] = "btn btn-primary card-btn";

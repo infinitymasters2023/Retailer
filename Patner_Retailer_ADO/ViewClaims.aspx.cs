@@ -189,20 +189,21 @@ namespace Patner_Retailer_ADO
             }
             try
             {
+                string basePath = ConfigurationManager.AppSettings["FilePath3"];
                 string ticketNo = Request.QueryString["qe"];
                 String yy = DateTime.Now.Year.ToString();
                 String mn = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(DateTime.Now.Month);
 
-                bool existsClient = System.IO.Directory.Exists("F:\\Documents\\InfyShield\\");
+                bool existsClient = System.IO.Directory.Exists(basePath+"\\InfyShield\\");
                 if (!existsClient)
-                    System.IO.Directory.CreateDirectory("F:\\Documents\\InfyShield\\");
+                    System.IO.Directory.CreateDirectory(basePath+"\\InfyShield\\");
 
-                bool existsYear = System.IO.Directory.Exists("F:\\Documents\\InfyShield\\" + yy);
+                bool existsYear = System.IO.Directory.Exists(basePath+"\\InfyShield\\" + yy);
                 if (!existsYear)
-                    System.IO.Directory.CreateDirectory("F:\\Documents\\InfyShield\\" + yy);
-                bool existsMonth = System.IO.Directory.Exists("F:\\Documents\\InfyShield\\" + yy + "/" + mn);
+                    System.IO.Directory.CreateDirectory(basePath + "\\InfyShield\\" + yy);
+                bool existsMonth = System.IO.Directory.Exists(basePath + "\\InfyShield\\" + yy + "/" + mn);
                 if (!existsMonth)
-                    System.IO.Directory.CreateDirectory("F:\\Documents\\InfyShield\\" +  yy + "/" + mn);
+                    System.IO.Directory.CreateDirectory(basePath + "\\InfyShield\\" +  yy + "/" + mn);
 
                 string originalFileName = fupupload2.PostedFile.FileName;
                 string sanitizedFileName = SanitizeFileName(originalFileName);
@@ -210,20 +211,8 @@ namespace Patner_Retailer_ADO
 
 
                 string fn = ticketNo.ToString().Replace("/", "") + '_' + "InfyShield" + '_' + sanitizedFileName.Replace(" ", "_");
-                fupupload2.SaveAs("F:\\Documents\\InfyShield\\" + yy + "/" + mn + "/" + fn);
+                fupupload2.SaveAs(basePath+"\\InfyShield\\" + yy + "/" + mn + "/" + fn);
 
-
-                //string fileExt = System.IO.Path.GetExtension(fupupload2.FileName).ToLower();
-                //string folderPath = Server.MapPath("~/UploadedDocuments/");
-
-                //if (!System.IO.Directory.Exists(folderPath))
-                //    System.IO.Directory.CreateDirectory(folderPath);
-
-                //string fileName = System.IO.Path.GetFileName(fupupload2.FileName);
-                //string saveFileName = $"{DateTime.Now:yyyyMMddHHmmss}_{fileName}";
-                //string filePath = System.IO.Path.Combine(folderPath, saveFileName);
-
-                //fupupload2.SaveAs(filePath);
                 List<DocumentInfo> docs = Session["UploadedDocuments"] as List<DocumentInfo> ?? new List<DocumentInfo>();
 
                 docs.Add(new DocumentInfo
